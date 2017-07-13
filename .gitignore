@@ -1,3 +1,5 @@
+.idea/
+
 # OS
 # ===========
 .DS_Store
@@ -9,7 +11,7 @@ Thumbs.db
 # ==========================
 .nodemonignore
 .sass-cache/
-node_modules/
+node_modules
 public/lib/
 app/tests/coverage/
 .bower-*/
