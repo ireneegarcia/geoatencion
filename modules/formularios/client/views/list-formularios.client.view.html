@@ -1,0 +1,22 @@
+<section>
+  <div class="page-header">
+    <h1>Formularios</h1>
+  </div>
+  <div class="list-group">
+    <a ng-repeat="formulario in vm.formularios"
+       ui-sref="formularios.view({ formularioId: formulario._id })"
+       class="list-group-item">
+      <small class="list-group-item-text">
+        Posted on
+        <span ng-bind="formulario.created | date:'mediumDate'"></span>
+        by
+        <span ng-if="formulario.user" ng-bind="formulario.user.displayName"></span>
+        <span ng-if="!formulario.user">Deleted User</span>
+      </small>
+      <h4 class="list-group-item-heading" ng-bind="formulario.name"></h4>
+    </a>
+  </div>
+  <div class="alert alert-warning text-center" ng-if="vm.formularios.$resolved && !vm.formularios.length">
+    No Formularios yet, why don't you <a ui-sref="formularios.create">create one</a>?
+  </div>
+</section>

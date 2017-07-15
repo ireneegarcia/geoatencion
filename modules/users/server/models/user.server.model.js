@@ -86,6 +86,30 @@ var UserSchema = new Schema({
     lowercase: true,
     trim: true
   },
+  country: {
+    type: String,
+    trim: true,
+    default: '',
+    validate: [validateLocalStrategyProperty, 'Please fill in your last name']
+  },
+  phone: {
+    type: Number,
+    trim: true,
+    default: '',
+    validate: [validateLocalStrategyProperty, 'Please fill in your last name']
+  },
+  ci: {
+    type: String,
+    trim: true,
+    default: '',
+    validate: [validateLocalStrategyProperty, 'Please fill in your last name']
+  },
+  birthday: {
+    type: String,
+    trim: true,
+    default: '',
+    validate: [validateLocalStrategyProperty, 'Please fill in your last name']
+  },
   password: {
     type: String,
     default: ''
@@ -107,6 +131,17 @@ var UserSchema = new Schema({
     type: [{
       type: String,
       enum: ['user', 'admin']
+      /***
+       * Roles:
+       * user -> Cliente
+       * admin -> Administrador del sistema, personal de xpectra
+       *
+       * FALTAN:
+       * operator -> Operador del panel
+       * serviceUser -> Responsable de la unidad de atención
+       * organization -> organismos de seguridad
+       * ***/
+
     }],
     default: ['user'],
     required: 'Please provide at least one role'

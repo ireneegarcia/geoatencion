@@ -15,7 +15,7 @@
     </div>
     <div class="row">
       <p>
-        <a class="btn btn-primary btn-lg" href="http://meanjs.org" target="_blank">Contáctanos</a>
+        <a class="btn btn-primary btn-lg" ui-sref="authentication.signin">Contáctanos</a>
       </p>
     </div>
   </div>
@@ -35,7 +35,10 @@
         <em>Sign Up</em> para dar inicio.
       </li>
       <li>
-        ¿Brindas asistencia, atiendes emergencias y quieres proteger personas? <em>click aquí</em>
+        ¿Brindas asistencia, atiendes emergencias y quieres proteger personas?
+        <em>
+          <a ui-sref="authentication.signin">Click aquí</a>
+        </em>
       </li>
     </ul>
   </div>
@@ -45,7 +48,7 @@
       <h3>Asistencia <strong>bomberil</strong></h3>
       <p>
         Puedes consultar nuestro catálogo para saber más detalle sobre los servicios y organismos afiliados
-        <a target="_blank" href="http://expressjs.com/"> links.</a>
+        <a ui-sref="articles.list">Click aquí</a>
       </p>
     </div>
     <div style="text-align: center"  class="col-md-4">
