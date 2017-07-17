@@ -1,0 +1,22 @@
+<section>
+  <div class="page-header">
+    <h1>Estadisticas</h1>
+  </div>
+  <div class="list-group">
+    <a ng-repeat="estadistica in vm.estadisticas"
+       ui-sref="estadisticas.view({ estadisticaId: estadistica._id })"
+       class="list-group-item">
+      <small class="list-group-item-text">
+        Posted on
+        <span ng-bind="estadistica.created | date:'mediumDate'"></span>
+        by
+        <span ng-if="estadistica.user" ng-bind="estadistica.user.displayName"></span>
+        <span ng-if="!estadistica.user">Deleted User</span>
+      </small>
+      <h4 class="list-group-item-heading" ng-bind="estadistica.name"></h4>
+    </a>
+  </div>
+  <div class="alert alert-warning text-center" ng-if="vm.estadisticas.$resolved && !vm.estadisticas.length">
+    No Estadisticas yet, why don't you <a ui-sref="estadisticas.create">create one</a>?
+  </div>
+</section>

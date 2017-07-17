@@ -73,6 +73,15 @@
           pageTitle: 'Signup'
         }
       })
+      .state('authentication.signup-organization', {
+        url: '/signup-organization',
+        templateUrl: '/modules/users/client/views/authentication/signup.organization.view.html',
+        controller: 'AuthenticationController',
+        controllerAs: 'vm',
+        data: {
+          pageTitle: 'Signup'
+        }
+      })
       .state('authentication.signin', {
         url: '/signin?err',
         templateUrl: '/modules/users/client/views/authentication/signin.client.view.html',

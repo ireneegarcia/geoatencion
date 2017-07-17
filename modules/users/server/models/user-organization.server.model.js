@@ -48,24 +48,14 @@ var validateUsername = function(username) {
 };
 
 /**
- * User Schema
+ * User Organization Schema
  */
-var UserSchema = new Schema({
-  firstName: {
+var UserOrganizationSchema = new Schema({
+  Name: {
     type: String,
     trim: true,
     default: '',
     validate: [validateLocalStrategyProperty, 'Please fill in your first name']
-  },
-  lastName: {
-    type: String,
-    trim: true,
-    default: '',
-    validate: [validateLocalStrategyProperty, 'Please fill in your last name']
-  },
-  displayName: {
-    type: String,
-    trim: true
   },
   email: {
     type: String,
@@ -98,7 +88,7 @@ var UserSchema = new Schema({
     default: '',
     validate: [validateLocalStrategyProperty, 'Please fill in your last name']
   },
-  ci: {
+  rif: {
     type: String,
     trim: true,
     default: '',
@@ -109,6 +99,12 @@ var UserSchema = new Schema({
     trim: true,
     default: '',
     validate: [validateLocalStrategyProperty, 'Please fill in your last name']
+  },
+  about: {
+    type: String,
+    //trim: true,
+    default: '',
+    validate: [validateLocalStrategyProperty, 'Please fill in your first name']
   },
   password: {
     type: String,
@@ -130,7 +126,7 @@ var UserSchema = new Schema({
   roles: {
     type: [{
       type: String,
-      enum: ['user', 'admin','organism']
+      enum: ['user', 'admin']
       /***
        * Roles:
        * user -> Cliente
@@ -139,7 +135,7 @@ var UserSchema = new Schema({
        * FALTAN:
        * operator -> Operador del panel
        * serviceUser -> Responsable de la unidad de atención
-       * organism -> organismos de seguridad
+       * organization -> organismos de seguridad
        * ***/
 
     }],
@@ -165,7 +161,7 @@ var UserSchema = new Schema({
 /**
  * Hook a pre save method to hash the password
  */
-UserSchema.pre('save', function (next) {
+UserOrganizationSchema.pre('save', function (next) {
   if (this.password && this.isModified('password')) {
     this.salt = crypto.randomBytes(16).toString('base64');
     this.password = this.hashPassword(this.password);
@@ -177,7 +173,7 @@ UserSchema.pre('save', function (next) {
 /**
  * Hook a pre validate method to test the local password
  */
-UserSchema.pre('validate', function (next) {
+UserOrganizationSchema.pre('validate', function (next) {
   if (this.provider === 'local' && this.password && this.isModified('password')) {
     var result = owasp.test(this.password);
     if (result.errors.length) {
@@ -192,7 +188,7 @@ UserSchema.pre('validate', function (next) {
 /**
  * Create instance method for hashing a password
  */
-UserSchema.methods.hashPassword = function (password) {
+UserOrganizationSchema.methods.hashPassword = function (password) {
   if (this.salt && password) {
     return crypto.pbkdf2Sync(password, new Buffer(this.salt, 'base64'), 10000, 64, 'SHA1').toString('base64');
   } else {
@@ -203,14 +199,14 @@ UserSchema.methods.hashPassword = function (password) {
 /**
  * Create instance method for authenticating user
  */
-UserSchema.methods.authenticate = function (password) {
+UserOrganizationSchema.methods.authenticate = function (password) {
   return this.password === this.hashPassword(password);
 };
 
 /**
  * Find possible not used username
  */
-UserSchema.statics.findUniqueUsername = function (username, suffix, callback) {
+UserOrganizationSchema.statics.findUniqueUsername = function (username, suffix, callback) {
   var _this = this;
   var possibleUsername = username.toLowerCase() + (suffix || '');
 
@@ -230,11 +226,11 @@ UserSchema.statics.findUniqueUsername = function (username, suffix, callback) {
 };
 
 /**
-* Generates a random passphrase that passes the owasp test
-* Returns a promise that resolves with the generated passphrase, or rejects with an error if something goes wrong.
-* NOTE: Passphrases are only tested against the required owasp strength tests, and not the optional tests.
-*/
-UserSchema.statics.generateRandomPassphrase = function () {
+ * Generates a random passphrase that passes the owasp test
+ * Returns a promise that resolves with the generated passphrase, or rejects with an error if something goes wrong.
+ * NOTE: Passphrases are only tested against the required owasp strength tests, and not the optional tests.
+ */
+UserOrganizationSchema.statics.generateRandomPassphrase = function () {
   return new Promise(function (resolve, reject) {
     var password = '';
     var repeatingCharacters = new RegExp('(.)\\1{2,}', 'g');
@@ -265,4 +261,5 @@ UserSchema.statics.generateRandomPassphrase = function () {
   });
 };
 
-mongoose.model('User', UserSchema);
+mongoose.model('User-Organization', UserOrganizationSchema);
+

@@ -1,0 +1,116 @@
+<div>
+  <h3 class="col-xs-12 text-center"> Crear cuenta para organismo de atención</h3>
+  <div class="col-xs-offset-2 col-xs-8 col-md-offset-4 col-md-4">
+    <form name="vm.userForm" ng-submit="vm.signup(vm.userForm.$valid)" class="signin" novalidate autocomplete="off">
+      <fieldset>
+        <div class="form-group" show-errors>
+          <label for="name">Nombre del organismo</label>
+          <input type="text" id="name" name="name" class="form-control" ng-model="vm.credentials.name" placeholder="nombre" required autofocus>
+          <div ng-messages="vm.userForm.name.$error" role="alert">
+            <p class="help-block error-text" ng-message="required">Por favor introzuca el nombre del organismo</p>
+          </div>
+        </div>
+        <div class="form-group" show-errors>
+          <label for="email">Email del organismo</label>
+          <input type="email" id="email" name="email" class="form-control" ng-model="vm.credentials.email" placeholder="Email" lowercase required>
+          <div ng-messages="vm.userForm.email.$error" role="alert">
+            <p class="help-block error-text" ng-message="required">Por favor introduzca el email.</p>
+            <p class="help-block error-text" ng-message="email">El email que introdujo es inválido</p>
+          </div>
+        </div>
+        <div class="form-group" show-errors>
+          <label for="username">Username de uso administrativo</label>
+          <input type="text" id="username" name="username" class="form-control" ng-model="vm.credentials.username" ng-pattern="vm.usernameRegex" placeholder="Username" lowercase required>
+          <div ng-messages="vm.userForm.username.$error" role="alert">
+            <p class="help-block error-text" ng-message="required">Por favor indique el username</p>
+            <p class="help-block error-text" ng-message="pattern">Please enter a valid username: 3+ characters long, non restricted word, characters "_-.", no consecutive dots, does not begin or end with dots, letters a-z and numbers 0-9.</p>
+          </div>
+        </div>
+
+        <div class="form-group" show-errors>
+          <label for="rif">RIF</label>
+          <input type="text" id="rif" name="rif" class="form-control" ng-model="vm.credentials.rif" ng-pattern="vm.usernameRegex" placeholder="RIF" lowercase required>
+          <div ng-messages="vm.userForm.username.$error" role="alert">
+            <p class="help-block error-text" ng-message="required">Por favor indique el RIF del organismo</p>
+            <p class="help-block error-text" ng-message="pattern">Please enter a valid username: 3+ characters long, non restricted word, characters "_-.", no consecutive dots, does not begin or end with dots, letters a-z and numbers 0-9.</p>
+          </div>
+        </div>
+
+        <div class="form-group" show-errors>
+          <label for="country">País donde se encuentra ubicada la empresa</label>
+          <input type="text" id="country" name="country" class="form-control" ng-model="vm.credentials.country" ng-pattern="vm.usernameRegex" placeholder="País" lowercase required>
+          <div ng-messages="vm.userForm.username.$error" role="alert">
+            <p class="help-block error-text" ng-message="required">Por favor el país donde se encuentra ubicada la empresa</p>
+            <p class="help-block error-text" ng-message="pattern">Please enter a valid username: 3+ characters long, non restricted word, characters "_-.", no consecutive dots, does not begin or end with dots, letters a-z and numbers 0-9.</p>
+          </div>
+        </div>
+        <div class="form-group" show-errors>
+          <label for="phone">Teléfono administrativo</label>
+          <input type="text" id="phone" name="phone" class="form-control" ng-model="vm.credentials.phone" ng-pattern="vm.usernameRegex" placeholder="Teléfono" lowercase required>
+          <div ng-messages="vm.userForm.username.$error" role="alert">
+            <p class="help-block error-text" ng-message="required">Por favor indique el teléfono administrativo</p>
+            <p class="help-block error-text" ng-message="pattern">Please enter a valid username: 3+ characters long, non restricted word, characters "_-.", no consecutive dots, does not begin or end with dots, letters a-z and numbers 0-9.</p>
+          </div>
+        </div>
+        <div class="form-group" show-errors>
+          <label for="birthday">Fecha de registro de la empresa</label>
+          <input type="text" id="birthday" name="birthday" class="form-control" ng-model="vm.credentials.birthday" ng-pattern="vm.usernameRegex" placeholder="Fecha de registro de la empresa" lowercase required>
+          <div ng-messages="vm.userForm.username.$error" role="alert">
+            <p class="help-block error-text" ng-message="required">Este campo es requerido, para el calculo de año de servicios</p>
+            <p class="help-block error-text" ng-message="pattern">Please enter a valid username: 3+ characters long, non restricted word, characters "_-.", no consecutive dots, does not begin or end with dots, letters a-z and numbers 0-9.</p>
+          </div>
+        </div>
+
+        <div class="form-group" show-errors>
+          <label for="birthday">Categoría principal de servicio</label>
+          <!--<input class="form-control col-md-4" type="text" ng-model="vm.search" placeholder="Buscar" ng-change="vm.figureOutItemsToDisplay()" />-->
+          <select name="category" id="category" class="form-control">
+            <option value="0">Seleccione una categoría </option>
+            <option value="1">Asistencia bomberil </option>
+            <option value="2">Asistencia de seguridad </option>
+            <option value="4">Asistencia médica </option>
+            <option value="4">Todas las cateogorías </option>
+          </select>
+        </div>
+
+        <div class="form-group" show-errors>
+          <label for="about">Descripción de la empresa</label>
+          <textarea
+            name="about"
+            ng-model="vm.credentials.about"
+            ng-pattern="vm.usernameRegex"
+            id="about" class="form-control"
+            cols="30" rows="5"
+            placeholder="Indique una breve descripción de su empresa y/o servicios"
+            required>
+          </textarea>
+          <div ng-messages="vm.userForm.username.$error" role="alert">
+            <p class="help-block error-text" ng-message="required">Por favor indique una breve descripción sobre su empresa y/o servicios</p>
+            <p class="help-block error-text" ng-message="pattern">Please enter a valid username: 3+ characters long, non restricted word, characters "_-.", no consecutive dots, does not begin or end with dots, letters a-z and numbers 0-9.</p>
+          </div>
+        </div>
+
+        <div class="form-group" show-errors>
+          <label for="password">Contraseña</label>
+          <input type="password" id="password" name="password" class="form-control" ng-model="vm.credentials.password" placeholder="contraseña" uib-popover="{{vm.getPopoverMsg()}}" popover-trigger="outsideClick" password-validator required>
+          <div ng-messages="vm.userForm.password.$error" role="alert">
+            <p class="help-block error-text" ng-message="required">Por favor indique su contraseña.</p>
+            <div ng-repeat="passwordError in passwordErrors">
+              <p class="help-block error-text" ng-show="vm.userForm.password.$error.requirements">{{passwordError}}</p>
+            </div>
+          </div>
+        </div>
+        <div class="form-group" ng-show="!vm.userForm.password.$error.required">
+          <label>Password Requirements</label>
+          <uib-progressbar value="requirementsProgress" type="{{requirementsColor}}"><span style="color:white; white-space:nowrap;">{{requirementsProgress}}%</span></uib-progressbar>
+        </div>
+        <div class="text-center form-group">
+          <button type="submit" class="btn btn-primary">Sign up</button>
+          &nbsp; or&nbsp;
+          <a ui-sref="authentication.signin" class="show-signup">Sign in</a>
+        </div>
+      </fieldset>
+    </form>
+  </div>
+</div>
+
