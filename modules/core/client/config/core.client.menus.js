@@ -16,21 +16,21 @@
       title: '',
       state: 'settings',
       type: 'dropdown',
-      roles: ['user']
+      roles: ['user','organism']
     });
 
     menuService.addSubMenuItem('account', 'settings', {
-      title: 'Edit Profile',
+      title: 'Editar perfil',
       state: 'settings.profile'
     });
 
     menuService.addSubMenuItem('account', 'settings', {
-      title: 'Edit Profile Picture',
+      title: 'Editar foto de perfil',
       state: 'settings.picture'
     });
 
     menuService.addSubMenuItem('account', 'settings', {
-      title: 'Change Password',
+      title: 'Cambiar clave',
       state: 'settings.password'
     });
 
@@ -38,5 +38,6 @@
       title: 'Manage Social Accounts',
       state: 'settings.accounts'
     });
+
   }
 }());

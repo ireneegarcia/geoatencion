@@ -1,0 +1,58 @@
+<section>
+  <div class="col-xs-12 text-center page-header"  >
+    <h1>{{vm.network._id ? 'Editar unidad de atención' : 'Nueva unidad de atención'}}</h1>
+  </div>
+  <div class="col-xs-offset-1 col-xs-10 col-md-offset-4 col-md-4">
+    <form  name="vm.form.networkForm" class="form-horizontal" ng-submit="vm.save(vm.form.networkForm.$valid)" novalidate>
+      <fieldset>
+
+        <div class="form-group" show-errors>
+          <label class="control-label" for="carBrand">Modelo</label>
+          <input name="carBrand" type="text" ng-model="vm.network.carBrand" id="carBrand" class="form-control" placeholder="Marca del vehículo" required>
+          <div ng-messages="vm.form.networkForm.carBrand.$error" role="alert">
+            <p class="help-block error-text" ng-message="required">Network name is required.</p>
+          </div>
+        </div>
+        <div class="form-group" show-errors>
+          <label class="control-label" for="carModel">Modelo</label>
+          <input name="carModel" type="text" ng-model="vm.network.carModel" id="carModel" class="form-control" placeholder="Modelo del vehículo" required>
+          <div ng-messages="vm.form.networkForm.carModel.$error" role="alert">
+            <p class="help-block error-text" ng-message="required">Network name is required.</p>
+          </div>
+        </div>
+        <div class="form-group" show-errors>
+          <label class="control-label" for="carPlate">Placa</label>
+          <input name="carPlate" type="text" ng-model="vm.network.carPlate" id="carPlate" class="form-control" placeholder="Placa del vehículo" required>
+          <div ng-messages="vm.form.networkForm.carPlate.$error" role="alert">
+            <p class="help-block error-text" ng-message="required">Network name is required.</p>
+          </div>
+        </div>
+        <div class="form-group" show-errors>
+          <label class="control-label" for="carColor">Color</label>
+          <input name="carColor" type="text" ng-model="vm.network.carColor" id="carColor" class="form-control" placeholder="Color del vehículo" required>
+          <div ng-messages="vm.form.networkForm.carColor.$error" role="alert">
+            <p class="help-block error-text" ng-message="required">Network name is required.</p>
+          </div>
+        </div>
+        <div class="form-group" show-errors>
+          <label class="control-label" for="category">Seleccione una categoría</label>
+          <select name="category" id="category" ng-model="vm.network.category" class="form-control">
+            <option value="Asistencia bomberil" selected>Asistencia bomberil </option>
+            <option value="Asistencia de seguridad">Asistencia de seguridad </option>
+            <option value="Asistencia médica">Asistencia médica </option>
+          </select>
+          <div ng-messages="vm.form.networkForm.category.$error" role="alert">
+            <p class="help-block error-text" ng-message="required">La categoría es necesaria.</p>
+          </div>
+        </div>
+
+        <div class="text-center form-group">
+          <button type="submit" class="btn btn-info text-center">{{vm.network._id ? 'Actualizar unidad' : 'Registrar unidad'}}</button>
+        </div>
+        <div ng-show="vm.error" class="text-danger">
+          <strong ng-bind="vm.error"></strong>
+        </div>
+      </fieldset>
+    </form>
+  </div>
+</section>

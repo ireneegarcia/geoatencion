@@ -18,7 +18,7 @@
         controller: 'SettingsController',
         controllerAs: 'vm',
         data: {
-          roles: ['user', 'admin']
+          roles: ['user', 'admin','organism']
         }
       })
       .state('settings.profile', {
@@ -73,15 +73,25 @@
           pageTitle: 'Signup'
         }
       })
-      .state('authentication.signup-organization', {
-        url: '/signup-organization',
-        templateUrl: '/modules/users/client/views/authentication/signup.organization.view.html',
+      .state('authentication.signup-organism', {
+        url: '/signup-organism',
+        templateUrl: '/modules/users/client/views/authentication/signup.organism.view.html',
         controller: 'AuthenticationController',
         controllerAs: 'vm',
         data: {
           pageTitle: 'Signup'
         }
       })
+      /*.state('authentication.operator', {
+        url: '/signup-operator',
+        templateUrl: '/modules/users/client/views/authentication/signup.operator.view.html',
+        controller: 'AuthenticationController',
+        controllerAs: 'vm',
+        data: {
+          pageTitle: 'Signup',
+          roles: ['organism']
+        }
+      })*/
       .state('authentication.signin', {
         url: '/signin?err',
         templateUrl: '/modules/users/client/views/authentication/signin.client.view.html',

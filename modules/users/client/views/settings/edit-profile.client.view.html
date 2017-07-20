@@ -9,9 +9,9 @@
             <p class="help-block error-text" ng-message="required">First name is required.</p>
           </div>
         </div>
-        <div class="form-group" show-errors>
+        <div ng-show="vm.user.roles != 'organism'" class="form-group" show-errors>
           <label for="lastName">Apellido</label>
-          <input type="text" id="lastName" name="lastName" class="form-control" ng-model="vm.user.lastName" placeholder="Last Name" required>
+          <input type="text" id="lastName" name="lastName" class="form-control" ng-model="vm.user.lastName" placeholder="Last Name">
           <div ng-messages="vm.userForm.lastName.$error" role="alert">
             <p class="help-block error-text" ng-message="required">Last name is required.</p>
           </div>
@@ -31,6 +31,33 @@
             <p class="help-block error-text" ng-message="required">Username is required.</p>
           </div>
         </div>
+
+        <div ng-show="vm.user.roles == 'organism'" class="form-group" show-errors>
+          <label for="about">Descripción de la empresa</label>
+          <textarea
+            name="about"
+            data-ng-model="vm.user.about"
+            id="about"
+            class="form-control"
+            cols="30" rows="5"
+            placeholder="Indique una breve descripción sobre la empresa y/o los servicios que ofrece">
+
+          </textarea>
+          <div ng-messages="vm.userForm.about.$error" role="alert">
+            <p class="help-block error-text" ng-message="required">Username is required.</p>
+          </div>
+        </div>
+        <div>
+          <label for="about">Categoría de servicios</label>
+          <!--<input class="form-control col-md-4" type="text" ng-model="vm.search" placeholder="Buscar" ng-change="vm.figureOutItemsToDisplay()" />-->
+          <select name="category" id="category" class="form-control">
+            <option value="0">Seleccione una categoría </option>
+            <option value="1">Asistencia bomberil </option>
+            <option value="2">Asistencia de seguridad </option>
+            <option value="4">Asistencia médica </option>
+          </select>
+        </div>
+        <br/>
         <div class="text-center form-group">
           <button type="submit" class="btn btn-primary">Guardar cambios</button>
         </div>

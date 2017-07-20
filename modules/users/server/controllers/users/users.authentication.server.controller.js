@@ -9,9 +9,11 @@ var path = require('path'),
   passport = require('passport'),
   User = mongoose.model('User');
 
+
 // URLs for which user can't be redirected on signin
 var noReturnUrls = [
   '/authentication/signin',
+  //'/authentication/signup-organism',
   '/authentication/signup'
 ];
 
@@ -48,6 +50,7 @@ exports.signup = function (req, res) {
     }
   });
 };
+
 
 /**
  * Signin after passport authentication

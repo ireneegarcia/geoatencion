@@ -61,7 +61,7 @@ var UserSchema = new Schema({
     type: String,
     trim: true,
     default: '',
-    validate: [validateLocalStrategyProperty, 'Please fill in your last name']
+    //validate: [validateLocalStrategyProperty, 'Please fill in your last name']
   },
   displayName: {
     type: String,
@@ -92,6 +92,7 @@ var UserSchema = new Schema({
     default: '',
     validate: [validateLocalStrategyProperty, 'Please fill in your last name']
   },
+
   phone: {
     type: Number,
     trim: true,
@@ -109,6 +110,12 @@ var UserSchema = new Schema({
     trim: true,
     default: '',
     validate: [validateLocalStrategyProperty, 'Please fill in your last name']
+  },
+  about: {
+    type: String,
+    //trim: true,
+    default: ''
+   // validate: [validateLocalStrategyProperty, 'Please fill in your last name']
   },
   password: {
     type: String,
@@ -130,7 +137,7 @@ var UserSchema = new Schema({
   roles: {
     type: [{
       type: String,
-      enum: ['user', 'admin','organism']
+      enum: ['user', 'admin','organism','operator']
       /***
        * Roles:
        * user -> Cliente

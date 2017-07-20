@@ -13,7 +13,7 @@
       title: 'Panels',
       state: 'panels',
       type: 'dropdown',
-      roles: ['organism']
+      roles: ['organism','operator']
     });
 
     // Add the dropdown list item
@@ -26,7 +26,7 @@
     menuService.addSubMenuItem('topbar', 'panels', {
       title: 'Create Panel',
       state: 'panels.create',
-      roles: ['organism']
+      roles: ['organism','operator']
     });
   }
 }());

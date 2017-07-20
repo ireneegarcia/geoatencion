@@ -1,91 +1,74 @@
 <div>
-  <h3 class="col-xs-12 text-center"> Crear cuenta para organismo de atención</h3>
+  <h3 class="col-xs-12 text-center" data-toggle="tooltip"
+      data-placement="bottom"
+      title="Todos aquellos usuarios con permiso de monitorear el panel y asignar unidades a eventos">
+    Crear cuenta operador del panel
+  </h3>
+
   <div class="col-xs-offset-2 col-xs-8 col-md-offset-4 col-md-4">
     <form name="vm.userForm" ng-submit="vm.signup(vm.userForm.$valid)" class="signin" novalidate autocomplete="off">
       <fieldset>
         <div class="form-group" show-errors>
-          <label for="name">Nombre del organismo</label>
-          <input type="text" id="name" name="name" class="form-control" ng-model="vm.credentials.name" placeholder="nombre" required autofocus>
-          <div ng-messages="vm.userForm.name.$error" role="alert">
-            <p class="help-block error-text" ng-message="required">Por favor introzuca el nombre del organismo</p>
+          <label for="firstName">Nombre</label>
+          <input type="text" id="firstName" name="firstName" class="form-control" ng-model="vm.credentials.firstName" placeholder="nombre" required autofocus>
+          <div ng-messages="vm.userForm.firstName.$error" role="alert">
+            <p class="help-block error-text" ng-message="required">Por favor introzuca su nombre</p>
           </div>
         </div>
         <div class="form-group" show-errors>
-          <label for="email">Email del organismo</label>
+          <label for="lastName">Apellido</label>
+          <input type="text" id="lastName" name="lastName" class="form-control" ng-model="vm.credentials.lastName" placeholder="apellido" required>
+          <div ng-messages="vm.userForm.lastName.$error" role="alert">
+            <p class="help-block error-text" ng-message="required">Por favor introduzca su apellido</p>
+          </div>
+        </div>
+        <div class="form-group" show-errors>
+          <label for="email">Email</label>
           <input type="email" id="email" name="email" class="form-control" ng-model="vm.credentials.email" placeholder="Email" lowercase required>
           <div ng-messages="vm.userForm.email.$error" role="alert">
-            <p class="help-block error-text" ng-message="required">Por favor introduzca el email.</p>
+            <p class="help-block error-text" ng-message="required">Por favor introduzca su email.</p>
             <p class="help-block error-text" ng-message="email">El email que introdujo es inválido</p>
           </div>
         </div>
         <div class="form-group" show-errors>
-          <label for="username">Username de uso administrativo</label>
+          <label for="username">Username</label>
           <input type="text" id="username" name="username" class="form-control" ng-model="vm.credentials.username" ng-pattern="vm.usernameRegex" placeholder="Username" lowercase required>
           <div ng-messages="vm.userForm.username.$error" role="alert">
-            <p class="help-block error-text" ng-message="required">Por favor indique el username</p>
+            <p class="help-block error-text" ng-message="required">Por favor indique su username</p>
             <p class="help-block error-text" ng-message="pattern">Please enter a valid username: 3+ characters long, non restricted word, characters "_-.", no consecutive dots, does not begin or end with dots, letters a-z and numbers 0-9.</p>
           </div>
         </div>
 
         <div class="form-group" show-errors>
-          <label for="rif">RIF</label>
-          <input type="text" id="rif" name="rif" class="form-control" ng-model="vm.credentials.rif" ng-pattern="vm.usernameRegex" placeholder="RIF" lowercase required>
+          <label for="ci">Cédula</label>
+          <input type="text" id="ci" name="ci" class="form-control" ng-model="vm.credentials.ci" ng-pattern="vm.usernameRegex" placeholder="cédula" lowercase required>
           <div ng-messages="vm.userForm.username.$error" role="alert">
-            <p class="help-block error-text" ng-message="required">Por favor indique el RIF del organismo</p>
+            <p class="help-block error-text" ng-message="required">Por favor el país donde reside actualmente</p>
             <p class="help-block error-text" ng-message="pattern">Please enter a valid username: 3+ characters long, non restricted word, characters "_-.", no consecutive dots, does not begin or end with dots, letters a-z and numbers 0-9.</p>
           </div>
         </div>
 
         <div class="form-group" show-errors>
-          <label for="country">País donde se encuentra ubicada la empresa</label>
+          <label for="country">País</label>
           <input type="text" id="country" name="country" class="form-control" ng-model="vm.credentials.country" ng-pattern="vm.usernameRegex" placeholder="País" lowercase required>
           <div ng-messages="vm.userForm.username.$error" role="alert">
-            <p class="help-block error-text" ng-message="required">Por favor el país donde se encuentra ubicada la empresa</p>
+            <p class="help-block error-text" ng-message="required">Por favor el país donde reside actualmente</p>
             <p class="help-block error-text" ng-message="pattern">Please enter a valid username: 3+ characters long, non restricted word, characters "_-.", no consecutive dots, does not begin or end with dots, letters a-z and numbers 0-9.</p>
           </div>
         </div>
         <div class="form-group" show-errors>
-          <label for="phone">Teléfono administrativo</label>
+          <label for="phone">Teléfono</label>
           <input type="text" id="phone" name="phone" class="form-control" ng-model="vm.credentials.phone" ng-pattern="vm.usernameRegex" placeholder="Teléfono" lowercase required>
           <div ng-messages="vm.userForm.username.$error" role="alert">
-            <p class="help-block error-text" ng-message="required">Por favor indique el teléfono administrativo</p>
+            <p class="help-block error-text" ng-message="required">Por favor indique su teléfono</p>
             <p class="help-block error-text" ng-message="pattern">Please enter a valid username: 3+ characters long, non restricted word, characters "_-.", no consecutive dots, does not begin or end with dots, letters a-z and numbers 0-9.</p>
           </div>
         </div>
         <div class="form-group" show-errors>
-          <label for="birthday">Fecha de registro de la empresa</label>
-          <input type="text" id="birthday" name="birthday" class="form-control" ng-model="vm.credentials.birthday" ng-pattern="vm.usernameRegex" placeholder="Fecha de registro de la empresa" lowercase required>
+          <label for="birthday">Fecha de nacimiento</label>
+          <input type="text" id="birthday" name="birthday" class="form-control" ng-model="vm.credentials.birthday" ng-pattern="vm.usernameRegex" placeholder="Fecha de nacimiento" lowercase required>
           <div ng-messages="vm.userForm.username.$error" role="alert">
-            <p class="help-block error-text" ng-message="required">Este campo es requerido, para el calculo de año de servicios</p>
-            <p class="help-block error-text" ng-message="pattern">Please enter a valid username: 3+ characters long, non restricted word, characters "_-.", no consecutive dots, does not begin or end with dots, letters a-z and numbers 0-9.</p>
-          </div>
-        </div>
-
-        <div class="form-group" show-errors>
-          <label for="birthday">Categoría principal de servicio</label>
-          <!--<input class="form-control col-md-4" type="text" ng-model="vm.search" placeholder="Buscar" ng-change="vm.figureOutItemsToDisplay()" />-->
-          <select name="category" id="category" class="form-control">
-            <option value="0">Seleccione una categoría </option>
-            <option value="1">Asistencia bomberil </option>
-            <option value="2">Asistencia de seguridad </option>
-            <option value="4">Asistencia médica </option>
-            <option value="4">Todas las cateogorías </option>
-          </select>
-        </div>
-
-        <div class="form-group" show-errors>
-          <label for="about">Descripción de la empresa</label>
-          <textarea
-            name="about"
-            ng-model="vm.credentials.about"
-            ng-pattern="vm.usernameRegex"
-            id="about" class="form-control"
-            cols="30" rows="5"
-            placeholder="Indique una breve descripción de su empresa y/o servicios"
-            required>
-          </textarea>
-          <div ng-messages="vm.userForm.username.$error" role="alert">
-            <p class="help-block error-text" ng-message="required">Por favor indique una breve descripción sobre su empresa y/o servicios</p>
+            <p class="help-block error-text" ng-message="required">Por favor indique su fecha de nacimiento</p>
             <p class="help-block error-text" ng-message="pattern">Please enter a valid username: 3+ characters long, non restricted word, characters "_-.", no consecutive dots, does not begin or end with dots, letters a-z and numbers 0-9.</p>
           </div>
         </div>

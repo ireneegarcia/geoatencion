@@ -1,0 +1,42 @@
+<section>
+  <div class="text-center page-header">
+    <h1>Listado de unidades de atención</h1>
+  </div>
+  <div style="margin: 0% 20% 0% 20% " class="list-group" >
+    <a ng-repeat="network in vm.networks"
+       ui-sref="networks.view({ networkId: network._id })"
+       class="list-group-item">
+
+      <table class="table" style="text-align: left">
+
+        <thead>
+          <tr class="warning">
+            <th style="width: 217px">Atributo</th>
+            <th style="width: 434px">Especificación</th>
+          </tr>
+        </thead>
+        <tbody>
+
+        <tr>
+          <th scope="row">id</th>
+          <td ng-bind="network._id"></td>
+        </tr>
+        <tr>
+          <th scope="row">Categoría</th>
+          <td ng-bind="network.category"></td>
+        </tr>
+        </tbody>
+      </table>
+      <small class="list-group-item-text">
+        Posted on
+        <span ng-bind="network.created | date:'mediumDate'"></span>
+        by
+        <span ng-if="network.user" ng-bind="network.user.displayName"></span>
+        <span ng-if="!network.user">Deleted User</span>
+      </small>
+    </a>
+  </div>
+  <div class="alert alert-warning text-center" ng-if="vm.networks.$resolved && !vm.networks.length">
+    No existen unidades registradas hasta los momentos ¿<a ui-sref="networks.create">registras uno</a>?
+  </div>
+</section>

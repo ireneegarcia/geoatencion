@@ -14,7 +14,7 @@
         </div>
         <div class="form-group" show-errors>
           <label for="lastName">Apellido</label>
-          <input type="text" id="lastName" name="lastName" class="form-control" ng-model="vm.user.lastName" placeholder="Last Name" required />
+          <input type="text" id="lastName" name="lastName" class="form-control" ng-model="vm.user.lastName" placeholder="Apellido" required />
           <div ng-messages="vm.userForm.lastName.$error" role="alert">
             <p class="help-block error-text" ng-message="required">Last name is required.</p>
           </div>
@@ -24,14 +24,41 @@
           <div class="controls">
             <input class="form-control" type="text" name="roles" ng-model="vm.user.roles" id="roles" ng-list required />
             <div ng-messages="vm.userForm.roles.$error" role="alert">
-              <p class="help-block error-text" ng-message="required">At least one role is required.</p>
+              <p class="help-block error-text" ng-message="required">Es necesario que el usuario posea un rol dentro del sistema</p>
             </div>
           </div>
         </div>
         <div class="form-group">
-          <input type="submit" value="Actualizar" class="btn btn-default">
+          <input type="submit" value="Actualizar" class="btn btn-primary">
         </div>
       </fieldset>
     </form>
+    <br />
+
+    <div class="form-group">
+
+      <table class="table table-bordered">
+
+        <thead>
+          <tr class="warning">
+            <th>Roles del sistema</th>
+            <th>Descripción</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row">admin</th>
+            <td>Personal encargado de la adminstración básica del sistema</td>
+          </tr>
+          <tr>
+            <th scope="row">user</th>
+            <td>Cliente</td>
+          </tr>
+          <tr> <th scope="row">organism</th>
+            <td>Empresa de atención</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
 </section>
