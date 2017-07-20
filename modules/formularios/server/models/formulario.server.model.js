@@ -16,11 +16,35 @@ var FormularioSchema = new Schema({
     required: 'Please fill Formulario name',
     trim: true
   },
-  question: {
+  category: {
+    type: String,
+    default: '',
+    required: 'Por favor indique la categoría por defecto para el servicio de la unidad'/*,
+     trim: true*/
+  },
+  question1: {
     type: String,
     default: '',
     required: 'Please fill Formulario name'
     //trim: true
+  },
+  question2: {
+    type: String,
+    default: ''/*,
+    required: 'Please fill Formulario name'
+    trim: true*/
+  },
+  question3: {
+    type: String,
+    default: ''/*,
+    required: 'Please fill Formulario name'
+    trim: true*/
+  },
+  question4: {
+    type: String,
+    default: ''/*,
+    required: 'Please fill Formulario name'
+    trim: true*/
   },
   created: {
     type: Date,

@@ -6,6 +6,35 @@
     <a ng-repeat="formulario in vm.formularios"
        ui-sref="formularios.view({ formularioId: formulario._id })"
        class="list-group-item">
+      <h4 class="list-group-item-heading">{{formulario.name}}</h4>
+      <table class="table" style="text-align: left">
+
+        <thead>
+        <tr>
+          <th style="width: 30px"></th>
+          <th style="width: 434px"></th>
+        </tr>
+        </thead>
+        <tbody>
+
+        <tr>
+          <th class="info" scope="row">Pregunta #1</th>
+          <td ng-bind="formulario.question1"></td>
+        </tr>
+        <tr ng-show="formulario.question2">
+          <th class="info" scope="row">Pregunta #2</th>
+          <td ng-bind="formulario.question2"></td>
+        </tr>
+        <tr ng-show="formulario.question3">
+          <th class="info" scope="row">Pregunta #3</th>
+          <td ng-bind="formulario.question3"></td>
+        </tr>
+        <tr ng-show="formulario.question4">
+          <th class="info" scope="row">Pregunta #4</th>
+          <td ng-bind="formulario.question4"></td>
+        </tr>
+        </tbody>
+      </table>
       <small class="list-group-item-text">
         Posted on
         <span ng-bind="formulario.created | date:'mediumDate'"></span>
@@ -13,7 +42,6 @@
         <span ng-if="formulario.user" ng-bind="formulario.user.displayName"></span>
         <span ng-if="!formulario.user">Deleted User</span>
       </small>
-      <h4 class="list-group-item-heading" ng-bind="formulario.name"></h4>
     </a>
   </div>
   <div class="alert alert-warning text-center" ng-if="vm.formularios.$resolved && !vm.formularios.length">
