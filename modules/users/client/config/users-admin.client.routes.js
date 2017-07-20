@@ -13,7 +13,7 @@
       .state('admin.users', {
         url: '/users',
         templateUrl: '/modules/users/client/views/admin/list-users.client.view.html',
-        controller: 'NetworkstController',
+        controller: 'UserListController',
         controllerAs: 'vm',
         data: {
           pageTitle: 'Users List'

@@ -1,6 +1,6 @@
 <section>
   <div class="page-header">
-    <h1>{{vm.article._id ? 'Edit Article' : 'New Article'}}</h1>
+    <h1>{{vm.article._id ? 'Editar ficha de organismo' : 'Nuevo organismo'}}</h1>
   </div>
   <div class="pull-right">
     <a ng-show="vm.article._id" class="btn btn-primary" ng-click="vm.remove()">
@@ -11,18 +11,45 @@
     <form name="vm.form.articleForm" class="form-horizontal" ng-submit="vm.save(vm.form.articleForm.$valid)" novalidate>
       <fieldset>
         <div class="form-group" show-errors>
-          <label class="control-label" for="title">Title</label>
-          <input name="title" type="text" ng-model="vm.article.title" id="title" class="form-control" placeholder="Title" required autofocus>
-          <div ng-messages="vm.form.articleForm.title.$error" role="alert">
-            <p class="help-block error-text" ng-message="required">Article title is required.</p>
+          <label class="control-label" for="name">Nombre del organismo</label>
+          <input name="name" type="text" ng-model="vm.article.name" id="name" class="form-control" placeholder="Nombre del organismo" required autofocus>
+          <div ng-messages="vm.form.articleForm.name.$error" role="alert">
+            <p class="help-block error-text" ng-message="required">Es necesario introducir el nombre del organismo</p>
           </div>
         </div>
-        <div class="form-group">
-          <label class="control-label" for="content">Content</label>
-          <textarea name="content" data-ng-model="vm.article.content" id="content" class="form-control" cols="30" rows="10" placeholder="Content"></textarea>
+
+        <div class="form-group" show-errors>
+          <label class="control-label" for="category">Seleccione una categoría</label>
+          <select name="category" type="text" id="category" ng-model="vm.article.category" class="form-control" required>
+            <option value="Asistencia bomberil">Asistencia bomberil </option>
+            <option value="Asistencia de seguridad">Asistencia de seguridad </option>
+            <option value="Asistencia médica">Asistencia médica </option>
+            <option value="Todas las anteriores">Todas las anteriores </option>
+            <option value="Otra categoría">Otra categoría </option>
+            <option value="Diversas categorías">Diversas categorías </option>
+          </select>
+          <div ng-messages="vm.form.articleForm.category.$error" role="alert">
+            <p class="help-block error-text" ng-message="required">La categoría es necesaria.</p>
+          </div>
         </div>
+
+        <div class="form-group" show-errors>
+          <label class="control-label" for="birthday">Año de registro de la empresa</label>
+          <input name="birthday" type="text" ng-model="vm.article.birthday" id="birthday" class="form-control" placeholder="Año de registro de la empresa" required>
+          <div ng-messages="vm.form.articleForm.birthday.$error" role="alert">
+            <p class="help-block error-text" ng-message="required">Este año se utiliza para calcular los años de servicio</p>
+          </div>
+        </div>
+        <div class="form-group" show-errors>
+          <label class="control-label" for="about">Breve descripción del organismo y/o sus servicios</label>
+          <textarea name="about" data-ng-model="vm.article.about" id="about" class="form-control" cols="30" rows="5" placeholder="Copie acá la descripción" required></textarea>
+          <div ng-messages="vm.form.articleForm.about.$error" role="alert">
+            <p class="help-block error-text" ng-message="required">Es necesario que ofrezca una breve descripción para su ficha dentro del catálogo</p>
+          </div>
+        </div>
+
         <div class="form-group">
-          <button type="submit" class="btn btn-default">{{vm.article._id ? 'Update' : 'Create'}}</button>
+          <button type="submit" class="btn btn-primary">{{vm.article._id ? 'Actualizar ficha' : 'Crear ficha'}}</button>
         </div>
       </fieldset>
     </form>

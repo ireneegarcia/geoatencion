@@ -14,16 +14,29 @@ var ArticleSchema = new Schema({
     type: Date,
     default: Date.now
   },
-  title: {
+  name: {
     type: String,
     default: '',
     trim: true,
-    required: 'Title cannot be blank'
+    required: 'El nombre no puede quedar en blanco'
   },
-  content: {
+  about: {
     type: String,
     default: '',
-    trim: true
+    //trim: true,
+    required: 'La descripción no puede quedar en blanco'
+  },
+  birthday: {
+    type: String,
+    default: '',
+    trim: true,
+    required: 'Debe indicar el año en que registro la empresa'
+  },
+  category: {
+    type: String,
+    default: '',
+    required: 'Por favor indique la categoría por defecto para el servicio de la unidad'/*,
+     trim: true*/
   },
   user: {
     type: Schema.ObjectId,

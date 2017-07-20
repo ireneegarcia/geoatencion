@@ -1,23 +1,48 @@
 <section>
-  <div class="page-header">
+  <div class="text-center page-header">
     <div class="row">
-      <div class="col-md-4">
-        <h1>Catálogo</h1>
+      <div>
+        <h2>Catálogo de organismos afiliados</h2>
       </div>
-      <div class="col-md-4" style="margin-top: 2em">
+      <div class="text-center" style="margin: 0% 20% 0% 35% ; width: 30%">
         <!--<input class="form-control col-md-4" type="text" ng-model="vm.search" placeholder="Buscar" ng-change="vm.figureOutItemsToDisplay()" />-->
         <select name="category" id="category" class="form-control">
           <option value="0">Seleccione una categoría a consultar </option>
-          <option value="1">Asistencia bomberil </option>
-          <option value="2">Asistencia de seguridad </option>
-          <option value="4">Asistencia médica </option>
+          <option value="Asistencia bomberil">Asistencia bomberil </option>
+          <option value="Asistencia de seguridad">Asistencia de seguridad </option>
+          <option value="Asistencia médica">Asistencia médica </option>
+          <option value="Todas las anteriores">Todas las anteriores </option>
+          <option value="Otra categoría">Otra categoría </option>
+          <option value="Diversas categorías">Diversas categorías </option>
+          <option value="Sistema 171">Sistema 171 </option>
         </select>
       </div>
     </div>
   </div>
 
-  <div class="list-group">
+  <div style="margin: 0% 20% 0% 20% " class="list-group">
     <a ng-repeat="article in vm.articles" ui-sref="articles.view({ articleId: article._id })" class="list-group-item">
+
+      <table class="table" style="text-align: left">
+
+        <thead>
+        <tr>
+          <th style="width: 217px"></th>
+          <th style="width: 434px"></th>
+        </tr>
+        </thead>
+        <tbody>
+
+        <tr>
+          <th class="warning" scope="row">Nombre del organismo:</th>
+          <td ng-bind="article.name"></td>
+        </tr>
+        <tr>
+          <th class="warning" scope="row">Categoría de servicio:</th>
+          <td ng-bind="article.category"></td>
+        </tr>
+        </tbody>
+      </table>
       <small class="list-group-item-text">
         Posted on
         <span ng-bind="article.created | date:'mediumDate'"></span>
@@ -25,8 +50,6 @@
         <span ng-if="article.user" ng-bind="article.user.displayName"></span>
         <span ng-if="!article.user">Deleted User</span>
       </small>
-      <h4 class="list-group-item-heading" ng-bind="article.title"></h4>
-      <p class="list-group-item-text" ng-bind="article.content"></p>
     </a>
   </div>
   <uib-pagination boundary-links="true" max-size="8" items-per-page="vm.itemsPerPage" total-items="vm.filterLength" ng-model="vm.currentPage" ng-change="vm.pageChanged()"></uib-pagination>
