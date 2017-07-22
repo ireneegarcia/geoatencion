@@ -61,7 +61,7 @@
         </div>
         <div class="form-group" show-errors>
           <label for="birthday">Fecha de nacimiento</label>
-          <input type="text" id="birthday" name="birthday" class="form-control" ng-model="vm.credentials.birthday" ng-pattern="vm.usernameRegex" placeholder="Fecha de nacimiento" lowercase required>
+          <input type="text" id="birthday1" name="birthday" class="form-control" ng-model="vm.credentials.birthday" ng-pattern="vm.usernameRegex" placeholder="Fecha de nacimiento" lowercase required>
           <div ng-messages="vm.userForm.username.$error" role="alert">
             <p class="help-block error-text" ng-message="required">Por favor indique su fecha de nacimiento</p>
             <p class="help-block error-text" ng-message="pattern">Please enter a valid username: 3+ characters long, non restricted word, characters "_-.", no consecutive dots, does not begin or end with dots, letters a-z and numbers 0-9.</p>
@@ -91,4 +91,10 @@
     </form>
   </div>
 </div>
+
+<script>
+  $(document).ready(function() {
+    $("#birthday1").mask("99/99/9999");
+  });
+</script>
 

@@ -14,6 +14,8 @@ module.exports = {
       ],
       js: [
         // bower:js
+        'public/lib/jquery/dist/jquery-1.10.2.min.js',
+        'public/lib/jquery/dist/jquery.maskedinput.min.js',
         'public/lib/angular/angular.js',
         'public/lib/angular-animate/angular-animate.js',
         'public/lib/angular-bootstrap/ui-bootstrap-tpls.js',
