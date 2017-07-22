@@ -26,12 +26,6 @@ var ArticleSchema = new Schema({
     //trim: true,
     required: 'La descripción no puede quedar en blanco'
   },
-  birthday: {
-    type: String,
-    default: '',
-    trim: true,
-    required: 'Debe indicar el año en que registro la empresa'
-  },
   category: {
     type: String,
     default: '',

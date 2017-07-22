@@ -157,6 +157,7 @@ exports.me = function (req, res) {
       lastName: validator.escape(req.user.lastName),
       firstName: validator.escape(req.user.firstName),
       about: validator.escape(req.user.about),
+      category: validator.escape(req.user.category),
       additionalProvidersData: req.user.additionalProvidersData
     };
   }

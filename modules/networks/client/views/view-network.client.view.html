@@ -36,6 +36,14 @@
       <th scope="row">Categoría</th>
       <td ng-bind="vm.network.category"></td>
     </tr>
+    <tr>
+      <th scope="row">Responsable</th>
+      <td>{{vm.network.user.displayName ? vm.network.user.displayName : 'No posee'}}</td>
+    </tr>
+    <tr>
+      <th scope="row">Status</th>
+      <td ng-bind="vm.network.status"></td>
+    </tr>
     </tbody>
   </table>
   <small>

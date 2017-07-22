@@ -40,11 +40,21 @@ var NetworkSchema = new Schema({
     required: 'Por favor indique la categoría por defecto para el servicio de la unidad'/*,
      trim: true*/
   },
+  status: {
+    type: String,
+    default: '',
+    required: 'Por favor indique la categoría por defecto para el servicio de la unidad'/*,
+     trim: true*/
+  },
   created: {
     type: Date,
     default: Date.now
   },
   user: {
+    type: Schema.ObjectId,
+    ref: 'User'
+  },
+  userService: {
     type: Schema.ObjectId,
     ref: 'User'
   }

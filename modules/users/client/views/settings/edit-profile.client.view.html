@@ -24,6 +24,7 @@
             <p class="help-block error-text" ng-message="email">Email address is invalid.</p>
           </div>
         </div>
+
         <div class="form-group" show-errors>
           <label for="username">Username</label>
           <input type="text" id="username" name="username" class="form-control" ng-model="vm.user.username" placeholder="Username" lowercase required>
@@ -33,25 +34,16 @@
         </div>
 
         <div ng-show="vm.user.roles == 'organism'" class="form-group" show-errors>
-          <label for="about">Descripción de la empresa</label>
-          <textarea
-            name="about"
-            data-ng-model="vm.user.about"
-            id="about"
-            class="form-control"
-            cols="30" rows="5"
-            placeholder="Indique una breve descripción sobre la empresa y/o los servicios que ofrece">
-
-          </textarea>
+          <label for="about">Breve descripción del organismo</label>
+          <textarea type="text" id="about" name="about" class="form-control" ng-model="vm.user.about" cols="30" rows="5" placeholder="Indique una breve descripción sobre la empresa y/o los servicios que ofrece" required></textarea>
           <div ng-messages="vm.userForm.about.$error" role="alert">
-            <p class="help-block error-text" ng-message="required">Username is required.</p>
+            <p class="help-block error-text" ng-message="required">Es necesario que ofrezca una breve descripción para su ficha dentro del catálogo</p>
           </div>
         </div>
-        <div>
-          <label for="about">Categoría de servicios</label>
-          <!--<input class="form-control col-md-4" type="text" ng-model="vm.search" placeholder="Buscar" ng-change="vm.figureOutItemsToDisplay()" />-->
-          <select name="category" id="category" class="form-control">
-            <option value="0">Seleccione una categoría </option>
+
+        <div ng-show="vm.user.roles == 'organism'" class="form-group" show-errors>
+          <label for="category">Seleccione una categoría</label>
+          <select id="category" name="category" class="form-control" ng-model="vm.user.category"  required>
             <option value="Asistencia bomberil">Asistencia bomberil </option>
             <option value="Asistencia de seguridad">Asistencia de seguridad </option>
             <option value="Asistencia médica">Asistencia médica </option>
@@ -59,7 +51,11 @@
             <option value="Otra categoría">Otra categoría </option>
             <option value="Diversas categorías">Diversas categorías </option>
           </select>
+          <div ng-messages="vm.userForm.category.$error" role="alert">
+            <p class="help-block error-text" ng-message="required">La categoría es necesaria.</p>
+          </div>
         </div>
+
         <br/>
         <div class="text-center form-group">
           <button type="submit" class="btn btn-primary">Guardar cambios</button>

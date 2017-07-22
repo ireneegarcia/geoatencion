@@ -79,6 +79,16 @@
           roles: ['organism']
         }
       })
+      .state('authentication.userService', {
+        url: '/signup-service',
+        templateUrl: '/modules/users/client/views/authentication/signup.userService.view.html',
+        controller: 'AuthenticationController',
+        controllerAs: 'vm',
+        data: {
+          pageTitle: 'Signup',
+          roles: ['organism']
+        }
+      })
     ;
   }
 

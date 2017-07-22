@@ -23,6 +23,12 @@
       roles: ['organism']
     });
 
+    menuService.addSubMenuItem('topbar', 'networks', {
+      title: 'Incluir operador',
+      state: 'authentication.operator',
+      roles: ['organism']
+    });
+
     // Add the dropdown create item
     menuService.addSubMenuItem('topbar', 'networks', {
       title: 'Incluir unidad de atención',
@@ -31,9 +37,10 @@
     });
 
     menuService.addSubMenuItem('topbar', 'networks', {
-      title: 'Incluir operador',
-      state: 'authentication.operator',
+      title: 'Incluir responsable de atención',
+      state: 'authentication.userService',
       roles: ['organism']
     });
+
   }
 }());

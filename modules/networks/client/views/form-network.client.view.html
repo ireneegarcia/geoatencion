@@ -1,5 +1,6 @@
 <section>
-  <div class="col-xs-12 text-center page-header"  >
+  <br/>
+  <div class="col-xs-12 text-center "  >
     <h1>{{vm.network._id ? 'Editar unidad de atención' : 'Nueva unidad de atención'}}</h1>
   </div>
   <div class="col-xs-offset-1 col-xs-10 col-md-offset-4 col-md-4">
@@ -8,35 +9,35 @@
 
         <div class="form-group" show-errors>
           <label class="control-label" for="carBrand">Modelo</label>
-          <input name="carBrand" type="text" ng-model="vm.network.carBrand" id="carBrand" class="form-control" placeholder="Marca del vehículo" required>
+          <input name="carBrand" type="text" ng-model="vm.network.carBrand" id="carBrand" class="form-control" placeholder="Marca del vehículo" autofocus required>
           <div ng-messages="vm.form.networkForm.carBrand.$error" role="alert">
-            <p class="help-block error-text" ng-message="required">Network name is required.</p>
+            <p class="help-block error-text" ng-message="required">El modelo es necesario</p>
           </div>
         </div>
         <div class="form-group" show-errors>
           <label class="control-label" for="carModel">Modelo</label>
           <input name="carModel" type="text" ng-model="vm.network.carModel" id="carModel" class="form-control" placeholder="Modelo del vehículo" required>
           <div ng-messages="vm.form.networkForm.carModel.$error" role="alert">
-            <p class="help-block error-text" ng-message="required">Network name is required.</p>
+            <p class="help-block error-text" ng-message="required">El modelo es necesario</p>
           </div>
         </div>
         <div class="form-group" show-errors>
           <label class="control-label" for="carPlate">Placa</label>
           <input name="carPlate" type="text" ng-model="vm.network.carPlate" id="carPlate" class="form-control" placeholder="Placa del vehículo" required>
           <div ng-messages="vm.form.networkForm.carPlate.$error" role="alert">
-            <p class="help-block error-text" ng-message="required">Network name is required.</p>
+            <p class="help-block error-text" ng-message="required">La placa es necesaria</p>
           </div>
         </div>
         <div class="form-group" show-errors>
           <label class="control-label" for="carColor">Color</label>
           <input name="carColor" type="text" ng-model="vm.network.carColor" id="carColor" class="form-control" placeholder="Color del vehículo" required>
           <div ng-messages="vm.form.networkForm.carColor.$error" role="alert">
-            <p class="help-block error-text" ng-message="required">Network name is required.</p>
+            <p class="help-block error-text" ng-message="required">El color es necesario</p>
           </div>
         </div>
         <div class="form-group" show-errors>
           <label class="control-label" for="category">Seleccione una categoría</label>
-          <select name="category" id="category" ng-model="vm.network.category" class="form-control">
+          <select name="category" id="category" ng-model="vm.network.category" class="form-control" required>
             <option value="Asistencia bomberil">Asistencia bomberil </option>
             <option value="Asistencia de seguridad">Asistencia de seguridad </option>
             <option value="Asistencia médica">Asistencia médica </option>
@@ -46,6 +47,23 @@
           </select>
           <div ng-messages="vm.form.networkForm.category.$error" role="alert">
             <p class="help-block error-text" ng-message="required">La categoría es necesaria.</p>
+          </div>
+        </div>
+        <div class="form-group" show-errors>
+          <label class="control-label" for="status">Status</label>
+          <select name="status" id="status" ng-model="vm.network.status" class="form-control" required>
+            <option value="Activo">Activo </option >
+            <option value="Inactivo"> Inactivo</option>
+          </select>
+          <div ng-messages="vm.form.networkForm.status.$error" role="alert">
+            <p class="help-block error-text" ng-message="required">El status es necesario.</p>
+          </div>
+        </div>
+        <div ng-if="vm.network._id" class="form-group" show-errors>
+          <label class="control-label" for="userService">Responsable de la unidad</label>
+          <input name="userService" type="text" ng-model="vm.network.userService" id="userService" class="form-control" placeholder="Introduzca el id del usuario responsable">
+          <div ng-messages="vm.form.networkForm.userService.$error" role="alert">
+            <p class="help-block error-text" ng-message="required">Responsable</p>
           </div>
         </div>
 

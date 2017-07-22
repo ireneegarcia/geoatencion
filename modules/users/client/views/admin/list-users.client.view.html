@@ -14,6 +14,15 @@
       <h4 class="list-group-item-heading" ng-bind="user.username"></h4>
       <p class="list-group-item-text pull-right small" ng-bind="user.roles"></p>
       <p class="list-group-item-text" ng-bind="user.email"></p>
+
+      <small style="display: inline-block" class="list-group-item-text">
+        Fecha de registro
+        <span ng-bind="user.created | date:'mediumDate'"></span>
+        <div style="display: inline-block" ng-show="user.user._id">
+          por
+          <span ng-bind="user.user.displayName"></span>
+        </div>
+      </small>
     </a>
   </div>
 

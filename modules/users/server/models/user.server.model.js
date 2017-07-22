@@ -108,14 +108,20 @@ var UserSchema = new Schema({
   birthday: {
     type: String,
     trim: true,
-    default: '',
-    validate: [validateLocalStrategyProperty, 'Please fill in your last name']
+    default: ''
+    //validate: [validateLocalStrategyProperty, 'Please fill in your last name']
   },
   about: {
     type: String,
     //trim: true,
     default: ''
    // validate: [validateLocalStrategyProperty, 'Please fill in your last name']
+  },
+  category: {
+    type: String,
+    default: ''
+    /*required: 'Por favor indique la categoría de servicios',
+     trim: true*/
   },
   password: {
     type: String,
@@ -159,6 +165,10 @@ var UserSchema = new Schema({
   created: {
     type: Date,
     default: Date.now
+  },
+  user: {
+  type: Schema.ObjectId,
+    ref: 'User'
   },
   /* For reset password */
   resetPasswordToken: {
