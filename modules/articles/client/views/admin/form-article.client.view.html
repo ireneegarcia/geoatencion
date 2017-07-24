@@ -3,22 +3,23 @@
     <h1>{{vm.article._id ? 'Editar ficha de organismo' : 'Nuevo organismo'}}</h1>
   </div>
   <div class="pull-right">
-    <a ng-show="vm.article._id" class="btn btn-primary" ng-click="vm.remove()">
+    <a ng-show="vm.article._id" class="btn btn-info btn-raised" ng-click="vm.remove()">
+      Eliminar
       <i class="glyphicon glyphicon-trash"></i>
     </a>
   </div>
   <div class="col-md-12">
     <form name="vm.form.articleForm" class="form-horizontal" ng-submit="vm.save(vm.form.articleForm.$valid)" novalidate>
       <fieldset>
-        <div class="form-group" show-errors>
+        <div class="form-group has-info label-floating" show-errors>
           <label class="control-label" for="name">Nombre del organismo</label>
-          <input name="name" type="text" ng-model="vm.article.name" id="name" class="form-control" placeholder="Nombre del organismo" required autofocus>
+          <input name="name" type="text" ng-model="vm.article.name" id="name" class="form-control" required autofocus>
           <div ng-messages="vm.form.articleForm.name.$error" role="alert">
             <p class="help-block error-text" ng-message="required">Es necesario introducir el nombre del organismo</p>
           </div>
         </div>
 
-        <div class="form-group" show-errors>
+        <div class="form-group has-info label-floating" show-errors>
           <label class="control-label" for="category">Seleccione una categoría</label>
           <select name="category" type="text" id="category" ng-model="vm.article.category" class="form-control" required>
             <option value="Asistencia bomberil">Asistencia bomberil </option>
@@ -33,16 +34,19 @@
           </div>
         </div>
 
-        <div class="form-group" show-errors>
+        <div class="form-group has-info label-floating" show-errors>
           <label class="control-label" for="about">Breve descripción del organismo y/o sus servicios</label>
-          <textarea name="about" data-ng-model="vm.article.about" id="about" class="form-control" cols="30" rows="5" placeholder="Copie acá la descripción" required></textarea>
+          <textarea name="about" data-ng-model="vm.article.about" id="about" class="form-control" cols="30" rows="5" required></textarea>
           <div ng-messages="vm.form.articleForm.about.$error" role="alert">
             <p class="help-block error-text" ng-message="required">Es necesario que ofrezca una breve descripción para su ficha dentro del catálogo</p>
           </div>
         </div>
 
         <div class="form-group">
-          <button type="submit" class="btn btn-primary">{{vm.article._id ? 'Actualizar ficha' : 'Crear ficha'}}</button>
+          <button type="submit" class="btn btn-info btn-raised">{{vm.article._id ? 'Actualizar ficha' : 'Crear ficha'}}</button>
+        </div>
+        <div class="form-group">
+
         </div>
       </fieldset>
     </form>

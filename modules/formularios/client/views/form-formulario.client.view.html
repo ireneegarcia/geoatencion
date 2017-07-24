@@ -9,15 +9,15 @@
   <div class="col-md-12">
     <form name="vm.form.formularioForm" class="form-horizontal" ng-submit="vm.save(vm.form.formularioForm.$valid)" novalidate>
       <fieldset>
-        <div class="form-group" style="width: 100%" show-errors>
+        <div class="form-group has-info label-floating" style="width: 100%" show-errors>
           <label class="control-label" for="name">Nombre del formulario</label>
-          <input style="color: #8c8c8c" name="name" type="text" ng-model="vm.formulario.name" id="name" class="form-control" placeholder="Nombre del formulario" required autofocus>
+          <input style="color: #8c8c8c" name="name" type="text" ng-model="vm.formulario.name" id="name" class="form-control"  required autofocus>
           <div ng-messages="vm.form.formularioForm.name.$error" role="alert">
             <p class="help-block error-text" ng-message="required">El nombre es necesario. </p>
           </div>
         </div>
 
-        <div class="form-group" style="width: 100%" show-errors>
+        <div class="form-group has-info label-floating" style="width: 100%" show-errors>
           <label class="control-label" for="category">Categoría de servicio a la cual pertence el formulario</label>
           <select name="category" type="text" id="category" ng-model="vm.formulario.category" class="form-control" required>
             <option value="Asistencia bomberil">Asistencia bomberil </option>
@@ -32,40 +32,40 @@
           </div>
         </div>
 
-        <div class="form-group" style="width: 100%" show-errors>
+        <div class="form-group has-info label-floating" style="width: 100%" show-errors>
           <label class="control-label" for="question1">Pregunta #1</label>
-          <input style="color: #8c8c8c" name="question1" type="text" ng-model="vm.formulario.question1" id="question1" class="form-control" placeholder="Primera pregunta (obligatorio)" required>
+          <input style="color: #8c8c8c" name="question1" type="text" ng-model="vm.formulario.question1" id="question1" class="form-control"  required>
           <div ng-messages="vm.form.formularioForm.question1.$error" role="alert">
             <p class="help-block error-text" ng-message="required">Es necesario que introduzca al menos una pregunta. </p>
           </div>
         </div>
 
-        <div class="form-group" style="width: 100%" show-errors>
+        <div class="form-group has-info label-floating" style="width: 100%" show-errors>
           <label class="control-label" for="question2">Pregunta #2</label>
-          <input style="color: #8c8c8c" name="question2" type="text" ng-model="vm.formulario.question2" id="question2" class="form-control" placeholder="Segunda pregunta pregunta (opcional)" >
+          <input style="color: #8c8c8c" name="question2" type="text" ng-model="vm.formulario.question2" id="question2" class="form-control"  >
           <div ng-messages="vm.form.formularioForm.question2.$error" role="alert">
             <p class="help-block error-text" ng-message="required">Es necesario que introduzca al menos una pregunta. </p>
           </div>
         </div>
 
-        <div class="form-group" style="width: 100%" show-errors>
+        <div class="form-group has-info label-floating" style="width: 100%" show-errors>
           <label class="control-label" for="question3">Pregunta #3</label>
-          <input style="color: #8c8c8c" name="question3" type="text" ng-model="vm.formulario.question3" id="question3" class="form-control" placeholder="Tercera pregunta (opcional)" >
+          <input style="color: #8c8c8c" name="question3" type="text" ng-model="vm.formulario.question3" id="question3" class="form-control"  >
           <div ng-messages="vm.form.formularioForm.question3.$error" role="alert">
             <p class="help-block error-text" ng-message="required">Es necesario que introduzca al menos una pregunta. </p>
           </div>
         </div>
 
-        <div class="form-group" style="width: 100%" show-errors>
+        <div class="form-group has-info label-floating" style="width: 100%" show-errors>
           <label class="control-label" for="question4">Pregunta #4</label>
-          <input style="color: #8c8c8c" name="question4" type="text" ng-model="vm.formulario.question4" id="question4" class="form-control" placeholder="Cuarta pregunta (opcional)" >
+          <input style="color: #8c8c8c" name="question4" type="text" ng-model="vm.formulario.question4" id="question4" class="form-control" >
           <div ng-messages="vm.form.formularioForm.question4.$error" role="alert">
             <p class="help-block error-text" ng-message="required">Es necesario que introduzca al menos una pregunta. </p>
           </div>
         </div>
 
         <div class="form-group">
-          <button type="submit" class="btn btn-primary">{{vm.formulario._id ? 'Actualizar formulario' : 'Crear formulario'}}</button>
+          <button type="submit" class="btn btn-info btn-raised">{{vm.formulario._id ? 'Actualizar formulario' : 'Crear formulario'}}</button>
         </div>
         <div ng-show="vm.error" class="text-danger">
           <strong ng-bind="vm.error"></strong>

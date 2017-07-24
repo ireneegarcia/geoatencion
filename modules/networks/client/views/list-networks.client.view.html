@@ -1,4 +1,4 @@
-<section>
+<section style="margin-bottom: 50px">
   <div class="text-center page-header">
     <h1>Listado de unidades de atención</h1>
   </div>
@@ -7,16 +7,14 @@
        ui-sref="networks.view({ networkId: network._id })"
        class="list-group-item">
 
-      <table class="table" style="text-align: left">
-
+      <table id="unidades" class="table table-striped table-hover">
         <thead>
-          <tr class="info">
-            <th style="width: 217px">Atributo</th>
-            <th style="width: 434px">Especificación</th>
-          </tr>
+        <tr>
+          <th>Atributo</th>
+          <th>Especificación</th>
+        </tr>
         </thead>
         <tbody>
-
         <tr>
           <th scope="row">id</th>
           <td ng-bind="network._id"></td>
@@ -27,6 +25,7 @@
         </tr>
         </tbody>
       </table>
+
       <small class="list-group-item-text">
         Posted on
         <span ng-bind="network.created | date:'mediumDate'"></span>

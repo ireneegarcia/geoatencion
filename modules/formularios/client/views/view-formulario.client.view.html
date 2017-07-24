@@ -3,6 +3,9 @@
     <h1 ng-bind="vm.formulario.name"></h1>
     <h2 ng-bind="vm.formulario.question"></h2>
   </div>
+
+
+
     <!--
       Código original donde se evalua quien creo el formulario
 
@@ -20,11 +23,13 @@
     -->
   <div class="pull-right">
        <!--ng-show="vm.formulario.isCurrentUserOwner">-->
-    <a class="btn btn-primary"
+    <a class="btn btn-info btn-raised"
        ui-sref="formularios.edit({ formularioId: vm.formulario._id })">
+      Editar
       <i class="glyphicon glyphicon-edit"></i>
     </a>
-    <a class="btn btn-primary" ng-click="vm.remove()">
+    <a class="btn btn-info btn-raised" ng-click="vm.remove()">
+      Eliminar
       <i class="glyphicon glyphicon-trash"></i>
     </a>
   </div>

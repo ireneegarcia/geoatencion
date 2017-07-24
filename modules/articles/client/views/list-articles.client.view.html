@@ -20,29 +20,24 @@
     </div>
   </div>
 
-  <div style="margin: 0% 20% 0% 20% " class="list-group">
+  <div style="margin: 0% 20% 5% 20% " class="list-group">
     <a ng-repeat="article in vm.articles" ui-sref="articles.view({ articleId: article._id })" class="list-group-item">
-
-      <table class="table" style="text-align: left">
-
+      <table id="users" class="table table-striped table-hover">
         <thead>
         <tr>
-          <th style="width: 217px"></th>
-          <th style="width: 434px"></th>
+          <th>Nombre del organismo</th>
+          <th>Categoría de servicio</th>
         </tr>
         </thead>
         <tbody>
-
         <tr>
-          <th class="info" scope="row">Nombre del organismo:</th>
           <td ng-bind="article.name"></td>
-        </tr>
-        <tr>
-          <th class="info" scope="row">Categoría de servicio:</th>
           <td ng-bind="article.category"></td>
         </tr>
         </tbody>
       </table>
+
+
       <small class="list-group-item-text">
         Posted on
         <span ng-bind="article.created | date:'mediumDate'"></span>

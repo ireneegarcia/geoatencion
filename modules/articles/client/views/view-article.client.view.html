@@ -1,28 +1,20 @@
-<section style="margin: 0% 20% 0% 20% ">
+<section style="margin: 0% 20% 10% 20% ">
 
   <div class="col-xs-12 text-center page-header"  >
     <h1>Detalle del organismo de atención</h1>
   </div>
-  <table class="table" style="text-align: left">
-
+  <table id="users" class="table table-striped table-hover">
     <thead>
     <tr>
-      <th style="width: 217px"></th>
-      <th style="width: 434px"></th>
+      <th>Nombre del organismo</th>
+      <th>Categoría de servicio</th>
+      <th>Descripción</th>
     </tr>
     </thead>
     <tbody>
-
     <tr>
-      <th class="info" scope="row">Nombre del organismo:</th>
       <td ng-bind="vm.article.name"></td>
-    </tr>
-    <tr>
-      <th class="info" scope="row">Categoría de servicio:</th>
       <td ng-bind="vm.article.category"></td>
-    </tr>
-    <tr>
-      <th class="info" scope="row">Descripción:</th>
       <td ng-bind="vm.article.about"></td>
     </tr>
     </tbody>
