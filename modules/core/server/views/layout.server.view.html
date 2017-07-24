@@ -33,15 +33,73 @@
 
   <!-- Application CSS Files -->
   {{#each cssFiles}}<link rel="stylesheet" href="/{{this}}">{{/each}}
+
+
+
+  <!--     Fonts and icons     -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
+  <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" />
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" />
 </head>
 
-<body class="ng-cloak">
-  <header ng-include="'/modules/core/client/views/header.client.view.html'" class="navbar navbar-fixed-top navbar-inverse"></header>
-  <section class="content">
-    <section class="container">
-      {{{block "content"}}}
-    </section>
-  </section>
+<body class="ng-cloak landing-page">
+<nav ng-include="'/modules/core/client/views/header.client.view.html'" class="navbar navbar-fixed-top navbar-color-on-scroll navbar-info navbar-transparent"></nav>
+  <div class="wrapper" id="content">
+    <div class="header header-filter" style="background-image: url('modules/core/client/img/brand/fondo.jpg');">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-8 col-md-offset-2">
+            <div class="brand">
+              <h1>
+
+              </h1>
+              <br /><br />
+              <h3>
+                Con solo presionar un botón podrá reportar todo tipo de situaciones y recibir asistencia inmediata, siempre estando en contacto con usted
+              </h3>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="main main-raised">
+      <div class="container">
+        {{{block "content"}}}
+      </div>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="container">
+      <nav class="pull-left">
+        <ul>
+          <li>
+            <a href="http://www.creative-tim.com">
+              Creative Tim
+            </a>
+          </li>
+          <li>
+            <a href="http://presentation.creative-tim.com">
+              About Us
+            </a>
+          </li>
+          <li>
+            <a href="http://blog.creative-tim.com">
+              Blog
+            </a>
+          </li>
+          <li>
+            <a href="http://www.creative-tim.com/license">
+              Licenses
+            </a>
+          </li>
+        </ul>
+      </nav>
+      <div class="copyright pull-right">
+        &copy; 2016, made with <i class="fa fa-heart heart"></i> by Creative Tim
+      </div>
+    </div>
+  </footer>
 
   <noscript>
     <style>

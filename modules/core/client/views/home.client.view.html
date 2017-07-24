@@ -1,85 +1,210 @@
-<section>
-  <div class="jumbotron text-center" style="background-image: url(/modules/core/client/img/brand/city.jpg);background-size: 100% 100%;background-repeat: no-repeat;">
+<div class="section text-center section-landing">
+  <div class="row">
+    <div class="col-md-8 col-md-offset-2">
+      <h2 class="title">Hablemos de Geoatención</h2>
+      <h5 class="description">
+        Geoatención es un sistema que le permite enviar alertas de emergencia y
+        comunicarlas directamente a organismos de atención que tengan incorporado
+        nuestro sistema y que ofrezcan servicio de atención en alguna zona geográfica específica.
+        </br>Garantizando atención inmediata.
+      </h5>
+    </div>
+  </div>
+
+  <div class="features">
     <div class="row">
-      <div class="col-md-6 col-md-offset-3 col-sm-6 col-sm-offset-3 col-xs-12">
-        <img alt="MEAN.JS" class="img-responsive text-center" src="/modules/core/client/img/brand/logo1.png" />
+      <div class="col-md-4">
+        <div class="info">
+          <div class="icon icon-primary">
+            <i class="material-icons">chat</i>
+          </div>
+          <h4 class="info-title">First Feature</h4>
+          <p>Divide details about your product or agency work into parts. Write a few lines about each one. A paragraph describing a feature will be enough.</p>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="info">
+          <div class="icon icon-success">
+            <i class="material-icons">verified_user</i>
+          </div>
+          <h4 class="info-title">Second Feature</h4>
+          <p>Divide details about your product or agency work into parts. Write a few lines about each one. A paragraph describing a feature will be enough.</p>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="info">
+          <div class="icon icon-danger">
+            <i class="material-icons">fingerprint</i>
+          </div>
+          <h4 class="info-title">Third Feature</h4>
+          <p>Divide details about your product or agency work into parts. Write a few lines about each one. A paragraph describing a feature will be enough.</p>
+        </div>
       </div>
     </div>
-    <br>
-    <div class="row">
-      <p class="lead" style="color:white; font-style: italic">
-        Con solo presionar un botón podrá reportar todo tipo de situaciones y recibir asistencia inmediata,
-        <br />
-        siempre estando en contacto con usted
-      </p>
-    </div>
-    <div class="row">
-      <p>
-        <a class="btn btn-primary btn-lg" ui-sref="authentication.signin">Contáctanos</a>
-      </p>
-    </div>
   </div>
-  <div>
-    <h2>Hablemos de Geoatención</h2>
-    <p>
-      Geoatención es un sistema que le permite enviar alertas de
-      emergencia y comunicarlas directamente a organismos de atención
-      que tengan incorporado nuestro sistema y que ofrezcan servicio de
-      atención en alguna zona geográfica específica.
-      Garantizando atención inmediata.
-    </p>
-    <p>Registrate y forma parte de la comunidad de Geoatención</p>
-    <ul>
-      <li>
-        Click
-        <em>Sign Up</em> para dar inicio.
-      </li>
+</div>
 
-      <li>
-        ¿Brindas asistencia, atiendes emergencias y quieres proteger personas?
-        <em>
-          <a  ui-sref="authentication.signup-organism">Click aquí</a>
-        </em>
-      </li>
-      <li>
-        Sistema integrado de emergencia 171 (Ciudad Guayana)
-        <em>
-          <a  ui-sref="authentication.signup-organism">Click aquí</a>
-        </em>
-      </li>
-    </ul>
+<div class="section text-center">
+  <h2 class="title">Recibe asistencia de los servicios </br>que estén afiliados.</h2>
+
+  <div class="team">
+    <div class="row">
+      <div class="col-md-4">
+        <div class="team-player">
+          <img src="modules/core/client/img/brand/bombero.png" alt="Thumbnail Image" class="img-raised img-circle">
+          <h4 class="title">Asistencia bomberil <br />
+
+          </h4>
+          <p class="description"> Puedes consultar nuestro catálogo para saber más detalle sobre los servicios y organismos afiliados <a href="#">links</a>.</p>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="team-player">
+          <img src="modules/core/client/img/brand/policia.png" alt="Thumbnail Image" class="img-raised img-circle">
+          <h4 class="title">Asistencia de seguridad<br />
+
+          </h4>
+          <p class="description"> Puedes consultar nuestro catálogo para saber más detalle sobre los servicios y organismos afiliados <a href="#">links</a>.</p>
+
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="team-player">
+          <img src="modules/core/client/img/brand/salud.png" alt="Thumbnail Image" class="img-raised img-circle">
+          <h4 class="title">Asistencia médica<br />
+
+          </h4>
+          <p class="description"> Puedes consultar nuestro catálogo para saber más detalle sobre los servicios y organismos afiliados <a href="#">links</a>.</p>
+        </div>
+      </div>
+    </div>
   </div>
+
+</div>
+
+
+<div class="section landing-section">
+  <div class="row" id="register">
+    <div class="col-md-8 col-md-offset-2">
+      <h2 class="text-center title">Registrate y forma parte de la comunidad de Geoatención</h2>
+      <h4 class="text-center description">
+        Con Geoatención tienes acceso automático y directo a las empresas y servicios de asistencia donde quiera que estés. Además disminuyes el riesgo de no ser asistido oportunamente  ante una emergencia.
+        </br>¡Únetenos!
+      </h4>
+      <form id="form" class="contact-form">
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group has-info label-floating">
+              <label class="control-label">Nombre</label>
+              <input id="nombre" type="text" class="form-control">
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group has-info label-floating">
+              <label class="control-label">Apellido</label>
+              <input type="text" class="form-control">
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group has-info label-floating">
+              <label class="control-label">Email</label>
+              <input type="email" class="form-control">
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group has-info label-floating datepicker-group">
+              <label class="control-label">Username</label>
+              <input type="text" id="datepicker" class="datepicker form-control" data-date-format="dd-mm-yyyy">
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group has-info label-floating">
+              <label class="control-label">Cédula</label>
+              <input id="cedula" type="text" class="form-control">
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group has-info label-floating">
+              <label class="control-label">País</label>
+              <input type="text" class="form-control">
+            </div>
+          </div>
+        </div>
+        <div class="row">
+
+          <div class="col-md-6">
+            <div class="form-group has-info label-floating">
+              <label class="control-label">Número de teléfono</label>
+              <input type="text" id="telefono" class="form-control">
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group has-info label-floating datepicker-group">
+              <label class="control-label">Fecha de nacimiento</label>
+              <input type="text" id="datepicker" class="datepicker form-control" data-date-format="dd-mm-yyyy">
+            </div>
+          </div>
+        </div>
+        <div class="row">
+
+          <div class="col-md-6">
+            <div class="form-group has-info label-floating">
+              <label class="control-label">Contraseña</label>
+              <input type="password" class="form-control">
+            </div>
+          </div>
+
+
+        <div class="row">
+          <div class="col-md-4 col-md-offset-4 text-center">
+            <button class="btn btn-info btn-raised">
+              Registrarme
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+
+</div>
+
+<div class="section landing-section">
   <div class="row">
-    <div style="text-align: center"  class="col-md-4">
-      <img style=" margin: 5% 30%;" src="/modules/core/client/img/brand/bombero.png" alt="Thumbnail Image" >
-      <h3>Asistencia <strong>bomberil</strong></h3>
-      <p>
-        Puedes consultar nuestro catálogo para saber más detalle sobre los servicios y organismos afiliados
-        <a ui-sref="articles.list">Click aquí</a>
-      </p>
-    </div>
-    <div style="text-align: center"  class="col-md-4">
-      <img style=" margin: 5% 30%;" src="/modules/core/client/img/brand/policia.png" alt="Thumbnail Image" >
-      <h3>Asistencia de <strong> seguridad</strong></h3>
-      <p>
-        Puedes consultar nuestro catálogo para saber más detalle sobre los servicios y organismos afiliados
-        <a target="_blank" href="http://expressjs.com/"> links.</a>
-      </p>
-    </div>
-    <div style="text-align: center" class="col-md-4">
-      <img  style=" margin: 5% 30%;" src="/modules/core/client/img/brand/salud.png" alt="Thumbnail Image" >
-      <h3 >Asistencia <strong> médica</strong></h3>
-      <p>
-        Puedes consultar nuestro catálogo para saber más detalle sobre los servicios y organismos afiliados
-        <a target="_blank" href="http://expressjs.com/"> links.</a>
-      </p>
-    </div>
+    <div class="col-md-8 col-md-offset-2">
+      <h2 class="text-center title">
+        ¿Brindas asistencia, atiendes emergencias y quieres proteger personas?
 
+      </h2>
+      <h4 class="text-center description">
+        Divide details about your product or agency work into parts. Write a few lines about each one and contact us about any further collaboration. We will responde get back to you in a couple of hours.
+        </br>
+        <a ui-sref="authentication.signup-organism">
+          <div class="row">
+            <div class="col-md-4 col-md-offset-4 text-center">
+              <button class="btn btn-info btn-raised">
+                Contáctanos
+              </button>
+            </div>
+          </div>
+        </a>
+      </h4>
+
+    </div>
   </div>
-  <br/>
-  <br/>
-  <br/>
 
-  <br>Únetenos y mantente al tanto...
-  <br>El equipo de Geotención, siempre para usted.
-</section>
+</div>
+<script>
+  $(document).ready(function() {
+    $("#cedula").mask("a-99999999");
+    $("#telefono").mask('(999)999-9999');
+    $('.datepicker').datepicker({
+      weekStart:2
+    });
+
+
+  });
+</script>

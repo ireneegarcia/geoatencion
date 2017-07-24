@@ -7,15 +7,24 @@ module.exports = {
     lib: {
       css: [
         // bower:css
-        'public/lib/bootstrap/dist/css/bootstrap.css',
+        //'public/lib/bootstrap/dist/css/bootstrap.css',
         'public/lib/bootstrap/dist/css/bootstrap-theme.css',
-        'public/lib/angular-ui-notification/dist/angular-ui-notification.css'
+        'public/lib/angular-ui-notification/dist/angular-ui-notification.css',
+        'public/lib/css/bootstrap.min.css',
+        'public/lib/css/material-kit.css',
+        'public/lib/plugins/dataTables/css/dataTables.css',
         // endbower
       ],
       js: [
         // bower:js
         'public/lib/jquery/dist/jquery-1.10.2.min.js',
         'public/lib/jquery/dist/jquery.maskedinput.min.js',
+        'public/lib/js/bootstrap.min.js',
+        'public/lib/js/material.min.js',
+        'public/lib/js/nouislider.min.js',
+        'public/lib/js/bootstrap-datepicker.js',
+        'public/lib/js/material-kit.js',
+        'public/lib/plugins/dataTables/js/jquery.dataTables.js',
         'public/lib/angular/angular.js',
         'public/lib/angular-animate/angular-animate.js',
         'public/lib/angular-bootstrap/ui-bootstrap-tpls.js',
