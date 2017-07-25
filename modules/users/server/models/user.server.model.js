@@ -94,20 +94,20 @@ var UserSchema = new Schema({
   },
 
   phone: {
-    type: Number,
-    trim: true,
+    type: String,
+    //trim: true,
     default: '',
-    validate: [validateLocalStrategyProperty, 'Please fill in your last name']
+    validate: [validateLocalStrategyProperty, 'Por favor introduzca un número de teléfono']
   },
   ci: {
     type: String,
-    trim: true,
+    //trim: true,
     default: '',
     validate: [validateLocalStrategyProperty, 'Please fill in your last name']
   },
   birthday: {
     type: String,
-    trim: true,
+    //trim: true,
     default: ''
     //validate: [validateLocalStrategyProperty, 'Please fill in your last name']
   },
