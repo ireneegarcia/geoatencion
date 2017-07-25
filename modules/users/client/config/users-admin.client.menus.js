@@ -16,7 +16,7 @@
 
     // Add the dropdown list item
     menuService.addSubMenuItem('topbar', 'admin', {
-      title: 'Consultar formularios',
+      title: 'Administrar formularios',
       state: 'formularios.list'
     });
 

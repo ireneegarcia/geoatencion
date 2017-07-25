@@ -1,9 +1,20 @@
 <section style="margin-bottom: 50px">
   <div class="text-center page-header">
-    <h1>Listado de unidades de atención</h1>
+    <div class="row">
+      <div>
+        <h2>Listado de unidades de atención</h2>
+      </div>
+      <div class="form-group has-info label-floating col-md-4" style="margin: 0% 20% 0% 34% ; width: 32.5%">
+
+        <input class="form-control col-md-4"
+               type="text" ng-model="vm.search"
+               placeholder="Buscar"
+               ng-change="vm.figureOutItemsToDisplay()" />
+      </div>
+    </div>
   </div>
   <div style="margin: 0% 20% 0% 20% " class="list-group" >
-    <a ng-repeat="network in vm.networks"
+    <a ng-repeat="network in vm.pagedItems"
        ui-sref="networks.view({ networkId: network._id })"
        class="list-group-item">
 

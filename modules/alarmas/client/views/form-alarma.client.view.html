@@ -1,0 +1,31 @@
+<section>
+  <div class="page-header">
+    <h1>{{vm.alarma._id ? 'Editar tipo de alarma' : 'Nuevo tipo de alarma'}}</h1>
+  </div>
+  <div class="col-md-12">
+    <form name="vm.form.alarmaForm" class="form-horizontal" ng-submit="vm.save(vm.form.alarmaForm.$valid)" novalidate>
+      <fieldset>
+        <div class="form-group has-info label-floating" show-errors>
+          <label class="control-label" for="name">Nombre de la categoría</label>
+          <input name="name" type="text" ng-model="vm.alarma.name" id="name" class="form-control" required>
+          <div ng-messages="vm.form.alarmaForm.name.$error" role="alert">
+            <p class="help-block error-text" ng-message="required">El nombre es necesario</p>
+          </div>
+        </div>
+        <div class="form-group has-info label-floating" show-errors>
+          <label class="control-label" for="photo">Icono de la alarma</label>
+          <input name="photo" type="text" ng-model="vm.alarma.photo" id="photo" class="form-control" required>
+          <div ng-messages="vm.form.alarmaForm.name.$error" role="alert">
+            <p class="help-block error-text" ng-message="required">La foto es necesaria</p>
+          </div>
+        </div>
+        <div class="form-group">
+          <button type="submit" class="btn btn-info btn-raised">{{vm.alarma._id ? 'Actualizar' : 'Crear'}}</button>
+        </div>
+        <div ng-show="vm.error" class="text-danger">
+          <strong ng-bind="vm.error"></strong>
+        </div>
+      </fieldset>
+    </form>
+  </div>
+</section>

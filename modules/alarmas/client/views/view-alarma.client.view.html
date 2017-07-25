@@ -1,0 +1,26 @@
+<section>
+  <div class="page-header">
+    <h1 ng-bind="vm.alarma.name"></h1>
+  </div>
+  <div class="pull-right"
+       ng-show="vm.alarma.isCurrentUserOwner">
+    <a class="btn btn-info btn-raised"
+       ui-sref="alarmas.edit({ alarmaId: vm.alarma._id })">
+      <i class="glyphicon glyphicon-edit"></i>
+    </a>
+    <a class="btn btn-primary" ng-click="vm.remove()">
+      <i class="glyphicon glyphicon-trash"></i>
+    </a>
+  </div>
+  <small>
+    <em class="text-muted">
+      Posted on
+      <span ng-bind="vm.alarma.created | date:'mediumDate'"></span>
+      by
+      <span ng-if="vm.alarma.user"
+            ng-bind="vm.alarma.user.displayName"></span>
+      <span ng-if="!vm.alarma.user">Deleted User</span>
+    </em>
+  </small>
+  <p class="lead" ng-bind="vm.alarma.content"></p>
+</section>
