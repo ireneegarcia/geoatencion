@@ -2,48 +2,38 @@
   <div class="col-xs-offset-1 col-xs-10 col-md-offset-4 col-md-4">
     <form name="vm.userForm" ng-submit="vm.updateUserProfile(vm.userForm.$valid)" class="signin" novalidate autocomplete="off">
       <fieldset>
-        <div class="form-group has-info label-floating" show-errors>
+        <div class="form-group has-info" show-errors>
           <label class="control-label" for="firstName">Nombre</label>
-          <input type="text" id="firstName" name="firstName" class="form-control" ng-model="vm.user.firstName" required autofocus>
+          <input type="text" id="firstName" name="firstName" class="form-control" ng-model="vm.user.firstName" placeholder="First Name" required autofocus>
           <div ng-messages="vm.userForm.firstName.$error" role="alert">
             <p class="help-block error-text" ng-message="required">First name is required.</p>
           </div>
         </div>
-        <div ng-show="vm.user.roles != 'organism'" class="form-group has-info label-floating" show-errors>
+        <div ng-show="vm.user.roles != 'organism'" class="form-group has-info" show-errors>
           <label class="control-label" for="lastName">Apellido</label>
-          <input type="text" id="lastName" name="lastName" class="form-control" ng-model="vm.user.lastName" >
+          <input type="text" id="lastName" name="lastName" class="form-control" ng-model="vm.user.lastName">
           <div ng-messages="vm.userForm.lastName.$error" role="alert">
             <p class="help-block error-text" ng-message="required">Last name is required.</p>
           </div>
         </div>
-        <div class="form-group has-info label-floating" show-errors>
+        <div class="form-group has-info" show-errors>
           <label class="control-label" for="email">Email</label>
-          <input type="email" id="email" name="email" class="form-control" ng-model="vm.user.email"  lowercase required>
+          <input type="email" id="email" name="email" class="form-control" ng-model="vm.user.email" lowercase required>
           <div ng-messages="vm.userForm.email.$error" role="alert">
             <p class="help-block error-text" ng-message="required">Email address is required.</p>
             <p class="help-block error-text" ng-message="email">Email address is invalid.</p>
           </div>
         </div>
-
-        <div class="form-group has-info label-floating" show-errors>
+        <div class="form-group has-info" show-errors>
           <label class="control-label" for="username">Username</label>
-          <input type="text" id="username" name="username" class="form-control" ng-model="vm.user.username" lowercase required>
+          <input type="text" id="username" name="username" class="form-control" ng-model="vm.user.username" placeholder="Username" lowercase required>
           <div ng-messages="vm.userForm.username.$error" role="alert">
             <p class="help-block error-text" ng-message="required">Username is required.</p>
           </div>
         </div>
-
-        <div ng-show="vm.user.roles == 'organism'" class="form-group has-info label-floating" show-errors>
-          <label class="control-label" for="about">Breve descripción del organismo</label>
-          <textarea type="text" id="about" name="about" class="form-control" ng-model="vm.user.about" cols="30" rows="5" placeholder="Indique una breve descripción sobre la empresa y/o los servicios que ofrece" required></textarea>
-          <div ng-messages="vm.userForm.about.$error" role="alert">
-            <p class="help-block error-text" ng-message="required">Es necesario que ofrezca una breve descripción para su ficha dentro del catálogo</p>
-          </div>
-        </div>
-
-        <div ng-show="vm.user.roles == 'organism'" class="form-group has-info label-floating" show-errors>
-          <label class="control-label" for="category">Seleccione una categoría</label>
-          <select id="category" name="category" class="form-control" ng-model="vm.user.category"  required>
+        <div ng-show="vm.user.roles == 'organism'" class="form-group has-info" show-errors>
+          <label class="control-label" for="category">Categoría de servicios</label>
+          <select name="category" id="category" ng-model="vm.user.category" class="form-control">
             <option value="Asistencia bomberil">Asistencia bomberil </option>
             <option value="Asistencia de seguridad">Asistencia de seguridad </option>
             <option value="Asistencia médica">Asistencia médica </option>
@@ -52,13 +42,19 @@
             <option value="Diversas categorías">Diversas categorías </option>
           </select>
           <div ng-messages="vm.userForm.category.$error" role="alert">
-            <p class="help-block error-text" ng-message="required">La categoría es necesaria.</p>
+            <p class="help-block error-text" ng-message="required">Username is required.</p>
           </div>
         </div>
+        <div ng-show="vm.user.roles == 'organism'" class="form-group has-info" show-errors>
+          <label class="control-label" for="about">Breve descripción</label>
+          <textarea id="about" name="about" ng-model="vm.user.about"  class="form-control" cols="30" rows="5" required></textarea>
 
-        <br/>
+          <div ng-messages="vm.userForm.about.$error" role="alert">
+            <p class="help-block error-text" ng-message="required">Username is required.</p>
+          </div>
+        </div>
         <div class="text-center form-group">
-          <button type="submit" class="btn btn-info btn-raised">Guardar cambios</button>
+          <button type="submit" class="btn btn-info">Guardar cambios</button>
         </div>
       </fieldset>
     </form>

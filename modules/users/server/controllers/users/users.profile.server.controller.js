@@ -13,7 +13,8 @@ var _ = require('lodash'),
   User = mongoose.model('User'),
   validator = require('validator');
 
-var whitelistedFields = ['firstName', 'lastName', 'email', 'username'];
+var whitelistedFields_1 = ['firstName', 'lastName', 'email', 'username'];
+var whitelistedFields = ['firstName', 'lastName', 'email', 'username','category','about'];
 
 /**
  * Update user details
@@ -24,7 +25,11 @@ exports.update = function (req, res) {
 
   if (user) {
     // Update whitelisted fields only
-    user = _.extend(user, _.pick(req.body, whitelistedFields));
+    if(user.roles != "organism"){
+      user = _.extend(user, _.pick(req.body, whitelistedFields_1));
+    }else{
+      user = _.extend(user, _.pick(req.body, whitelistedFields));
+    }
 
     user.updated = Date.now();
     user.displayName = user.firstName + ' ' + user.lastName;

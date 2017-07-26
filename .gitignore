@@ -11,8 +11,8 @@ Thumbs.db
 # ==========================
 .nodemonignore
 .sass-cache/
+node_modules/
 
-public/lib/
 app/tests/coverage/
 .bower-*/
 .idea/
