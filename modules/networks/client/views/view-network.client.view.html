@@ -37,7 +37,7 @@
     </tr>
     <tr>
       <th >Responsable</th>
-      <td>{{vm.network.user.displayName ? vm.network.user.displayName : 'No posee'}}</td>
+      <td>{{vm.network.userService ? vm.network.userService:  'No posee'}}</td>
     </tr>
     <tr>
       <th>Status</th>
@@ -59,11 +59,13 @@
   <p class="lead" ng-bind="vm.network.content"></p>
   <div class="pull-right"
        ng-show="vm.network.isCurrentUserOwner">
-    <a class="btn btn-primary"
+    <a class="btn btn-info"
        ui-sref="networks.edit({ networkId: vm.network._id })">
+      Editar
       <i class="glyphicon glyphicon-edit"></i>
     </a>
-    <a class="btn btn-primary" ng-click="vm.remove()">
+    <a class="btn btn-info" ng-click="vm.remove()">
+      Eliminar
       <i class="glyphicon glyphicon-trash"></i>
     </a>
   </div>
