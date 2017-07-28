@@ -19,6 +19,10 @@ var FormularioSchema = new Schema({
   category: {
     type: String,
     default: '',
+    index: {
+      unique: true,
+      sparse: true // For this to work on a previously indexed field, the index must be dropped & the application restarted.
+    },
     required: 'Por favor indique la categoría por defecto para el servicio de la unidad'/*,
      trim: true*/
   },

@@ -13,6 +13,10 @@ var AlarmaSchema = new Schema({
   name: {
     type: String,
     default: '',
+    index: {
+      unique: true,
+      sparse: true // For this to work on a previously indexed field, the index must be dropped & the application restarted.
+    },
     required: 'Please fill Alarma name',
     trim: true
   },

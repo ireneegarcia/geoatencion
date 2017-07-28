@@ -24,7 +24,14 @@ var getUniqueErrorMessage = function (err) {
       begin = err.errmsg.lastIndexOf('index: ') + 7;
     }
     var fieldName = err.errmsg.substring(begin, err.errmsg.lastIndexOf('_1'));
-    output = fieldName.charAt(0).toUpperCase() + fieldName.slice(1) + ' already exists';
+
+    if(fieldName.charAt(0).toUpperCase() + fieldName.slice(1) == 'Category'){
+      output = 'Ya existe un formulario para esta categoría';
+    }else{
+      output = fieldName.charAt(0).toUpperCase() + fieldName.slice(1) + ' ya existe';
+    }
+
+
 
   } catch (ex) {
     output = 'Unique field already exists';

@@ -13,23 +13,25 @@ var _ = require('lodash'),
   User = mongoose.model('User'),
   validator = require('validator');
 
-var whitelistedFields_1 = ['firstName', 'lastName', 'email', 'username'];
-var whitelistedFields = ['firstName', 'lastName', 'email', 'username','category','about'];
+//var whitelistedFields_1 = ['firstName', 'lastName', 'email', 'username'];
+
 
 /**
  * Update user details
  */
 exports.update = function (req, res) {
   // Init Variables
+  var whitelistedFields = ['firstName', 'lastName', 'email', 'username'];
   var user = req.user;
 
   if (user) {
     // Update whitelisted fields only
-    if(user.roles != "organism"){
-      user = _.extend(user, _.pick(req.body, whitelistedFields_1));
-    }else{
-      user = _.extend(user, _.pick(req.body, whitelistedFields));
-    }
+
+     if(user.roles == "organism"){
+      whitelistedFields = ['firstName', 'lastName', 'email', 'username','category','about'];
+     }
+
+    user = _.extend(user, _.pick(req.body, whitelistedFields));
 
     user.updated = Date.now();
     user.displayName = user.firstName + ' ' + user.lastName;
@@ -55,6 +57,7 @@ exports.update = function (req, res) {
     });
   }
 };
+
 
 /**
  * Update profile picture

@@ -30,9 +30,11 @@
           <span ng-if="!vm.article.user">Deleted User</span>
         </em>
       </small>
-      <div class="pull-right">
-        <a ng-show="vm.article._id" class="btn btn-info btn-raised ng-click="vm.traerFormulario()">
-          Enviar solicitud
+      <div class="pull-right" ui-sref-active="active">
+        <a ui-sref="formularios.view({ formularioId: formulario._id })">
+          <button class="btn btn-info btn-raised">
+            Enviar solicitud
+          </button>
         </a>
       </div>
     </fieldset>
