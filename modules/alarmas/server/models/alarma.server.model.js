@@ -10,7 +10,7 @@ var mongoose = require('mongoose'),
  * Alarma Schema
  */
 var AlarmaSchema = new Schema({
-  name: {
+  category: {
     type: String,
     default: '',
     index: {

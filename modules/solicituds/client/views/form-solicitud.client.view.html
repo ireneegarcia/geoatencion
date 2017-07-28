@@ -1,0 +1,65 @@
+<section>
+  <div class="page-header">
+    <h1>{{vm.solicitud._id ? 'Editar solicitud de afiiación' : 'Solicitud de afiliación'}}</h1>
+  </div>
+  <div class="col-md-12">
+    <form name="vm.form.solicitudForm" class="form-horizontal" ng-submit="vm.save(vm.form.solicitudForm.$valid)" novalidate>
+      <fieldset>
+
+        <div class="form-group has-info label-floating" style="width: 100%" show-errors>
+          <label class="control-label" for="category">Organismo de atención</label>
+          <input style="color: #8c8c8c" name="category" type="text" ng-model="vm.solicitud.category" id="category" class="form-control"  required>
+          <div ng-messages="vm.form.solicitudForm.category.$error" role="alert">
+            <p class="help-block error-text" ng-message="required">Es necesario que introduzca al menos una pregunta. </p>
+          </div>
+        </div>
+
+        <div class="form-group has-info label-floating" style="width: 100%" show-errors>
+          <label class="control-label" for="category">Categoría de atención</label>
+          <input disabled style="color: #8c8c8c" name="category" type="text" ng-model="vm.solicitud.category" id="category" class="form-control"  required>
+          <div ng-messages="vm.form.solicitudForm.category.$error" role="alert">
+            <p class="help-block error-text" ng-message="required">Es necesario que introduzca al menos una pregunta. </p>
+          </div>
+        </div>
+
+        <div class="form-group has-info label-floating" style="width: 100%" show-errors>
+          <label class="control-label" for="question1">Pregunta #1</label>
+          <input name="question1" type="text" ng-model="vm.solicitud.question1" id="question1" class="form-control"  required>
+          <div ng-messages="vm.form.solicitudForm.question1.$error" role="alert">
+            <p class="help-block error-text" ng-message="required">Es necesario que introduzca al menos una pregunta. </p>
+          </div>
+        </div>
+
+        <div class="form-group has-info label-floating" style="width: 100%" show-errors>
+          <label class="control-label" for="question2">Pregunta #2</label>
+          <input name="question2" type="text" ng-model="vm.solicitud.question2" id="question2" class="form-control"  >
+          <div ng-messages="vm.form.solicitudForm.question2.$error" role="alert">
+            <p class="help-block error-text" ng-message="required">Es necesario que introduzca al menos una pregunta. </p>
+          </div>
+        </div>
+
+        <div class="form-group has-info label-floating" style="width: 100%" show-errors>
+          <label class="control-label" for="question3">Pregunta #3</label>
+          <input  name="question3" type="text" ng-model="vm.solicitud.question3" id="question3" class="form-control"  >
+          <div ng-messages="vm.form.solicitudForm.question3.$error" role="alert">
+            <p class="help-block error-text" ng-message="required">Es necesario que introduzca al menos una pregunta. </p>
+          </div>
+        </div>
+
+        <div class="form-group has-info label-floating" style="width: 100%" show-errors>
+          <label class="control-label" for="question4">Pregunta #4</label>
+          <input  name="question4" type="text" ng-model="vm.solicitud.question4" id="question4" class="form-control" >
+          <div ng-messages="vm.form.solicitudForm.question4.$error" role="alert">
+            <p class="help-block error-text" ng-message="required">Es necesario que introduzca al menos una pregunta. </p>
+          </div>
+        </div>
+        <div class="form-group">
+          <button type="submit" class="btn btn-info">{{vm.solicitud._id ? 'Actualizar solicitud' : 'Guardar solicitud'}}</button>
+        </div>
+        <div ng-show="vm.error" class="text-danger">
+          <strong ng-bind="vm.error"></strong>
+        </div>
+      </fieldset>
+    </form>
+  </div>
+</section>

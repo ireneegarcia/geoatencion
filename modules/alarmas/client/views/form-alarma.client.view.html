@@ -7,9 +7,9 @@
     <form name="vm.form.alarmaForm" class="form-horizontal" ng-submit="vm.save(vm.form.alarmaForm.$valid)" novalidate>
       <fieldset>
         <div class="form-group has-info label-floating" show-errors>
-          <label class="control-label" for="name">Nombre de la categoría</label>
-          <input name="name" type="text" ng-model="vm.alarma.name" id="name" class="form-control" required>
-          <div ng-messages="vm.form.alarmaForm.name.$error" role="alert">
+          <label class="control-label" for="category">Nombre de la categoría</label>
+          <input name="category" type="text" ng-model="vm.alarma.category" id="category" class="form-control" required>
+          <div ng-messages="vm.form.alarmaForm.category.$error" role="alert">
             <p class="help-block error-text" ng-message="required">El nombre es necesario</p>
           </div>
         </div>
