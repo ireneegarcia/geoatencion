@@ -30,7 +30,7 @@ exports.invokeRolesPolicies = function () {
       resources: '/api/panels/:panelId',
       permissions: ['get']
     }]
-  },{
+  }, {
     roles: ['organism'],
     allows: [{
       resources: '/api/panels',

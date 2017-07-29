@@ -23,14 +23,14 @@ var ArticleSchema = new Schema({
   about: {
     type: String,
     default: '',
-    //trim: true,
+    // trim: true,
     required: 'La descripción no puede quedar en blanco'
   },
   category: {
     type: String,
     default: '',
-    required: 'Por favor indique la categoría por defecto para el servicio de la unidad'/*,
-     trim: true*/
+    required: 'Por favor indique la categoría por defecto para el servicio de la unidad',
+    // trim: true
   },
   user: {
     type: Schema.ObjectId,

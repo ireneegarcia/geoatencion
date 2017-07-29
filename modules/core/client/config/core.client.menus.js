@@ -16,7 +16,7 @@
       title: '',
       state: 'settings',
       type: 'dropdown',
-      roles: ['user','organism']
+      roles: ['user', 'organism']
     });
 
     menuService.addSubMenuItem('account', 'settings', {
@@ -34,7 +34,7 @@
       state: 'settings.password'
     });
 
-    /*menuService.addSubMenuItem('account', 'settings', {
+    /* menuService.addSubMenuItem('account', 'settings', {
       title: 'Manage Social Accounts',
       state: 'settings.accounts'
     });*/

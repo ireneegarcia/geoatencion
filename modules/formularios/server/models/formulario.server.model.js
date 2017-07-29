@@ -23,32 +23,32 @@ var FormularioSchema = new Schema({
       unique: true,
       sparse: true // For this to work on a previously indexed field, the index must be dropped & the application restarted.
     },
-    required: 'Por favor indique la categoría por defecto para el servicio de la unidad'/*,
-     trim: true*/
+    required: 'Por favor indique la categoría por defecto para el servicio de la unidad',
+     // trim: true
   },
   question1: {
     type: String,
     default: '',
-    required: 'Please fill Formulario name'
+    required: 'Please fill Formulario name',
     //trim: true
   },
   question2: {
     type: String,
-    default: ''/*,
-    required: 'Please fill Formulario name'
-    trim: true*/
+    default: '',
+    // required: 'Please fill Formulario name'
+    // trim: true
   },
   question3: {
     type: String,
-    default: ''/*,
-    required: 'Please fill Formulario name'
-    trim: true*/
+    default: '',
+    // required: 'Please fill Formulario name',
+    // trim: true
   },
   question4: {
     type: String,
-    default: ''/*,
-    required: 'Please fill Formulario name'
-    trim: true*/
+    default: '',
+    // required: 'Please fill Formulario name',
+    // trim: true
   },
   created: {
     type: Date,

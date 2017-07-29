@@ -61,7 +61,7 @@ var UserSchema = new Schema({
     type: String,
     trim: true,
     default: ''
-    //validate: [validateLocalStrategyProperty, 'Please fill in your last name']
+    // validate: [validateLocalStrategyProperty, 'Please fill in your last name']
   },
   displayName: {
     type: String,
@@ -95,33 +95,33 @@ var UserSchema = new Schema({
 
   phone: {
     type: String,
-    //trim: true,
+    // trim: true,
     default: '',
     validate: [validateLocalStrategyProperty, 'Por favor introduzca un número de teléfono']
   },
   ci: {
     type: String,
-    //trim: true,
+    // trim: true,
     default: '',
     validate: [validateLocalStrategyProperty, 'Please fill in your last name']
   },
   birthday: {
     type: String,
-    //trim: true,
+    // trim: true,
     default: ''
-    //validate: [validateLocalStrategyProperty, 'Please fill in your last name']
+    // validate: [validateLocalStrategyProperty, 'Please fill in your last name']
   },
   about: {
     type: String,
-    //trim: true,
+    // trim: true,
     default: ''
-   // validate: [validateLocalStrategyProperty, 'Please fill in your last name']
+    // validate: [validateLocalStrategyProperty, 'Please fill in your last name']
   },
   category: {
     type: String,
     default: ''
-    /*required: 'Por favor indique la categoría de servicios',
-     trim: true*/
+    // required: 'Por favor indique la categoría de servicios',
+    //  trim: true
   },
   password: {
     type: String,
@@ -143,8 +143,8 @@ var UserSchema = new Schema({
   roles: {
     type: [{
       type: String,
-      enum: ['user', 'admin','organism','operator']
-      /***
+      enum: ['user', 'admin', 'organism', 'operator']
+      /**
        * Roles:
        * user -> Cliente
        * admin -> Administrador del sistema, personal de xpectra
@@ -153,8 +153,7 @@ var UserSchema = new Schema({
        * operator -> Operador del panel
        * serviceUser -> Responsable de la unidad de atención
        * organism -> organismos de seguridad
-       * ***/
-
+       * **/
     }],
     default: ['user'],
     required: 'Please provide at least one role'
@@ -167,7 +166,7 @@ var UserSchema = new Schema({
     default: Date.now
   },
   user: {
-  type: Schema.ObjectId,
+    type: Schema.ObjectId,
     ref: 'User'
   },
   /* For reset password */
@@ -247,10 +246,10 @@ UserSchema.statics.findUniqueUsername = function (username, suffix, callback) {
 };
 
 /**
-* Generates a random passphrase that passes the owasp test
-* Returns a promise that resolves with the generated passphrase, or rejects with an error if something goes wrong.
-* NOTE: Passphrases are only tested against the required owasp strength tests, and not the optional tests.
-*/
+ * Generates a random passphrase that passes the owasp test
+ * Returns a promise that resolves with the generated passphrase, or rejects with an error if something goes wrong.
+ * NOTE: Passphrases are only tested against the required owasp strength tests, and not the optional tests.
+ */
 UserSchema.statics.generateRandomPassphrase = function () {
   return new Promise(function (resolve, reject) {
     var password = '';

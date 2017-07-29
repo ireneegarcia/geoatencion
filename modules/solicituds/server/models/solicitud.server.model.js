@@ -21,26 +21,26 @@ var SolicitudSchema = new Schema({
   question1: {
     type: String,
     default: '',
-    required: 'Please fill Formulario name'
-    //trim: true
+    required: 'Please fill Formulario name',
+    // trim: true
   },
   question2: {
     type: String,
-    default: ''/*,
-     required: 'Please fill Formulario name'
-     trim: true*/
+    default: '',
+     // required: 'Please fill Formulario name',
+     // trim: true
   },
   question3: {
     type: String,
-    default: ''/*,
-     required: 'Please fill Formulario name'
-     trim: true*/
+    default: '',
+     // required: 'Please fill Formulario name',
+     // trim: true
   },
   question4: {
     type: String,
-    default: ''/*,
-     required: 'Please fill Formulario name'
-     trim: true*/
+    default: '',
+     // required: 'Please fill Formulario name',
+     // trim: true
   },
   created: {
     type: Date,

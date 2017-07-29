@@ -9,7 +9,7 @@
 
   function menuConfig(menuService) {
     // Set top bar menu items
-    /*menuService.addMenuItem('topbar', {
+    /* menuService.addMenuItem('topbar', {
       title: 'Formularios',
       state: 'formularios',
       type: 'dropdown',

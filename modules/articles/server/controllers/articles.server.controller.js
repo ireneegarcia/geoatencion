@@ -47,7 +47,7 @@ exports.update = function (req, res) {
   var article = req.article;
 
   article.name = req.body.name;
-  article.category= req.body.category;
+  article.category = req.body.category;
   article.about = req.body.about;
 
   article.save(function (err) {

@@ -13,7 +13,7 @@ var path = require('path'),
 // URLs for which user can't be redirected on signin
 var noReturnUrls = [
   '/authentication/signin',
-  //'/authentication/signup-organism',
+  // '/authentication/signup-organism',
   '/authentication/signup'
 ];
 
@@ -42,9 +42,9 @@ exports.signup = function (req, res) {
       user.password = undefined;
       user.salt = undefined;
 
-      if(user.user){
+      if (user.user) {
         res.json(user);
-      }else{
+      } else {
         req.login(user, function (err) {
           if (err) {
             res.status(400).send(err);

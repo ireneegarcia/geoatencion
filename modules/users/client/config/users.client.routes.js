@@ -18,7 +18,7 @@
         controller: 'SettingsController',
         controllerAs: 'vm',
         data: {
-          roles: ['user', 'admin','organism']
+          roles: ['user', 'admin', 'organism']
         }
       })
       .state('settings.profile', {
@@ -82,7 +82,7 @@
           pageTitle: 'Signup'
         }
       })
-      /*.state('authentication.operator', {
+      /* .state('authentication.operator', {
         url: '/signup-operator',
         templateUrl: '/modules/users/client/views/authentication/signup.operator.view.html',
         controller: 'AuthenticationController',
