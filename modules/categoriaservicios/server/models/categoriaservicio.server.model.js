@@ -20,9 +20,9 @@ var CategoriaservicioSchema = new Schema({
     required: 'Por favor introduzca el nombre de la categoria de servicio',
     trim: true
   },
-  icon: {
+  iconUrl: {
     type: String,
-    default: 'modules/users/client/img/profile/default.png'
+    default: './modules/users/client/img/profile/default.png'
   },
   created: {
     type: Date,
