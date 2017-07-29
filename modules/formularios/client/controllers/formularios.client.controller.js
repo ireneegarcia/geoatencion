@@ -6,9 +6,9 @@
     .module('formularios')
     .controller('FormulariosController', FormulariosController);
 
-  FormulariosController.$inject = ['$scope', '$state', '$window', 'Authentication', 'formularioResolve'];
+  FormulariosController.$inject = ['$scope', '$state', '$window', 'Authentication', 'formularioResolve', 'CategoriaserviciosService'];
 
-  function FormulariosController ($scope, $state, $window, Authentication, formulario) {
+  function FormulariosController ($scope, $state, $window, Authentication, formulario, CategoriaserviciosService) {
     var vm = this;
 
     vm.authentication = Authentication;
@@ -25,6 +25,13 @@
       {id: 5, name: 'Otra categoría'},
       {id: 6, name: 'Diversas categorías'},
     ];
+
+    CategoriaserviciosService.query({}).$promise.then(function (res) {
+      vm.categories = [];
+      res.forEach(function(cathegory) {
+        vm.categories.push({id: cathegory._id, name: cathegory.category});
+      });
+    });
 
     // Remove existing Formulario
     function remove() {

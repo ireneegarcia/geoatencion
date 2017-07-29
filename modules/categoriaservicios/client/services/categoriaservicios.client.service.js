@@ -12,6 +12,10 @@
     return $resource('/api/categoriaservicios/:categoriaservicioId', {
       categoriaservicioId: '@_id'
     }, {
+      query: {
+        method: 'GET',
+        isArray: true
+      },
       update: {
         method: 'PUT'
       }
