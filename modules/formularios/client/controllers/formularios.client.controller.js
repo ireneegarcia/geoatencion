@@ -17,6 +17,14 @@
     vm.form = {};
     vm.remove = remove;
     vm.save = save;
+    vm.categories = [
+      {id: 1, name: 'Asistencia bomberil'},
+      {id: 2, name: 'Asistencia de seguridad'},
+      {id: 3, name: 'Asistencia médica'},
+      {id: 4, name: 'Todas las anteriores'},
+      {id: 5, name: 'Otra categoría'},
+      {id: 6, name: 'Diversas categorías'},
+    ];
 
     // Remove existing Formulario
     function remove() {
