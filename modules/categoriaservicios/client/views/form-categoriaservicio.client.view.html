@@ -13,11 +13,18 @@
           </div>
         </div>
         <div class="form-group has-info " show-errors>
-          <label class="control-label"  for="icon">icono de la categoría</label>
-          <input name="icon" type="text" ng-model="vm.categoriaservicio.icon" id="icon" class="form-control" required>
+          <!--<label class="control-label"  for="icon">icono de la categoría</label>-->
+          <!--<input name="icon" type="text" ng-model="vm.categoriaservicio.icon" id="icon" class="form-control" required>-->
+          <button class="btn btn-info btn-raised btn-file" ngf-select="(vm.fileSelected = true) && (vm.loading = false)" ng-model="picFile" accept="image/*" ngf-before-model-change="vm.loading = true" ngf-resize="{width: 400}" ngf-resize-if="$width > 400 || $height > 400">Seleccionar icono</button>
           <div ng-messages="vm.form.categoriaservicioForm.icon.$error" role="alert">
             <p class="help-block error-text" ng-message="required">El icono es necesario.</p>
           </div>
+        </div>
+        <div ng-show="vm.loading" class="form-group text-center">
+          <img ng-src="/modules/core/client/img/loaders/loader.gif" height="50" width="50" alt="Loading image...">
+        </div>
+        <div ng-show="vm.fileSelected" class="form-group text-center">
+          <img ngf-src="vm.fileSelected ? picFile : '/' + vm.categoriaservicio.iconURL" class="img-thumbnail user-profile-picture" ngf-drop>
         </div>
         <div class="form-group">
           <button type="submit" class="btn btn-info">{{vm.categoriaservicio._id ? 'Update' : 'Create'}}</button>

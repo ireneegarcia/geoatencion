@@ -15,6 +15,8 @@
     vm.categoriaservicio = categoriaservicio;
     vm.error = null;
     vm.form = {};
+    vm.fileSelected = false;
+    vm.loading = false;
     vm.remove = remove;
     vm.save = save;
 
