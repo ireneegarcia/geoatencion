@@ -29,7 +29,9 @@
       }).then(function (res) {
         vm.fileSelected = false;
         vm.loading = false;
-        vm.categoriaservicio = res.data;
+        $state.go('categoriaservicios.view', {
+          categoriaservicioId: res.data._id
+        });
       }, function (res) {
         vm.error = res.data.message;
       }, function (evt) {
