@@ -170,16 +170,20 @@ exports.setIcon = function (req, res) {
     return new Promise(function (resolve, reject) {
       var existingIconUrl = categoriaservicio.iconUrl;
       if (existingIconUrl !== Categoriaservicio.schema.path('iconUrl').defaultValue) {
-        fs.unlink(existingIconUrl, function (unlinkError) {
-          if (unlinkError) {
-            console.log(unlinkError);
-            reject({
-              message: 'Error occurred while deleting old profile picture'
-            });
-          } else {
-            resolve();
-          }
-        });
+        if (fs.existsSync(existingIconUrl)) {
+          fs.unlink(existingIconUrl, function (unlinkError) {
+            if (unlinkError) {
+              console.log(unlinkError);
+              reject({
+                message: 'Error occurred while deleting old profile picture'
+              });
+            } else {
+              resolve();
+            }
+          });
+        } else {
+          resolve();
+        }
       } else {
         resolve();
       }
