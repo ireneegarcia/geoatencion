@@ -36,6 +36,14 @@ module.exports = {
           fileSize: 100000 // Limit filesize (100kb) for testing purposes
         }
       }
+    },
+    category: {
+      image: {
+        dest: './modules/categoriaservicios/client/img/icon/uploads/',
+        limits: {
+          fileSize: 100000 // Limit filesize (100kb) for testing purposes
+        }
+      }
     }
   },
   facebook: {

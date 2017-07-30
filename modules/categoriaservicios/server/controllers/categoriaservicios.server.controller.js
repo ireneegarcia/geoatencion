@@ -7,6 +7,9 @@ var path = require('path'),
   mongoose = require('mongoose'),
   Categoriaservicio = mongoose.model('Categoriaservicio'),
   errorHandler = require(path.resolve('./modules/core/server/controllers/errors.server.controller')),
+  config = require(path.resolve('./config/config')),
+  multer = require('multer'),
+  fs = require('fs'),
   _ = require('lodash');
 
 /**
@@ -114,4 +117,72 @@ exports.categoriaservicioByID = function(req, res, next, id) {
     req.categoriaservicio = categoriaservicio;
     next();
   });
+};
+
+/**
+ * Set icon Categoriaservicio
+ */
+exports.setIcon = function (req, res) {
+  var categoriaservicioId = req.params.categoriaservicioId;
+  var categoriaservicio = req.categoriaservicio;
+
+  // Filtering to upload only images
+  var multerConfig = config.uploads.category.image;
+  multerConfig.fileFilter = require(path.resolve('./config/lib/multer')).imageFileFilter;
+  var upload = multer(multerConfig).single('newIconPicture');
+
+  uploadImage()
+    .then(deleteOldImage)
+    .then(updateCategory)
+    .then(function() {
+      res.json(categoriaservicio);
+    })
+    .catch(function (err) {
+      res.status(422).send(err);
+    });
+
+  function uploadImage () {
+    return new Promise(function (resolve, reject) {
+      upload(req, res, function (uploadError) {
+        if (uploadError) {
+          reject(errorHandler.getErrorMessage(uploadError));
+        } else {
+          resolve();
+        }
+      });
+    });
+  }
+
+  function updateCategory () {
+    return new Promise(function (resolve, reject) {
+      categoriaservicio.iconUrl = config.uploads.category.image.dest + req.file.filename;
+      categoriaservicio.save(function (err, response) {
+        if (err) {
+          reject(err);
+        } else {
+          resolve();
+        }
+      });
+    });
+  }
+
+  function deleteOldImage () {
+    return new Promise(function (resolve, reject) {
+      var existingIconUrl = categoriaservicio.iconUrl;
+      if (existingIconUrl !== Categoriaservicio.schema.path('iconUrl').defaultValue) {
+        fs.unlink(existingIconUrl, function (unlinkError) {
+          if (unlinkError) {
+            console.log(unlinkError);
+            reject({
+              message: 'Error occurred while deleting old profile picture'
+            });
+          } else {
+            resolve();
+          }
+        });
+      } else {
+        resolve();
+      }
+    });
+  }
 };

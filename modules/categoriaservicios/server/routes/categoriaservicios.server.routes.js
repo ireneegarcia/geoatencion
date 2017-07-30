@@ -15,7 +15,8 @@ module.exports = function(app) {
   app.route('/api/categoriaservicios/:categoriaservicioId').all(categoriaserviciosPolicy.isAllowed)
     .get(categoriaservicios.read)
     .put(categoriaservicios.update)
-    .delete(categoriaservicios.delete);
+    .delete(categoriaservicios.delete)
+    .post(categoriaservicios.setIcon);
 
   // Finish by binding the Categoriaservicio middleware
   app.param('categoriaservicioId', categoriaservicios.categoriaservicioByID);

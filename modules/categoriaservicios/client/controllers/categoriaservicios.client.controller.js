@@ -6,9 +6,9 @@
     .module('categoriaservicios')
     .controller('CategoriaserviciosController', CategoriaserviciosController);
 
-  CategoriaserviciosController.$inject = ['$scope', '$state', '$window', 'Authentication', 'categoriaservicioResolve'];
+  CategoriaserviciosController.$inject = ['$scope', '$state', '$window', 'Authentication', 'categoriaservicioResolve', 'Upload'];
 
-  function CategoriaserviciosController ($scope, $state, $window, Authentication, categoriaservicio) {
+  function CategoriaserviciosController ($scope, $state, $window, Authentication, categoriaservicio, Upload) {
     var vm = this;
 
     vm.authentication = Authentication;
@@ -19,6 +19,23 @@
     vm.loading = false;
     vm.remove = remove;
     vm.save = save;
+
+    vm.uploadIcon = function (dataUrl, id) {
+      Upload.upload({
+        url: '/api/categoriaservicios/' + id,
+        data: {
+          newIconPicture: dataUrl
+        }
+      }).then(function (res) {
+        vm.fileSelected = false;
+        vm.loading = false;
+        vm.categoriaservicio = res.data;
+      }, function (res) {
+        vm.error = res.data.message;
+      }, function (evt) {
+        vm.progress = parseInt(100.0 * evt.loaded / evt.total, 10);
+      });
+    };
 
     // Remove existing Categoriaservicio
     function remove() {
@@ -42,9 +59,13 @@
       }
 
       function successCallback(res) {
-        $state.go('categoriaservicios.view', {
-          categoriaservicioId: res._id
-        });
+        if (vm.fileSelected) {
+          vm.uploadIcon(vm.picFile, res._id);
+        } else {
+          $state.go('categoriaservicios.view', {
+            categoriaservicioId: res._id
+          });
+        }
       }
 
       function errorCallback(res) {

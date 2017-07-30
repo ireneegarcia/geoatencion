@@ -22,7 +22,7 @@ var CategoriaservicioSchema = new Schema({
   },
   iconUrl: {
     type: String,
-    default: './modules/users/client/img/profile/default.png'
+    default: './modules/categoriaservicios/client/img/icon/default.png'
   },
   created: {
     type: Date,
