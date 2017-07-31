@@ -5,9 +5,9 @@
     .module('articles.admin')
     .controller('ArticlesAdminController', ArticlesAdminController);
 
-  ArticlesAdminController.$inject = ['$scope', '$state', '$window', 'articleResolve', 'Authentication', 'Notification'];
+  ArticlesAdminController.$inject = ['$scope', '$state', '$window', 'articleResolve', 'Authentication', 'Notification','CategoriaserviciosService'];
 
-  function ArticlesAdminController($scope, $state, $window, article, Authentication, Notification) {
+  function ArticlesAdminController($scope, $state, $window, article, Authentication, Notification, CategoriaserviciosService) {
     var vm = this;
 
     vm.article = article;
@@ -15,6 +15,21 @@
     vm.form = {};
     vm.remove = remove;
     vm.save = save;
+    vm.categories = [
+      {id: 1, name: 'Asistencia bomberil'},
+      {id: 2, name: 'Asistencia de seguridad'},
+      {id: 3, name: 'Asistencia médica'},
+      {id: 4, name: 'Todas las anteriores'},
+      {id: 5, name: 'Otra categoría'},
+      {id: 6, name: 'Diversas categorías'},
+    ];
+
+    CategoriaserviciosService.query({}).$promise.then(function (res) {
+      vm.categories = [];
+      res.forEach(function(cathegory) {
+        vm.categories.push({id: cathegory._id, name: cathegory.category});
+      });
+    });
 
     // Remove existing Article
     function remove() {

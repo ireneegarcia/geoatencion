@@ -31,10 +31,10 @@ exports.invokeRolesPolicies = function () {
       permissions: ['get']
     }]
   }, {
-    roles: ['guest'],
+    roles: ['organism'],
     allows: [{
       resources: '/api/categoriaservicios',
-      permissions: ['get']
+      permissions: ['get', 'post']
     }, {
       resources: '/api/categoriaservicios/:categoriaservicioId',
       permissions: ['get']

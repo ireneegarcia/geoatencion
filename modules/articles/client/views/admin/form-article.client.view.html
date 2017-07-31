@@ -22,12 +22,7 @@
         <div class="form-group has-info label-floating" show-errors>
           <label class="control-label" for="category">Seleccione una categoría</label>
           <select name="category" id="category" ng-model="vm.article.category" class="form-control" required>
-            <option value="Asistencia bomberil">Asistencia bomberil </option>
-            <option value="Asistencia de seguridad">Asistencia de seguridad </option>
-            <option value="Asistencia médica">Asistencia médica </option>
-            <option value="Todas las anteriores">Todas las anteriores </option>
-            <option value="Otra categoría">Otra categoría </option>
-            <option value="Diversas categorías">Diversas categorías </option>
+            <option ng-repeat="option in vm.categories" value="{{option.id}}">{{option.name}}</option>
           </select>
           <div ng-messages="vm.form.articleForm.category.$error" role="alert">
             <p class="help-block error-text" ng-message="required">La categoría es necesaria.</p>

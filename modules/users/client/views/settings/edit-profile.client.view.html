@@ -34,12 +34,7 @@
         <div ng-show="vm.user.roles == 'organism'" class="form-group has-info" show-errors>
           <label class="control-label" for="category">Categoría de servicios</label>
           <select name="category" id="category" ng-model="vm.user.category" class="form-control">
-            <option value="Asistencia bomberil">Asistencia bomberil </option>
-            <option value="Asistencia de seguridad">Asistencia de seguridad </option>
-            <option value="Asistencia médica">Asistencia médica </option>
-            <option value="Todas las anteriores">Todas las anteriores </option>
-            <option value="Otra categoría">Otra categoría </option>
-            <option value="Diversas categorías">Diversas categorías </option>
+            <option ng-repeat="option in vm.categories" value="{{option.id}}">{{option.name}}</option>
           </select>
           <div ng-messages="vm.userForm.category.$error" role="alert">
             <p class="help-block error-text" ng-message="required">Username is required.</p>
@@ -50,11 +45,11 @@
           <textarea id="about" name="about" ng-model="vm.user.about"  class="form-control" cols="30" rows="5" required></textarea>
 
           <div ng-messages="vm.userForm.about.$error" role="alert">
-            <p class="help-block error-text" ng-message="required">Username is required.</p>
+            <p class="help-block error-text" ng-message="required">Introduzca una breve descripcion sobre su empresa y/o servicios</p>
           </div>
         </div>
         <div class="text-center form-group">
-          <button type="submit" class="btn btn-primary">Guardar cambios</button>
+          <button type="submit" class="btn btn-info">Guardar cambios</button>
         </div>
       </fieldset>
     </form>

@@ -5,14 +5,29 @@
     .module('networks')
     .controller('NetworksListController', NetworksListController);
 
-  NetworksListController.$inject = ['NetworksService', '$filter'];
+  NetworksListController.$inject = ['NetworksService', '$filter', 'CategoriaserviciosService'];
 
-  function NetworksListController(NetworksService, $filter) {
+  function NetworksListController(NetworksService, $filter, CategoriaserviciosService) {
     var vm = this;
 
     vm.buildPager = buildPager;
     vm.figureOutItemsToDisplay = figureOutItemsToDisplay;
     vm.pageChanged = pageChanged;
+    vm.categories = [
+      {id: 1, name: 'Asistencia bomberil'},
+      {id: 2, name: 'Asistencia de seguridad'},
+      {id: 3, name: 'Asistencia médica'},
+      {id: 4, name: 'Todas las anteriores'},
+      {id: 5, name: 'Otra categoría'},
+      {id: 6, name: 'Diversas categorías'},
+    ];
+
+    CategoriaserviciosService.query({}).$promise.then(function (res) {
+      vm.categories = [];
+      res.forEach(function(cathegory) {
+        vm.categories.push({id: cathegory._id, name: cathegory.category});
+      });
+    });
 
     vm.networks = NetworksService.query(function (data) {
       vm.networks = data;

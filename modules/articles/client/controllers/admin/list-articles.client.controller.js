@@ -5,11 +5,26 @@
     .module('articles.admin')
     .controller('ArticlesAdminListController', ArticlesAdminListController);
 
-  ArticlesAdminListController.$inject = ['ArticlesService', '$filter', 'AdminService'];
+  ArticlesAdminListController.$inject = ['ArticlesService', '$filter', 'AdminService','CategoriaserviciosService'];
 
-  function ArticlesAdminListController(ArticlesService, $filter) {
+  function ArticlesAdminListController(ArticlesService, $filter, CategoriaserviciosService) {
     var vm = this;
 
+    vm.categories = [
+      {id: 1, name: 'Asistencia bomberil'},
+      {id: 2, name: 'Asistencia de seguridad'},
+      {id: 3, name: 'Asistencia médica'},
+      {id: 4, name: 'Todas las anteriores'},
+      {id: 5, name: 'Otra categoría'},
+      {id: 6, name: 'Diversas categorías'}
+    ];
+
+    CategoriaserviciosService.query({}).$promise.then(function (res) {
+      vm.categories = [];
+      res.forEach(function(cathegory) {
+        vm.categories.push({id: cathegory._id, name: cathegory.category});
+      });
+    });
 
     vm.buildPager = buildPager;
     vm.figureOutItemsToDisplay = figureOutItemsToDisplay;

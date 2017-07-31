@@ -33,7 +33,7 @@
     </tr>
     <tr>
       <th >Categoría</th>
-      <td ng-bind="vm.network.category"></td>
+      <td  ng-repeat="option in vm.categories" ng-if="vm.network.category === option.id">{{option.name}}</td>
     </tr>
     <tr>
       <th >Responsable</th>
