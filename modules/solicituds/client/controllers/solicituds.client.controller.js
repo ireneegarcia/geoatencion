@@ -6,9 +6,9 @@
     .module('solicituds')
     .controller('SolicitudsController', SolicitudsController);
 
-  SolicitudsController.$inject = ['$scope', '$state', '$window', 'Authentication', 'solicitudResolve'];
+  SolicitudsController.$inject = ['$scope', '$filter', '$state', '$window', 'Authentication', 'solicitudResolve', 'CategoriaserviciosService', 'ArticlesService'];
 
-  function SolicitudsController ($scope, $state, $window, Authentication, solicitud) {
+  function SolicitudsController ($scope, $filter, $state, $window, Authentication, solicitud, CategoriaserviciosService, ArticlesService) {
     var vm = this;
 
     vm.authentication = Authentication;
@@ -17,6 +17,40 @@
     vm.form = {};
     vm.remove = remove;
     vm.save = save;
+
+
+    CategoriaserviciosService.query({}).$promise.then(function (res) {
+      vm.categories = [];
+      res.forEach(function(cathegory) {
+        vm.categories.push({id: cathegory._id, name: cathegory.category});
+      });
+    });
+
+    ArticlesService.query({}).$promise.then(function (res) {
+      vm.organism = [];
+      res.forEach(function(organisms) {
+        vm.organism.push({id: organisms._id, name: organisms.name, category: organisms.category});
+      });
+    });
+
+    //Coloca la categoria de acuerdo al organismo
+    $scope.putCategory = function(organism) {
+
+      vm.categoria_organismo = [];
+
+      for (var i=0;i<vm.categories.length;i++) {
+        if (organism.category === vm.categories[i].id) {
+          vm.categoria_organismo.push({id: vm.categories[i].id, name: vm.categories[i].name});
+        }
+      }
+
+        //$scope.thing = $filter('filter')(vm.categories, { id: organism.category});
+    };
+
+    //Coloca las preguntas de acuerdo a la categoria
+    $scope.putQuestion = function () {
+
+    };
 
     // Remove existing Solicitud
     function remove() {

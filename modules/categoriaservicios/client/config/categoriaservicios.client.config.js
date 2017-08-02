@@ -13,7 +13,7 @@
       title: 'Categoria servicios',
       state: 'categoriaservicios',
       type: 'dropdown',
-      roles: ['*']
+      roles: ['admin']
     });
 
     // Add the dropdown list item

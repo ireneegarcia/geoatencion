@@ -11,6 +11,10 @@
     var Article = $resource('/api/articles/:articleId', {
       articleId: '@_id'
     }, {
+      query: {
+        method: 'GET',
+        isArray: true
+      },
       update: {
         method: 'PUT'
       }

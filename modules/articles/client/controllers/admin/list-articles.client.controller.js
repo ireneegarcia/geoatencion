@@ -5,7 +5,7 @@
     .module('articles.admin')
     .controller('ArticlesAdminListController', ArticlesAdminListController);
 
-  ArticlesAdminListController.$inject = ['ArticlesService', '$filter', 'AdminService','CategoriaserviciosService'];
+  ArticlesAdminListController.$inject = ['ArticlesService', '$filter', 'AdminService', 'CategoriaserviciosService'];
 
   function ArticlesAdminListController(ArticlesService, $filter, CategoriaserviciosService) {
     var vm = this;

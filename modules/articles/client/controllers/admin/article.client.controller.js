@@ -5,7 +5,7 @@
     .module('articles.admin')
     .controller('ArticlesAdminController', ArticlesAdminController);
 
-  ArticlesAdminController.$inject = ['$scope', '$state', '$window', 'articleResolve', 'Authentication', 'Notification','CategoriaserviciosService'];
+  ArticlesAdminController.$inject = ['$scope', '$state', '$window', 'articleResolve', 'Authentication', 'Notification', 'CategoriaserviciosService'];
 
   function ArticlesAdminController($scope, $state, $window, article, Authentication, Notification, CategoriaserviciosService) {
     var vm = this;

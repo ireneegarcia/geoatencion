@@ -6,23 +6,34 @@
     <form name="vm.form.solicitudForm" class="form-horizontal" ng-submit="vm.save(vm.form.solicitudForm.$valid)" novalidate>
       <fieldset>
 
-        <div class="form-group has-info label-floating" style="width: 100%" show-errors>
-          <label class="control-label" for="category">Organismo de atención</label>
-          <input style="color: #8c8c8c" name="category" type="text" ng-model="vm.solicitud.category" id="category" class="form-control"  required>
+        <div class="form-group has-info " style="width: 100%" show-errors>
+          <label class="control-label" for="organism">Organismo de atención</label>
+          <select ng-change="putCategory(vm.solicitud.organism)" name="organism" id="organism" ng-model="vm.solicitud.organism" class="form-control" required>
+            <option ng-hide="vm.solicitud._id" value="" selected>Selecciona un organismo</option>
+            <option ng-repeat="option in vm.organism" value="{{option.id}}">{{option.name}}</option>
+          </select>
           <div ng-messages="vm.form.solicitudForm.category.$error" role="alert">
-            <p class="help-block error-text" ng-message="required">Es necesario que introduzca al menos una pregunta. </p>
+            <p class="help-block error-text" ng-message="required">Es necesario que indique un organismo </p>
           </div>
         </div>
 
-        <div class="form-group has-info label-floating" style="width: 100%" show-errors>
+        <div class="form-group has-info " style="width: 100%" show-errors>
           <label class="control-label" for="category">Categoría de atención</label>
-          <input disabled style="color: #8c8c8c" name="category" type="text" ng-model="vm.solicitud.category" id="category" class="form-control"  required>
+          <select name="category" id="category" ng-model="vm.solicitud.category" class="form-control">
+            <option ng-repeat="option in vm.categories" value="{{option.id}}">{{option.name}}</option>
+          </select>
+
           <div ng-messages="vm.form.solicitudForm.category.$error" role="alert">
-            <p class="help-block error-text" ng-message="required">Es necesario que introduzca al menos una pregunta. </p>
+            <p class="help-block error-text" ng-message="required">Es necesario que indique un organismo </p>
           </div>
         </div>
 
-        <div class="form-group has-info label-floating" style="width: 100%" show-errors>
+        <!--<select ng-model="thing">
+          <option ng-repeat="t in thing" selected>{{t.name}}</option>
+
+        </select>-->
+
+        <div class="form-group has-info " style="width: 100%" show-errors>
           <label class="control-label" for="question1">Pregunta #1</label>
           <input name="question1" type="text" ng-model="vm.solicitud.question1" id="question1" class="form-control"  required>
           <div ng-messages="vm.form.solicitudForm.question1.$error" role="alert">
@@ -30,7 +41,7 @@
           </div>
         </div>
 
-        <div class="form-group has-info label-floating" style="width: 100%" show-errors>
+        <div class="form-group has-info " style="width: 100%" show-errors>
           <label class="control-label" for="question2">Pregunta #2</label>
           <input name="question2" type="text" ng-model="vm.solicitud.question2" id="question2" class="form-control"  >
           <div ng-messages="vm.form.solicitudForm.question2.$error" role="alert">
@@ -38,7 +49,7 @@
           </div>
         </div>
 
-        <div class="form-group has-info label-floating" style="width: 100%" show-errors>
+        <div class="form-group has-info " style="width: 100%" show-errors>
           <label class="control-label" for="question3">Pregunta #3</label>
           <input  name="question3" type="text" ng-model="vm.solicitud.question3" id="question3" class="form-control"  >
           <div ng-messages="vm.form.solicitudForm.question3.$error" role="alert">
@@ -46,7 +57,7 @@
           </div>
         </div>
 
-        <div class="form-group has-info label-floating" style="width: 100%" show-errors>
+        <div class="form-group has-info" style="width: 100%" show-errors>
           <label class="control-label" for="question4">Pregunta #4</label>
           <input  name="question4" type="text" ng-model="vm.solicitud.question4" id="question4" class="form-control" >
           <div ng-messages="vm.form.solicitudForm.question4.$error" role="alert">
