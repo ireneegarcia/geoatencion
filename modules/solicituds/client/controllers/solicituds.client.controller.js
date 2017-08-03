@@ -6,9 +6,9 @@
     .module('solicituds')
     .controller('SolicitudsController', SolicitudsController);
 
-  SolicitudsController.$inject = ['$scope', '$filter', '$state', '$window', 'Authentication', 'solicitudResolve', 'CategoriaserviciosService', 'ArticlesService'];
+  SolicitudsController.$inject = ['$scope', '$filter', '$state', '$window', 'Authentication', 'solicitudResolve', 'CategoriaserviciosService', 'ArticlesService', 'FormulariosService'];
 
-  function SolicitudsController ($scope, $filter, $state, $window, Authentication, solicitud, CategoriaserviciosService, ArticlesService) {
+  function SolicitudsController ($scope, $filter, $state, $window, Authentication, solicitud, CategoriaserviciosService, ArticlesService, FormulariosService) {
     var vm = this;
 
     vm.authentication = Authentication;
@@ -17,7 +17,6 @@
     vm.form = {};
     vm.remove = remove;
     vm.save = save;
-
 
     CategoriaserviciosService.query({}).$promise.then(function (res) {
       vm.categories = [];
@@ -33,22 +32,20 @@
       });
     });
 
-    //Coloca la categoria de acuerdo al organismo
+    FormulariosService.query({}).$promise.then(function (res) {
+      vm.form = [];
+      res.forEach(function(forms) {
+        vm.form.push({id: forms._id, name: forms.name, category: forms.category, question1: forms.question1, question2: forms.question2, question3: forms.question3, question4: forms.question4});
+      });
+    });
+
+
     $scope.putCategory = function(organism) {
 
-      vm.categoria_organismo = [];
-
-      for (var i=0;i<vm.categories.length;i++) {
-        if (organism.category === vm.categories[i].id) {
-          vm.categoria_organismo.push({id: vm.categories[i].id, name: vm.categories[i].name});
-        }
-      }
-
-        //$scope.thing = $filter('filter')(vm.categories, { id: organism.category});
-    };
-
-    //Coloca las preguntas de acuerdo a la categoria
-    $scope.putQuestion = function () {
+      //Filtrar organismo
+      vm.organismo = $filter('filter')(vm.organism, { id: organism});
+      //Filtrar fomrulario de acuerdo a la categoría del organismo
+      vm.formulario = $filter('filter')(vm.form, { category: vm.organismo[0].category});
 
     };
 

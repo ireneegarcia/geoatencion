@@ -15,9 +15,6 @@ var SolicitudSchema = new Schema({
     default: '',
     required: 'Por favor indique la categoría'
   },
-  /**
-   * Aqui falta el id del formulario que se respondio
-   * */
   question1: {
     type: String,
     default: '',

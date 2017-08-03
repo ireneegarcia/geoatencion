@@ -9,6 +9,7 @@
         <tr>
           <th>Nombre del organismo</th>
           <th>Categoría de servicio</th>
+          <th>Cantidad de uniades de atención</th>
           <th>Descripción</th>
         </tr>
         </thead>
@@ -16,6 +17,7 @@
         <tr>
           <td ng-bind="vm.article.name"></td>
           <td ng-repeat="option in vm.categories" ng-if="vm.article.category === option.id">{{option.name}}</td>
+          <td> SIN DESARROLLAR</td>
           <td ng-bind="vm.article.about"></td>
         </tr>
         </tbody>

@@ -12,6 +12,10 @@
     return $resource('/api/formularios/:formularioId', {
       formularioId: '@_id'
     }, {
+      query: {
+        method: 'GET',
+        isArray: true
+      },
       update: {
         method: 'PUT'
       }
