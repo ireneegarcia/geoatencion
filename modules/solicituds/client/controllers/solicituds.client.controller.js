@@ -42,9 +42,9 @@
 
     $scope.putCategory = function(organism) {
 
-      //Filtrar organismo
+      // Filtrar organismo
       vm.organismo = $filter('filter')(vm.organism, { id: organism});
-      //Filtrar fomrulario de acuerdo a la categoría del organismo
+      // Filtrar fomrulario de acuerdo a la categoría del organismo
       vm.formulario = $filter('filter')(vm.form, { category: vm.organismo[0].category});
 
     };
