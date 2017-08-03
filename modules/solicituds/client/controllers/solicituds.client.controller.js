@@ -58,6 +58,7 @@
 
     // Save Solicitud
     function save(isValid) {
+      console.log(isValid);
       if (!isValid) {
         $scope.$broadcast('show-errors-check-validity', 'vm.form.solicitudForm');
         return false;

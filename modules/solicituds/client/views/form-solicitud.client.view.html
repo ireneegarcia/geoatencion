@@ -17,12 +17,9 @@
           </div>
         </div>
 
-        <div  ng-repeat="organismo_ in vm.organismo" class="form-group has-info " style="width: 100%" show-errors>
+        <div  ng-repeat="organismo_ in vm.organismo" class="form-group has-info " style="width: 100%">
           <label class="control-label" for="category">Categoría de atención del organismo</label>
           <input disabled ng-repeat="option in vm.categories" ng-if="organismo_.category === option.id" ng-model="vm.solicitud.category" ng-bind="option.name" ng-value="option.name" name="category" id="category" type="text" class="form-control" >
-          <div ng-messages="vm.form.solicitudForm.category.$error" role="alert">
-            <p class="help-block error-text" ng-message="required">Es necesario que indique un organismo </p>
-          </div>
         </div>
 
         <div ng-repeat="formulario_ in vm.formulario" class="form-group has-info " style="width: 100%" show-errors>
