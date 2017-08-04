@@ -5,9 +5,9 @@
     .module('networks')
     .controller('UserListNetworksController', UserListNetworksController);
 
-  UserListNetworksController.$inject = ['$scope', '$filter', 'UsersService'];
+  UserListNetworksController.$inject = ['$scope', '$filter', 'UsersService', 'Authentication'];
 
-  function UserListNetworksController($scope, $filter, UsersService) {
+  function UserListNetworksController($scope, $filter, UsersService, Authentication) {
     var vm = this;
 
     // User list networks controller logic
@@ -18,14 +18,15 @@
     vm.pageChanged = pageChanged;
 
     vm.userNetworks = UsersService.query(function (data) {
-      // vm.users = data;
 
+      // El organismo logueado
+      vm.organism = $filter('filter')(data, { email: Authentication.user.email});
+      // Los usuarios operadores y responsables que sean de este organismo
       vm.userNetworks = data.filter(function (userNetwork) {
-        return (userNetwork.roles.indexOf('operator') >= 0 || userNetwork.roles.indexOf('userService') >= 0);
+        return ((userNetwork.roles.indexOf('operator') >= 0 ||
+                userNetwork.roles.indexOf('userService') >= 0) &&
+                userNetwork.user._id.indexOf(vm.organism[0]._id) >= 0);
       });
-
-      // vm.userNetworks = $filter('filter')(data, { roles: 'operator' || 'userService'});
-      // vm.userService = $filter('filter')(data, { roles: 'userService'});
 
       vm.buildPager();
     });
