@@ -18,10 +18,14 @@
     vm.pageChanged = pageChanged;
 
     vm.userNetworks = UsersService.query(function (data) {
-      //vm.users = data;
-      vm.userNetworks  = $filter('filter')(data, { roles: 'operator' || 'userService'});
-      //vm.userService = $filter('filter')(data, { roles: 'userService'});
+      // vm.users = data;
 
+      vm.userNetworks = data.filter(function (userNetwork) {
+        return (userNetwork.roles.indexOf('operator') >= 0 || userNetwork.roles.indexOf('userService') >= 0);
+      });
+
+      // vm.userNetworks = $filter('filter')(data, { roles: 'operator' || 'userService'});
+      // vm.userService = $filter('filter')(data, { roles: 'userService'});
 
       vm.buildPager();
     });
