@@ -1,7 +1,6 @@
 <section>
   <div class="page-header">
     <h2>{{vm.solicitud._id ? 'Editar solicitud de afiiación' : 'Solicitud de afiliación'}}</h2>
-    <h4 ng-repeat="id_f in vm.id_formulario">{{id_f.name}}</h4>
   </div>
   <div class="col-md-12">
     <form name="vm.form.solicitudForm" class="form-horizontal" ng-submit="vm.save(vm.form.solicitudForm.$valid)" novalidate>
@@ -10,16 +9,22 @@
         <div class="form-group has-info " style="width: 100%" show-errors>
           <label class="control-label" for="organism">Organismo de atención</label>
           <select ng-change="putCategory(vm.solicitud.organism)" name="organism" id="organism" ng-model="vm.solicitud.organism" class="form-control" required>
-            <option ng-repeat="option in vm.organism" value="{{option.id}}">{{option.name}}</option>
+            <option ng-repeat="option in vm.organism" value="{{option._id}}">{{option.displayName}}</option>
           </select>
-          <div ng-messages="vm.form.solicitudForm.category.$error" role="alert">
+          <div ng-messages="vm.form.solicitudForm.organism.$error" role="alert">
             <p class="help-block error-text" ng-message="required">Es necesario que indique un organismo </p>
           </div>
         </div>
 
         <div  ng-repeat="organismo_ in vm.organismo" class="form-group has-info " style="width: 100%">
           <label class="control-label" for="category">Categoría de atención del organismo</label>
-          <input disabled ng-repeat="option in vm.categories" ng-if="organismo_.category === option.id" ng-model="vm.solicitud.category" ng-bind="option.name" ng-value="option.name" name="category" id="category" type="text" class="form-control" >
+          <!--<input disabled ng-repeat="option in vm.categories" ng-if="organismo_.category === option.id" ng-model="vm.solicitud.category" ng-value="option.id" name="category" id="category" type="text" class="form-control" required>-->
+          <select name="category" id="category" ng-model="vm.solicitud.category" class="form-control" required>
+            <option ng-init="vm.solicitud.category = categorySelected.id" ng-repeat="categorySelected in vm.categories" ng-if="organismo_.category === categorySelected.id" value="{{categorySelected.id}}">{{categorySelected.name}}</option>
+          </select>
+          <div ng-messages="vm.form.solicitudForm.category.$error" role="alert">
+            <p class="help-block error-text" ng-message="required">Es necesario que introduzca al menos una pregunta. </p>
+          </div>
         </div>
 
         <div ng-repeat="formulario_ in vm.formulario" class="form-group has-info " style="width: 100%" show-errors>

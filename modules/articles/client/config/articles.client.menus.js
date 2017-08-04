@@ -9,7 +9,7 @@
 
   function menuConfig(menuService) {
     menuService.addMenuItem('topbar', {
-      title: 'Catálogo',
+      title: 'XX',
       state: 'articles',
       type: 'dropdown',
       roles: ['*']

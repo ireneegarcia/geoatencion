@@ -1,0 +1,26 @@
+<section>
+  <div class="page-header">
+    <h1 ng-bind="vm.catalogo.name"></h1>
+  </div>
+  <div class="pull-right"
+       ng-show="vm.catalogo.isCurrentUserOwner">
+    <a class="btn btn-primary"
+       ui-sref="catalogos.edit({ catalogoId: vm.catalogo._id })">
+      <i class="glyphicon glyphicon-edit"></i>
+    </a>
+    <a class="btn btn-primary" ng-click="vm.remove()">
+      <i class="glyphicon glyphicon-trash"></i>
+    </a>
+  </div>
+  <small>
+    <em class="text-muted">
+      Posted on
+      <span ng-bind="vm.catalogo.created | date:'mediumDate'"></span>
+      by
+      <span ng-if="vm.catalogo.user"
+            ng-bind="vm.catalogo.user.displayName"></span>
+      <span ng-if="!vm.catalogo.user">Deleted User</span>
+    </em>
+  </small>
+  <p class="lead" ng-bind="vm.catalogo.content"></p>
+</section>

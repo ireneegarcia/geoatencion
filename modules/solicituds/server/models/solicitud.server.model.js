@@ -15,37 +15,37 @@ var SolicitudSchema = new Schema({
     default: '',
     required: 'Por favor indique la categoría'
   },
+  organism: {
+    type: Schema.ObjectId,
+    ref: 'User'
+  },
   question1: {
     type: String,
     default: '',
-    required: 'Please fill Formulario name',
+    required: 'Please fill Formulario name'
     // trim: true
   },
   question2: {
     type: String,
-    default: '',
+    default: ''
      // required: 'Please fill Formulario name',
      // trim: true
   },
   question3: {
     type: String,
-    default: '',
+    default: ''
      // required: 'Please fill Formulario name',
      // trim: true
   },
   question4: {
     type: String,
-    default: '',
+    default: ''
      // required: 'Please fill Formulario name',
      // trim: true
   },
   created: {
     type: Date,
     default: Date.now
-  },
-  organism: {
-    type: Schema.ObjectId,
-    ref: 'User'
   },
   user: {
     type: Schema.ObjectId,

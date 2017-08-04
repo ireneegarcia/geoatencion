@@ -6,9 +6,9 @@
     .module('solicituds')
     .controller('SolicitudsController', SolicitudsController);
 
-  SolicitudsController.$inject = ['$scope', '$filter', '$state', '$window', 'Authentication', 'solicitudResolve', 'CategoriaserviciosService', 'ArticlesService', 'FormulariosService'];
+  SolicitudsController.$inject = ['$scope', '$filter', '$state', '$window', 'Authentication', 'solicitudResolve', 'CategoriaserviciosService', 'UsersService', 'FormulariosService'];
 
-  function SolicitudsController ($scope, $filter, $state, $window, Authentication, solicitud, CategoriaserviciosService, ArticlesService, FormulariosService) {
+  function SolicitudsController ($scope, $filter, $state, $window, Authentication, solicitud, CategoriaserviciosService, UsersService, FormulariosService) {
     var vm = this;
 
     vm.authentication = Authentication;
@@ -25,11 +25,17 @@
       });
     });
 
-    ArticlesService.query({}).$promise.then(function (res) {
+   /* ArticlesService.query({}).$promise.then(function (res) {
       vm.organism = [];
       res.forEach(function(organisms) {
         vm.organism.push({id: organisms._id, name: organisms.name, category: organisms.category});
       });
+    });*/
+
+    vm.organism = UsersService.query(function (data) {
+      //vm.users = data;
+      vm.organism  = $filter('filter')(data, { roles: 'organism'});
+
     });
 
     FormulariosService.query({}).$promise.then(function (res) {
@@ -43,7 +49,7 @@
     $scope.putCategory = function(organism) {
 
       // Filtrar organismo
-      vm.organismo = $filter('filter')(vm.organism, { id: organism});
+      vm.organismo = $filter('filter')(vm.organism, { _id: organism});
       // Filtrar fomrulario de acuerdo a la categoría del organismo
       vm.formulario = $filter('filter')(vm.form, { category: vm.organismo[0].category});
 
@@ -58,7 +64,7 @@
 
     // Save Solicitud
     function save(isValid) {
-      console.log(isValid);
+      console.log(vm.solicitud);
       if (!isValid) {
         $scope.$broadcast('show-errors-check-validity', 'vm.form.solicitudForm');
         return false;
