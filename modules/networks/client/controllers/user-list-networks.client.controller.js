@@ -1,28 +1,28 @@
-(function () {
+(function() {
   'use strict';
 
   angular
     .module('networks')
-    .controller('NetworksListController', NetworksListController);
+    .controller('UserListNetworksController', UserListNetworksController);
 
-  NetworksListController.$inject = ['NetworksService', '$filter', 'CategoriaserviciosService'];
+  UserListNetworksController.$inject = ['$scope', '$filter', 'UsersService'];
 
-  function NetworksListController(NetworksService, $filter, CategoriaserviciosService) {
+  function UserListNetworksController($scope, $filter, UsersService) {
     var vm = this;
+
+    // User list networks controller logic
+    // ...
 
     vm.buildPager = buildPager;
     vm.figureOutItemsToDisplay = figureOutItemsToDisplay;
     vm.pageChanged = pageChanged;
 
-    CategoriaserviciosService.query({}).$promise.then(function (res) {
-      vm.categories = [];
-      res.forEach(function(cathegory) {
-        vm.categories.push({id: cathegory._id, name: cathegory.category});
-      });
-    });
+    vm.userNetworks = UsersService.query(function (data) {
+      //vm.users = data;
+      vm.userNetworks  = $filter('filter')(data, { roles: 'operator' || 'userService'});
+      //vm.userService = $filter('filter')(data, { roles: 'userService'});
 
-    vm.networks = NetworksService.query(function (data) {
-      vm.networks = data;
+
       vm.buildPager();
     });
 
@@ -34,7 +34,7 @@
     }
 
     function figureOutItemsToDisplay() {
-      vm.filteredItems = $filter('filter')(vm.networks, {
+      vm.filteredItems = $filter('filter')(vm.userNetworks, {
         $: vm.search
       });
       vm.filterLength = vm.filteredItems.length;
@@ -46,5 +46,10 @@
     function pageChanged() {
       vm.figureOutItemsToDisplay();
     }
+
+    init();
+
+    function init() {
+    }
   }
-}());
+})();

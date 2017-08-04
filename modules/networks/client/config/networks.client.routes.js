@@ -9,11 +9,14 @@
 
   function routeConfig($stateProvider) {
     $stateProvider
-      .state('lista-operadores', {
-        url: '/lista-operadores',
-        templateUrl: 'modules/networks/client/views/lista-operadores.client.view.html',
-        controller: 'OperadorescontrollerController',
-        controllerAs: 'vm'
+      .state('user-list-networks', {
+        url: '/user-list-networks',
+        templateUrl: 'modules/networks/client/views/user-list-networks.client.view.html',
+        controller: 'UserListNetworksController',
+        controllerAs: 'vm',
+        data: {
+          roles: ['organism']
+        }
       })
       .state('networks', {
         abstract: true,

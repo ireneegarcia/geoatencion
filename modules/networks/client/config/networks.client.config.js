@@ -23,6 +23,13 @@
       roles: ['organism']
     });
 
+    // Add the dropdown list item
+    menuService.addSubMenuItem('topbar', 'networks', {
+      title: 'Lista de trabajadores',
+      state: 'user-list-networks',
+      roles: ['organism']
+    });
+
     menuService.addSubMenuItem('topbar', 'networks', {
       title: 'Incluir operador',
       state: 'authentication.operator',
