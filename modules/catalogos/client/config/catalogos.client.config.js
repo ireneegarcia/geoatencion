@@ -11,8 +11,9 @@
     // Set top bar menu items
     menuService.addMenuItem('topbar', {
       title: 'Catalogos',
-      state: 'catalogos',
-      type: 'dropdown',
+      //state: 'catalogos',
+      //type: 'dropdown',
+      state: 'catalogos.list',
       roles: ['*']
     });
 

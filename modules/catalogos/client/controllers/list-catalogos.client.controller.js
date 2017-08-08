@@ -5,12 +5,16 @@
     .module('catalogos')
     .controller('CatalogosListController', CatalogosListController);
 
-  CatalogosListController.$inject = ['$filter', 'CatalogosService', 'UsersService', 'CategoriaserviciosService'];
+  CatalogosListController.$inject = ['$filter', 'CatalogosService', 'UsersService', 'CategoriaserviciosService', 'NetworksService'];
 
-  function CatalogosListController($filter, CatalogosService, UsersService, CategoriaserviciosService) {
+  function CatalogosListController($filter, CatalogosService, UsersService, CategoriaserviciosService, NetworksService) {
     var vm = this;
 
     vm.catalogos = CatalogosService.query();
+
+    vm.buildPager = buildPager;
+    vm.figureOutItemsToDisplay = figureOutItemsToDisplay;
+    vm.pageChanged = pageChanged;
 
     CategoriaserviciosService.query({}).$promise.then(function (res) {
       vm.categories = [];
@@ -19,14 +23,15 @@
       });
     });
 
-    vm.buildPager = buildPager;
-    vm.figureOutItemsToDisplay = figureOutItemsToDisplay;
-    vm.pageChanged = pageChanged;
-
+    //Organismos
     vm.users = UsersService.query(function (data) {
-      //vm.users = data;
       vm.users  = $filter('filter')(data, { roles: 'organism'});
       vm.buildPager();
+    });
+
+    //Unidades de atención
+    vm.networks = NetworksService.query(function (data) {
+      vm.networks = data;
     });
 
     function buildPager() {

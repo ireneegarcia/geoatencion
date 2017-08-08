@@ -44,11 +44,13 @@
         <div class="col-md-6" ng-bind="vm.user.created"></div>
       </div>
       <hr/>
+      <div ng-show="vm.user.user" ng-repeat="organism in vm.organism">
       <div class="row">
-        <div class="col-md-3"><strong>id_organismo</strong></div>
-        <div class="col-md-6" ng-bind="vm.user.user"></div>
+        <div class="col-md-3"><strong>Organismo</strong></div>
+        <div class="col-md-6" ng-if="vm.user.user === organism._id">{{organism.username}}</div>
       </div>
       <hr/>
+      </div>
       <div class="row">
         <div class="col-md-3"><strong>Rol</strong></div>
         <div class="col-md-6" ng-bind="vm.user.roles"></div>

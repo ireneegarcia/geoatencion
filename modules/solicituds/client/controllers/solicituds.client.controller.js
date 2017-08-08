@@ -25,17 +25,8 @@
       });
     });
 
-   /* ArticlesService.query({}).$promise.then(function (res) {
-      vm.organism = [];
-      res.forEach(function(organisms) {
-        vm.organism.push({id: organisms._id, name: organisms.name, category: organisms.category});
-      });
-    });*/
-
     vm.organism = UsersService.query(function (data) {
-      //vm.users = data;
-      vm.organism  = $filter('filter')(data, { roles: 'organism'});
-
+      vm.organism = $filter('filter')(data, { roles: 'organism'});
     });
 
     FormulariosService.query({}).$promise.then(function (res) {

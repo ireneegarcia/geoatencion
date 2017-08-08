@@ -4,21 +4,21 @@
       <fieldset>
         <div class="form-group has-info" show-errors>
           <label class="control-label" for="firstName">Nombre</label>
-          <input type="text" id="firstName" name="firstName" class="form-control" ng-model="vm.user.firstName" placeholder="First Name" required autofocus>
+          <input type="text" id="firstName" name="firstName" class="form-control" ng-model="vm.user.firstName"  required autofocus>
           <div ng-messages="vm.userForm.firstName.$error" role="alert">
             <p class="help-block error-text" ng-message="required">First name is required.</p>
           </div>
         </div>
         <div ng-show="vm.user.roles != 'organism'" class="form-group has-info" show-errors>
           <label class="control-label" for="lastName">Apellido</label>
-          <input type="text" id="lastName" name="lastName" class="form-control" ng-model="vm.user.lastName" placeholder="Last Name" required>
+          <input type="text" id="lastName" name="lastName" class="form-control" ng-model="vm.user.lastName"  required>
           <div ng-messages="vm.userForm.lastName.$error" role="alert">
             <p class="help-block error-text" ng-message="required">Last name is required.</p>
           </div>
         </div>
         <div class="form-group has-info" show-errors>
           <label class="control-label" for="email">Email</label>
-          <input type="email" id="email" name="email" class="form-control" ng-model="vm.user.email" placeholder="Email" lowercase required>
+          <input type="email" id="email" name="email" class="form-control" ng-model="vm.user.email"  lowercase required>
           <div ng-messages="vm.userForm.email.$error" role="alert">
             <p class="help-block error-text" ng-message="required">Email address is required.</p>
             <p class="help-block error-text" ng-message="email">Email address is invalid.</p>
@@ -26,7 +26,7 @@
         </div>
         <div class="form-group has-info" show-errors>
           <label class="control-label" for="username">Username</label>
-          <input type="text" id="username" name="username" class="form-control" ng-model="vm.user.username" placeholder="Username" lowercase required>
+          <input type="text" id="username" name="username" class="form-control" ng-model="vm.user.username" lowercase required>
           <div ng-messages="vm.userForm.username.$error" role="alert">
             <p class="help-block error-text" ng-message="required">Username is required.</p>
           </div>
@@ -38,6 +38,13 @@
           </select>
           <div ng-messages="vm.userForm.category.$error" role="alert">
             <p class="help-block error-text" ng-message="required">Por favor indique una categoría</p>
+          </div>
+        </div>
+        <div ng-show="vm.user.roles == 'organism'" class="form-group has-info" show-errors>
+          <label class="control-label" for="actionRadius">Radio de acción</label>
+          <input type="text" id="actionRadius" name="actionRadius" class="form-control" ng-model="vm.user.actionRadius">
+          <div ng-messages="vm.userForm.actionRadius.$error" role="alert">
+            <p class="help-block error-text" ng-message="required">Por favor indique el radio de acción</p>
           </div>
         </div>
         <div ng-show="vm.user.roles == 'organism'" class="form-group has-info" show-errors>

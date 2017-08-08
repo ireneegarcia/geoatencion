@@ -27,7 +27,8 @@
         <tbody>
         <tr>
           <td ng-bind="user.displayName"></td>
-          <td ng-repeat="option in vm.categories" ng-if="user.category === option.id">{{option.name}}</td>
+          <td ng-repeat="categories in vm.categories" ng-if="user.category === categories.id">{{categories.name}}</td>
+          <td ng-repeat="network in vm.networks" ng-if="network.user._id === user._id">{{vm.networks.length}}</td>
         </tr>
         </tbody>
       </table>

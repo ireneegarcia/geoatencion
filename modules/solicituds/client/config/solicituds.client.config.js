@@ -10,7 +10,7 @@
   function menuConfig(menuService) {
     // Set top bar menu items
     menuService.addMenuItem('topbar', {
-      title: 'Solicituds',
+      title: 'Afiliación',
       state: 'solicituds',
       type: 'dropdown',
       roles: ['*']
@@ -18,13 +18,14 @@
 
     // Add the dropdown list item
     menuService.addSubMenuItem('topbar', 'solicituds', {
-      title: 'List Solicituds',
-      state: 'solicituds.list'
+      title: 'Mis afiliaciones',
+      state: 'solicituds.list',
+      roles: ['*']
     });
 
     // Add the dropdown create item
     menuService.addSubMenuItem('topbar', 'solicituds', {
-      title: 'Create Solicitud',
+      title: 'Nueva afiliación',
       state: 'solicituds.create',
       roles: ['user']
     });

@@ -1,23 +1,24 @@
 <section>
-  <div class="page-header">
+  <div class="text-center title">
     <h1>{{vm.categoriaservicio._id ? 'Editar categoria de servicio' : 'Nueva categoria de servicio'}}</h1>
   </div>
-  <div class="col-md-12">
+  <div class="col-md-12" style="margin: 0% 20% 0% 21% ">
     <form name="vm.form.categoriaservicioForm" class="form-horizontal" ng-submit="vm.save(vm.form.categoriaservicioForm.$valid)" novalidate>
       <fieldset>
-        <div class="form-group has-info " show-errors>
+
+        <div style="display: inline-block; width: 40%; margin-right: 5%" class="form-group has-info " show-errors>
           <label class="control-label"  for="category">Nombre de la categoría</label>
           <input name="category" type="text" ng-model="vm.categoriaservicio.category" id="category" class="form-control" required>
           <div ng-messages="vm.form.categoriaservicioForm.category.$error" role="alert">
             <p class="help-block error-text" ng-message="required">El nombre es necesario</p>
           </div>
         </div>
-        <div class="form-group has-info ">
+        <div style="display: inline-block" class="form-group has-info ">
           <!--<label class="control-label"  for="icon">icono de la categoría</label>-->
           <!--<input name="icon" type="text" ng-model="vm.categoriaservicio.icon" id="icon" class="form-control" required>-->
           <button class="btn btn-info btn-raised btn-file" ngf-select="(vm.fileSelected = true) && (vm.loading = false)" ng-model="vm.picFile" accept="image/*" ngf-before-model-change="vm.loading = true" ngf-resize="{width: 400}" ngf-resize-if="$width > 400 || $height > 400">Seleccionar icono</button>
           <!--<div ng-messages="vm.form.categoriaservicioForm.icon.$error" role="alert">-->
-            <!--<p class="help-block error-text" ng-message="required">El icono es necesario.</p>-->
+          <!--<p class="help-block error-text" ng-message="required">El icono es necesario.</p>-->
           <!--</div>-->
         </div>
         <div ng-show="vm.loading" class="form-group text-center">
@@ -26,8 +27,9 @@
         <div ng-show="vm.fileSelected || vm.categoriaservicio.iconUrl" class="form-group text-center">
           <img ngf-src="vm.fileSelected ? vm.picFile : '/' + vm.categoriaservicio.iconUrl" class="img-thumbnail user-profile-picture" ngf-drop>
         </div>
+
         <div class="form-group">
-          <button type="submit" class="btn btn-info">{{vm.categoriaservicio._id ? 'Update' : 'Create'}}</button>
+          <button type="submit" class="btn btn-info">{{vm.categoriaservicio._id ? 'Actualizar categoría' : 'Crear categoría'}}</button>
         </div>
         <div ng-show="vm.error" class="text-danger">
           <strong ng-bind="vm.error"></strong>

@@ -5,9 +5,9 @@
     .module('users.admin')
     .controller('UserController', UserController);
 
-  UserController.$inject = ['$scope', '$state', '$window', 'Authentication', 'userResolve', 'Notification'];
+  UserController.$inject = ['$scope', '$state', '$window', 'Authentication', 'userResolve', 'Notification', 'UsersService'];
 
-  function UserController($scope, $state, $window, Authentication, user, Notification) {
+  function UserController($scope, $state, $window, Authentication, user, Notification, UsersService) {
     var vm = this;
 
     vm.authentication = Authentication;
@@ -15,6 +15,13 @@
     vm.remove = remove;
     vm.update = update;
     vm.isContextUserSelf = isContextUserSelf;
+
+    vm.organism = UsersService.query(function (data) {
+      vm.organism = data.filter(function (organism) {
+        return (organism.roles.indexOf('organism') >= 0);
+      });
+
+    });
 
     function remove(user) {
       if ($window.confirm('Are you sure you want to delete this user?')) {
