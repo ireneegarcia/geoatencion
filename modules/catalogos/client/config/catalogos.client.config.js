@@ -10,7 +10,7 @@
   function menuConfig(menuService) {
     // Set top bar menu items
     menuService.addMenuItem('topbar', {
-      title: 'Catalogos',
+      title: 'Catálogo',
       //state: 'catalogos',
       //type: 'dropdown',
       state: 'catalogos.list',
