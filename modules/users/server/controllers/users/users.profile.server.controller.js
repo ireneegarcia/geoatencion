@@ -24,10 +24,11 @@ exports.update = function (req, res) {
   var whitelistedFields = ['firstName', 'lastName', 'email', 'username'];
   var user = req.user;
 
+
   if (user) {
     // Update whitelisted fields only
 
-    if (user.roles === 'organism') {
+    if (user.roles[0] === 'organism') {
       whitelistedFields = ['firstName', 'lastName', 'email', 'username', 'category', 'about'];
     }
 
