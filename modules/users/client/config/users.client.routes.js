@@ -18,7 +18,7 @@
         controller: 'SettingsController',
         controllerAs: 'vm',
         data: {
-          roles: ['user', 'admin', 'organism']
+          roles: ['user', 'admin', 'organism', 'serviceUser', 'operator']
         }
       })
       .state('settings.profile', {

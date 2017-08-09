@@ -20,6 +20,11 @@
       state: 'formularios.list'
     });
 
+    menuService.addSubMenuItem('topbar', 'admin', {
+      title: 'Administrar categorías',
+      state: 'categoriaservicios.list'
+    });
+
     // Add the dropdown create item
     menuService.addSubMenuItem('topbar', 'admin', {
       title: 'Crear formulario',
@@ -27,5 +32,11 @@
       roles: ['admin']
     });
 
+    // Add the dropdown create item
+    menuService.addSubMenuItem('topbar', 'admin', {
+      title: 'Crear categoría',
+      state: 'categoriaservicios.create',
+      roles: ['admin']
+    });
   }
 }());

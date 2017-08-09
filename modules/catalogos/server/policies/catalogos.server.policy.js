@@ -22,7 +22,7 @@ exports.invokeRolesPolicies = function () {
       permissions: '*'
     }]
   }, {
-    roles: ['user'],
+    roles: ['user', 'serviceUser', 'operator'],
     allows: [{
       resources: '/api/catalogos',
       permissions: ['get', 'post']

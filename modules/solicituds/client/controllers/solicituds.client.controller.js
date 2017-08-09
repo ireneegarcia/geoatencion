@@ -36,7 +36,6 @@
       });
     });
 
-
     $scope.putCategory = function(organism) {
 
       // Filtrar organismo

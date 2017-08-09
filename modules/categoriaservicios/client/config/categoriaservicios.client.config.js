@@ -9,7 +9,7 @@
 
   function menuConfig(menuService) {
     // Set top bar menu items
-    menuService.addMenuItem('topbar', {
+    /*menuService.addMenuItem('topbar', {
       title: 'Categoria servicios',
       state: 'categoriaservicios',
       type: 'dropdown',
@@ -27,6 +27,6 @@
       title: 'Crear categoría',
       state: 'categoriaservicios.create',
       roles: ['admin']
-    });
+    });*/
   }
 }());

@@ -11,6 +11,7 @@
     var vm = this;
 
     vm.user = Authentication.user;
+
     vm.categories = [
       {id: 1, name: 'Asistencia bomberil'},
       {id: 2, name: 'Asistencia de seguridad'},
@@ -31,7 +32,8 @@
 
     // Update a user profile
     function updateUserProfile(isValid) {
-
+      console.log(isValid);
+      console.log(vm.user);
       if (!isValid) {
         $scope.$broadcast('show-errors-check-validity', 'vm.userForm');
 
@@ -39,6 +41,7 @@
       }
 
       var user = new UsersService(vm.user);
+
 
       user.$update(function (response) {
         $scope.$broadcast('show-errors-reset', 'vm.userForm');
