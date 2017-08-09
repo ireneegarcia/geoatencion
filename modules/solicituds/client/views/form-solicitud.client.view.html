@@ -18,9 +18,8 @@
 
         <div  ng-repeat="organismo_ in vm.organismo" class="form-group has-info " style="width: 100%">
           <label class="control-label" for="category">Categoría de atención del organismo</label>
-          <!--<input disabled ng-repeat="option in vm.categories" ng-if="organismo_.category === option.id" ng-model="vm.solicitud.category" ng-value="option.id" name="category" id="category" type="text" class="form-control" required>-->
           <select name="category" id="category" ng-model="vm.solicitud.category" class="form-control" required>
-            <option ng-init="vm.solicitud.category = categorySelected.id" ng-repeat="categorySelected in vm.categories" ng-if="organismo_.category === categorySelected.id" value="{{categorySelected.id}}">{{categorySelected.name}}</option>
+            <option ng-repeat="categorySelected in vm.categories" ng-if="organismo_.category === categorySelected.id" value="{{categorySelected.id}}">{{categorySelected.name}}</option>
           </select>
           <div ng-messages="vm.form.solicitudForm.category.$error" role="alert">
             <p class="help-block error-text" ng-message="required">Es necesario que introduzca al menos una pregunta. </p>

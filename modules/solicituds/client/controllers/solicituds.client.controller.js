@@ -30,9 +30,9 @@
     });
 
     FormulariosService.query({}).$promise.then(function (res) {
-      vm.form = [];
+      vm.forms = [];
       res.forEach(function(forms) {
-        vm.form.push({id: forms._id, name: forms.name, category: forms.category, question1: forms.question1, question2: forms.question2, question3: forms.question3, question4: forms.question4});
+        vm.forms.push({id: forms._id, name: forms.name, category: forms.category, question1: forms.question1, question2: forms.question2, question3: forms.question3, question4: forms.question4});
       });
     });
 
@@ -42,7 +42,7 @@
       // Filtrar organismo
       vm.organismo = $filter('filter')(vm.organism, { _id: organism});
       // Filtrar fomrulario de acuerdo a la categoría del organismo
-      vm.formulario = $filter('filter')(vm.form, { category: vm.organismo[0].category});
+      vm.formulario = $filter('filter')(vm.forms, { category: vm.organismo[0].category});
 
     };
 
@@ -55,7 +55,6 @@
 
     // Save Solicitud
     function save(isValid) {
-      console.log(vm.solicitud);
       if (!isValid) {
         $scope.$broadcast('show-errors-check-validity', 'vm.form.solicitudForm');
         return false;

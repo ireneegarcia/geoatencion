@@ -15,7 +15,6 @@ var path = require('path'),
 exports.create = function(req, res) {
   var solicitud = new Solicitud(req.body);
   solicitud.user = req.user;
-  solicitud.category = req.body;
 
   solicitud.save(function(err) {
     if (err) {
