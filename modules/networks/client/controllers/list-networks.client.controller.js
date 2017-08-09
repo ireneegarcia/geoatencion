@@ -5,9 +5,9 @@
     .module('networks')
     .controller('NetworksListController', NetworksListController);
 
-  NetworksListController.$inject = ['NetworksService', '$filter', 'CategoriaserviciosService'];
+  NetworksListController.$inject = ['NetworksService', 'Authentication', '$filter', 'CategoriaserviciosService'];
 
-  function NetworksListController(NetworksService, $filter, CategoriaserviciosService) {
+  function NetworksListController(NetworksService, Authentication, $filter, CategoriaserviciosService) {
     var vm = this;
 
     vm.buildPager = buildPager;

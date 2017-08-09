@@ -13,7 +13,7 @@
     </div>
   </div>
   <div class="list-group">
-    <a ng-repeat="user in vm.pagedItems"
+    <div ng-repeat="user in vm.pagedItems"
        ui-sref="catalogos.view({ catalogoId: catalogo._id })"
        class="list-group-item">
       <table id="catalogo" class="table table-striped table-hover">
@@ -41,7 +41,7 @@
         <span ng-if="!catalogo.user">Deleted User</span>
       </small>
       <h4 class="list-group-item-heading" ng-bind="catalogo.name"></h4>
-    </a>
+    </div>
   </div>
   <!--<div class="alert alert-warning text-center" ng-if="vm.catalogos.$resolved && !vm.catalogos.length">-->
     <!--No Catalogos yet, why don't you <a ui-sref="catalogos.create">create one</a>?-->

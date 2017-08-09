@@ -36,7 +36,7 @@
 
     // Remove existing Network
     function remove() {
-      if ($window.confirm('Are you sure you want to delete?')) {
+      if ($window.confirm('¿Esta seguro de querer borrar esta unidad de manera definitiva?')) {
         vm.network.$remove($state.go('networks.list'));
       }
     }

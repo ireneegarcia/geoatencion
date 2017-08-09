@@ -31,7 +31,7 @@ exports.invokeRolesPolicies = function () {
       permissions: ['get']
     }]
   }, {
-    roles: ['user', 'guest'],
+    roles: ['user', 'guest', 'admin'],
     allows: [{
       resources: '/api/networks',
       permissions: ['get']
