@@ -36,14 +36,23 @@
       });
     });
 
+    // PARA EL FORMULARIO DE CREAR
     $scope.putCategory = function(organism) {
 
       // Filtrar organismo
       vm.organismo = $filter('filter')(vm.organism, { _id: organism});
       // Filtrar fomrulario de acuerdo a la categoría del organismo
       vm.formulario = $filter('filter')(vm.forms, { category: vm.organismo[0].category});
-
     };
+
+    // PARA EL FORMULARIO DE ACTUALIZAR
+    vm.categorySelected = CategoriaserviciosService.query(function (data) {
+      vm.categorySelected = $filter('filter')(data, { _id: vm.solicitud.category});
+    });
+
+    vm.formSelected = FormulariosService.query(function (data) {
+      vm.formSelected = $filter('filter')(data, { category: vm.solicitud.category});
+    });
 
     // Remove existing Solicitud
     function remove() {

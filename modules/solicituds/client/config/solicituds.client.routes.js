@@ -38,7 +38,7 @@
       })
       .state('solicituds.edit', {
         url: '/:solicitudId/edit',
-        templateUrl: '/modules/solicituds/client/views/form-solicitud.client.view.html',
+        templateUrl: '/modules/solicituds/client/views/myform-solicitud.client.view.html',
         controller: 'SolicitudsController',
         controllerAs: 'vm',
         resolve: {

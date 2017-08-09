@@ -32,8 +32,6 @@
 
     // Update a user profile
     function updateUserProfile(isValid) {
-      console.log(isValid);
-      console.log(vm.user);
       if (!isValid) {
         $scope.$broadcast('show-errors-check-validity', 'vm.userForm');
 
