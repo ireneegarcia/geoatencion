@@ -11,8 +11,8 @@
     // Set top bar menu items
     menuService.addMenuItem('topbar', {
       title: 'Catálogo',
-      //state: 'catalogos',
-      //type: 'dropdown',
+      // state: 'catalogos',
+      // type: 'dropdown',
       state: 'catalogos.list',
       roles: ['*']
     });
@@ -23,7 +23,7 @@
       state: 'catalogos.list'
     });
 
-    /*// Add the dropdown create item
+    /* // Add the dropdown create item
     menuService.addSubMenuItem('topbar', 'catalogos', {
       title: 'Create Catalogo',
       state: 'catalogos.create',

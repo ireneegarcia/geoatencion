@@ -23,13 +23,13 @@
       });
     });
 
-    //Organismos
+    // Organismos
     vm.users = UsersService.query(function (data) {
-      vm.users  = $filter('filter')(data, { roles: 'organism'});
+      vm.users = $filter('filter')(data, { roles: 'organism'});
       vm.buildPager();
     });
 
-    //Unidades de atención
+    // Unidades de atención
     vm.networks = NetworksService.query(function (data) {
       vm.networks = data;
     });
