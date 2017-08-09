@@ -1,12 +1,33 @@
 <section>
   <div class="page-header">
-    <h3>
-      Solicitud afiliación {{vm.solicitud.user.displayName}}
-      para organismo x en la categoria x
-    </h3>
+    <div>
+      <h4 style="display: inline-block"
+          ng-repeat="optionOrg in vm.organism"
+          ng-if="optionOrg._id === vm.solicitud.organism">
+          Solicitud afiliación {{vm.solicitud.user.displayName}},
+          para {{optionOrg.firstName}}
+      </h4>
+      <h4 style="display: inline-block"
+          ng-repeat="optionCat in vm.categories"
+          ng-if="optionCat.id === vm.solicitud.category">
+          en la categoria {{optionCat.name}}.
+      </h4>
+    </div>
   </div>
   <div class="pull-right"
-       ng-show="vm.solicitud.isCurrentUserOwner">
+       ng-show="vm.authentication.user.roles[0]=== 'organism'">
+    <a class="btn btn-info"
+       ui-sref="solicituds.edit({ solicitudId: vm.solicitud._id })">
+      <i class="glyphicon glyphicon-edit"></i>
+      Aceptar
+    </a>
+    <a class="btn btn-info" ng-click="vm.remove()">
+      <i class="glyphicon glyphicon-trash"></i>
+      Rechazar
+    </a>
+  </div>
+  <div class="pull-right"
+       ng-show="vm.solicitud.isCurrentUserOwner && vm.authentication.user.roles[0]!== 'organism'">
     <a class="btn btn-info"
        ui-sref="solicituds.edit({ solicitudId: vm.solicitud._id })">
       <i class="glyphicon glyphicon-edit"></i>
