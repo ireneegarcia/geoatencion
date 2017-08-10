@@ -54,7 +54,7 @@ var NetworkSchema = new Schema({
     type: Schema.ObjectId,
     ref: 'User'
   },
-  userService: {
+  serviceUser: {
     type: Schema.ObjectId,
     ref: 'User'
   }

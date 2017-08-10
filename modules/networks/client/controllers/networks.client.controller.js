@@ -6,9 +6,9 @@
     .module('networks')
     .controller('NetworksController', NetworksController);
 
-  NetworksController.$inject = ['$scope', '$state', '$window', 'Authentication', 'networkResolve', 'CategoriaserviciosService'];
+  NetworksController.$inject = ['$scope', '$state', '$window', 'Authentication', 'networkResolve', 'CategoriaserviciosService', 'UsersService', '$filter'];
 
-  function NetworksController ($scope, $state, $window, Authentication, network, CategoriaserviciosService) {
+  function NetworksController ($scope, $state, $window, Authentication, network, CategoriaserviciosService, UsersService, $filter) {
     var vm = this;
 
     vm.authentication = Authentication;
@@ -18,20 +18,16 @@
     vm.remove = remove;
     vm.save = save;
 
-    vm.categories = [
-      {id: 1, name: 'Asistencia bomberil'},
-      {id: 2, name: 'Asistencia de seguridad'},
-      {id: 3, name: 'Asistencia médica'},
-      {id: 4, name: 'Todas las anteriores'},
-      {id: 5, name: 'Otra categoría'},
-      {id: 6, name: 'Diversas categorías'},
-    ];
-
     CategoriaserviciosService.query({}).$promise.then(function (res) {
       vm.categories = [];
       res.forEach(function(cathegory) {
         vm.categories.push({id: cathegory._id, name: cathegory.category});
       });
+    });
+
+    // Responsables de unidades 'serviceUser'
+    vm.responsables = UsersService.query(function (data) {
+      vm.responsables = $filter('filter')(data, { roles: 'serviceUser'});
     });
 
     // Remove existing Network

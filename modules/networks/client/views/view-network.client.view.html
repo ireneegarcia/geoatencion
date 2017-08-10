@@ -37,7 +37,7 @@
     </tr>
     <tr>
       <th >Responsable</th>
-      <td>{{vm.network.userService ? vm.network.userService:  'No posee'}}</td>
+      <td ng-repeat="option in vm.responsables">{{vm.network.serviceUser === option._id ? option.displayName :  'No posee'}}</td>
     </tr>
     <tr>
       <th>Status</th>

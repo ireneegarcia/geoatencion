@@ -79,9 +79,11 @@
             <div class="row">
               <div class="col-md-6">
                 <div class="form-group has-info " show-errors>
-                  <label class="control-label" for="userService">Responsable de la unidad</label>
-                  <input name="userService" type="text" ng-model="vm.network.userService" id="userService" class="form-control" >
-                  <div ng-messages="vm.form.networkForm.userService.$error" role="alert">
+                  <label class="control-label" for="serviceUser">Responsable de la unidad</label>
+                  <select name="serviceUser" ng-model="vm.network.serviceUser" id="serviceUser" class="form-control">
+                    <option ng-repeat="option in vm.responsables" value="{{option._id}}">{{option.displayName}}</option>
+                  </select>
+                  <div ng-messages="vm.form.networkForm.serviceUser.$error" role="alert">
                     <p class="help-block error-text" ng-message="required">Responsable</p>
                   </div>
                 </div>
