@@ -13,19 +13,19 @@
     </div>
   </div>
   <div class="list-group">
-    <div ng-repeat="user in vm.pagedItems"
+    <div
        ui-sref="catalogos.view({ catalogoId: catalogo._id })"
        class="list-group-item">
       <table id="catalogo" class="table table-striped table-hover">
         <thead>
         <tr>
-          <th>Nombre del organismo</th>
-          <th>Categoría de servicio</th>
-          <th>Unidades de atención</th>
+          <th style="width: 30%">Nombre del organismo</th>
+          <th style="width: 20%">Categoría de servicio</th>
+          <th style="width: 20%">Unidades de atención</th>
         </tr>
         </thead>
         <tbody>
-        <tr>
+        <tr ng-repeat="user in vm.pagedItems">
           <td ng-bind="user.displayName"></td>
           <td ng-repeat="categories in vm.categories" ng-if="user.category === categories.id">{{categories.name}}</td>
           <td ng-repeat="network in vm.networks" ng-if="network.user._id === user._id">{{vm.networks.length}}</td>

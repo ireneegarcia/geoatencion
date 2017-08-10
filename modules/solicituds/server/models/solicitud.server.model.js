@@ -48,6 +48,11 @@ var SolicitudSchema = new Schema({
     default: 'en espera'
     // trim: true
   },
+  iconUrl: {
+    type: String,
+    default: './modules/solicituds/client/img/wait.png'
+    // trim: true
+  },
   created: {
     type: Date,
     default: Date.now

@@ -8,20 +8,23 @@
               solicitud.organism === vm.user[0]._id"
        ui-sref="solicituds.view({ solicitudId: solicitud._id })"
        class="list-group-item">
-      <small class="list-group-item-text">
-        Posted on
-        <span ng-bind="solicitud.created | date:'mediumDate'"></span>
-        by
-        <span ng-if="solicitud.user" ng-bind="solicitud.user.displayName"></span>
-        <span ng-if="!solicitud.user">Deleted User</span>
-      </small>
-      <h4 ng-repeat="option in vm.organism" class="list-group-item-heading"
-          ng-if="option._id === solicitud.organism">
-        {{option.firstName}}</h4>
-      <p>{{solicitud.status}}</p>
+      <img style="vertical-align: baseline" ng-src="/{{solicitud.iconUrl}}" alt="Loading image...">
+      <div style="display: inline-block; margin-left: 1%">
+        <h4 ng-repeat="option in vm.organism" class="list-group-item-heading"
+            ng-if="option._id === solicitud.organism">
+          {{option.firstName}}</h4>
+        <small class="list-group-item-text">
+          Posted on
+          <span ng-bind="solicitud.created | date:'mediumDate'"></span>
+          by
+          <span ng-if="solicitud.user" ng-bind="solicitud.user.displayName"></span>
+          <span ng-if="!solicitud.user">Deleted User</span>
+        </small>
+      </div>
     </a>
   </div>
   <div class="alert alert-warning text-center" ng-if="vm.solicituds.$resolved && !vm.solicituds.length">
     No Solicituds yet, why don't you <a ui-sref="solicituds.create">create one</a>?
   </div>
 </section>
+
