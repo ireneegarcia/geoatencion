@@ -11,7 +11,7 @@
     var vm = this;
 
     vm.solicituds = SolicitudsService.query();
-console.log(vm.solicituds);
+
     // El usuario que inicio sesión
     vm.user = UsersService.query(function (data) {
       vm.user = $filter('filter')(data, { email: Authentication.user.email});
@@ -21,7 +21,6 @@ console.log(vm.solicituds);
     vm.organism = UsersService.query(function (data) {
       vm.organism = $filter('filter')(data, { roles: 'organism'});
     });
-
 
   }
 }());

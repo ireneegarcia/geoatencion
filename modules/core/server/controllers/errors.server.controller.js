@@ -25,11 +25,13 @@ var getUniqueErrorMessage = function (err) {
     }
     var fieldName = err.errmsg.substring(begin, err.errmsg.lastIndexOf('_1'));
 
-    if (fieldName.charAt(0).toUpperCase() + fieldName.slice(1) === 'Category') {
+   /* if (fieldName.charAt(0).toUpperCase() + fieldName.slice(1) === 'Category') {
       output = 'Ya existe un formulario para esta categoría';
     } else {
       output = fieldName.charAt(0).toUpperCase() + fieldName.slice(1) + ' ya existe';
-    }
+    }*/
+
+    output = fieldName.charAt(0).toUpperCase() + fieldName.slice(1) + ' already exists';
 
   } catch (ex) {
     output = 'Unique field already exists';

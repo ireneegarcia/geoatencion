@@ -17,7 +17,8 @@
       </small>
       <h4 ng-repeat="option in vm.organism" class="list-group-item-heading"
           ng-if="option._id === solicitud.organism">
-          {{option.firstName}}</h4>
+        {{option.firstName}}</h4>
+      <p>{{solicitud.status}}</p>
     </a>
   </div>
   <div class="alert alert-warning text-center" ng-if="vm.solicituds.$resolved && !vm.solicituds.length">

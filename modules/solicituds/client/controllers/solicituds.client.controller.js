@@ -17,6 +17,7 @@
     vm.form = {};
     vm.remove = remove;
     vm.save = save;
+    vm.updateStatus = updateStatus;
 
     CategoriaserviciosService.query({}).$promise.then(function (res) {
       vm.categories = [];
@@ -58,6 +59,23 @@
     function remove() {
       if ($window.confirm('Are you sure you want to delete?')) {
         vm.solicitud.$remove($state.go('solicituds.list'));
+      }
+    }
+
+    function updateStatus(status) {
+
+      vm.solicitud.status = status;
+      vm.solicitud.isCurrentUserOwner = true;
+      console.log(vm.solicitud);
+
+      vm.solicitud.$update(successCallback, errorCallback);
+      function successCallback(res) {
+        $state.go('solicituds.view', {
+          solicitudId: res._id
+        });
+      }
+      function errorCallback(res) {
+        vm.error = res.data.message;
       }
     }
 

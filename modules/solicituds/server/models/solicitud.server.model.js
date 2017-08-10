@@ -43,6 +43,11 @@ var SolicitudSchema = new Schema({
      // required: 'Please fill Formulario name',
      // trim: true
   },
+  status: {
+    type: String,
+    default: 'en espera'
+    // trim: true
+  },
   created: {
     type: Date,
     default: Date.now

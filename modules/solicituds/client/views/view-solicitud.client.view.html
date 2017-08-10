@@ -12,16 +12,16 @@
           ng-if="optionCat.id === vm.solicitud.category">
           en la categoria {{optionCat.name}}.
       </h4>
+      <p>Estado de la solicitud: <em>{{vm.solicitud.status}}</em></p>
     </div>
   </div>
   <div class="pull-right"
        ng-show="vm.authentication.user.roles[0]=== 'organism'">
-    <a class="btn btn-info"
-       ui-sref="solicituds.edit({ solicitudId: vm.solicitud._id })">
+    <a class="btn btn-info" ng-click="vm.updateStatus('aceptado')">
       <i class="glyphicon glyphicon-edit"></i>
       Aceptar
     </a>
-    <a class="btn btn-info" ng-click="vm.remove()">
+    <a class="btn btn-info" ng-click="vm.updateStatus('rechazado')">
       <i class="glyphicon glyphicon-trash"></i>
       Rechazar
     </a>

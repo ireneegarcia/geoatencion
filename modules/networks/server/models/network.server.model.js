@@ -43,7 +43,7 @@ var NetworkSchema = new Schema({
   status: {
     type: String,
     default: '',
-    required: 'Por favor indique la categoría por defecto para el servicio de la unidad',
+    required: 'Por favor indique el status de la unidad',
      // trim: true
   },
   created: {
