@@ -24,7 +24,7 @@
       // Los usuarios operadores y responsables que sean de este organismo
       vm.userNetworks = data.filter(function (userNetwork) {
         return ((userNetwork.roles.indexOf('operator') >= 0 ||
-                userNetwork.roles.indexOf('userService') >= 0) &&
+                userNetwork.roles.indexOf('serviceUser') >= 0) &&
                 userNetwork.user._id.indexOf(vm.organism[0]._id) >= 0);
       });
 

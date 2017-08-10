@@ -5,9 +5,9 @@
     .module('networks')
     .controller('NetworksListController', NetworksListController);
 
-  NetworksListController.$inject = ['NetworksService', 'Authentication', '$filter', 'CategoriaserviciosService'];
+  NetworksListController.$inject = ['NetworksService', 'Authentication', '$filter', 'CategoriaserviciosService', 'UsersService'];
 
-  function NetworksListController(NetworksService, Authentication, $filter, CategoriaserviciosService) {
+  function NetworksListController(NetworksService, Authentication, $filter, CategoriaserviciosService, UsersService) {
     var vm = this;
 
     vm.buildPager = buildPager;
@@ -21,8 +21,14 @@
       });
     });
 
+    vm.organism  = UsersService.query(function (data) {
+      // El organismo logueado
+      vm.organism = $filter('filter')(data, { email: Authentication.user.email});
+    });
+
     vm.networks = NetworksService.query(function (data) {
       vm.networks = data;
+      console.log(vm.networks);
       vm.buildPager();
     });
 
