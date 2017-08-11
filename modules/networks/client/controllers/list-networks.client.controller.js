@@ -21,14 +21,13 @@
       });
     });
 
-    vm.organism  = UsersService.query(function (data) {
+    vm.organism = UsersService.query(function (data) {
       // El organismo logueado
       vm.organism = $filter('filter')(data, { email: Authentication.user.email});
     });
 
     vm.networks = NetworksService.query(function (data) {
       vm.networks = data;
-      console.log(vm.networks);
       vm.buildPager();
     });
 

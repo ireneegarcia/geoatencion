@@ -64,17 +64,25 @@
 
     function updateStatus(status) {
 
-      vm.solicitud.status = status;
       vm.solicitud.isCurrentUserOwner = true;
-      console.log(vm.solicitud);
+      vm.solicitud.status = status;
+
+      if (status === 'aceptado') {
+        vm.solicitud.iconUrl = './modules/solicituds/client/img/accept.png';
+      }
+      if (status === 'rechazado') {
+        vm.solicitud.iconUrl = './modules/solicituds/client/img/decline.png';
+      }
 
       vm.solicitud.$update(successCallback, errorCallback);
+
       function successCallback(res) {
-        $state.go('solicituds.view', {
-          solicitudId: res._id
+        $state.go('solicituds.list', {
+          // solicitudId: res._id
         });
       }
       function errorCallback(res) {
+
         vm.error = res.data.message;
       }
     }

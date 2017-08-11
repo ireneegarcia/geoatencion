@@ -22,7 +22,7 @@ exports.invokeRolesPolicies = function () {
       permissions: '*'
     }]
   }, {
-    roles: ['user', 'organism'],
+    roles: ['user'],
     allows: [{
       resources: '/api/solicituds',
       permissions: ['get', 'post']
@@ -34,10 +34,10 @@ exports.invokeRolesPolicies = function () {
     roles: ['organism'],
     allows: [{
       resources: '/api/solicituds',
-      permissions: ['get']
+      permissions: ['get', 'post', 'put']
     }, {
       resources: '/api/solicituds/:solicitudId',
-      permissions: ['get']
+      permissions: ['get', 'post', 'put']
     }]
   }]);
 };
