@@ -12,7 +12,31 @@
       </div>
     </div>
   </div>
-  <div class="list-group">
+  <div style="margin: 0% 20% 5% 20% " class="list-group">
+    <a ng-repeat="user in vm.pagedItems" class="list-group-item">
+      <img style="vertical-align: baseline" ng-src="/{{user.profileImageURL}}" height="50" width="50" alt="Loading image...">
+      <div style="display: inline-block; margin-left: 3%">
+        <h4 class="list-group-item-heading" ng-bind="user.displayName"></h4>
+        <!--<p class="list-group-item-text small" ng-bind="user.roles"></p>-->
+        <p class="list-group-item-text"
+           ng-repeat="categories in vm.categories" ng-if="user.category === categories.id"
+        >
+        <div ng-show="user.about">
+          <em >{{user.about}}</em>
+          <br/>
+        </div>
+        Categoría de atención: {{categories.name}}
+        <br/>
+        Unidades de atención: {{user.network}}
+        </p>
+        <small style="display: inline-block" class="list-group-item-text">
+          Fecha de afiliación
+          <span ng-bind="user.created | date:'mediumDate'"></span>
+        </small>
+      </div>
+    </a>
+  </div>
+  <!--<div class="list-group">
     <div
        ui-sref="catalogos.view({ catalogoId: catalogo._id })"
        class="list-group-item">
@@ -42,8 +66,8 @@
       </small>
       <h4 class="list-group-item-heading" ng-bind="catalogo.name"></h4>
     </div>
-  </div>
+  </div>-->
   <!--<div class="alert alert-warning text-center" ng-if="vm.catalogos.$resolved && !vm.catalogos.length">-->
-    <!--No Catalogos yet, why don't you <a ui-sref="catalogos.create">create one</a>?-->
+  <!--No Catalogos yet, why don't you <a ui-sref="catalogos.create">create one</a>?-->
   <!--</div>-->
 </section>

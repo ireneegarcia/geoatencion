@@ -43,7 +43,7 @@
           });
          /* console.log(usersData._id + ' ' + usersData.displayName+ ' ' +
             usersData.category+ ' '+ number); */
-          vm.users.push({_id: usersData._id, displayName: usersData.displayName, category: usersData.category, network: number});
+          vm.users.push({_id: usersData._id, displayName: usersData.displayName, category: usersData.category, network: number, created: usersData.created, profileImageURL: usersData.profileImageURL, about: usersData.about});
           // console.log(vm.users);
           vm.buildPager();
         });
