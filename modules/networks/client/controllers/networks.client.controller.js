@@ -18,6 +18,8 @@
     vm.remove = remove;
     vm.save = save;
 
+    console.log(vm.network);
+
     CategoriaserviciosService.query({}).$promise.then(function (res) {
       vm.categories = [];
       res.forEach(function(cathegory) {

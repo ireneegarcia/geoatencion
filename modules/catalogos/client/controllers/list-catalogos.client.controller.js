@@ -21,7 +21,7 @@
       res.forEach(function(cathegory) {
         vm.categories.push({id: cathegory._id, name: cathegory.category});
       });
-      console.log(vm.categories);
+     // console.log(vm.categories);
     });
 
     // Organismos

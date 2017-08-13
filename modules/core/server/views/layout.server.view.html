@@ -43,9 +43,34 @@
 </head>
 
 <body class="ng-cloak landing-page">
-<nav ng-include="'/modules/core/client/views/header.client.view.html'" class="navbar navbar-fixed-top navbar-color-on-scroll navbar-info navbar-transparent"></nav>
+<nav class="navbar navbar-fixed-top navbar-color-on-scroll navbar-info navbar-transparent">
+  <div class="container"  ng-controller="HeaderController as vm">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navigation-index">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a href="#">
+        <div class="logo-container">
+          <div class="logo">
+            <img ui-sref="home" src="{{url}}/modules/core/client/img/brand/logo.png" width="200" alt="Geoatencion" rel="tooltip" class="img-rounded img-responsive" title="" data-placement="bottom" data-html="true">
+          </div>
+          <div class="brand">
+
+          </div>
+
+
+        </div>
+      </a>
+    </div>
+    <div ng-include="'/modules/core/client/views/header.client.view.html'" class="collapse navbar-collapse" id="navigation-example"></div>
+  </div>
+</nav>
   <div class="wrapper" id="content">
-    <div class="header header-filter" style="background-image: url('modules/core/client/img/brand/fondo.jpg');">
+    <div class="header header-filter" style="background-image: url('{{url}}/modules/core/client/img/brand/fondo.jpg');">
       <div class="container">
         <div class="row">
           <div class="col-md-8 col-md-offset-2">

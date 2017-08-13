@@ -4,7 +4,7 @@
     <div class="row" id="register">
       <div class="col-md-8 col-md-offset-2">
         <h2 class="text-center title">Crear cuenta</h2>
-        <form name="vm.userForm" ng-submit="vm.signup(vm.userForm.$valid)" class="signin contact-form" novalidate autocomplete="off">
+        <form name="vm.userForm" ng-submit="vm.signup(vm.userForm.$valid)" class="signin contact-form" novalidate>
           <fieldset>
             <div class="row">
               <div class="col-md-6">
@@ -325,11 +325,10 @@
               <div class="col-md-6">
                 <div class="form-group has-info" show-errors>
                   <label class="control-label" for="birthday">Fecha de nacimiento</label>
-                  <input type="text" id="birthday" name="birthday"
-                         ng-model="vm.credentials.birthday"
-                         ng-pattern="vm.usernameRegex"  lowercase required
-                         class="datepicker form-control" data-date-format="dd-mm-yyyy">
-                  <div ng-messages="vm.userForm.username.$error" role="alert">
+                  <input type="date" id="birthday" name="birthday"
+                         ng-model="vm.credentials.birthday"  required
+                         class="datepicker form-control" data-date-format="dd/mm/yyyy">
+                  <div ng-messages="vm.userForm.birthday.$error" role="alert">
                     <p class="help-block error-text" ng-message="required">Por favor indique su fecha de nacimiento</p>
                     <p class="help-block error-text" ng-message="pattern">Please enter a valid username: 3+ characters long, non restricted word, characters "_-.", no consecutive dots, does not begin or end with dots, letters a-z and numbers 0-9.</p>
                   </div>
@@ -374,10 +373,10 @@
 <script>
   $(document).ready(function() {
      $("#ci").mask("a-99999999");
-     $("#birthday").mask("99-99-9999");
+     //$("#birthday").mask("99/99/9999");
      $("#phone").mask('99999999999');
-     /*
-    $('.datepicker').datepicker({
+
+    /*$('.datepicker').datepicker({
       weekStart:2
     });*/
   });

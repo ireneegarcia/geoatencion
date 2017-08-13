@@ -2253,8 +2253,8 @@ legend {
   border-radius: 3px !important;
 }
 .navbar.navbar-info .dropdown-menu li > a:hover, .navbar.navbar-info .dropdown-menu li > a:focus {
-  color: #FFFFFF;
-  /*background-color: #03a9f4;*/
+  /*color: #FFFFFF;
+  background-color: #03a9f4;*/
 }
 .navbar.navbar-info .dropdown-menu .active > a {
   background-color: #03a9f4;

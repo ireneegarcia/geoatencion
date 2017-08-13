@@ -29,6 +29,8 @@
 
     function signup(isValid) {
 
+      console.log(isValid);
+      console.log(vm.credentials);
       if (!isValid) {
         $scope.$broadcast('show-errors-check-validity', 'vm.userForm');
 
