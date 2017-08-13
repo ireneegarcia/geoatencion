@@ -14,7 +14,7 @@
       </div>
     </div>
   </div>
-  <div style="margin: 0% 20% 5% 20% " class="list-group">
+  <div style="margin: 0% 20% 0% 20% " class="list-group">
     <a ng-repeat="user in vm.pagedItems" ui-sref="admin.user({userId: user._id})" class="list-group-item">
       <img style="vertical-align: baseline" ng-src="/{{user.profileImageURL}}" height="50" width="50" alt="Loading image...">
       <div style="display: inline-block; margin-left: 1%">
@@ -52,8 +52,9 @@
       </tr>
     </tbody>
   </table>-->
-
+  <div style="margin: 0% 20% 5% 20% ">
   <uib-pagination boundary-links="true" max-size="8" items-per-page="vm.itemsPerPage" total-items="vm.filterLength" ng-model="vm.currentPage" ng-change="vm.pageChanged()"></uib-pagination>
+  </div>
 </section>
 
 <script>
