@@ -2,7 +2,7 @@
   <div class="text-center page-header">
     <div class="row">
       <div>
-        <h2>Listado de solicitudes de afiliación</h2>
+        <h2>Solicitudes de afiliación</h2>
       </div>
       <div class="form-group has-info label-floating col-md-4" style="margin: 0% 20% 0% 34% ; width: 32.5%">
 
@@ -19,7 +19,7 @@
        ng-if="solicitud.user._id === vm.user[0]._id ||
               solicitud.organism === vm.user[0]._id"
        ui-sref="solicituds.view({ solicitudId: solicitud._id })"
-       >
+       class="list-group-item">
       <img style="vertical-align: baseline" ng-src="/{{solicitud.iconUrl}}" alt="Loading image...">
       <div style="display: inline-block; margin-left: 1%">
         <h4 ng-repeat="option in vm.organism" class="list-group-item-heading"
