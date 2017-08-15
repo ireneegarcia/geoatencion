@@ -12,11 +12,14 @@
       </div>
     </div>
   </div>
-  <div style="margin: 0% 20% 5% 20% " class="list-group">
-    <div ng-repeat="user in vm.pagedItems" class="list-group-item">
-      <img style="vertical-align: baseline" ng-src="/{{user.profileImageURL}}" height="50" width="50" alt="Loading image...">
-      <div style="display: inline-block; margin-left: 3%">
-        <h4 class="list-group-item-heading" ng-bind="user.displayName"></h4>
+  <div id="Cuerpo" >
+    <div ng-repeat="user in vm.pagedItems" class="cuadricula">
+
+      <div class="fecha">
+      <img style="vertical-align: baseline" ng-src="/{{user.profileImageURL}}" height="50" width="50"  class="img-circle" alt="Loading image...">
+      </div>
+        <div style="display: inline-block">
+        <h4 class="list-group-item-heading"><strong>{{user.displayName}}</strong></h4>
         <!--<p class="list-group-item-text small" ng-bind="user.roles"></p>-->
         <div ng-show="user.about">
           <em >{{user.about}}</em>

@@ -31,20 +31,20 @@
     });
 
     menuService.addSubMenuItem('topbar', 'networks', {
-      title: 'Incluir operador',
+      title: 'Registrar operador',
       state: 'authentication.operator',
       roles: ['organism']
     });
 
     // Add the dropdown create item
     menuService.addSubMenuItem('topbar', 'networks', {
-      title: 'Incluir unidad de atención',
+      title: 'Registrar unidad de atención',
       state: 'networks.create',
       roles: ['organism']
     });
 
     menuService.addSubMenuItem('topbar', 'networks', {
-      title: 'Incluir responsable de atención',
+      title: 'Registrar responsable de atención',
       state: 'authentication.userService',
       roles: ['organism']
     });
