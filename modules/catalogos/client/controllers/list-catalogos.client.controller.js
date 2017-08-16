@@ -21,38 +21,21 @@
       res.forEach(function(cathegory) {
         vm.categories.push({id: cathegory._id, name: cathegory.category});
       });
-     // console.log(vm.categories);
     });
 
-    // Organismos
-    var user = UsersService.query(function (data) {
-      user = $filter('filter')(data, { roles: 'organism'});
-      usersCount(user);
-    });
-
-    // Conteo de networks por organismos
     vm.users = [];
-    function usersCount(res) {
-      res.forEach(function(usersData) {
-        var number = 0;
-        NetworksService.query({}).$promise.then(function (data) {
-          data.forEach(function (data) {
-            if (data.user._id === usersData._id) {
-              number++;
-            }
-          });
-         /* console.log(usersData._id + ' ' + usersData.displayName+ ' ' +
-            usersData.category+ ' '+ number); */
-          vm.users.push({_id: usersData._id, displayName: usersData.displayName, category: usersData.category, network: number, created: usersData.created, profileImageURL: usersData.profileImageURL, about: usersData.about});
-          console.log(vm.users);
-          vm.buildPager();
-        });
-      });
-    }
+    var networks = NetworksService.query({}).$promise.then(function (data) {
+      networks = data;
+    });
 
-    /* vm.networks = NetworksService.query(function (data) {
-     vm.networks = data;
-     });*/
+    UsersService.query(function (data) {
+      var users = $filter('filter')(data, { roles: 'organism'});
+      users.forEach(function(user) {
+        user.network = networks.filter(function (network) {return network.user._id === user._id;}).length;
+        vm.users.push(user);
+      });
+      vm.buildPager();
+    });
 
     function buildPager() {
       vm.pagedItems = [];
