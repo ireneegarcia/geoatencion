@@ -36,21 +36,21 @@
       <td  ng-repeat="option in vm.categories" ng-if="vm.network.category === option.id">{{option.name}}</td>
     </tr>
     <tr>
-      <th >Responsable</th>
-      <td ng-repeat="option in vm.responsables">{{vm.network.serviceUser === option._id ? option.displayName :  'No posee'}}</td>
-    </tr>
-    <tr>
       <th>Status</th>
       <td ng-bind="vm.network.status"></td>
+    </tr>
+    <tr>
+      <th >Responsable</th>
+      <td ng-bind="vm.network.serviceUserEmail"></td>
     </tr>
     </tbody>
   </table>
 
   <small>
     <em class="text-muted">
-      Posted on
+      Fecha de registro
       <span ng-bind="vm.network.created | date:'mediumDate'"></span>
-      by
+      por
       <span ng-if="vm.network.user"
             ng-bind="vm.network.user.displayName"></span>
       <span ng-if="!vm.network.user">Deleted User</span>

@@ -13,37 +13,27 @@
       </div>
     </div>
   </div>
-  <div style="margin: 0% 20% 0% 20% " class="list-group" >
-    <a ng-repeat="network in vm.pagedItems"
-       ui-sref="networks.view({ networkId: network._id })"
-       class="list-group-item">
-
-      <table id="unidades" class="table table-striped table-hover">
-        <thead>
-        <tr>
-          <th style="width: 40%">Identificador</th>
-          <th style="width: 40%">Categoría</th>
-          <th style="width: 10%">Status</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr>
-          <td ng-bind="network._id"></td>
-          <td  ng-repeat="option in vm.categories" ng-if="network.category === option.id">{{option.name}}</td>
-          <td ng-bind="network.status"></td>
-        </tr>
-        </tbody>
-      </table>
-
-      <small class="list-group-item-text">
-        Posted on
-        <span ng-bind="network.created | date:'mediumDate'"></span>
-        by
-        <span ng-if="network.user" ng-bind="network.user.displayName"></span>
-        <span ng-if="!network.user">Deleted User</span>
-      </small>
-    </a>
+  <div style="margin: 0% 10% 0% 10% " class="list-group" >
+    <table id="unidades" class="table table-striped table-hover">
+      <thead>
+      <tr>
+        <th style="width: 20%">Identificador</th>
+        <th style="width: 20%">Categoría</th>
+        <th style="width: 15%">Responsable</th>
+        <th style="width: 10%">Status</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr ng-repeat="network in vm.pagedItems" ui-sref="networks.view({ networkId: network._id })">
+        <td ng-bind="network._id"></td>
+        <td  ng-repeat="option in vm.categories" ng-if="network.category === option.id">{{option.name}}</td>
+        <td ng-bind="network.serviceUserEmail"></td>
+        <td ng-bind="network.status"></td>
+      </tr>
+      </tbody>
+    </table>
   </div>
+  <uib-pagination boundary-links="true" max-size="8" items-per-page="vm.itemsPerPage" total-items="vm.filterLength" ng-model="vm.currentPage" ng-change="vm.pageChanged()"></uib-pagination>
   <div class="alert alert-warning text-center" ng-if="vm.networks.$resolved && !vm.networks.length">
     No existen unidades registradas hasta los momentos ¿<a ui-sref="networks.create">registras uno</a>?
   </div>
