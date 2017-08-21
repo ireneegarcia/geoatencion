@@ -17,20 +17,51 @@
     vm.figureOutItemsToDisplay = figureOutItemsToDisplay;
     vm.pageChanged = pageChanged;
 
-    vm.userNetworks = UsersService.query(function (data) {
+    //Condicional para encontrar el organismo relacionado
+    if(Authentication.user.roles[0] === 'organism'){
+      UsersService.query(function (data) {
+        // El organismo logueado
+        vm.organism = data.filter(function (data) {
+          return (data.email.indexOf(Authentication.user.email) >= 0);
+        });
+        userListNetwork(vm.organism);
+      });
+    }else{
+      if(Authentication.user.roles[0] === 'operator'){
+        UsersService.query(function (data) {
+          //El operador logueado
+          var operator = data.filter(function (data) {
+            return (data.email.indexOf(Authentication.user.email) >= 0);
+          });
+          // El organismo al que pertence el operador logueado
+          vm.organism = data.filter(function (data) {
+            return (data._id.indexOf(operator[0].user._id)>= 0);
+          });
+          userListNetwork(vm.organism);
+        });
+      }
+    }
 
-      // El organismo logueado
-      vm.organism = data.filter(function (data) {
-        return (data.email.indexOf(Authentication.user.email) >= 0);
+    // Funcion para listar Los usuarios operadores y responsables que sean de este organismo
+    function userListNetwork(organism) {
+      vm.userNetworks = UsersService.query(function (data) {
+        vm.userNetworks = data.filter(function (userNetwork) {
+          return ((userNetwork.roles.indexOf('operator') >= 0 ||
+          userNetwork.roles.indexOf('serviceUser') >= 0) &&
+          userNetwork.user._id.indexOf(organism[0]._id) >= 0);
+        });
+        vm.buildPager();
       });
-      // Los usuarios operadores y responsables que sean de este organismo
-      vm.userNetworks = data.filter(function (userNetwork) {
-        return ((userNetwork.roles.indexOf('operator') >= 0 ||
-                userNetwork.roles.indexOf('serviceUser') >= 0) &&
-                userNetwork.user._id.indexOf(vm.organism[0]._id) >= 0);
-      });
-      vm.buildPager();
-    });
+
+      /*NetworksService.query(function (data) {
+        data.forEach(function(network) {
+          if(network.user._id === organism[0]._id){
+            vm.networks.push(network);
+          }
+        });
+        vm.buildPager();
+      });*/
+    }
 
     function buildPager() {
       vm.pagedItems = [];
