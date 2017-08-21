@@ -15,7 +15,6 @@
   </div>
   <div style="margin: 0% 20% 0% 20% " class="list-group" >
     <a ng-repeat="network in vm.pagedItems"
-       ng-if="network.user._id === vm.organism[0]._id"
        ui-sref="networks.view({ networkId: network._id })"
        class="list-group-item">
 

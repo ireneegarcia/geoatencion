@@ -21,15 +21,40 @@
       });
     });
 
-    vm.organism = UsersService.query(function (data) {
-      // El organismo logueado
-      vm.organism = $filter('filter')(data, { email: Authentication.user.email});
+    vm.networks = [];
+    var networks = NetworksService.query({}).$promise.then(function (data) {
+      networks = data;
     });
 
-    vm.networks = NetworksService.query(function (data) {
-      vm.networks = data;
-      vm.buildPager();
-    });
+    if(Authentication.user.roles[0] === 'organism'){
+      vm.organism = UsersService.query(function (data) {
+        // El organismo logueado
+        vm.organism = $filter('filter')(data, { email: Authentication.user.email});
+        //Las unidades de atención que son de este organismo
+        listNetwork(vm.organism);
+      });
+    }else{
+      if(Authentication.user.roles[0] === 'operator'){
+        vm.organism = UsersService.query(function (data) {
+          // El organismo logueado
+          var operator = $filter('filter')(data, { email: Authentication.user.email});
+          vm.organism = $filter('filter')(data, { _id: operator[0].user._id});
+          //Las unidades de atención que son de este organismo
+          listNetwork(vm.organism);
+        });
+      }
+    }
+
+    function listNetwork(organism) {
+      NetworksService.query(function (data) {
+        data.forEach(function(network) {
+          if(network.user._id === organism[0]._id){
+            vm.networks.push(network);
+          }
+        });
+        vm.buildPager();
+      });
+    }
 
     function buildPager() {
       vm.pagedItems = [];

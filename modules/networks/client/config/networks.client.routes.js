@@ -15,7 +15,7 @@
         controller: 'UserListNetworksController',
         controllerAs: 'vm',
         data: {
-          roles: ['organism']
+          roles: ['organism', 'operator']
         }
       })
       .state('networks', {
@@ -29,7 +29,7 @@
         controller: 'NetworksListController',
         controllerAs: 'vm',
         data: {
-          roles: ['organism'],
+          roles: ['organism', 'operator'],
           pageTitle: 'Networks List'
         }
       })
@@ -68,7 +68,7 @@
           networkResolve: getNetwork
         },
         data: {
-          roles: ['organism'],
+          roles: ['organism', 'operator'],
           pageTitle: 'Network {{ networkResolve.name }}'
         }
       })

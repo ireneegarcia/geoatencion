@@ -13,21 +13,21 @@
       title: 'Network',
       state: 'networks',
       type: 'dropdown',
-      roles: ['organism']
+      roles: ['organism', 'operator']
     });
 
     // Add the dropdown list item
     menuService.addSubMenuItem('topbar', 'networks', {
       title: 'Lista de unidades',
       state: 'networks.list',
-      roles: ['organism']
+      roles: ['organism', 'operator']
     });
 
     // Add the dropdown list item
     menuService.addSubMenuItem('topbar', 'networks', {
       title: 'Lista de trabajadores',
       state: 'user-list-networks',
-      roles: ['organism']
+      roles: ['organism', 'operator']
     });
 
     menuService.addSubMenuItem('topbar', 'networks', {
