@@ -26,25 +26,32 @@
       networks = data;
     });
 
+    //Condicional para encontrar el organismo relacionado
     if(Authentication.user.roles[0] === 'organism'){
-      vm.organism = UsersService.query(function (data) {
+      UsersService.query(function (data) {
         // El organismo logueado
-        vm.organism = $filter('filter')(data, { email: Authentication.user.email});
-        //Las unidades de atención que son de este organismo
+        vm.organism = data.filter(function (data) {
+          return (data.email.indexOf(Authentication.user.email) >= 0);
+        });
         listNetwork(vm.organism);
       });
     }else{
       if(Authentication.user.roles[0] === 'operator'){
-        vm.organism = UsersService.query(function (data) {
-          // El organismo logueado
-          var operator = $filter('filter')(data, { email: Authentication.user.email});
-          vm.organism = $filter('filter')(data, { _id: operator[0].user._id});
-          //Las unidades de atención que son de este organismo
+        UsersService.query(function (data) {
+          //El operador logueado
+          var operator = data.filter(function (data) {
+            return (data.email.indexOf(Authentication.user.email) >= 0);
+          });
+          // El organismo al que pertence el operador logueado
+          vm.organism = data.filter(function (data) {
+            return (data._id.indexOf(operator[0].user._id)>= 0);
+          });
           listNetwork(vm.organism);
         });
       }
     }
 
+    // Funcion para listar las unidades dependiendo del organismo
     function listNetwork(organism) {
       NetworksService.query(function (data) {
         data.forEach(function(network) {

@@ -20,14 +20,15 @@
     vm.userNetworks = UsersService.query(function (data) {
 
       // El organismo logueado
-      vm.organism = $filter('filter')(data, { email: Authentication.user.email});
+      vm.organism = data.filter(function (data) {
+        return (data.email.indexOf(Authentication.user.email) >= 0);
+      });
       // Los usuarios operadores y responsables que sean de este organismo
       vm.userNetworks = data.filter(function (userNetwork) {
         return ((userNetwork.roles.indexOf('operator') >= 0 ||
                 userNetwork.roles.indexOf('serviceUser') >= 0) &&
                 userNetwork.user._id.indexOf(vm.organism[0]._id) >= 0);
       });
-
       vm.buildPager();
     });
 
