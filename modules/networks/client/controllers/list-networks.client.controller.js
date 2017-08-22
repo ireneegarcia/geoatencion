@@ -63,17 +63,13 @@
     // Funcion para listar las unidades dependiendo del organismo
     function listNetwork(organism) {
       NetworksService.query(function (data) {
-
         data.forEach(function(network) {
           if(network.user._id === organism[0]._id){
             UsersService.query(function (data) {
-
-              // Responsables de unidades
-              serviceUsers = data.filter(function (data) {
-                if(data.roles.indexOf('serviceUser') >= 0 &&
-                  data._id.indexOf(network.serviceUser) >= 0){
-                  //console.log(data);
-                  network.serviceUserEmail = data.email;
+              data.forEach(function (user) {
+                if(user.roles.indexOf('serviceUser') >= 0 &&
+                  user._id.indexOf(network.serviceUser) >= 0){
+                  network.serviceUserEmail = user.email;
                 }
               });
             });
