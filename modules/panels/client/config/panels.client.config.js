@@ -28,5 +28,12 @@
       state: 'panels.create',
       roles: ['organism', 'operator']
     });
+
+    // Add the dropdown create item
+    menuService.addSubMenuItem('topbar', 'panels', {
+      title: 'Mapa',
+      state: 'panel-map-client-view-html',
+      roles: ['organism', 'operator']
+    });
   }
 }());

@@ -55,7 +55,7 @@ var UserSchema = new Schema({
     type: String,
     trim: true,
     default: '',
-    validate: [validateLocalStrategyProperty, 'Please fill in your first name']
+    validate: [validateLocalStrategyProperty, 'Por favor indique su primer nombre']
   },
   lastName: {
     type: String,
@@ -76,13 +76,13 @@ var UserSchema = new Schema({
     lowercase: true,
     trim: true,
     default: '',
-    validate: [validateLocalStrategyEmail, 'Please fill a valid email address']
+    validate: [validateLocalStrategyEmail, 'Por favor indique su correo']
   },
   username: {
     type: String,
-    unique: 'Username already exists',
-    required: 'Please fill in a username',
-    validate: [validateUsername, 'Please enter a valid username: 3+ characters long, non restricted word, characters "_-.", no consecutive dots, does not begin or end with dots, letters a-z and numbers 0-9.'],
+    unique: 'Username ya existente',
+    required: 'Por davor indique un username',
+    validate: [validateUsername, 'Por favor introduzca un username válido: mínimo 3 caracteres, caracteres "_-.", sin puntos consecutivos, no puede comenzar o terminar con puntos, letras a-z y números 0-9.'],
     lowercase: true,
     trim: true
   },
