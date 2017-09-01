@@ -9,47 +9,47 @@ var acl = require('acl');
 acl = new acl(new acl.memoryBackend());
 
 /**
- * Invoke Solicituds Permissions
+ * Invoke Alarms Permissions
  */
 exports.invokeRolesPolicies = function () {
   acl.allow([{
     roles: ['admin'],
     allows: [{
-      resources: '/api/solicituds',
+      resources: '/api/alarms',
       permissions: '*'
     }, {
-      resources: '/api/solicituds/:solicitudId',
+      resources: '/api/alarms/:alarmId',
       permissions: '*'
     }]
   }, {
-    roles: ['user', 'guest', 'serviceUser', 'operator'],
+    roles: ['user'],
     allows: [{
-      resources: '/api/solicituds',
+      resources: '/api/alarms',
       permissions: ['get', 'post']
     }, {
-      resources: '/api/solicituds/:solicitudId',
+      resources: '/api/alarms/:alarmId',
       permissions: ['get']
     }]
   }, {
-    roles: ['organism'],
+    roles: ['guest'],
     allows: [{
-      resources: '/api/solicituds',
-      permissions: ['get', 'post', 'put']
+      resources: '/api/alarms',
+      permissions: ['post']
     }, {
-      resources: '/api/solicituds/:solicitudId',
-      permissions: ['get', 'post', 'put']
+      resources: '/api/alarms/:alarmId',
+      permissions: ['get']
     }]
   }]);
 };
 
 /**
- * Check If Solicituds Policy Allows
+ * Check If Alarms Policy Allows
  */
 exports.isAllowed = function (req, res, next) {
   var roles = (req.user) ? req.user.roles : ['guest'];
 
-  // If an Solicitud is being processed and the current user created it then allow any manipulation
-  if (req.solicitud && req.user && req.solicitud.user && req.solicitud.user.id === req.user.id) {
+  // If an Alarm is being processed and the current user created it then allow any manipulation
+  if (req.alarm && req.user && req.alarm.user && req.alarm.user.id === req.user.id) {
     return next();
   }
 

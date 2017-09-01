@@ -1,0 +1,22 @@
+<section>
+  <div class="page-header">
+    <h3>Listado de solicitudes de atención</h3>
+  </div>
+  <div class="list-group">
+    <a ng-repeat="alarm in vm.alarms"
+       ui-sref="alarms.view({ alarmId: alarm._id })"
+       class="list-group-item">
+      <small class="list-group-item-text">
+        Posted on
+        <span ng-bind="alarm.created | date:'mediumDate'"></span>
+        by
+        <span ng-if="alarm.user" ng-bind="alarm.user.displayName"></span>
+        <span ng-if="!alarm.user">Deleted User</span>
+      </small>
+      <h4 class="list-group-item-heading" ng-bind="alarm.name"></h4>
+    </a>
+  </div>
+  <div class="alert alert-warning text-center" ng-if="vm.alarms.$resolved && !vm.alarms.length">
+    No Alarms yet, why don't you <a ui-sref="alarms.create">create one</a>?
+  </div>
+</section>

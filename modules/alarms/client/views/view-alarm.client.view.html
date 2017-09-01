@@ -1,0 +1,29 @@
+<section>
+  <div class="page-header">
+    <h4>Solicitud de: {{vm.user[0].displayName}}</h4>
+  </div>
+  <div class="pull-right"
+       ng-show="vm.alarm.isCurrentUserOwner">
+    <a class="btn btn-info"
+       ui-sref="alarms.edit({ alarmId: vm.alarm._id })">
+      <i class="glyphicon glyphicon-edit"></i>
+      Editar
+    </a>
+
+    <a class="btn btn-info" ng-click="vm.remove()">
+      <i class="glyphicon glyphicon-trash"></i>
+      Eliminar
+    </a>
+  </div>
+  <small>
+    <em class="text-muted">
+      Posted on
+      <span ng-bind="vm.alarm.created | date:'mediumDate'"></span>
+      by
+      <span ng-if="vm.alarm.user"
+            ng-bind="vm.alarm.user.displayName"></span>
+      <span ng-if="!vm.alarm.user">Deleted User</span>
+    </em>
+  </small>
+  <p class="lead" ng-bind="vm.alarm.content"></p>
+</section>
