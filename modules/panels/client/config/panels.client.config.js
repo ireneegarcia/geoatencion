@@ -18,8 +18,9 @@
 
     // Add the dropdown list item
     menuService.addSubMenuItem('topbar', 'panels', {
-      title: 'List Panels',
-      state: 'panels.list'
+      title: 'Mapa',
+      state: 'panels.list',
+      roles: ['organism', 'operator']
     });
 
     // Add the dropdown create item
@@ -29,11 +30,5 @@
       roles: ['organism', 'operator']
     });
 
-    // Add the dropdown create item
-    menuService.addSubMenuItem('topbar', 'panels', {
-      title: 'Mapa',
-      state: 'panel-map-client-view-html',
-      roles: ['organism', 'operator']
-    });
   }
 }());

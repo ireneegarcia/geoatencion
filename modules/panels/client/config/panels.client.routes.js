@@ -9,12 +9,6 @@
 
   function routeConfig($stateProvider) {
     $stateProvider
-      .state('panel-map-client-view-html', {
-        url: '/panel-map-client-view-html',
-        templateUrl: 'modules/panels/client/views/panel-map-client-view-html.client.view.html',
-        controller: 'PanelsListController',
-        controllerAs: 'vm'
-      })
       .state('panels', {
         abstract: true,
         url: '/panels',
