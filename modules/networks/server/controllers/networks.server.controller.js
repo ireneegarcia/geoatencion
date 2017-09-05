@@ -16,7 +16,6 @@ var path = require('path'),
 exports.create = function(req, res) {
   var network = new Network(req.body);
   network.user = req.user;
-
   network.save(function(err) {
     if (err) {
       return res.status(400).send({

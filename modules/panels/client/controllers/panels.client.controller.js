@@ -18,9 +18,7 @@
     vm.remove = remove;
     vm.save = save;
 
-    function onClickMarker() {
-      console.log('Click');
-    }
+
 
     // Remove existing Panel
     function remove() {

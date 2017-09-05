@@ -17,6 +17,43 @@
 /* ANIMATION */
 /* SHADOWS */
 /* Shadows (from mdl http://www.getmdl.io/) */
+
+/*leyenda mapa*/
+#leyendaEnAtencion{
+	width: 32px;
+	height: 32px;
+
+	background-image: url('http://maps.google.com/mapfiles/ms/icons/green-dot.png');
+	float: left;
+}
+#leyendaEsperando{
+	width: 32px;
+	height: 32px;
+
+	background-image: url('http://maps.google.com/mapfiles/ms/icons/red-dot.png');
+	float: left;
+
+}
+#leyendaUnidadEnAtencion{
+	width: 32px;
+	height: 32px;
+
+	background-image: url('http://maps.google.com/mapfiles/ms/icons/yellow-dot.png');
+	float: left;
+}
+#leyendaUnidadDisponible{
+	width: 32px;
+	height: 32px;
+
+	background-image: url('http://maps.google.com/mapfiles/ms/icons/blue-dot.png');
+	float: left;
+}
+
+.textoLeyenda{
+	float: left;
+}
+
+
 #Cuerpo{
 	margin: 0% 5% 5% 5%;
 	/*width: 1200px;*/

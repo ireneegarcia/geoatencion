@@ -39,6 +39,11 @@ var AlarmSchema = new Schema({
     default: ''
     // trim: true
   },
+  icon: {
+    type: String,
+    default: 'http://maps.google.com/mapfiles/ms/icons/red-dot.png'
+    // trim: true
+  },
   user: {
     type: Schema.ObjectId,
     ref: 'User'

@@ -46,6 +46,26 @@ var NetworkSchema = new Schema({
     required: 'Por favor indique el status de la unidad',
      // trim: true
   },
+  latitude: {
+    type: String,
+    default: ''
+    // trim: true
+  },
+  longitude: {
+    type: String,
+    default: ''
+    // trim: true
+  },
+  address: {
+    type: String,
+    default: ''
+    // trim: true
+  },
+  icon: {
+    type: String,
+    default: 'http://maps.google.com/mapfiles/ms/icons/blue-dot.png'
+    // trim: true
+  },
   created: {
     type: Date,
     default: Date.now

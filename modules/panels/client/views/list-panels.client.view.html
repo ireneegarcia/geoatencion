@@ -1,22 +1,91 @@
 <section>
-  <div class="page-header">
-    <h1>Panels</h1>
+  <div class="text-center title">
+    <h2>Panel de solicitudes de atención</h2>
+    <br/>
   </div>
-  <div class="list-group">
-    <a ng-repeat="panel in vm.panels"
-       ui-sref="panels.view({ panelId: panel._id })"
-       class="list-group-item">
-      <small class="list-group-item-text">
-        Posted on
-        <span ng-bind="panel.created | date:'mediumDate'"></span>
-        by
-        <span ng-if="panel.user" ng-bind="panel.user.displayName"></span>
-        <span ng-if="!panel.user">Deleted User</span>
-      </small>
-      <h4 class="list-group-item-heading" ng-bind="panel.name"></h4>
-    </a>
+  <div id="map" style="margin-bottom: 5%" class="col-md-12" >
+    <ng-map
+      style="height: 1000px"
+      zoom="11"
+      center="[8.2593534,-62.7734547]"
+    >
+      <marker ng-repeat="alarms in vm.alarms "
+              id='{{alarms._id}}'
+              position="{{[alarms.latitude, alarms.longitude]}}"
+              title="{{alarms.status}}"
+              icon="{{alarms.icon}}"
+              on-click="vm.showDetailAlarms(alarms)">
+
+      </marker>
+
+      <marker ng-repeat="network in vm.network "
+              id='{{network._id}}'
+              position="{{[network.latitude, network.longitude]}}"
+              title="{{network.status}}"
+              icon="{{network.icon}}"
+              on-click="vm.showDetailNetwork(network)">
+
+      </marker>
+
+      <info-window id="infoWindowAlarm" >
+        <div ng-non-bindable="">
+          id: {{vm.new_alarm._id}}<br/>
+          Usuario: {{vm.new_alarm.user.displayName}}<br/>
+          Dirección: {{vm.new_alarm.address}}<br/>
+          Coordenadas: {{vm.new_alarm.latitude}}, {{vm.new_alarm.longitude}}<br/>
+          Status: {{vm.new_alarm.status}}<br/>
+          Categoría de servicio: {{vm.new_alarm.categoryName[0].category}}<br/>
+          Creación: {{vm.new_alarm.created}}<br/>
+          <a ui-sref="alarms.view({ alarmId: vm.new_alarm._id })">Más sobre esta alarma</a><br/>
+        </div>
+      </info-window>
+
+      <info-window id="infoWindowNetwork" >
+        <div ng-non-bindable="">
+          id: {{vm.new_network._id}}<br/>
+          Dirección: {{vm.new_network.address}}<br/>
+          Coordenadas: {{vm.new_network.latitude}}, {{vm.new_network.longitude}}<br/>
+          Status: {{vm.new_network.status}}<br/>
+          Categoría de servicio: {{vm.new_network.categoryName[0].category}}<br/>
+          Creación: {{vm.new_network.created}}<br/>
+          <a  ui-sref="networks.view({ networkId: vm.new_network._id })">Más sobre esta unidad</a><br/>
+        </div>
+      </info-window>
+    </ng-map>
   </div>
-  <div class="alert alert-warning text-center" ng-if="vm.panels.$resolved && !vm.panels.length">
-    No Panels yet, why don't you <a ui-sref="panels.create">create one</a>?
+
+  <div>
+    <div>
+      <div id="leyendaEsperando">
+      </div>
+      <div>
+        <h4 class="textoLeyenda">Cliente esperando</h4>
+      </div>
+    </div>
+
+    <div>
+      <div id="leyendaEnAtencion">
+      </div>
+      <div>
+        <h4 class="textoLeyenda">Cliente en atención</h4>
+      </div>
+    </div>
+
+    <div>
+      <div id="leyendaUnidadDisponible">
+      </div>
+      <div>
+        <h4 class="textoLeyenda">Unidad disponible</h4>
+      </div>
+    </div>
+
+    <div>
+      <div id="leyendaUnidadEnAtencion">
+      </div>
+      <div>
+        <h4 class="textoLeyenda">Unidad en atención</h4>
+      </div>
+    </div>
   </div>
+
 </section>

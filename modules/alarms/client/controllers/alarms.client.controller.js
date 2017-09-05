@@ -35,7 +35,7 @@
 
     // Remove existing Alarm
     function remove() {
-      if ($window.confirm('Are you sure you want to delete?')) {
+      if ($window.confirm('Esta acción eliminará de manera definitiva la alarma')) {
         vm.alarm.$remove($state.go('alarms.list'));
       }
     }

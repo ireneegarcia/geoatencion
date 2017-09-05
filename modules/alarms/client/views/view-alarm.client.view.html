@@ -2,17 +2,18 @@
   <div class="page-header">
     <h4>Solicitud de: {{vm.user[0].displayName}}</h4>
   </div>
-  <div class="pull-right"
-       ng-show="vm.alarm.isCurrentUserOwner">
+  <!--<div class="pull-right"
+       ng-show="vm.alarm.isCurrentUserOwner">-->
+  <div class="pull-right">
     <a class="btn btn-info"
        ui-sref="alarms.edit({ alarmId: vm.alarm._id })">
       <i class="glyphicon glyphicon-edit"></i>
-      Editar
+      Detalle
     </a>
 
     <a class="btn btn-info" ng-click="vm.remove()">
       <i class="glyphicon glyphicon-trash"></i>
-      Eliminar
+      Rechazar
     </a>
   </div>
   <small>
