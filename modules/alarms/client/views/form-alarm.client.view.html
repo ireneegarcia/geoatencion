@@ -8,42 +8,42 @@
 
         <div class="form-group has-info" show-errors>
           <label class="control-label" for="_id">Identificador de solicitud</label>
-          <input name="_id" type="text" ng-model="vm.alarm._id" id="_id" class="form-control"  required>
+          <input ng-disabled="true" name="_id" type="text" ng-model="vm.alarm._id" id="_id" class="form-control"  required>
           <div ng-messages="vm.form.alarmForm._id.$error" role="alert">
             <p class="help-block error-text" ng-message="required">Alarm name is required.</p>
           </div>
         </div>
         <div class="form-group has-info" show-errors>
           <label class="control-label" for="user">Datos del usuario</label>
-          <input name="user" type="text" ng-model="vm.user[0].displayName" id="user" class="form-control" required>
+          <input ng-disabled="true" name="user" type="text" ng-model="vm.user[0].displayName" id="user" class="form-control" required>
           <div ng-messages="vm.form.alarmForm.user.$error" role="alert">
             <p class="help-block error-text" ng-message="required">Alarm name is required.</p>
           </div>
         </div>
         <div class="form-group has-info" show-errors>
           <label class="control-label" for="category">Categoría de servicio</label>
-          <input name="category" type="text" ng-model="vm.category[0].category" id="category" class="form-control" required>
+          <input ng-disabled="true" name="category" type="text" ng-model="vm.category[0].category" id="category" class="form-control" required>
           <div ng-messages="vm.form.alarmForm.category.$error" role="alert">
             <p class="help-block error-text" ng-message="required">Alarm name is required.</p>
           </div>
         </div>
         <div class="form-group has-info" show-errors>
           <label class="control-label" for="created">Fecha de registro en el sistema</label>
-          <input name="created" type="text" ng-model="vm.alarm.created" id="created" class="form-control" required>
+          <input ng-disabled="true" name="created" type="text" ng-model="vm.alarm.created" id="created" class="form-control" required>
           <div ng-messages="vm.form.alarmForm.created.$error" role="alert">
             <p class="help-block error-text" ng-message="required">Alarm name is required.</p>
           </div>
         </div>
         <div class="form-group has-info" show-errors>
           <label class="control-label" for="status">Status de la solicitud de atención</label>
-          <input name="status" type="text" ng-model="vm.alarm.status" id="status" class="form-control" required>
+          <input ng-disabled="true" name="status" type="text" ng-model="vm.alarm.status" id="status" class="form-control" required>
           <div ng-messages="vm.form.alarmForm.status.$error" role="alert">
             <p class="help-block error-text" ng-message="required">Alarm name is required.</p>
           </div>
         </div>
         <div class="form-group has-info" show-errors>
           <label class="control-label" for="status">Ubicación solicitud de atención</label>
-          <textarea class="form-control" cols="30" rows="5">
+          <textarea ng-disabled="true" class="form-control" cols="30" rows="5">
     Coordenadas=> Latitud: {{vm.alarm.latitude}} - Longitud: {{vm.alarm.longitude}}
 
     Ubicación=> {{vm.alarm.address}}
@@ -53,9 +53,11 @@
           </div>
         </div>
         <div class="form-group has-info" show-errors>
-          <label class="control-label" for="serviceUser">Network asignado</label>
-          <input name="serviceUser" type="text" ng-model="vm.alarm.serviceUser" id="serviceUser" class="form-control" required>
-          <div ng-messages="vm.form.alarmForm.serviceUser.$error" role="alert">
+          <label class="control-label" for="network">Network asignado</label>
+          <select name="network" ng-model="vm.alarm.network" id="network" class="form-control">
+            <option ng-repeat="option in vm.networks" value="{{option._id}}">{{option._id}}</option>
+          </select>
+          <div ng-messages="vm.form.alarmForm.network.$error" role="alert">
             <p class="help-block error-text" ng-message="required">Alarm name is required.</p>
           </div>
         </div>
