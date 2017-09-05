@@ -6,9 +6,9 @@
     .module('panels')
     .controller('PanelsController', PanelsController);
 
-  PanelsController.$inject = ['$scope', '$state', '$window', 'Authentication', 'panelResolve'];
+  PanelsController.$inject = ['$scope', '$state', '$window', 'Authentication', 'panelResolve', 'NgMap'];
 
-  function PanelsController ($scope, $state, $window, Authentication, panel) {
+  function PanelsController ($scope, $state, $window, Authentication, panel, ngMap) {
     var vm = this;
 
     vm.authentication = Authentication;
@@ -17,6 +17,10 @@
     vm.form = {};
     vm.remove = remove;
     vm.save = save;
+
+    function onClickMarker() {
+      console.log('Click');
+    }
 
     // Remove existing Panel
     function remove() {

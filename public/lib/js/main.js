@@ -1,4 +1,4 @@
-angular.module("FinalApp",["ngRoute","ngResource"])
+angular.module("FinalApp",["ngRoute","ngResource","ngMap"])
     .config(function($routeProvider){
 
         $routeProvider
