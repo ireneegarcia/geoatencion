@@ -14,7 +14,7 @@ var path = require('path'),
  */
 exports.create = function(req, res) {
   var alarm = new Alarm(req.body);
-  //alarm.user = req.user;
+  // alarm.user = req.user;
 
   alarm.save(function(err) {
     if (err) {

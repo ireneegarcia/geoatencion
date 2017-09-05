@@ -30,7 +30,7 @@ var FormularioSchema = new Schema({
     type: String,
     default: '',
     required: 'Por favor, introduzca la pregunta'
-    //trim: true
+    // trim: true
   },
   question2: {
     type: String,

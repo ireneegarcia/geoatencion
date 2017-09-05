@@ -25,12 +25,14 @@
       });
     });
 
-    /*// Responsables de unidades 'serviceUser'
+    /*
+     // Responsables de unidades 'serviceUser'
      vm.responsables = UsersService.query(function (data) {
      vm.responsables = $filter('filter')(data, { roles: 'serviceUser'});
-     });*/
+     });
+     */
 
-    //Listado de usuarios responsables de unidades
+    // Listado de usuarios responsables de unidades
     var serviceUsers = [];
     UsersService.query(function (data) {
       // Responsables de unidades
@@ -41,15 +43,15 @@
 
     // Listar las unidades dependiendo del organismo
 
-    //console.log(vm.network.serviceUser);
+    // console.log(vm.network.serviceUser);
 
-    if(vm.network.serviceUser){
+    if (vm.network.serviceUser) {
 
       UsersService.query(function (data) {
         // Responsables de unidades
-        serviceUsers = data.filter(function (data) {
-          if(data.roles.indexOf('serviceUser') >= 0 &&
-            data._id.indexOf(vm.network.serviceUser) >= 0){
+        serviceUsers = data.forEach(function (data) {
+          if (data.roles.indexOf('serviceUser') >= 0 &&
+            data._id.indexOf(vm.network.serviceUser) >= 0) {
             network.serviceUserEmail = data.email;
           }
         });

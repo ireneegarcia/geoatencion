@@ -26,8 +26,8 @@
       networks = data;
     });
 
-    //Condicional para encontrar el organismo relacionado
-    if(Authentication.user.roles[0] === 'organism'){
+    // Condicional para encontrar el organismo relacionado
+    if (Authentication.user.roles[0] === 'organism') {
       UsersService.query(function (data) {
         // El organismo logueado
         vm.organism = data.filter(function (data) {
@@ -35,23 +35,23 @@
         });
         listNetwork(vm.organism);
       });
-    }else{
-      if(Authentication.user.roles[0] === 'operator'){
+    } else {
+      if (Authentication.user.roles[0] === 'operator') {
         UsersService.query(function (data) {
-          //El operador logueado
+          // El operador logueado
           var operator = data.filter(function (data) {
             return (data.email.indexOf(Authentication.user.email) >= 0);
           });
           // El organismo al que pertence el operador logueado
           vm.organism = data.filter(function (data) {
-            return (data._id.indexOf(operator[0].user._id)>= 0);
+            return (data._id.indexOf(operator[0].user._id) >= 0);
           });
           listNetwork(vm.organism);
         });
       }
     }
 
-    //Listado de usuarios responsables de unidades
+    // Listado de usuarios responsables de unidades
     var serviceUsers = [];
     UsersService.query(function (data) {
       // Responsables de unidades
@@ -64,11 +64,11 @@
     function listNetwork(organism) {
       NetworksService.query(function (data) {
         data.forEach(function(network) {
-          if(network.user._id === organism[0]._id){
+          if (network.user._id === organism[0]._id) {
             UsersService.query(function (data) {
               data.forEach(function (user) {
-                if(user.roles.indexOf('serviceUser') >= 0 &&
-                  user._id.indexOf(network.serviceUser) >= 0){
+                if (user.roles.indexOf('serviceUser') >= 0 &&
+                  user._id.indexOf(network.serviceUser) >= 0) {
                   network.serviceUserEmail = user.email;
                 }
               });

@@ -17,8 +17,8 @@
     vm.figureOutItemsToDisplay = figureOutItemsToDisplay;
     vm.pageChanged = pageChanged;
 
-    //Condicional para encontrar el organismo relacionado
-    if(Authentication.user.roles[0] === 'organism'){
+    // Condicional para encontrar el organismo relacionado
+    if (Authentication.user.roles[0] === 'organism') {
       UsersService.query(function (data) {
         // El organismo logueado
         vm.organism = data.filter(function (data) {
@@ -26,16 +26,16 @@
         });
         userListNetwork(vm.organism);
       });
-    }else{
-      if(Authentication.user.roles[0] === 'operator'){
+    } else {
+      if (Authentication.user.roles[0] === 'operator') {
         UsersService.query(function (data) {
-          //El operador logueado
+          // El operador logueado
           var operator = data.filter(function (data) {
             return (data.email.indexOf(Authentication.user.email) >= 0);
           });
           // El organismo al que pertence el operador logueado
           vm.organism = data.filter(function (data) {
-            return (data._id.indexOf(operator[0].user._id)>= 0);
+            return (data._id.indexOf(operator[0].user._id) >= 0);
           });
           userListNetwork(vm.organism);
         });
@@ -53,14 +53,16 @@
         vm.buildPager();
       });
 
-      /*NetworksService.query(function (data) {
-        data.forEach(function(network) {
-          if(network.user._id === organism[0]._id){
-            vm.networks.push(network);
-          }
-        });
-        vm.buildPager();
-      });*/
+      /*
+       NetworksService.query(function (data) {
+       data.forEach(function(network) {
+       if(network.user._id === organism[0]._id){
+       vm.networks.push(network);
+       }
+       });
+       vm.buildPager();
+       });
+       */
     }
 
     function buildPager() {
