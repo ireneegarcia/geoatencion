@@ -11,12 +11,20 @@
     var vm = this;
 
     vm.panels = PanelsService.query();
-    vm.alarms = AlarmsService.query();
     vm.network = NetworksService.query();
 
     NgMap.getMap().then(function(map) {
       vm.map = map;
     });
+
+    AlarmsService.query(function (data) {
+      // Alarmas con status esperando o en atencion
+      vm.alarms = data.filter(function (data) {
+        return (data.status.indexOf('esperando') >= 0 ||
+                data.status.indexOf('en atencion') >= 0);
+      });
+    });
+
 
     vm.showDetailAlarms = function(e, alarms) {
       vm.new_alarm = alarms;

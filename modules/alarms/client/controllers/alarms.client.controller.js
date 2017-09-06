@@ -91,10 +91,13 @@
       });
     }
 
+    var bandera = true;
     // Remove existing Alarm
     function remove() {
       if ($window.confirm('Esta acción eliminará de manera definitiva la alarma')) {
-        vm.alarm.$remove($state.go('alarms.list'));
+        // vm.alarm.$remove($state.go('alarms.list'));
+        bandera = false;
+        save(true);
       }
     }
 
@@ -110,7 +113,13 @@
         vm.alarm.icon = 'http://maps.google.com/mapfiles/ms/icons/red-dot.png';
       } else {
         // con asignacion
+        vm.alarm.status = 'en atencion';
         vm.alarm.icon = 'http://maps.google.com/mapfiles/ms/icons/green-dot.png';
+      }
+
+      if (bandera === false) {
+        vm.alarm.status = 'rechazado';
+        vm.alarm.icon = 'http://maps.google.com/mapfiles/ms/icons/red-dot.png';
       }
 
       // TODO: move create/update logic to service
