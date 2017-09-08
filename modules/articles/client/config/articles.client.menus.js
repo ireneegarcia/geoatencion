@@ -8,7 +8,7 @@
   menuConfig.$inject = ['menuService'];
 
   function menuConfig(menuService) {
-    menuService.addMenuItem('topbar', {
+    /*menuService.addMenuItem('topbar', {
       title: 'XX',
       state: 'articles',
       type: 'dropdown',
@@ -20,6 +20,6 @@
       title: 'Listado de organismos',
       state: 'articles.list',
       roles: ['*']
-    });
+    });*/
   }
 }());

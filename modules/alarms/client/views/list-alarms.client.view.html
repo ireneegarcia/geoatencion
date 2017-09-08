@@ -6,6 +6,7 @@
     <a ng-repeat="alarm in vm.alarms"
        ui-sref="alarms.view({ alarmId: alarm._id })"
        class="list-group-item">
+      <img style="vertical-align: baseline" ng-src="{{alarm.icon}}" alt="Loading image...">
       <small class="list-group-item-text">
         Posted on
         <span ng-bind="alarm.created | date:'mediumDate'"></span>

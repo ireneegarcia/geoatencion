@@ -45,7 +45,7 @@ var AlarmSchema = new Schema({
   },
   icon: {
     type: String,
-    default: 'http://maps.google.com/mapfiles/ms/icons/red-dot.png'
+    default: '/modules/panels/client/img/wait.png'
     // trim: true
   },
   network: {

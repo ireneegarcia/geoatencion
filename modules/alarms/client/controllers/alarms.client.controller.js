@@ -110,16 +110,16 @@
 
       if (vm.alarm.network === '') {
         // vacio
-        vm.alarm.icon = 'http://maps.google.com/mapfiles/ms/icons/red-dot.png';
+        vm.alarm.icon = '/modules/panels/client/img/wait.png';
       } else {
         // con asignacion
         vm.alarm.status = 'en atencion';
-        vm.alarm.icon = 'http://maps.google.com/mapfiles/ms/icons/green-dot.png';
+        vm.alarm.icon = '/modules/panels/client/img/process.png';
       }
 
       if (bandera === false) {
         vm.alarm.status = 'rechazado';
-        vm.alarm.icon = 'http://maps.google.com/mapfiles/ms/icons/red-dot.png';
+        vm.alarm.icon = '/modules/panels/client/img/wait.png';
       }
 
       // TODO: move create/update logic to service

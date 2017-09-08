@@ -63,7 +63,7 @@ var NetworkSchema = new Schema({
   },
   icon: {
     type: String,
-    default: 'http://maps.google.com/mapfiles/ms/icons/blue-dot.png'
+    default: '/modules/panels/client/img/car-placeholder.png'
     // trim: true
   },
   created: {

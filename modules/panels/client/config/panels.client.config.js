@@ -10,7 +10,7 @@
   function menuConfig(menuService) {
     // Set top bar menu items
     menuService.addMenuItem('topbar', {
-      title: 'Panels',
+      title: 'Panel',
       state: 'panels',
       type: 'dropdown',
       roles: ['organism', 'operator']
