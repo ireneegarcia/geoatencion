@@ -12,21 +12,60 @@
       </div>
     </div>
   </div>
-  <div id="Cuerpo" >
+  <div id="Cuerpo" class="container">
+    <div class="row">
+      <!-- BEGIN PRODUCTS -->
+      <div ng-repeat="user in vm.pagedItems" class="cuadricula col-md-3 col-sm-6">
+    		<span >
+          <div class="fecha">
+            <img style="vertical-align: baseline" ng-src="/{{user.profileImageURL}}" height="90" width="80"  class="img-circle" alt="Loading image...">
+          </div>
+          <div style="height: 104px">
+      			<h4 class="list-group-item-heading"><strong>{{user.displayName}}</strong></h4>
+      			<div class="ratings">
+                    <span class="glyphicon glyphicon-star"></span>
+                    <span class="glyphicon glyphicon-star"></span>
+                    <span class="glyphicon glyphicon-star"></span>
+                    <span class="glyphicon glyphicon-star"></span>
+                    <span class="glyphicon glyphicon-star-empty"></span>
+                </div>
+      			<div ng-show="user.about">
+              <em >{{user.about}}</em>
+              <br/>
+            </div>
+            <div style="display: inline-block" ng-repeat="categories in vm.categories" ng-if="user.category === categories.id">
+              Categoría de atención: {{categories.name}}
+            </div>
+            Unidades de atención: {{user.network}}
+          </div>
+
+      			<div class="row">
+      					<small style="display: inline-block;" class="list-group-item-text">
+                  Fecha de afiliación
+                  <span ng-bind="user.created | date:'mediumDate'"></span>
+                </small>
+      			</div>
+    		</span>
+      </div>
+    </div>
+  </div>
+
+
+  <!--<div id="Cuerpp" >
     <div ng-repeat="user in vm.pagedItems" class="cuadricula">
 
       <div class="fecha">
-      <img style="vertical-align: baseline" ng-src="/{{user.profileImageURL}}" height="50" width="50"  class="img-circle" alt="Loading image...">
+        <img style="vertical-align: baseline" ng-src="/{{user.profileImageURL}}" height="50" width="50"  class="img-circle" alt="Loading image...">
       </div>
-        <div style="display: inline-block">
+      <div style="display: inline-block">
         <h4 class="list-group-item-heading"><strong>{{user.displayName}}</strong></h4>
-        <!--<p class="list-group-item-text small" ng-bind="user.roles"></p>-->
+        &lt;!&ndash;<p class="list-group-item-text small" ng-bind="user.roles"></p>&ndash;&gt;
         <div ng-show="user.about">
           <em >{{user.about}}</em>
           <br/>
         </div>
         <div style="display: inline-block" ng-repeat="categories in vm.categories" ng-if="user.category === categories.id">
-        Categoría de atención: {{categories.name}}
+          Categoría de atención: {{categories.name}}
         </div>
         <br/>
         Unidades de atención: {{user.network}}
@@ -37,40 +76,6 @@
         </small>
       </div>
     </div>
-  </div>
-  <!--<div class="list-group">
-    <div
-       ui-sref="catalogos.view({ catalogoId: catalogo._id })"
-       class="list-group-item">
-      <table id="catalogo" class="table table-striped table-hover">
-        <thead>
-        <tr>
-          <th style="width: 30%">Nombre del organismo</th>
-          <th style="width: 20%">Categoría de servicio</th>
-          <th style="width: 20%">Unidades de atención</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr ng-repeat="user in vm.pagedItems">
-          <td ng-bind="user.displayName"></td>
-          <td ng-repeat="categories in vm.categories" ng-if="user.category === categories.id">{{categories.name}}</td>
-          <td>{{user.network}}</td>
-        </tr>
-        </tbody>
-      </table>
-
-      <small class="list-group-item-text">
-        Posted on
-        <span ng-bind="catalogo.created | date:'mediumDate'"></span>
-        by
-        <span ng-if="catalogo.user" ng-bind="catalogo.user.displayName"></span>
-        <span ng-if="!catalogo.user">Deleted User</span>
-      </small>
-      <h4 class="list-group-item-heading" ng-bind="catalogo.name"></h4>
-    </div>
   </div>-->
-  <!--<div class="alert alert-warning text-center" ng-if="vm.catalogos.$resolved && !vm.catalogos.length">-->
-  <!--No Catalogos yet, why don't you <a ui-sref="catalogos.create">create one</a>?-->
-  <!--</div>-->
-  <!--<uib-pagination boundary-links="true" max-size="8" items-per-page="vm.itemsPerPage" total-items="vm.filterLength" ng-model="vm.currentPage" ng-change="vm.pageChanged()"></uib-pagination>-->
+
 </section>
