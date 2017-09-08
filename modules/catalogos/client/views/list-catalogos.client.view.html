@@ -12,6 +12,41 @@
       </div>
     </div>
   </div>
+
+
+  <div id="Cuerpo">
+    <div class="row clearfix">
+      <div ng-repeat="user in vm.pagedItems" class="tamano col-md-3 column">
+        <div class="circle-tile ">
+          <div class="circle-tile-heading dark-blue">
+            <img style="vertical-align: baseline" ng-src="/{{user.profileImageURL}}" height="90" width="80"  class="img-circle" alt="Loading image...">
+          </div>
+          <div class="circle-tile-content dark-blue">
+            <div style="height: 104px">
+              <div class="circle-tile-number text-faded ">{{user.displayName}}</div>
+              <div class="text-faded">
+                <div ng-show="user.about">
+                  <em>{{user.about}}</em>
+                </div>
+                <div style="display: inline-block" ng-repeat="categories in vm.categories" ng-if="user.category === categories.id">
+                  Categoría de atención: {{categories.name}}
+                </div>
+                <br/>
+                Unidades de atención: {{user.network}}
+              </div>
+            </div>
+            <div class="circle-tile-footer">
+              <small style="display: inline-block;" class="list-group-item-text">
+                Fecha de afiliación
+                <span ng-bind="user.created | date:'mediumDate'"></span>
+              </small>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <div id="Cuerpo" class="container">
     <div class="row">
       <!-- BEGIN PRODUCTS -->
