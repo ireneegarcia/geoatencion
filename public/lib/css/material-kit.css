@@ -18,6 +18,135 @@
 /* SHADOWS */
 /* Shadows (from mdl http://www.getmdl.io/) */
 
+/*Leyenda scroll */
+header
+{
+	font-family: 'Lobster', cursive;
+	text-align: center;
+	font-size: 25px;
+}
+
+#info
+{
+	font-size: 18px;
+	color: #555;
+	text-align: center;
+	margin-bottom: 25px;
+}
+
+a{
+	color: #074E8C;
+}
+
+.scrollbar
+{
+	/* margin-left: 30px; */
+	float: left;
+	height: 268px;
+	width: 324px;
+	background: #F5F5F5;
+	overflow-y: scroll;
+	margin-bottom: 25px;
+}
+
+.force-overflow
+{
+	min-height: 450px;
+}
+
+#wrapper
+{
+	text-align: center;
+	width: 500px;
+	margin: auto;
+}
+
+/*
+ *  Esperando
+ */
+#style-13::-webkit-scrollbar-track
+{
+
+	border-radius: 10px;
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+	background-color: #F5F5F5;
+}
+
+#style-13::-webkit-scrollbar
+{
+	width: 10px;
+	background-color: #F5F5F5;
+}
+
+#style-13::-webkit-scrollbar-thumb
+{
+	border-radius: 10px;
+	background-color: #D62929;
+	background-image: -webkit-linear-gradient(90deg,
+	transparent,
+	rgba(0, 0, 0, 0.4) 50%,
+	transparent,
+	transparent)
+}
+
+/*
+ *  En atencion
+ */
+
+#style-7::-webkit-scrollbar-track
+{
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+	background-color: #F5F5F5;
+	border-radius: 10px;
+}
+
+#style-7::-webkit-scrollbar
+{
+	width: 10px;
+	background-color: #F5F5F5;
+}
+
+#style-7::-webkit-scrollbar-thumb
+{
+	border-radius: 10px;
+	background-image: -webkit-gradient(linear,
+	left bottom,
+	left top,
+	color-stop(0.44, rgb(122,153,217)),
+	color-stop(0.72, rgb(73,125,189)),
+	color-stop(0.86, rgb(28,58,148)));
+}
+
+/*
+ *  Unidades
+ */
+
+#style-14::-webkit-scrollbar-track
+{
+	border-radius: 10px;
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+	background-color: #F5F5F5;
+}
+
+#style-14::-webkit-scrollbar
+{
+	width: 10px;
+	background-color: #F5F5F5;
+}
+
+#style-14::-webkit-scrollbar-thumb
+{
+	border-radius: 10px;
+	background-color: #FFF;
+	background-image: -webkit-linear-gradient(90deg,
+	rgba(0, 0, 0, 1) 0%,
+	rgba(0, 0, 0, 1) 25%,
+	transparent 100%,
+	rgba(0, 0, 0, 1) 75%,
+	transparent)
+}
+
+
 /*Estadistica*/
 
 .circle-tile {
@@ -59,7 +188,7 @@
 	border-radius: 17px;
 }
 .circle-tile-footer:hover {
-	background-color: rgba(0, 0, 0, 0.2);
+	background-color: #015C83;
 	color: rgba(255, 255, 255, 0.5);
 	text-decoration: none;
 }
@@ -86,7 +215,7 @@
 }
 
 .dark-blue {
-	background-color: #34495E;
+	background-color: #017BB0;
 }
 .green {
 	background-color: #16A085;
@@ -147,6 +276,25 @@
 	width: 30%;
 	float: right;
 }
+
+#navLeyenda ul li{
+	/*float: left;*/
+	text-decoration: none;
+	color: #424242;
+	font-size: 16px;
+	width: 62%;
+	height: 50px;
+	display: -webkit-box;
+	display: -ms-flexbox;
+	display: flex;
+	-webkit-box-pack: center;
+	-ms-flex-pack: center;
+	justify-content: left;
+	-webkit-box-align: center;
+	-ms-flex-align: center;
+	align-items: left;
+}
+
 .status{
 	float: left;
 }
@@ -161,7 +309,7 @@
 }
 
 .tamano{
-	width: 314px;
+	width: 333px;
 	height: 250px;
 }
 

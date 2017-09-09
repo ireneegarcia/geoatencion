@@ -18,7 +18,7 @@
 
       </marker>
 
-      <marker ng-repeat="network in vm.network "
+      <marker ng-repeat="network in vm.networks "
               id='{{network._id}}'
               position="{{[network.latitude, network.longitude]}}"
               title="{{network.status}}"
@@ -56,19 +56,43 @@
 
   <div id="leyenda">
     <div class="statusBox">
-        <img class="status" style="vertical-align: baseline" ng-src="/modules/panels/client/img/wait.png" alt="Loading image...">
-        <h4 class="status">Cliente esperando</h4>
+      <img class="status" style="vertical-align: baseline" ng-src="/modules/panels/client/img/wait.png" alt="Loading image...">
+      <h4 class="status">Cliente esperando</h4>
+
+      <div class="scrollbar" id="style-13">
+        <div class="force-overflow">
+          <div ng-repeat="alarms in vm.alarmsEsperando ">
+            <p>{{alarms._id}}</p>
+          </div>
+        </div>
+      </div>
     </div>
-    <br/>
     <div class="statusBox">
-        <img class="status" style="vertical-align: baseline" ng-src="/modules/panels/client/img/process.png" alt="Loading image...">
-        <h4 class="status">Cliente en atencion</h4>
+      <img class="status" style="vertical-align: baseline" ng-src="/modules/panels/client/img/process.png" alt="Loading image...">
+      <h4 class="status">Cliente en atencion</h4>
+
+      <div class="scrollbar" id="style-7">
+        <div class="force-overflow">
+          <div ng-repeat="alarms in vm.alarmsEnAtencion ">
+            <p>{{alarms._id}}</p>
+          </div>
+        </div>
+      </div>
     </div>
+
     <div class="statusBox">
       <img class="status" style="vertical-align: baseline" ng-src="/modules/panels/client/img/car-placeholder.png" alt="Loading image...">
       <h4 class="status">Unidades de atención</h4>
-    </div>
 
+      <div class="scrollbar" id="style-14">
+        <div class="force-overflow">
+          <div ng-repeat="network in vm.networks ">
+            <p>{{network._id}}</p>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 
 </section>
+
