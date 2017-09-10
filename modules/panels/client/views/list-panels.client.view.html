@@ -5,7 +5,7 @@
   </div>
   <div id="map" class="col-md-12" >
     <ng-map
-      style="height: 1000px"
+      style="height: 519px"
       zoom="11"
       center="[8.2593534,-62.7734547]"
     >
@@ -54,45 +54,77 @@
     </ng-map>
   </div>
 
-  <div id="leyenda">
-    <div class="statusBox">
-      <img class="status" style="vertical-align: baseline" ng-src="/modules/panels/client/img/wait.png" alt="Loading image...">
-      <h4 class="status">Cliente esperando</h4>
+  <div id="leyenda" class="container">
 
-      <div class="scrollbar" id="style-13">
-        <div class="force-overflow">
-          <div ng-repeat="alarms in vm.alarmsEsperando ">
-            <p>{{alarms._id}}</p>
+
+    <div class="panel-group" id="accordion">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h4 class="panel-title"  style="padding-bottom: 8px;">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapse1">
+              <img class="status" ng-src="/modules/panels/client/img/wait.png" alt="Loading image...">
+              Cliente esperando
+            </a>
+          </h4>
+        </div>
+        <div id="collapse1" class="panel-collapse collapse">
+          <div class="statusBox">
+            <div class="scrollbar" id="style-13">
+              <div class="force-overflow">
+                <div ng-repeat="alarms in vm.alarmsEsperando ">
+                  <p>{{alarms._id}}</p>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-    <div class="statusBox">
-      <img class="status" style="vertical-align: baseline" ng-src="/modules/panels/client/img/process.png" alt="Loading image...">
-      <h4 class="status">Cliente en atencion</h4>
 
-      <div class="scrollbar" id="style-7">
-        <div class="force-overflow">
-          <div ng-repeat="alarms in vm.alarmsEnAtencion ">
-            <p>{{alarms._id}}</p>
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h4 class="panel-title"  style="padding-bottom: 8px;">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapse2">
+              <img class="status" style="vertical-align: baseline" ng-src="/modules/panels/client/img/process.png" alt="Loading image...">
+              Cliente en atencion
+            </a>
+          </h4>
+        </div>
+        <div id="collapse2" class="panel-collapse collapse">
+          <div class="statusBox">
+            <div class="scrollbar" id="style-7">
+              <div class="force-overflow">
+                <div ng-repeat="alarms in vm.alarmsEnAtencion ">
+                  <p>{{alarms._id}}</p>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
-    </div>
 
-    <div class="statusBox">
-      <img class="status" style="vertical-align: baseline" ng-src="/modules/panels/client/img/car-placeholder.png" alt="Loading image...">
-      <h4 class="status">Unidades de atención</h4>
-
-      <div class="scrollbar" id="style-14">
-        <div class="force-overflow">
-          <div ng-repeat="network in vm.networks ">
-            <p>{{network._id}}</p>
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h4 class="panel-title"  style="padding-bottom: 8px;">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapse3">
+              <img class="status" style="vertical-align: baseline" ng-src="/modules/panels/client/img/car-placeholder.png" alt="Loading image...">
+              Unidades de atención
+            </a>
+          </h4>
+        </div>
+        <div id="collapse3" class="panel-collapse collapse">
+          <div class="statusBox">
+            <div class="scrollbar" id="style-14">
+              <div class="force-overflow">
+                <div ng-repeat="network in vm.networks ">
+                  <p>{{network._id}}</p>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
+
     </div>
   </div>
-
 </section>
 
