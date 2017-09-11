@@ -1,42 +1,14 @@
 ﻿<section>
-  <div class="text-center page-header">
-    <div class="row">
-      <div style="margin: 0% 21% 0% 17%">
-      <h2>
-        Catálogo de organismos afiliados
-        <a class="btn btn-info btn-raised pull-right" data-ui-sref="admin.articles.create">
-          Nuevo
-          <i class="glyphicon glyphicon-plus"></i>
-        </a>
-      </h2>
-      </div>
-      <div class="form-group has-info label-floating col-md-4" style="margin: 0% 20% 0% 34% ; width: 32.5%">
-
-        <input class="form-control col-md-4"
-               type="text" ng-model="vm.search"
-               placeholder="Buscar"
-               ng-change="vm.figureOutItemsToDisplay()" />
-      </div>
-    </div>
+  <div class="page-header">
+    <h1>
+      Articles
+      <a class="btn btn-primary pull-right" data-ui-sref="admin.articles.create">
+        <i class="glyphicon glyphicon-plus"></i>
+      </a>
+    </h1>
   </div>
-  <div style="margin: 0% 20% 5% 20% " class="list-group">
-    <a data-ng-repeat="article in vm.pagedItems" data-ui-sref="admin.articles.edit({articleId: article._id})" class="list-group-item">
-
-      <table id="articles" class="table table-striped table-hover">
-        <thead>
-        <tr>
-          <th>Nombre del organismo</th>
-          <th>Categoría de servicio</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr>
-          <td data-ng-bind="article.name"></td>
-          <td data-ng-bind="article.category"></td>
-        </tr>
-        </tbody>
-      </table>
-
+  <div class="list-group">
+    <a data-ng-repeat="article in vm.articles" data-ui-sref="admin.articles.edit({articleId: article._id})" class="list-group-item">
       <small class="list-group-item-text">
         Posted on
         <span data-ng-bind="article.created | date:'mediumDate'"></span>
@@ -44,6 +16,8 @@
         <span ng-if="article.user" ng-bind="article.user.displayName"></span>
         <span ng-if="!article.user">Deleted User</span>
       </small>
+      <h4 class="list-group-item-heading" data-ng-bind="article.title"></h4>
+      <p class="list-group-item-text" data-ng-bind="article.content"></p>
     </a>
   </div>
   <div class="alert alert-warning text-center" data-ng-if="articles.$resolved && !articles.length">

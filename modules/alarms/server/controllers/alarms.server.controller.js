@@ -15,7 +15,7 @@ var path = require('path'),
 exports.create = function(req, res) {
   var alarm = new Alarm(req.body);
   // alarm.user = req.user;
-  alarm.icon = "http://maps.google.com/mapfiles/ms/icons/red-dot.png";
+  alarm.icon = 'http://maps.google.com/mapfiles/ms/icons/red-dot.png';
   alarm.save(function(err) {
     if (err) {
       return res.status(400).send({

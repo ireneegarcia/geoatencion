@@ -10,7 +10,7 @@
 
   function menuConfig(Menus) {
     Menus.addSubMenuItem('topbar', 'admin', {
-      title: 'Administrar catálogo',
+      title: 'Manage Articles',
       state: 'admin.articles.list'
     });
   }

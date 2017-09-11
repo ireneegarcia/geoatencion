@@ -18,8 +18,6 @@
     vm.remove = remove;
     vm.save = save;
 
-
-
     // Remove existing Panel
     function remove() {
       if ($window.confirm('Are you sure you want to delete?')) {
