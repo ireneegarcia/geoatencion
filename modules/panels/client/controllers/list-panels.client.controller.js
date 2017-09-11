@@ -13,6 +13,8 @@
     vm.panels = PanelsService.query();
     vm.networks = [];
     vm.network = NetworksService.query();
+    vm.centerLatitude = 8.2593534;
+    vm.centerLongitude = -62.7734547;
 
     NgMap.getMap().then(function(map) {
       vm.map = map;
@@ -88,6 +90,11 @@
         return (data.status.indexOf('en atencion') >= 0);
       });
     });
+
+    vm.center = function(alarms) {
+      vm.centerLatitude = alarms.latitude;
+      vm.centerLongitude = alarms.longitude;
+    };
 
     vm.showDetailAlarms = function(e, alarms) {
       vm.new_alarm = alarms;

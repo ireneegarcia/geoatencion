@@ -7,7 +7,8 @@
     <ng-map
       style="height: 519px"
       zoom="11"
-      center="[8.2593534,-62.7734547]"
+      center="[{{vm.centerLatitude}},{{vm.centerLongitude}}]"
+
     >
       <marker ng-repeat="alarms in vm.alarms "
               id='{{alarms._id}}'
@@ -71,8 +72,8 @@
           <div class="statusBox">
             <div class="scrollbar" id="style-13">
               <div class="force-overflow">
-                <div ng-repeat="alarms in vm.alarmsEsperando ">
-                  <p>{{alarms._id}}</p>
+                <div  ng-repeat="alarms in vm.alarmsEsperando ">
+                  <a ng-click="vm.center(alarms)" href="">{{alarms._id}}</a>
                 </div>
               </div>
             </div>
@@ -94,7 +95,7 @@
             <div class="scrollbar" id="style-7">
               <div class="force-overflow">
                 <div ng-repeat="alarms in vm.alarmsEnAtencion ">
-                  <p>{{alarms._id}}</p>
+                  <a ng-click="vm.center(alarms)" href="">{{alarms._id}}</a>
                 </div>
               </div>
             </div>
@@ -116,7 +117,7 @@
             <div class="scrollbar" id="style-14">
               <div class="force-overflow">
                 <div ng-repeat="network in vm.networks ">
-                  <p>{{network._id}}</p>
+                  <a ng-click="vm.center(network)" href="">{{network._id}}</a>
                 </div>
               </div>
             </div>
