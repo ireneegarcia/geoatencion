@@ -72,9 +72,11 @@
           <div class="statusBox">
             <div class="scrollbar" id="style-13">
               <div class="force-overflow">
-                <div  ng-repeat="alarms in vm.alarmsEsperando ">
-                  <a ng-click="vm.center(alarms)" href="">{{alarms._id}}</a>
-                </div>
+                <ul>
+                  <li ng-repeat="alarms in vm.alarmsEsperando ">
+                    <a ng-click="vm.center(alarms)" href="">{{alarms._id}}</a>
+                  </li>
+                </ul>
               </div>
             </div>
           </div>
@@ -94,9 +96,12 @@
           <div class="statusBox">
             <div class="scrollbar" id="style-7">
               <div class="force-overflow">
-                <div ng-repeat="alarms in vm.alarmsEnAtencion ">
-                  <a ng-click="vm.center(alarms)" href="">{{alarms._id}}</a>
-                </div>
+                <ul>
+                  <li ng-repeat="alarms in vm.alarmsEnAtencion ">
+                    <a ng-click="vm.center(alarms)" href="">
+                      id: {{alarms._id}}</a>
+                  </li>
+                </ul>
               </div>
             </div>
           </div>
@@ -116,9 +121,16 @@
           <div class="statusBox">
             <div class="scrollbar" id="style-14">
               <div class="force-overflow">
-                <div ng-repeat="network in vm.networks ">
-                  <a ng-click="vm.center(network)" href="">{{network._id}}</a>
-                </div>
+                <ul>
+                  <li ng-repeat="network in vm.networks ">
+                    <a ng-click="vm.center(network)" href="">
+                      id: {{network._id}}
+                      <br/>
+                      status: {{network.status}}
+                      <br/>
+                    </a>
+                  </li>
+                </ul>
               </div>
             </div>
           </div>

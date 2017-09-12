@@ -6,9 +6,9 @@
     .module('alarms')
     .controller('AlarmsController', AlarmsController);
 
-  AlarmsController.$inject = ['$scope', '$state', '$window', 'Authentication', 'alarmResolve', 'UsersService', 'CategoriaserviciosService', 'NetworksService', '$resource', 'LogsServicePOST'];
+  AlarmsController.$inject = ['$scope', '$state', '$window', 'Authentication', 'alarmResolve', 'UsersService', 'CategoriaserviciosService', 'NetworksService', 'LogsServicePOST'];
 
-  function AlarmsController ($scope, $state, $window, Authentication, alarm, UsersService, CategoriaserviciosService, NetworksService, $resource, LogsServicePOST) {
+  function AlarmsController ($scope, $state, $window, Authentication, alarm, UsersService, CategoriaserviciosService, NetworksService, LogsServicePOST) {
     var vm = this;
 
     vm.authentication = Authentication;
@@ -116,21 +116,20 @@
         // con asignacion
         vm.alarm.status = 'en atencion';
         vm.alarm.icon = '/modules/panels/client/img/process.png';
+        // aca registro en la unidad el status "ocupado"
+        /*
+        ruta para el get y put: /api/networks/:networkId
+        id del network: vm.alarm.network
+        * */
+        // se hace registra en el log
         logServicePOST('Se ha asignado una unidad exitosamente', vm.alarm._id, operator[0]._id);
       }
 
       if (deletedAlarm === true) {
         vm.alarm.status = 'rechazado';
         vm.alarm.icon = '/modules/panels/client/img/deleted.png';
+        // se hace registra en el log
         logServicePOST('La solicitud de atención ha sido rechazada', vm.alarm._id, operator[0]._id);
-
-        /*
-        * Aqui quiero el post
-         * a esta ruta: /api/logs
-         * recibe tres parametros: description, id de la alarma y el id del usuer
-         * Estos son los datos para probar:
-         * description: 'prueba', alarm: vm.alarm._id, user: '598c801e795545112c24e956'
-        * */
 
       }
 
