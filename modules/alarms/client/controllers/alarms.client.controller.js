@@ -116,15 +116,13 @@
         // con asignacion
         vm.alarm.status = 'en atencion';
         vm.alarm.icon = '/modules/panels/client/img/process.png';
+        logServicePOST('Se ha asignado una unidad exitosamente', vm.alarm._id, operator[0]._id);
       }
 
       if (deletedAlarm === true) {
         vm.alarm.status = 'rechazado';
         vm.alarm.icon = '/modules/panels/client/img/deleted.png';
-
-        LogsServicePOST.charge({ description: 'prueba', alarm: vm.alarm._id, user: '598c801e795545112c24e956' }, function (data) {
-          // se realizo el post
-        });
+        logServicePOST('La solicitud de atención ha sido rechazada', vm.alarm._id, operator[0]._id);
 
         /*
         * Aqui quiero el post
@@ -141,6 +139,13 @@
         vm.alarm.$update(successCallback, errorCallback);
       } else {
         vm.alarm.$save(successCallback, errorCallback);
+      }
+
+      function logServicePOST(_description, _alarm, _user) {
+
+        LogsServicePOST.charge({ description: _description, alarm: _alarm, user:  _user}, function (data) {
+          // se realizo el post
+        });
       }
 
       function successCallback(res) {
