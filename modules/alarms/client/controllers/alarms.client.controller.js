@@ -17,6 +17,7 @@
     vm.form = {};
     vm.remove = remove;
     vm.save = save;
+    var operator;
 
     vm.networks = [];
     var networks = NetworksService.query({}).$promise.then(function (data) {
@@ -50,7 +51,7 @@
       if (Authentication.user.roles[0] === 'operator') {
         UsersService.query(function (data) {
           // El operador logueado
-          var operator = data.filter(function (data) {
+          operator = data.filter(function (data) {
             return (data.email.indexOf(Authentication.user.email) >= 0);
           });
           // El organismo al que pertence el operador logueado
@@ -120,6 +121,15 @@
       if (bandera === false) {
         vm.alarm.status = 'rechazado';
         vm.alarm.icon = '/modules/panels/client/img/wait.png';
+
+        /*
+        * Aqui quiero el post
+         * a esta ruta: /api/logs
+         * recibe tres parametros: description, id de la alarma y el id del usuer
+         * Estos son los datos para probar:
+         * description: 'prueba', alarm: vm.alarm._id, user: '598c801e795545112c24e956'
+        * */
+
       }
 
       // TODO: move create/update logic to service
@@ -138,6 +148,8 @@
       function errorCallback(res) {
         vm.error = res.data.message;
       }
+
+
     }
   }
 }());
