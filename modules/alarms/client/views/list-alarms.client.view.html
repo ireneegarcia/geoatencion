@@ -3,19 +3,55 @@
     <h3>Listado de solicitudes de atención</h3>
   </div>
   <div class="list-group">
-    <a ng-repeat="alarm in vm.alarms"
+
+    <a ng-repeat="alarm in vm.alarmsEsperando"
        ui-sref="alarms.view({ alarmId: alarm._id })"
        class="list-group-item">
       <img style="vertical-align: baseline" ng-src="{{alarm.icon}}" alt="Loading image...">
       <small class="list-group-item-text">
-        Posted on
+        Status: {{alarm.status}}
+        -
+        Solicitud realizada
         <span ng-bind="alarm.created | date:'mediumDate'"></span>
-        by
+        por
         <span ng-if="alarm.user" ng-bind="alarm.user.displayName"></span>
         <span ng-if="!alarm.user">Deleted User</span>
       </small>
       <h4 class="list-group-item-heading" ng-bind="alarm.name"></h4>
     </a>
+
+    <a ng-repeat="alarm in vm.alarmsEnAtencion"
+       ui-sref="alarms.view({ alarmId: alarm._id })"
+       class="list-group-item">
+      <img style="vertical-align: baseline" ng-src="{{alarm.icon}}" alt="Loading image...">
+      <small class="list-group-item-text">
+        Status: {{alarm.status}}
+        -
+        Solicitud realizada
+        <span ng-bind="alarm.created | date:'mediumDate'"></span>
+        por
+        <span ng-if="alarm.user" ng-bind="alarm.user.displayName"></span>
+        <span ng-if="!alarm.user">Deleted User</span>
+      </small>
+      <h4 class="list-group-item-heading" ng-bind="alarm.name"></h4>
+    </a>
+
+    <a ng-repeat="alarm in vm.alarmsRechazado"
+       ui-sref="alarms.view({ alarmId: alarm._id })"
+       class="list-group-item">
+      <img style="vertical-align: baseline" ng-src="{{alarm.icon}}" alt="Loading image...">
+      <small class="list-group-item-text">
+        Status: {{alarm.status}}
+        -
+        Solicitud realizada
+        <span ng-bind="alarm.created | date:'mediumDate'"></span>
+        por
+        <span ng-if="alarm.user" ng-bind="alarm.user.displayName"></span>
+        <span ng-if="!alarm.user">Deleted User</span>
+      </small>
+      <h4 class="list-group-item-heading" ng-bind="alarm.name"></h4>
+    </a>
+
   </div>
   <div class="alert alert-warning text-center" ng-if="vm.alarms.$resolved && !vm.alarms.length">
     No Alarms yet, why don't you <a ui-sref="alarms.create">create one</a>?

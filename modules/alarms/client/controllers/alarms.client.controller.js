@@ -6,9 +6,9 @@
     .module('alarms')
     .controller('AlarmsController', AlarmsController);
 
-  AlarmsController.$inject = ['$scope', '$state', '$window', 'Authentication', 'alarmResolve', 'UsersService', 'CategoriaserviciosService', 'NetworksService'];
+  AlarmsController.$inject = ['$scope', '$state', '$window', 'Authentication', 'alarmResolve', 'UsersService', 'CategoriaserviciosService', 'NetworksService', '$resource', 'LogsServicePOST'];
 
-  function AlarmsController ($scope, $state, $window, Authentication, alarm, UsersService, CategoriaserviciosService, NetworksService) {
+  function AlarmsController ($scope, $state, $window, Authentication, alarm, UsersService, CategoriaserviciosService, NetworksService, $resource, LogsServicePOST) {
     var vm = this;
 
     vm.authentication = Authentication;
@@ -92,12 +92,12 @@
       });
     }
 
-    var bandera = true;
+    var deletedAlarm = false;
     // Remove existing Alarm
     function remove() {
       if ($window.confirm('Esta acción eliminará de manera definitiva la alarma')) {
         // vm.alarm.$remove($state.go('alarms.list'));
-        bandera = false;
+        deletedAlarm = true;
         save(true);
       }
     }
@@ -118,9 +118,13 @@
         vm.alarm.icon = '/modules/panels/client/img/process.png';
       }
 
-      if (bandera === false) {
+      if (deletedAlarm === true) {
         vm.alarm.status = 'rechazado';
-        vm.alarm.icon = '/modules/panels/client/img/wait.png';
+        vm.alarm.icon = '/modules/panels/client/img/deleted.png';
+
+        LogsServicePOST.charge({ description: 'prueba', alarm: vm.alarm._id, user: '598c801e795545112c24e956' }, function (data) {
+          // se realizo el post
+        });
 
         /*
         * Aqui quiero el post

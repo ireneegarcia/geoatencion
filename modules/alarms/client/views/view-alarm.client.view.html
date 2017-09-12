@@ -1,6 +1,7 @@
 <section>
   <div class="page-header">
-    <h4>Solicitud de: {{vm.user[0].displayName}}</h4>
+    <h3>Solicitud de: {{vm.user[0].displayName}}</h3>
+    <h4>Status: {{vm.alarm.status}}</h4>
   </div>
   <!--<div class="pull-right"
        ng-show="vm.alarm.isCurrentUserOwner">-->
@@ -11,7 +12,7 @@
       Detalle
     </a>
 
-    <a class="btn btn-info" ng-click="vm.remove()">
+    <a ng-hide="vm.alarm.status === 'rechazado'" class="btn btn-info" ng-click="vm.remove()">
       <i class="glyphicon glyphicon-trash"></i>
       Rechazar
     </a>
