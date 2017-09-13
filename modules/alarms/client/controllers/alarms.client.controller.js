@@ -140,9 +140,9 @@
         vm.alarm.$save(successCallback, errorCallback);
       }
 
-      function logServicePOST(_description, _alarm, _user) {
+      function logServicePOST(description, alarm, user) {
 
-        LogsServicePOST.charge({ description: _description, alarm: _alarm, user:  _user}, function (data) {
+        LogsServicePOST.charge({ description: description, alarm: alarm, user: user}, function (data) {
           // se realizo el post
         });
       }
