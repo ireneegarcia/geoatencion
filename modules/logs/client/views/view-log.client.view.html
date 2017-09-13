@@ -1,0 +1,26 @@
+<section>
+  <div class="page-header">
+    <h1 ng-bind="vm.log.name"></h1>
+  </div>
+  <div class="pull-right"
+       ng-show="vm.log.isCurrentUserOwner">
+    <a class="btn btn-primary"
+       ui-sref="logs.edit({ logId: vm.log._id })">
+      <i class="glyphicon glyphicon-edit"></i>
+    </a>
+    <a class="btn btn-primary" ng-click="vm.remove()">
+      <i class="glyphicon glyphicon-trash"></i>
+    </a>
+  </div>
+  <small>
+    <em class="text-muted">
+      Posted on
+      <span ng-bind="vm.log.created | date:'mediumDate'"></span>
+      by
+      <span ng-if="vm.log.user"
+            ng-bind="vm.log.user.displayName"></span>
+      <span ng-if="!vm.log.user">Deleted User</span>
+    </em>
+  </small>
+  <p class="lead" ng-bind="vm.log.content"></p>
+</section>
