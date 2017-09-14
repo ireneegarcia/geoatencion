@@ -42,13 +42,13 @@
           </div>
         </div>
         <div class="form-group has-info" show-errors>
-          <label class="control-label" for="status">Ubicación solicitud de atención</label>
-          <textarea ng-disabled="true" class="form-control" cols="30" rows="5">
+          <label class="control-label" for="address">Ubicación solicitud de atención</label>
+          <textarea ng-disabled="true" name="address" class="form-control" cols="30" rows="5">
     Coordenadas=> Latitud: {{vm.alarm.latitude}} - Longitud: {{vm.alarm.longitude}}
 
     Ubicación=> {{vm.alarm.address}}
           </textarea>
-          <div ng-messages="vm.form.alarmForm.status.$error" role="alert">
+          <div ng-messages="vm.form.alarmForm.address.$error" role="alert">
             <p class="help-block error-text" ng-message="required">Alarm name is required.</p>
           </div>
         </div>
