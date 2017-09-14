@@ -84,7 +84,7 @@
     function listNetwork(organism) {
       NetworksService.query(function (data) {
         data.forEach(function(network) {
-          if (network.user._id === organism[0]._id) {
+          if (network.user._id === organism[0]._id && network.status === 'activo') {
             UsersService.query(function (data) {
               data.forEach(function (user) {
                 if (user.roles.indexOf('serviceUser') >= 0 &&
