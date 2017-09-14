@@ -46,7 +46,7 @@ a{
 	width: 313px;
 	background: #F5F5F5;
 	overflow-y: scroll;
-	margin-bottom: 25px;
+	/*margin-bottom: 25px;*/
 }
 
 .force-overflow

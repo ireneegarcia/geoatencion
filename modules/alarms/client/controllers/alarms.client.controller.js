@@ -125,6 +125,7 @@
         vm.alarm.status = 'en atencion';
         vm.alarm.icon = '/modules/panels/client/img/process.png';
         // aca registro en la unidad el status "ocupado"
+        networkServicePUT('ocupado', vm.alarm.network);
         /*
         ruta para el get y put: /api/networks/:networkId
         id del network: vm.alarm.network
@@ -152,6 +153,14 @@
         LogsServiceCreate.charge({ description: description, alarm: alarm, user: user}, function (data) {
           // se realizo el post
         });
+      }
+
+      function networkServicePUT(status, id) {
+        // GET
+        var network = NetworksService.get({ networkId: id});
+        network.status = status;
+        // PUT
+        NetworksService.update({ networkId: id}, network);
       }
 
       function successCallback(res) {

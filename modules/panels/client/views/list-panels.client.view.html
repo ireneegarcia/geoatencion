@@ -73,8 +73,8 @@
             <div class="scrollbar" id="style-13">
               <div class="force-overflow">
                 <ul>
-                  <li ng-repeat="alarms in vm.alarmsEsperando ">
-                    <a ng-click="vm.center(alarms)" href="">{{alarms._id}}</a>
+                  <li ng-repeat="alarm in vm.alarmsEsperando ">
+                    <a ng-click="vm.center(alarms)" href="">{{alarm.created | date:'medium'}}</a>
                   </li>
                 </ul>
               </div>
@@ -97,9 +97,9 @@
             <div class="scrollbar" id="style-7">
               <div class="force-overflow">
                 <ul>
-                  <li ng-repeat="alarms in vm.alarmsEnAtencion ">
+                  <li ng-repeat="alarm in vm.alarmsEnAtencion ">
                     <a ng-click="vm.center(alarms)" href="">
-                      id: {{alarms._id}}</a>
+                      {{alarm.created | date:'medium'}}</a>
                   </li>
                 </ul>
               </div>
