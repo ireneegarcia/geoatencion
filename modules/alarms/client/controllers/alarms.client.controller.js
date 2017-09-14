@@ -6,15 +6,16 @@
     .module('alarms')
     .controller('AlarmsController', AlarmsController);
 
-  AlarmsController.$inject = ['$scope', '$state', '$window', 'Authentication', 'alarmResolve', 'UsersService', 'CategoriaserviciosService', 'NetworksService', 'LogsServiceCreate'];
+  AlarmsController.$inject = ['$scope', '$state', '$window', 'Authentication', 'alarmResolve', 'UsersService', 'CategoriaserviciosService', 'NetworksService', 'LogsServiceCreate', 'LogsService'];
 
-  function AlarmsController ($scope, $state, $window, Authentication, alarm, UsersService, CategoriaserviciosService, NetworksService, LogsServiceCreate) {
+  function AlarmsController ($scope, $state, $window, Authentication, alarm, UsersService, CategoriaserviciosService, NetworksService, LogsServiceCreate, LogsService) {
     var vm = this;
 
     vm.authentication = Authentication;
     vm.alarm = alarm;
     vm.error = null;
     vm.form = {};
+    vm.wait = vm.alarm.created;
     vm.remove = remove;
     vm.save = save;
     var operator;
@@ -35,6 +36,13 @@
       // Categoria
       vm.category = data.filter(function (data) {
         return (data._id.indexOf(vm.alarm.categoryService) >= 0);
+      });
+    });
+
+    LogsService.query(function (data) {
+      // Log
+      vm.log = data.filter(function (data) {
+        return (data.alarm.indexOf(vm.alarm._id) >= 0);
       });
     });
 
@@ -141,7 +149,6 @@
       }
 
       function logServicePOST(description, alarm, user) {
-
         LogsServiceCreate.charge({ description: description, alarm: alarm, user: user}, function (data) {
           // se realizo el post
         });

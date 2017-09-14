@@ -1,4 +1,5 @@
 <section>
+  <div>
   <div class="page-header">
     <h3>Solicitud de: {{vm.user[0].displayName}}</h3>
     <h4>Status: {{vm.alarm.status}}</h4>
@@ -27,5 +28,33 @@
       <span ng-if="!vm.alarm.user">Deleted User</span>
     </em>
   </small>
-  <p class="lead" ng-bind="vm.alarm.content"></p>
+  </div>
+  <div class="panel-group" id="accordion" style="margin-top: 53px;">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h4 class="panel-title" style="padding-bottom: 8px; margin-left: 14px">
+          <a data-toggle="collapse" data-parent="#accordion" href="#collapse1">
+            <img class="status" ng-src="/modules/alarms/client/img/history.png" alt="Loading image..." height="25px" width="27px">
+            &nbsp;&nbsp;Historia de la alarma
+          </a>
+        </h4>
+      </div>
+      <div id="collapse1" class="panel-collapse collapse">
+        <div class="statusBox">
+          <div class="scrollbar-log" id="style-6">
+            <div class="force-overflow">
+              <ul>
+                <li>
+                  {{vm.alarm.created | date:'medium'}} (Fecha de registro en el sistema)
+                </li>
+                <li ng-repeat="log in vm.log ">
+                  {{log.created | date:'medium'}} - <strong>Operador: </strong>{{log.user.displayName}} - <strong>Acción: </strong> {{log.description}}
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </section>
