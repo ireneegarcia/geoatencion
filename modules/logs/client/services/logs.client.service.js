@@ -4,11 +4,24 @@
 
   angular
     .module('logs')
-    .factory('LogsServicePOST', LogsService);
+    .factory('LogsService', LogsService)
+    .factory('LogsServiceCreate', LogsServiceCreate);
 
   LogsService.$inject = ['$resource'];
 
   function LogsService($resource) {
+    return $resource('/api/logs/:logId', {
+      logId: '@_id'
+    }, {
+      update: {
+        method: 'PUT'
+      }
+    });
+  }
+
+  LogsServiceCreate.$inject = ['$resource'];
+
+  function LogsServiceCreate($resource) {
     return $resource('/api/logs', {
       description: '@description',
       alarm: '@alarm',
