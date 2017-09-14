@@ -6,9 +6,9 @@
     .module('alarms')
     .controller('AlarmsController', AlarmsController);
 
-  AlarmsController.$inject = ['$scope', '$state', '$window', 'Authentication', 'alarmResolve', 'UsersService', 'CategoriaserviciosService', 'NetworksService', 'LogsServicePOST'];
+  AlarmsController.$inject = ['$scope', '$state', '$window', 'Authentication', 'alarmResolve', 'UsersService', 'CategoriaserviciosService', 'NetworksService', 'LogsServiceCreate'];
 
-  function AlarmsController ($scope, $state, $window, Authentication, alarm, UsersService, CategoriaserviciosService, NetworksService, LogsServicePOST) {
+  function AlarmsController ($scope, $state, $window, Authentication, alarm, UsersService, CategoriaserviciosService, NetworksService, LogsServiceCreate) {
     var vm = this;
 
     vm.authentication = Authentication;
@@ -142,7 +142,7 @@
 
       function logServicePOST(description, alarm, user) {
 
-        LogsServicePOST.charge({ description: description, alarm: alarm, user: user}, function (data) {
+        LogsServiceCreate.charge({ description: description, alarm: alarm, user: user}, function (data) {
           // se realizo el post
         });
       }
