@@ -27,6 +27,13 @@
               on-click="vm.showDetailNetwork(network)">
 
       </marker>
+      <!--panel="{{dir.panelName}}"-->
+      <directions ng-repeat="direction in vm.directions"
+        draggable="false"
+        travel-mode="DRIVING"
+        origin="{{direction.origin}}"
+        destination="{{direction.destination}}">
+      </directions>
 
       <info-window id="infoWindowAlarm" >
         <div ng-non-bindable="">
@@ -140,4 +147,3 @@
     </div>
   </div>
 </section>
-

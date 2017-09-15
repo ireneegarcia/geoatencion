@@ -5,11 +5,11 @@
     .module('alarms')
     .controller('AlarmsListController', AlarmsListController);
 
-  AlarmsListController.$inject = ['AlarmsService'];
+  AlarmsListController.$inject = ['AlarmsService', '$filter'];
 
-  function AlarmsListController(AlarmsService) {
+  function AlarmsListController(AlarmsService, $filter) {
     var vm = this;
-    vm.alarms = [];
+
     // Todas las alarmas por status
     AlarmsService.query(function (data) {
       // Alarmas con status esperando o en atencion
@@ -24,6 +24,7 @@
       vm.alarmsRechazado = data.filter(function (data) {
         return (data.status.indexOf('rechazado') >= 0);
       });
+      vm.buildPager();
     });
   }
 }());

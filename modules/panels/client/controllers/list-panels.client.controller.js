@@ -5,14 +5,15 @@
     .module('panels')
     .controller('PanelsListController', PanelsListController);
 
-  PanelsListController.$inject = ['PanelsService', 'AlarmsService', 'NgMap', 'NetworksService', 'CategoriaserviciosService', 'UsersService', 'Authentication'];
+  PanelsListController.$inject = ['PanelsService', 'AlarmsService', 'NgMap', 'NetworksService', 'CategoriaserviciosService', 'UsersService', 'Authentication', '$filter'];
 
-  function PanelsListController(PanelsService, AlarmsService, NgMap, NetworksService, CategoriaserviciosService, UsersService, Authentication) {
+  function PanelsListController(PanelsService, AlarmsService, NgMap, NetworksService, CategoriaserviciosService, UsersService, Authentication, $filter) {
     var vm = this;
 
     vm.panels = PanelsService.query();
     vm.networks = [];
-    vm.network = NetworksService.query();
+    vm.directions = [];
+    //  vm.network = NetworksService.query();
     vm.centerLatitude = 8.2593534;
     vm.centerLongitude = -62.7734547;
 
@@ -78,7 +79,7 @@
       // Alarmas con status esperando o en atencion
       vm.alarms = data.filter(function (data) {
         return (data.status.indexOf('esperando') >= 0 ||
-                data.status.indexOf('en atencion') >= 0);
+        data.status.indexOf('en atencion') >= 0);
       });
 
       // Alarmas con status esperando o en atencion
@@ -89,6 +90,24 @@
       vm.alarmsEnAtencion = data.filter(function (data) {
         return (data.status.indexOf('en atencion') >= 0);
       });
+    });
+
+    NetworksService.query(function (data) {
+      data.forEach(function(network) {
+        AlarmsService.query(function (data) {
+          data.forEach(function (alarm) {
+            if (alarm.status.indexOf('en atencion') >= 0 &&
+              network._id.indexOf(alarm.network) >= 0) {
+              var direction = {
+                destination : alarm.latitude + ',' + alarm.longitude,
+                origin : network.latitude + ',' + network.longitude
+              };
+              vm.directions.push(direction);
+            }
+          });
+        });
+      });
+      console.log(vm.directions);
     });
 
     vm.center = function(alarms) {
@@ -117,10 +136,6 @@
       });
       vm.map.showInfoWindow('infoWindowNetwork', network._id);
     };
-
-    function onClickMarker() {
-      console.log('Click');
-    }
 
   }
 }());
