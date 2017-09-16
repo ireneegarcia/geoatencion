@@ -7,9 +7,7 @@
     <ng-map
       style="height: 519px"
       zoom="11"
-      center="[{{vm.centerLatitude}},{{vm.centerLongitude}}]"
-
-    >
+      center="[{{vm.centerLatitude}},{{vm.centerLongitude}}]">
       <marker ng-repeat="alarms in vm.alarms "
               id='{{alarms._id}}'
               position="{{[alarms.latitude, alarms.longitude]}}"
@@ -27,10 +25,11 @@
               on-click="vm.showDetailNetwork(network)">
 
       </marker>
-      <!--panel="{{dir.panelName}}"-->
+
       <directions ng-repeat="direction in vm.directions"
         draggable="false"
         travel-mode="DRIVING"
+        panel="{{direction.panelName}}"
         origin="{{direction.origin}}"
         destination="{{direction.destination}}">
       </directions>
@@ -63,8 +62,6 @@
   </div>
 
   <div id="leyenda" class="container">
-
-
     <div class="panel-group" id="accordion">
       <div class="panel panel-default">
         <div class="panel-heading">
@@ -81,7 +78,7 @@
               <div class="force-overflow">
                 <ul>
                   <li ng-repeat="alarm in vm.alarmsEsperando ">
-                    <a ng-click="vm.center(alarms)" href="">{{alarm.created | date:'medium'}}</a>
+                    <a ng-click="vm.center(alarm)" href="">{{alarm.created | date:'medium'}}</a>
                   </li>
                 </ul>
               </div>
@@ -105,7 +102,7 @@
               <div class="force-overflow">
                 <ul>
                   <li ng-repeat="alarm in vm.alarmsEnAtencion ">
-                    <a ng-click="vm.center(alarms)" href="">
+                    <a ng-click="vm.center(alarm)" href="">
                       {{alarm.created | date:'medium'}}</a>
                   </li>
                 </ul>
@@ -143,7 +140,26 @@
           </div>
         </div>
       </div>
-
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h4 class="panel-title"  style="padding-bottom: 8px;">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapse4">
+              <img class="status" style="vertical-align: baseline" ng-src="/modules/panels/client/img/route.png" alt="Loading image...">
+              <p style="margin-left: 35px">Rutas</p>
+            </a>
+          </h4>
+        </div>
+        <div id="collapse4" class="panel-collapse collapse">
+          <div class="statusBox">
+            <div class="scrollbar" id="style-6">
+              <div class="force-overflow">
+                <div id="directionsList" ng-repeat="direction in vm.directions" ng-bind="vm.getDirections(direction)" class="panel panel-primary"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
+
 </section>
