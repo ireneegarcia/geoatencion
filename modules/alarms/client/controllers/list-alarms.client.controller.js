@@ -24,7 +24,6 @@
       vm.alarmsRechazado = data.filter(function (data) {
         return (data.status.indexOf('rechazado') >= 0);
       });
-      vm.buildPager();
     });
   }
 }());

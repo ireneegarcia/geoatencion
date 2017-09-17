@@ -81,7 +81,7 @@
                 <div class="form-group has-info " show-errors>
                   <label class="control-label" for="serviceUser">Responsable de la unidad</label>
                   <select name="serviceUser" ng-model="vm.network.serviceUser" id="serviceUser" class="form-control">
-                    <option ng-repeat="option in vm.responsables" value="{{option._id}}">{{option.displayName}}</option>
+                    <option ng-repeat="option in vm.serviceUsers" value="{{option._id}}">{{option.displayName}}</option>
                   </select>
                   <div ng-messages="vm.form.networkForm.serviceUser.$error" role="alert">
                     <p class="help-block error-text" ng-message="required">Responsable</p>

@@ -21,9 +21,6 @@
     var operator;
 
     vm.networks = [];
-    var networks = NetworksService.query({}).$promise.then(function (data) {
-      networks = data;
-    });
 
     UsersService.query(function (data) {
       // Datos del usuario
@@ -82,23 +79,62 @@
 
     // Funcion para listar las unidades dependiendo del organismo
     function listNetwork(organism) {
-      NetworksService.query(function (data) {
-        data.forEach(function(network) {
-          if (network.user._id === organism[0]._id && network.status === 'activo') {
-            UsersService.query(function (data) {
-              data.forEach(function (user) {
-                if (user.roles.indexOf('serviceUser') >= 0 &&
-                  user._id.indexOf(network.serviceUser) >= 0) {
-                  network.serviceUserEmail = user.email;
-                }
+      // Si la alarma est aen espera
+      if (vm.alarm.status === 'esperando') {
+        NetworksService.query(function (data) {
+          data.forEach(function(network) {
+            if (network.user._id === organism[0]._id && network.status === 'Activo') {
+              UsersService.query(function (data) {
+                data.forEach(function (user) {
+                  if (user.roles.indexOf('serviceUser') >= 0 &&
+                    user._id.indexOf(network.serviceUser) >= 0) {
+                    network.serviceUserEmail = user.email;
+                  }
+                });
               });
-            });
-            vm.networks.push(network);
-           // console.log(vm.networks);
-          }
+              vm.networks.push(network);
+            }
+          });
         });
-      });
+      }
+
+      // Si la alarma ya tiene asignación
+      if (vm.alarm.status === 'en atencion') {
+        NetworksService.query(function (data) {
+          // Network asignado
+          vm.networks = data.filter(function (data) {
+            return (data._id.indexOf(vm.alarm.network) >= 0);
+          });
+
+        });
+      }
+
     }
+
+    // instantiate google map objects for directions
+    var directionsDisplay = new google.maps.DirectionsRenderer();
+    var directionsService = new google.maps.DirectionsService();
+    vm.getDirections = function () {
+
+      var request = {
+        origin: vm.alarm.latitude + ',' + vm.alarm.longitude,
+        destination: vm.networks[0].latitude + ',' + vm.networks[0].longitude,
+        travelMode: google.maps.DirectionsTravelMode.DRIVING
+      };
+
+      directionsService.route(request, function (response, status) {
+        if (status === google.maps.DirectionsStatus.OK) {
+          directionsDisplay.setDirections(response);
+
+          // directionsDisplay.setMap($scope.map.control.getGMap());
+          directionsDisplay.setPanel(document.getElementById('directionsList'));
+          // vm.directions.showList = true;
+        } else {
+          // alert('Google route unsuccesfull!');
+        }
+      });
+    };
+
 
     var deletedAlarm = false;
     // Remove existing Alarm
@@ -126,10 +162,6 @@
         vm.alarm.icon = '/modules/panels/client/img/process.png';
         // aca registro en la unidad el status "ocupado"
         networkServicePUT('ocupado', vm.alarm.network);
-        /*
-        ruta para el get y put: /api/networks/:networkId
-        id del network: vm.alarm.network
-        * */
         // se hace registra en el log
         logServicePOST('Se ha asignado una unidad exitosamente', vm.alarm._id, operator[0]._id);
       }

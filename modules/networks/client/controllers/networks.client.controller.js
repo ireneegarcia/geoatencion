@@ -25,18 +25,11 @@
       });
     });
 
-    /*
-     // Responsables de unidades 'serviceUser'
-     vm.responsables = UsersService.query(function (data) {
-     vm.responsables = $filter('filter')(data, { roles: 'serviceUser'});
-     });
-     */
-
     // Listado de usuarios responsables de unidades
     var serviceUsers = [];
     UsersService.query(function (data) {
       // Responsables de unidades
-      serviceUsers = data.filter(function (data) {
+      vm.serviceUsers = data.filter(function (data) {
         return (data.roles.indexOf('serviceUser') >= 0);
       });
     });

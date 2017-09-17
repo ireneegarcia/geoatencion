@@ -29,7 +29,7 @@
         </div>
         <div class="form-group has-info" show-errors>
           <label class="control-label" for="created">Fecha de registro en el sistema</label>
-          <input ng-disabled="true" name="created" type="text" ng-model="vm.alarm.created | date:'medium'" id="created" class="form-control" required>
+          <input ng-disabled="true" name="created" type="text" ng-value="vm.alarm.created | date:'medium'" id="created" class="form-control" required>
           <div ng-messages="vm.form.alarmForm.created.$error" role="alert">
             <p class="help-block error-text" ng-message="required">Alarm name is required.</p>
           </div>
