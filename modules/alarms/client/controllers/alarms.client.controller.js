@@ -105,7 +105,7 @@
           vm.networks = data.filter(function (data) {
             return (data._id.indexOf(vm.alarm.network) >= 0);
           });
-
+          vm.getDirections();
         });
       }
 

@@ -56,6 +56,7 @@
         vm.alarm = data.filter(function (data) {
           return (data.network.indexOf(vm.network._id) >= 0);
         });
+        vm.getDirections();
       });
     }
 
