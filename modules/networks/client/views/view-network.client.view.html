@@ -69,4 +69,26 @@
       <i class="glyphicon glyphicon-trash"></i>
     </a>
   </div>
+  <div class="panel-group" id="accordion" style="margin-top: 53px;">
+
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h4 class="panel-title" style="padding-bottom: 8px; margin-left: 14px">
+          <a data-toggle="collapse" data-parent="#accordion" href="#collapse2">
+            <img class="status" style="vertical-align: baseline" ng-src="/modules/panels/client/img/route.png" alt="Loading image...">
+            <p style="margin: 0 0 2px 35px;">Ruta</p>
+          </a>
+        </h4>
+      </div>
+      <div id="collapse2" class="panel-collapse collapse">
+        <div class="statusBox">
+          <div class="scrollbar-log-network" id="style-6">
+            <div class="force-overflow">
+              <div id="directionsList" ng-bind="vm.getDirections()" class="panel panel-primary"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </section>

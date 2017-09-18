@@ -6,9 +6,9 @@
     .module('networks')
     .controller('NetworksController', NetworksController);
 
-  NetworksController.$inject = ['$scope', '$state', '$window', 'Authentication', 'networkResolve', 'CategoriaserviciosService', 'UsersService', '$filter'];
+  NetworksController.$inject = ['$scope', '$state', '$window', 'Authentication', 'networkResolve', 'CategoriaserviciosService', 'UsersService', '$filter', 'AlarmsService'];
 
-  function NetworksController ($scope, $state, $window, Authentication, network, CategoriaserviciosService, UsersService, $filter) {
+  function NetworksController ($scope, $state, $window, Authentication, network, CategoriaserviciosService, UsersService, $filter, AlarmsService) {
     var vm = this;
 
     vm.authentication = Authentication;
@@ -35,9 +35,6 @@
     });
 
     // Listar las unidades dependiendo del organismo
-
-    // console.log(vm.network.serviceUser);
-
     if (vm.network.serviceUser) {
 
       UsersService.query(function (data) {
@@ -48,9 +45,43 @@
             network.serviceUserEmail = data.email;
           }
         });
-        vm.network.push(network);
+        vm.network.serviceUserEmail = network.serviceUserEmail;
       });
     }
+
+    // Encontrar alarma a la que esta relacionado el network
+    if (vm.network.status === 'ocupado') {
+      // Todas las alarmas por status
+      AlarmsService.query(function (data) {
+        vm.alarm = data.filter(function (data) {
+          return (data.network.indexOf(vm.network._id) >= 0);
+        });
+      });
+    }
+
+    // instantiate google map objects for directions
+    var directionsDisplay = new google.maps.DirectionsRenderer();
+    var directionsService = new google.maps.DirectionsService();
+    vm.getDirections = function () {
+
+      var request = {
+        origin: vm.alarm[0].latitude + ',' + vm.alarm[0].longitude,
+        destination: vm.network.latitude + ',' + vm.network.longitude,
+        travelMode: google.maps.DirectionsTravelMode.DRIVING
+      };
+
+      directionsService.route(request, function (response, status) {
+        if (status === google.maps.DirectionsStatus.OK) {
+          directionsDisplay.setDirections(response);
+
+          // directionsDisplay.setMap($scope.map.control.getGMap());
+          directionsDisplay.setPanel(document.getElementById('directionsList'));
+          // vm.directions.showList = true;
+        } else {
+          // alert('Google route unsuccesfull!');
+        }
+      });
+    };
 
     // Remove existing Network
     function remove() {
