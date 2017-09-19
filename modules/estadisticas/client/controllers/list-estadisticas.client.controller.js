@@ -5,13 +5,14 @@
     .module('estadisticas')
     .controller('EstadisticasListController', EstadisticasListController);
 
-  EstadisticasListController.$inject = ['EstadisticasService', 'AlarmsService', 'LogsService', 'UsersService', 'Authentication'];
+  EstadisticasListController.$inject = ['EstadisticasService', 'AlarmsService', 'LogsService', 'UsersService', 'Authentication', 'NetworksService'];
 
-  function EstadisticasListController(EstadisticasService, AlarmsService, LogsService, UsersService, Authentication) {
+  function EstadisticasListController(EstadisticasService, AlarmsService, LogsService, UsersService, Authentication, NetworksService) {
     var vm = this;
     var operator;
     var usuarioID;
     vm.log = [];
+    vm.logNetwork = [];
 
     vm.estadisticas = EstadisticasService.query();
     // Casos por status
@@ -86,8 +87,30 @@
               vm.logClient = data.filter(function (data) {
                 return (data.client.indexOf(user._id) >= 0);
               });
-              console.log(vm.logClient);
             });
+          }
+        });
+      });
+    };
+
+    // Log por network
+    vm.searchNetwork = function (networkID) {
+
+      LogsService.query(function (data) {
+        data.forEach(function(log) {
+          if (log.organism.indexOf(vm.organism[0]._id) >= 0 && log.network.indexOf(networkID) >= 0) {
+            // El email del usuario
+            UsersService.query(function (data) {
+              data.forEach(function (user) {
+                if (user._id.indexOf(log.client) >= 0) {
+                  log.clientEmail = user.email;
+                }
+                if (user._id.indexOf(log.user._id) >= 0) {
+                  log.operatorEmail = user.email;
+                }
+              });
+            });
+            vm.logNetwork.push(log);
           }
         });
       });

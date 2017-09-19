@@ -24,7 +24,8 @@
   function LogsServiceCreate($resource) {
     return $resource('/api/logs', {
       description: '@description',
-      alarm: '@alarm',
+      alarm: '@_alarm',
+      network: '@_network',
       client: '@_client',
       user: '@_id',
       organism: '@_organism'

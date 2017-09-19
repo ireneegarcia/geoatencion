@@ -19,7 +19,6 @@
     vm.remove = remove;
     vm.save = save;
     var operator;
-
     vm.networks = [];
 
     UsersService.query(function (data) {
@@ -82,7 +81,7 @@
       if (vm.alarm.status === 'esperando') {
         NetworksService.query(function (data) {
           data.forEach(function(network) {
-            if (network.user._id === organism[0]._id && network.status === 'Activo') {
+            if (network.user._id === organism[0]._id && network.status === 'activo') {
               UsersService.query(function (data) {
                 data.forEach(function (user) {
                   if (user.roles.indexOf('serviceUser') >= 0 &&
@@ -92,6 +91,7 @@
                 });
               });
               vm.networks.push(network);
+              console.log(vm.networks);
             }
           });
         });
@@ -181,9 +181,16 @@
       }
 
       function logServicePOST(description) {
-        LogsServiceCreate.charge({ description: description, alarm: vm.alarm._id, client: vm.alarm.user._id, user: operator[0]._id, organism: vm.organism[0]._id}, function (data) {
-          // se realizo el post
-        });
+        if (vm.alarm.network === '') {
+          LogsServiceCreate.charge({ description: description, alarm: vm.alarm._id, client: vm.alarm.user._id, user: operator[0]._id, organism: vm.organism[0]._id}, function (data) {
+            // se realizo el post
+          });
+        } else {
+          LogsServiceCreate.charge({ description: description, alarm: vm.alarm._id, network: vm.alarm.network, client: vm.alarm.user._id, user: operator[0]._id, organism: vm.organism[0]._id}, function (data) {
+            // se realizo el post
+          });
+        }
+
       }
 
       function networkServicePUT(status, id) {

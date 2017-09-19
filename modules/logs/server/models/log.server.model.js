@@ -22,6 +22,10 @@ var LogSchema = new Schema({
     type: Schema.ObjectId,
     ref: 'Alarm'
   },
+  network: {
+    type: String,
+    default: ''
+  },
   client: {
     type: Schema.ObjectId,
     ref: 'User'

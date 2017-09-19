@@ -86,7 +86,7 @@
          <h4 class="panel-title" style="padding-bottom: 8px; margin-left: 14px">
            <a data-toggle="collapse" data-parent="#accordion" href="#collapse2">
              <img class="status" ng-src="/modules/alarms/client/img/history.png" alt="Loading image..." height="25px" width="27px">
-             &nbsp;&nbsp;Por usuario
+             &nbsp;&nbsp;Por cliente
            </a>
          </h4>
        </div>
@@ -102,6 +102,34 @@
                <ul>
                  <li ng-repeat="log in vm.logClient ">
                    {{log._id}} - <strong>Fecha de solicitud:</strong> {{log.created | date:'medium'}} - <strong>Cliente: </strong> {{log.client}} - <strong>Operador: </strong>{{log.user.email}} - <strong>Acción: </strong> {{log.description}}
+                 </li>
+               </ul>
+             </div>
+           </div>
+         </div>
+       </div>
+     </div>
+     <div class="panel panel-default">
+       <div class="panel-heading">
+         <h4 class="panel-title" style="padding-bottom: 8px; margin-left: 14px">
+           <a data-toggle="collapse" data-parent="#accordion" href="#collapse3">
+             <img class="status" ng-src="/modules/alarms/client/img/history.png" alt="Loading image..." height="25px" width="27px">
+             &nbsp;&nbsp;Por unidad de atención
+           </a>
+         </h4>
+       </div>
+       <div id="collapse3" class="panel-collapse collapse">
+         <div class="statusBox">
+           <div class="scrollbar-log" id="style-6">
+             <div class="force-overflow">
+               <div style="margin: 0px 40px 0px 20px" class="form-group has-info">
+                 <label class="control-label">Por favor indique el identificador de la unidad de atención a consultar: </label>
+                 <input  style="margin:0px 10px 0px 10px; width: 50%; display: inline-block" ng-model="networkID" type="text" class="form-control" required>
+                 <button style="display: inline-block" ng-click="vm.searchNetwork(networkID)" class="btn btn-info">Consultar</button>
+               </div>
+               <ul>
+                 <li ng-repeat="log in vm.logNetwork ">
+                   {{log._id}} - <strong>Fecha de solicitud:</strong> {{log.created | date:'medium'}} - <strong>Cliente: </strong> {{log.clientEmail}} - <strong>Operador: </strong>{{log.operatorEmail}} - <strong>Acción: </strong> {{log.description}}
                  </li>
                </ul>
              </div>
