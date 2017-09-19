@@ -25,7 +25,9 @@
     return $resource('/api/logs', {
       description: '@description',
       alarm: '@alarm',
-      user: '@_id'
+      client: '@_client',
+      user: '@_id',
+      organism: '@_organism'
     }, {
       charge: {
         method: 'POST'

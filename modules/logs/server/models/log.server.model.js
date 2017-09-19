@@ -22,7 +22,15 @@ var LogSchema = new Schema({
     type: Schema.ObjectId,
     ref: 'Alarm'
   },
+  client: {
+    type: Schema.ObjectId,
+    ref: 'User'
+  },
   user: {
+    type: Schema.ObjectId,
+    ref: 'User'
+  },
+  organism: {
     type: Schema.ObjectId,
     ref: 'User'
   }

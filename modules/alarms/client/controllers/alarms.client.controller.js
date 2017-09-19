@@ -67,7 +67,6 @@
         });
       }
     }
-
     // Listado de usuarios responsables de unidades
     var serviceUsers = [];
     UsersService.query(function (data) {
@@ -163,14 +162,14 @@
         // aca registro en la unidad el status "ocupado"
         networkServicePUT('ocupado', vm.alarm.network);
         // se hace registra en el log
-        logServicePOST('Se ha asignado una unidad exitosamente', vm.alarm._id, operator[0]._id);
+        logServicePOST('Se ha asignado una unidad exitosamente');
       }
 
       if (deletedAlarm === true) {
         vm.alarm.status = 'rechazado';
         vm.alarm.icon = '/modules/panels/client/img/deleted.png';
         // se hace registra en el log
-        logServicePOST('La solicitud de atención ha sido rechazada', vm.alarm._id, operator[0]._id);
+        logServicePOST('La solicitud de atención ha sido rechazada');
 
       }
 
@@ -181,8 +180,8 @@
         vm.alarm.$save(successCallback, errorCallback);
       }
 
-      function logServicePOST(description, alarm, user) {
-        LogsServiceCreate.charge({ description: description, alarm: alarm, user: user}, function (data) {
+      function logServicePOST(description) {
+        LogsServiceCreate.charge({ description: description, alarm: vm.alarm._id, client: vm.alarm.user._id, user: operator[0]._id, organism: vm.organism[0]._id}, function (data) {
           // se realizo el post
         });
       }

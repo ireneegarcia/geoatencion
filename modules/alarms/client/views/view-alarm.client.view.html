@@ -48,7 +48,7 @@
                   {{vm.alarm.created | date:'medium'}} (Fecha de registro en el sistema)
                 </li>
                 <li ng-repeat="log in vm.log ">
-                  {{log.created | date:'medium'}} - <strong>Operador: </strong>{{log.user.displayName}} - <strong>Acción: </strong> {{log.description}}
+                  {{log.created | date:'medium'}} - <strong>Operador: </strong>{{log.user.email}} - <strong>Acción: </strong> {{log.description}}
                 </li>
               </ul>
             </div>

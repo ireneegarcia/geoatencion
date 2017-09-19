@@ -5,7 +5,7 @@
   </div>
 
   <div class="page-header">
-    <h3>Casos por status</h3>
+    <h3>Solicitudes de atención por status</h3>
   </div>
 
   <div >
@@ -56,156 +56,59 @@
     </div>
   </div>
 
-
-
-
-
-  <div class="page-header">
-    <h3>Tiempos de atención</h3>
-  </div>
-  <div >
-    <div class="row clearfix">
-      <div class="col-md-3 column">
-        <div class="circle-tile ">
-          <a href="#"><div class="circle-tile-heading dark-blue"><i class="fa fa-car fa-fw fa-3x"></i></div></a>
-          <div class="circle-tile-content dark-blue">
-            <div class="circle-tile-description text-faded"> Users</div>
-            <div class="circle-tile-number text-faded ">265</div>
-            <a class="circle-tile-footer" href="#">More Info <i class="fa fa-chevron-circle-right"></i></a>
-          </div>
-        </div>
+  <h3>Historia de atención</h3>
+   <div class="panel-group" id="accordion">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h4 class="panel-title" style="padding-bottom: 8px; margin-left: 14px">
+          <a data-toggle="collapse" data-parent="#accordion" href="#collapse1">
+            <img class="status" ng-src="/modules/alarms/client/img/history.png" alt="Loading image..." height="25px" width="27px">
+            &nbsp;&nbsp;Del organismo
+          </a>
+        </h4>
       </div>
-
-      <div class="col-md-3 column">
-        <div class="circle-tile ">
-          <a href="#"><div class="circle-tile-heading red"><i class="fa fa-car fa-fw fa-3x"></i></div></a>
-          <div class="circle-tile-content red">
-            <div class="circle-tile-description text-faded"> Users Online </div>
-            <div class="circle-tile-number text-faded ">10</div>
-            <a class="circle-tile-footer" href="#">More Info <i class="fa fa-chevron-circle-right"></i></a>
-          </div>
-        </div>
-      </div>
-
-      <div class="col-md-3 column">
-        <div class="circle-tile ">
-          <a href="#"><div class="circle-tile-heading dark-blue"><i class="fa fa-car fa-fw fa-3x"></i></div></a>
-          <div class="circle-tile-content dark-blue">
-            <div class="circle-tile-description text-faded"> Users</div>
-            <div class="circle-tile-number text-faded ">265</div>
-            <a class="circle-tile-footer" href="#">More Info <i class="fa fa-chevron-circle-right"></i></a>
-          </div>
-        </div>
-      </div>
-
-      <div class="col-md-3 column">
-        <div class="circle-tile ">
-          <a href="#"><div class="circle-tile-heading red"><i class="fa fa-car fa-fw fa-3x"></i></div></a>
-          <div class="circle-tile-content red">
-            <div class="circle-tile-description text-faded"> Users Online </div>
-            <div class="circle-tile-number text-faded ">10</div>
-            <a class="circle-tile-footer" href="#">More Info <i class="fa fa-chevron-circle-right"></i></a>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-
-  <div class="page-header">
-    <h3>Tiempos de atención</h3>
-  </div>
-  <div>
-    <div class="row clearfix">
-      <div class="col-md-3 column">
-        <div class="panel panel-default">
-          <div class="panel-heading libreStatsPanelHeading">
-            <div class="panel-title">
-              <span>Duración promedio</span>
-              <a class="fa fa-caret-down pull-right libreStatsPanelHeadingIcon" href="#uniqueVisitor"
-                 data-toggle="collapse"></a>
-            </div>
-          </div>
-          <div class="panel-body libreStatsPanelBody collapse in" id="uniqueVisitor">
-            <div class="row clearfix libreStatsPanelRow">
-              <div class="col-md-8 column libreStatsPanelValueColumn">
-                <p class="libreStatsCount">10</p>
-                <small>Unique Visitor</small>
-              </div>
-              <div class="col-md-4 column">
-                <span style="color: rgba(255, 0, 0, 0.75);" class="pull-right fa fa-users fa-5x libreStatsIcon"></span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-3 column">
-        <div class="panel panel-default">
-          <div class="panel-heading libreStatsPanelHeading">
-            <div class="panel-title">
-              <span>Duración mas larga</span>
-              <a class="fa fa-caret-down pull-right libreStatsPanelHeadingIcon" href="#activity"
-                 data-toggle="collapse"></a>
-            </div>
-          </div>
-          <div class="panel-body libreStatsPanelBody collapse in" id="activity">
-            <div class="row clearfix libreStatsPanelRow">
-              <div class="col-md-8 column libreStatsPanelValueColumn">
-                <p class="libreStatsCount">320</p>
-                <small>New Comments</small>
-              </div>
-              <div class="col-md-4 column">
-                <span style="color: rgba(0, 29, 255, 0.84);" class="pull-right fa fa-users fa-5x libreStatsIcon"></span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-3 column">
-        <div class="panel panel-default">
-          <div class="panel-heading libreStatsPanelHeading">
-            <div class="panel-title">
-              <span>Tiempo de respuesta promedio</span>
-              <a class="fa fa-caret-down pull-right libreStatsPanelHeadingIcon" href="#user"
-                 data-toggle="collapse"></a>
-            </div>
-          </div>
-          <div class="panel-body libreStatsPanelBody collapse in" id="user">
-            <div class="row clearfix libreStatsPanelRow">
-              <div class="col-md-8 column libreStatsPanelValueColumn">
-                <p class="libreStatsCount">190</p>
-                <small>New User</small>
-              </div>
-              <div class="col-md-4 column">
-                <span class="pull-right fa fa-user-times fa-5x libreStatsIcon"></span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-3 column">
-        <div class="panel panel-default">
-          <div class="panel-heading libreStatsPanelHeading">
-            <div class="panel-title">
-              <span>Unidades desponibles</span>
-              <a class="fa fa-caret-down pull-right libreStatsPanelHeadingIcon" href="#sales"
-                 data-toggle="collapse"></a>
-            </div>
-          </div>
-          <div class="panel-body libreStatsPanelBody collapse in" id="sales">
-            <div class="row clearfix libreStatsPanelRow">
-              <div class="col-md-8 column libreStatsPanelValueColumn">
-                <p class="libreStatsCount">23,145</p>
-                <small>Dollar</small>
-              </div>
-              <div class="col-md-4 column">
-                <span class="pull-right fa fa-car fa-5x libreStatsIcon"></span>
-              </div>
+      <div id="collapse1" class="panel-collapse collapse">
+        <div class="statusBox">
+          <div class="scrollbar-log" id="style-6">
+            <div class="force-overflow">
+              <ul>
+                <li ng-repeat="log in vm.log ">
+                  {{log._id}} - <strong>Fecha de solicitud:</strong> {{log.created | date:'medium'}} - <strong>Cliente: </strong> {{log.clientEmail}} <strong>Operador: </strong>{{log.operatorEmail}} - <strong>Acción: </strong> {{log.description}}
+                </li>
+              </ul>
             </div>
           </div>
         </div>
       </div>
     </div>
+     <div class="panel panel-default">
+       <div class="panel-heading">
+         <h4 class="panel-title" style="padding-bottom: 8px; margin-left: 14px">
+           <a data-toggle="collapse" data-parent="#accordion" href="#collapse2">
+             <img class="status" ng-src="/modules/alarms/client/img/history.png" alt="Loading image..." height="25px" width="27px">
+             &nbsp;&nbsp;Por usuario
+           </a>
+         </h4>
+       </div>
+       <div id="collapse2" class="panel-collapse collapse">
+         <div class="statusBox">
+           <div class="scrollbar-log" id="style-6">
+             <div class="force-overflow">
+               <div style="margin: 0px 40px 0px 20px" class="form-group has-info">
+                 <label class="control-label">Por favor indique el email del usuario cliente a consultar: </label>
+                 <input  style="margin:0px 10px 0px 10px; width: 50%; display: inline-block" ng-model="userEmail" type="text" class="form-control" required>
+                 <button style="display: inline-block" ng-click="vm.searchUser(userEmail)" class="btn btn-info">Consultar</button>
+               </div>
+               <ul>
+                 <li ng-repeat="log in vm.logClient ">
+                   {{log._id}} - <strong>Fecha de solicitud:</strong> {{log.created | date:'medium'}} - <strong>Cliente: </strong> {{log.client}} - <strong>Operador: </strong>{{log.user.email}} - <strong>Acción: </strong> {{log.description}}
+                 </li>
+               </ul>
+             </div>
+           </div>
+         </div>
+       </div>
+     </div>
   </div>
 
   <!--<div class="list-group">
