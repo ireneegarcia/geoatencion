@@ -5,9 +5,9 @@
     .module('panels')
     .controller('PanelsListController', PanelsListController);
 
-  PanelsListController.$inject = ['PanelsService', 'AlarmsService', 'NgMap', 'NetworksService', 'CategoriaserviciosService', 'UsersService', 'Authentication', '$filter'];
+  PanelsListController.$inject = ['PanelsService', 'AlarmsService', 'NgMap', 'NetworksService', 'CategoriaserviciosService', 'UsersService', 'Authentication', '$filter', '$timeout'];
 
-  function PanelsListController(PanelsService, AlarmsService, NgMap, NetworksService, CategoriaserviciosService, UsersService, Authentication, $filter) {
+  function PanelsListController(PanelsService, AlarmsService, NgMap, NetworksService, CategoriaserviciosService, UsersService, Authentication, $filter, $timeout) {
     var vm = this;
 
     vm.panels = PanelsService.query();
@@ -55,64 +55,55 @@
       });
     });
 
-    // Funcion para listar las unidades dependiendo del organismo
-    function listNetwork(organism) {
-      NetworksService.query(function (data) {
-        data.forEach(function(network) {
-          if (network.user._id === organism[0]._id) {
-            UsersService.query(function (data) {
-              data.forEach(function (user) {
-                if (user.roles.indexOf('serviceUser') >= 0 &&
-                  user._id.indexOf(network.serviceUser) >= 0) {
-                  network.serviceUserEmail = user.email;
-                }
-              });
-            });
-            vm.networks.push(network);
-          }
+    listAlarm();
+    var countUp = function() {
+      listAlarm();
+      listNetwork(vm.organism);
+
+      $timeout(countUp, 10000);
+    };
+
+    $timeout(countUp, 10000);
+
+
+    // Funcion para listar las alarmas
+    function listAlarm() {
+      // Todas las alarmas con excepcion de las que ya fueron atendidas
+      AlarmsService.query(function (data) {
+        // Alarmas con status esperando o en atencion
+        vm.alarms = data.filter(function (data) {
+          return (data.status.indexOf('esperando') >= 0 ||
+          data.status.indexOf('en atencion') >= 0);
+        });
+
+        // Alarmas con status esperando o en atencion
+        vm.alarmsEsperando = data.filter(function (data) {
+          return (data.status.indexOf('esperando') >= 0);
+        });
+        //  Alarmas en atención
+        vm.alarmsEnAtencion = data.filter(function (data) {
+          return (data.status.indexOf('en atencion') >= 0);
         });
       });
     }
 
-    // Todas las alarmas con excepcion de las que ya fueron atendidas
-    AlarmsService.query(function (data) {
-      // Alarmas con status esperando o en atencion
-      vm.alarms = data.filter(function (data) {
-        return (data.status.indexOf('esperando') >= 0 ||
-        data.status.indexOf('en atencion') >= 0);
-      });
+    // Funcion para listar las unidades dependiendo del organismo
+    function listNetwork(organism) {
 
-      // Alarmas con status esperando o en atencion
-      vm.alarmsEsperando = data.filter(function (data) {
-        return (data.status.indexOf('esperando') >= 0);
-      });
-      //  Alarmas en atención
-      vm.alarmsEnAtencion = data.filter(function (data) {
-        return (data.status.indexOf('en atencion') >= 0);
-      });
-    });
-
-    // Direcciones a recorrer en el mapa
-    NetworksService.query(function (data) {
-      data.forEach(function(network) {
-        AlarmsService.query(function (data) {
-          data.forEach(function (alarm) {
-            if (alarm.status.indexOf('en atencion') >= 0 &&
-              network._id.indexOf(alarm.network) >= 0) {
-              var direction = {
-                destination: alarm.latitude + ',' + alarm.longitude,
-                origin: network.latitude + ',' + network.longitude
-              };
-              vm.directions.push(direction);
-            }
-          });
+      NetworksService.query(function (data) {
+        // Alarmas con status esperando o en atencion
+        vm.networks = data.filter(function (data) {
+          return (data.user._id.indexOf(organism[0]._id) >= 0);
         });
       });
-    });
+    }
 
     vm.center = function(alarms) {
       vm.centerLatitude = alarms.latitude;
       vm.centerLongitude = alarms.longitude;
+      vm.selected = {
+        id: alarms._id
+      };
     };
 
     vm.showDetailAlarms = function(e, alarms) {
@@ -136,6 +127,24 @@
       });
       vm.map.showInfoWindow('infoWindowNetwork', network._id);
     };
+
+    // Direcciones a recorrer en el mapa
+    NetworksService.query(function (data) {
+      data.forEach(function(network) {
+        AlarmsService.query(function (data) {
+          data.forEach(function (alarm) {
+            if (alarm.status.indexOf('en atencion') >= 0 &&
+              network._id.indexOf(alarm.network) >= 0) {
+              var direction = {
+                destination: alarm.latitude + ',' + alarm.longitude,
+                origin: network.latitude + ',' + network.longitude
+              };
+              vm.directions.push(direction);
+            }
+          });
+        });
+      });
+    });
 
     // instantiate google map objects for directions
     var directionsDisplay = new google.maps.DirectionsRenderer();

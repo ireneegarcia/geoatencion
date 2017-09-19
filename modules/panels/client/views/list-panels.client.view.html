@@ -12,6 +12,7 @@
               id='{{alarms._id}}'
               position="{{[alarms.latitude, alarms.longitude]}}"
               title="{{alarms.status}}"
+              animation="{{vm.selected.id === alarms._id ? 'Animation.BOUNCE' : ''}}"
               icon="{{alarms.icon}}"
               on-click="vm.showDetailAlarms(alarms)">
 
@@ -21,6 +22,7 @@
               id='{{network._id}}'
               position="{{[network.latitude, network.longitude]}}"
               title="{{network.status}}"
+              animation="{{vm.selected.id === network._id ? 'Animation.BOUNCE' : ''}}"
               icon="{{network.icon}}"
               on-click="vm.showDetailNetwork(network)">
 
