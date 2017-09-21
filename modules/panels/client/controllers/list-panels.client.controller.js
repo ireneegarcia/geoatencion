@@ -5,17 +5,22 @@
     .module('panels')
     .controller('PanelsListController', PanelsListController);
 
-  PanelsListController.$inject = ['PanelsService', 'AlarmsService', 'NgMap', 'NetworksService', 'CategoriaserviciosService', 'UsersService', 'Authentication', '$filter', '$timeout'];
+  PanelsListController.$inject = ['PanelsService', 'AlarmsService', 'NgMap', 'NetworksService', 'CategoriaserviciosService', 'UsersService', 'Authentication', '$filter', '$timeout', 'SolicitudsService'];
 
-  function PanelsListController(PanelsService, AlarmsService, NgMap, NetworksService, CategoriaserviciosService, UsersService, Authentication, $filter, $timeout) {
+  function PanelsListController(PanelsService, AlarmsService, NgMap, NetworksService, CategoriaserviciosService, UsersService, Authentication, $filter, $timeout, SolicitudsService) {
     var vm = this;
 
     vm.panels = PanelsService.query();
     vm.networks = [];
     vm.directions = [];
+    vm.alarms = [];
+    vm.alarmsEsperando = [];
+    vm.alarmsEnAtencion = [];
+    vm.alarmsRechazado = [];
     //  vm.network = NetworksService.query();
     vm.centerLatitude = 8.2593534;
     vm.centerLongitude = -62.7734547;
+
 
     NgMap.getMap().then(function(map) {
       vm.map = map;
@@ -29,6 +34,7 @@
           return (data.email.indexOf(Authentication.user.email) >= 0);
         });
         listNetwork(vm.organism);
+        listAlarm((vm.organism[0]._id));
       });
     } else {
       if (Authentication.user.roles[0] === 'operator') {
@@ -42,6 +48,7 @@
             return (data._id.indexOf(operator[0].user._id) >= 0);
           });
           listNetwork(vm.organism);
+          listAlarm((vm.organism[0]._id));
         });
       }
     }
@@ -55,38 +62,6 @@
       });
     });
 
-    listAlarm();
-    var countUp = function() {
-      listAlarm();
-      listNetwork(vm.organism);
-
-      $timeout(countUp, 10000);
-    };
-
-    $timeout(countUp, 10000);
-
-
-    // Funcion para listar las alarmas
-    function listAlarm() {
-      // Todas las alarmas con excepcion de las que ya fueron atendidas
-      AlarmsService.query(function (data) {
-        // Alarmas con status esperando o en atencion
-        vm.alarms = data.filter(function (data) {
-          return (data.status.indexOf('esperando') >= 0 ||
-          data.status.indexOf('en atencion') >= 0);
-        });
-
-        // Alarmas con status esperando o en atencion
-        vm.alarmsEsperando = data.filter(function (data) {
-          return (data.status.indexOf('esperando') >= 0);
-        });
-        //  Alarmas en atención
-        vm.alarmsEnAtencion = data.filter(function (data) {
-          return (data.status.indexOf('en atencion') >= 0);
-        });
-      });
-    }
-
     // Funcion para listar las unidades dependiendo del organismo
     function listNetwork(organism) {
 
@@ -96,6 +71,90 @@
           return (data.user._id.indexOf(organism[0]._id) >= 0);
         });
       });
+    }
+
+    // Funcion para listar las alarmas
+    function listAlarm(organism) {
+      /*
+       Todas las alarmas con excepcion de las que ya fueron atendidas
+       Se valida que: exista afiliación del usuario con el organismo (solicitud aceptada)
+       se valida que la categoría de la solicitud sea la categoría de atención del organismo
+       * */
+      AlarmsService.query(function (data) {
+
+        data.forEach(function(alarm) {
+          if (alarm.status === 'esperando') {
+            SolicitudsService.query(function (data) {
+              data.forEach(function(solicitud) {
+
+                if (solicitud.organism === organism && solicitud.status === 'aceptado' &&
+                  solicitud.user._id === alarm.user._id && solicitud.category === alarm.categoryService) {
+                  vm.alarmsEsperando.push(alarm);
+                }
+              });
+            });
+          }
+          if (alarm.status === 'en atencion') {
+            SolicitudsService.query(function (data) {
+              data.forEach(function(solicitud) {
+                if (solicitud.organism === organism && solicitud.status === 'aceptado' &&
+                  solicitud.user._id === alarm.user._id && solicitud.category === alarm.categoryService) {
+                  vm.alarmsEnAtencion.push(alarm);
+                }
+              });
+            });
+          }
+          if (alarm.status === 'esperando' || alarm.status === 'en atencion') {
+            SolicitudsService.query(function (data) {
+              data.forEach(function(solicitud) {
+                if (solicitud.organism === organism && solicitud.status === 'aceptado' &&
+                  solicitud.user._id === alarm.user._id && solicitud.category === alarm.categoryService) {
+                  vm.alarms.push(alarm);
+                }
+              });
+            });
+          }
+        });
+
+      });
+    }
+
+    // Cada 10 segundos se refresca el mapa
+    var countUp = function() {
+
+      // Se listan las alarmas y las unidades
+      listAlarm(vm.organism[0]._id);
+      listNetwork(vm.organism);
+
+      // Se detiene la animacion
+      vm.selected = {};
+
+      // Tiempo
+      $timeout(countUp, 10000);
+    };
+
+    $timeout(countUp, 10000);
+
+    function getNear() {
+
+      // Lugar
+      // var point = {type: 'Point', coordinates: [8.265877, -62.762299]};
+
+      /* // Se rellena el modelo (POST) con las diferentes unidades
+      var Branch = BranchesServiceCreate.charge({ location: point}, function (data) {
+        console.log(Branch);
+      });*/
+
+        // Se ejecuta la funcion geoNear
+      /* Branch.geoNear({type: 'Point', coordinates: [0.0776590, -33.7797590]}, {
+        spherical: true,
+        maxDistance: 1 / 6378137,
+        distanceMultiplier: 6378137
+      })
+        .then(function (doc) {
+          console.log(doc);
+          process.exit();
+        });*/
     }
 
     vm.center = function(alarms) {

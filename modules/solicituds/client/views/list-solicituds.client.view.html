@@ -16,8 +16,6 @@
   <div style="margin: 0% 20% 5% 20% " class="list-group">
 
     <a ng-repeat="solicitud in vm.pagedItems "
-       ng-if="solicitud.user._id === vm.user[0]._id ||
-              solicitud.organism === vm.user[0]._id"
        ui-sref="solicituds.view({ solicitudId: solicitud._id })"
        class="list-group-item">
       <img style="vertical-align: baseline" ng-src="/{{solicitud.iconUrl}}" alt="Loading image...">

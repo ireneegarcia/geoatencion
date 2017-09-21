@@ -14,19 +14,29 @@
     vm.figureOutItemsToDisplay = figureOutItemsToDisplay;
     vm.pageChanged = pageChanged;
 
-    vm.solicituds = SolicitudsService.query(function (data) {
-      vm.solicituds = data;
+    UsersService.query(function (data) {
+
+      // El usuario que inicio sesión
+      vm.user = data.filter(function (data) {
+        return (data.email.indexOf(Authentication.user.email) >= 0);
+      });
+
+      // Organismos
+      vm.organism = data.filter(function (data) {
+        return (data.roles.indexOf('organism') >= 0);
+      });
+    });
+
+    SolicitudsService.query(function (data) {
+      /*
+       data.user._id en caso de que sea un usuario cliente
+       data.organism en caso de que sea un organismo
+       * */
+      vm.solicituds = data.filter(function (data) {
+        return (data.user._id.indexOf(vm.user[0]._id) >= 0 ||
+        data.organism.indexOf(vm.user[0]._id) >= 0);
+      });
       vm.buildPager();
-    });
-
-    // El usuario que inicio sesión
-    vm.user = UsersService.query(function (data) {
-      vm.user = $filter('filter')(data, { email: Authentication.user.email});
-    });
-
-    // Organismos
-    vm.organism = UsersService.query(function (data) {
-      vm.organism = $filter('filter')(data, { roles: 'organism'});
     });
 
     function buildPager() {

@@ -23,8 +23,8 @@
           pageTitle: 'Estadisticas List'
         }
       })
-      .state('estadisticas.create', {
-        url: '/create',
+      .state('estadisticas.timeline', {
+        url: '/timeline',
         templateUrl: '/modules/estadisticas/client/views/form-estadistica.client.view.html',
         controller: 'EstadisticasController',
         controllerAs: 'vm',
@@ -32,8 +32,8 @@
           estadisticaResolve: newEstadistica
         },
         data: {
-          roles: ['organism'],
-          pageTitle: 'Estadisticas Create'
+          roles: ['organism', 'operator'],
+          pageTitle: 'Estadisticas timeline'
         }
       })
       .state('estadisticas.edit', {

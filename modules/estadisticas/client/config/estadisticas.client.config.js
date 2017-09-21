@@ -18,14 +18,14 @@
 
     // Add the dropdown list item
     menuService.addSubMenuItem('topbar', 'estadisticas', {
-      title: 'List Estadisticas',
+      title: 'Ver estadisticas',
       state: 'estadisticas.list'
     });
 
     // Add the dropdown create item
     menuService.addSubMenuItem('topbar', 'estadisticas', {
-      title: 'Create Estadistica',
-      state: 'estadisticas.create',
+      title: 'Línea de tiempo',
+      state: 'estadisticas.timeline',
       roles: ['organism', 'operator']
     });
   }
