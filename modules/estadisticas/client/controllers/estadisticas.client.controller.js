@@ -6,9 +6,9 @@
     .module('estadisticas')
     .controller('EstadisticasController', EstadisticasController);
 
-  EstadisticasController.$inject = ['$scope', '$state', '$window', 'Authentication', 'estadisticaResolve', 'AlarmsService'];
+  EstadisticasController.$inject = ['$scope', '$state', '$window', 'Authentication', 'estadisticaResolve', 'AlarmsService', 'UsersService', 'SolicitudsService', 'LogsService'];
 
-  function EstadisticasController ($scope, $state, $window, Authentication, estadistica, AlarmsService) {
+  function EstadisticasController ($scope, $state, $window, Authentication, estadistica, AlarmsService, UsersService, SolicitudsService, LogsService) {
     var vm = this;
 
     vm.authentication = Authentication;
@@ -17,26 +17,67 @@
     vm.form = {};
     vm.remove = remove;
     vm.save = save;
+    vm.alarms = [];
+    vm.log = [];
+    var operator;
 
 
-    // Todas las alarmas por status
-    AlarmsService.query(function (data) {
-      // Todas las alarmas
-      vm.alarms = AlarmsService.query();
+    // Condicional para encontrar el organismo relacionado
+    if (Authentication.user.roles[0] === 'organism') {
+      UsersService.query(function (data) {
+        // El organismo logueado
+        vm.organism = data.filter(function (data) {
+          return (data.email.indexOf(Authentication.user.email) >= 0);
+        });
+        getMyAlarms(vm.organism[0]._id);
+      });
+    } else {
+      if (Authentication.user.roles[0] === 'operator') {
+        UsersService.query(function (data) {
+          // El operador logueado
+          operator = data.filter(function (data) {
+            return (data.email.indexOf(Authentication.user.email) >= 0);
+          });
+          // El organismo al que pertence el operador logueado
+          vm.organism = data.filter(function (data) {
+            return (data._id.indexOf(operator[0].user._id) >= 0);
+          });
+          getMyAlarms(vm.organism[0]._id);
+        });
+      }
+    }
 
-      // Alarmas con status esperando o en atencion
-      vm.alarmsEsperando = data.filter(function (data) {
-        return (data.status.indexOf('esperando') >= 0);
+    function getMyAlarms(organism) {
+
+      /*
+       Todas las alarmas con excepcion de las que ya fueron atendidas
+       Se valida que: exista afiliación del usuario con el organismo (solicitud aceptada)
+       se valida que la categoría de la solicitud sea la categoría de atención del organismo
+       * */
+      AlarmsService.query(function (data) {
+        data.forEach(function(alarm) {
+          SolicitudsService.query(function (data) {
+            data.forEach(function(solicitud) {
+              if (solicitud.organism === organism && solicitud.status === 'aceptado' &&
+                solicitud.user._id === alarm.user._id && solicitud.category === alarm.categoryService) {
+                vm.alarms.push(alarm);
+              }
+            });
+          });
+        });
       });
-      //  Alarmas en atención
-      vm.alarmsEnAtencion = data.filter(function (data) {
-        return (data.status.indexOf('en atencion') >= 0);
+    }
+
+    // Log por usuario
+    vm.searchUserLog = function (userId) {
+      // Usuario
+
+      LogsService.query(function (data) {
+        vm.logClient = data.filter(function (data) {
+          return (data.client.indexOf(userId) >= 0);
+        });
       });
-      //  Alarmas rechazadas
-      vm.alarmsRechazado = data.filter(function (data) {
-        return (data.status.indexOf('rechazado') >= 0);
-      });
-    });
+    };
 
     // Remove existing Estadistica
     function remove() {
