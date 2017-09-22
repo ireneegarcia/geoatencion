@@ -81,3 +81,5 @@ mongod
 *.ntvs*
 *.njsproj
 *.sln
+public/lib/
+package-lock.json
