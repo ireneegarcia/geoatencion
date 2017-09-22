@@ -24,7 +24,7 @@
     UsersService.query(function (data) {
       // Datos del usuario
       vm.user = data.filter(function (data) {
-        return (data._id.indexOf(vm.alarm.user._id) >= 0);
+        return (data._id.indexOf(alarm.user._id) >= 0);
       });
     });
 
@@ -91,7 +91,6 @@
                 });
               });
               vm.networks.push(network);
-              console.log(vm.networks);
             }
           });
         });
