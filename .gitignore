@@ -15,7 +15,6 @@ node_modules/
 
 app/tests/coverage/
 .bower-*/
-.idea/
 coverage/
 .coveralls.yml
 
@@ -81,5 +80,4 @@ mongod
 *.ntvs*
 *.njsproj
 *.sln
-public/lib/
 package-lock.json
