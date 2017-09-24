@@ -169,9 +169,7 @@
       vm.new_alarm = alarms;
       CategoriaserviciosService.query(function (data) {
         // Categoría
-        vm.new_alarm.categoryName = data.filter(function (data) {
-          return (data._id.indexOf(vm.new_alarm.categoryService) >= 0);
-        });
+        vm.new_alarm.categoryName = data.filter(function (data) { return (data._id.indexOf(vm.new_alarm.categoryService) >= 0); });
       });
       vm.map.showInfoWindow('infoWindowAlarm', alarms._id);
     };

@@ -15,7 +15,6 @@
               animation="{{vm.selected.id === alarms._id ? 'Animation.BOUNCE' : ''}}"
               icon="{{alarms.icon}}"
               on-click="vm.showDetailAlarms(alarms)">
-
       </marker>
 
       <marker ng-repeat="network in vm.networks "
@@ -25,15 +24,14 @@
               animation="{{vm.selected.id === network._id ? 'Animation.BOUNCE' : ''}}"
               icon="{{network.icon}}"
               on-click="vm.showDetailNetwork(network)">
-
       </marker>
 
       <directions ng-repeat="direction in vm.directions"
-        draggable="false"
-        travel-mode="DRIVING"
-        panel="{{direction.panelName}}"
-        origin="{{direction.origin}}"
-        destination="{{direction.destination}}">
+                  draggable="false"
+                  travel-mode="DRIVING"
+                  panel="{{direction.panelName}}"
+                  origin="{{direction.origin}}"
+                  destination="{{direction.destination}}">
       </directions>
 
       <info-window id="infoWindowAlarm" >
