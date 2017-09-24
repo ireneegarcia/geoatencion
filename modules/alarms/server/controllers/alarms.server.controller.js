@@ -13,6 +13,7 @@ var path = require('path'),
  * Create a Alarm
  */
 exports.create = function(req, res) {
+  var io = req.app.get('socketio');
   var alarm = new Alarm(req.body);
   // alarm.user = req.user;
   alarm.location = {
