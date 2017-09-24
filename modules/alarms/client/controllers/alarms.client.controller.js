@@ -110,18 +110,18 @@
     }
 
     // instantiate google map objects for directions
-    var directionsDisplay = new google.maps.DirectionsRenderer();
-    var directionsService = new google.maps.DirectionsService();
+    var directionsDisplay = new window.google.maps.DirectionsRenderer();
+    var directionsService = new window.google.maps.DirectionsService();
     vm.getDirections = function () {
 
       var request = {
         origin: vm.alarm.latitude + ',' + vm.alarm.longitude,
         destination: vm.networks[0].latitude + ',' + vm.networks[0].longitude,
-        travelMode: google.maps.DirectionsTravelMode.DRIVING
+        travelMode: window.google.maps.DirectionsTravelMode.DRIVING
       };
 
       directionsService.route(request, function (response, status) {
-        if (status === google.maps.DirectionsStatus.OK) {
+        if (status === window.google.maps.DirectionsStatus.OK) {
           directionsDisplay.setDirections(response);
 
           // directionsDisplay.setMap($scope.map.control.getGMap());

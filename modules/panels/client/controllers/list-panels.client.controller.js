@@ -204,16 +204,16 @@
     });
 
     // instantiate google map objects for directions
-    var directionsDisplay = new google.maps.DirectionsRenderer();
-    var directionsService = new google.maps.DirectionsService();
+    var directionsDisplay = new window.google.maps.DirectionsRenderer();
+    var directionsService = new window.google.maps.DirectionsService();
     vm.getDirections = function (direction) {
       var request = {
         origin: direction.origin,
         destination: direction.destination,
-        travelMode: google.maps.DirectionsTravelMode.DRIVING
+        travelMode: window.google.maps.DirectionsTravelMode.DRIVING
       };
       directionsService.route(request, function (response, status) {
-        if (status === google.maps.DirectionsStatus.OK) {
+        if (status === window.google.maps.DirectionsStatus.OK) {
           directionsDisplay.setDirections(response);
           // directionsDisplay.setMap($scope.map.control.getGMap());
           directionsDisplay.setPanel(document.getElementById('directionsList'));
