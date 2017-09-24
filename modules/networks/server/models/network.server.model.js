@@ -57,6 +57,7 @@ var NetworkSchema = new Schema({
     // trim: true
   },
   location: {
+    index: '2dsphere',
     type: mongoose.Schema.Types.GeoJSON
   },
   address: {
