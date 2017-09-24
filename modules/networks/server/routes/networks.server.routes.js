@@ -17,6 +17,9 @@ module.exports = function(app) {
     .put(networks.update)
     .delete(networks.delete);
 
+  app.route('/api/networks/:lat/:lng/near')
+    .get(networks.near);
+
   // Finish by binding the Network middleware
   app.param('networkId', networks.networkByID);
 };

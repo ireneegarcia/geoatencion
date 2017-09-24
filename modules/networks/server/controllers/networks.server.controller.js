@@ -100,6 +100,30 @@ exports.list = function(req, res) {
 };
 
 /**
+ * Get Networks nearby coordinates
+ */
+exports.near = function(req, res) {
+  var geoJson = {
+    type: 'Point',
+    coordinates: [parseFloat(req.params.lng), parseFloat(req.params.lat)]
+  };
+  var options = {
+    spherical: true,
+    maxDistance: 3000,
+    query: {status: 'activo'}
+  };
+  Network.geoNear(geoJson, options, function (err, networks) {
+    if (err) {
+      return res.status(400).send({
+        message: errorHandler.getErrorMessage(err)
+      });
+    } else {
+      res.jsonp(networks);
+    }
+  });
+};
+
+/**
  * Network middleware
  */
 exports.networkByID = function(req, res, next, id) {

@@ -171,6 +171,14 @@
         // Categoría
         vm.new_alarm.categoryName = data.filter(function (data) { return (data._id.indexOf(vm.new_alarm.categoryService) >= 0); });
       });
+      NetworksService.near({lat: vm.new_alarm.latitude, lng: vm.new_alarm.longitude}, function(networks) {
+        if (networks.length === 0) {
+          vm.new_alarm.networkNear = 'No hay cercano';
+        } else {
+          vm.new_alarm.networkNear = networks[0];
+          console.log(vm.new_alarm.networkNear);
+        }
+      });
       vm.map.showInfoWindow('infoWindowAlarm', alarms._id);
     };
 

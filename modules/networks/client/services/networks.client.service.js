@@ -14,7 +14,13 @@
     }, {
       update: {
         method: 'PUT'
+      },
+      near: {
+        method: 'GET',
+        isArray: true,
+        url: '/api/networks/:lat/:lng/near'
       }
     });
   }
+
 }());
