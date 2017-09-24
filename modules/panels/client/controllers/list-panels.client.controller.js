@@ -5,9 +5,9 @@
     .module('panels')
     .controller('PanelsListController', PanelsListController);
 
-  PanelsListController.$inject = ['PanelsService', 'AlarmsService', 'NgMap', 'NetworksService', 'CategoriaserviciosService', 'UsersService', 'Authentication', '$filter', '$timeout', 'SolicitudsService'];
+  PanelsListController.$inject = ['PanelsService', 'AlarmsService', 'NgMap', 'NetworksService', 'CategoriaserviciosService', 'UsersService', 'Authentication', '$filter', '$timeout', 'SolicitudsService', 'Socket'];
 
-  function PanelsListController(PanelsService, AlarmsService, NgMap, NetworksService, CategoriaserviciosService, UsersService, Authentication, $filter, $timeout, SolicitudsService) {
+  function PanelsListController(PanelsService, AlarmsService, NgMap, NetworksService, CategoriaserviciosService, UsersService, Authentication, $filter, $timeout, SolicitudsService, Socket) {
     var vm = this;
 
     vm.panels = PanelsService.query();
@@ -24,6 +24,11 @@
 
     NgMap.getMap().then(function(map) {
       vm.map = map;
+    });
+
+    // Add an event listener to the 'alarmEvent' event
+    Socket.on('alarmEvent', function (alarm) {
+      vm.alarms.push(alarm);
     });
 
     // Condicional para encontrar el organismo relacionado
@@ -118,52 +123,6 @@
 
       });
     }
-
-    // Cada 10 segundos se refresca el mapa
-    var countUp = function() {
-
-      // Se listan las alarmas y las unidades
-      listAlarm(vm.organism[0]._id);
-      listNetwork(vm.organism);
-
-      // Se detiene la animacion
-      vm.selected = {};
-
-      // Tiempo
-      $timeout(countUp, 10000);
-    };
-
-    $timeout(countUp, 10000);
-
-    function getNear() {
-
-      // Lugar
-      // var point = {type: 'Point', coordinates: [8.265877, -62.762299]};
-
-      /* // Se rellena el modelo (POST) con las diferentes unidades
-      var Branch = BranchesServiceCreate.charge({ location: point}, function (data) {
-        console.log(Branch);
-      });*/
-
-        // Se ejecuta la funcion geoNear
-      /* Branch.geoNear({type: 'Point', coordinates: [0.0776590, -33.7797590]}, {
-        spherical: true,
-        maxDistance: 1 / 6378137,
-        distanceMultiplier: 6378137
-      })
-        .then(function (doc) {
-          console.log(doc);
-          process.exit();
-        });*/
-    }
-
-    vm.center = function(alarms) {
-      vm.centerLatitude = alarms.latitude;
-      vm.centerLongitude = alarms.longitude;
-      vm.selected = {
-        id: alarms._id
-      };
-    };
 
     vm.showDetailAlarms = function(e, alarms) {
       vm.new_alarm = alarms;
