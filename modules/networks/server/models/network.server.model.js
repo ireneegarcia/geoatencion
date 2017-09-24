@@ -56,6 +56,9 @@ var NetworkSchema = new Schema({
     default: ''
     // trim: true
   },
+  location: {
+    type: mongoose.Schema.Types.GeoJSON
+  },
   address: {
     type: String,
     default: ''
