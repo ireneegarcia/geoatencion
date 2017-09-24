@@ -27,6 +27,7 @@ exports.create = function(req, res) {
         message: errorHandler.getErrorMessage(err)
       });
     } else {
+      io.emit('alarmEvent', alarm);
       res.jsonp(alarm);
     }
   });
