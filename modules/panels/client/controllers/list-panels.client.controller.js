@@ -82,6 +82,9 @@
        * */
       AlarmsService.query(function (data) {
 
+        vm.alarms = [];
+        vm.alarmsEsperando = [];
+        vm.alarmsEnAtencion = [];
         data.forEach(function(alarm) {
           if (alarm.status === 'esperando') {
             SolicitudsService.query(function (data) {
@@ -120,7 +123,7 @@
     }
 
     // Cada 10 segundos se refresca el mapa
-    var countUp = function() {
+    /* var countUp = function() {
 
       // Se listan las alarmas y las unidades
       listAlarm(vm.organism[0]._id);
@@ -133,29 +136,7 @@
       $timeout(countUp, 10000);
     };
 
-    $timeout(countUp, 10000);
-
-    function getNear() {
-
-      // Lugar
-      // var point = {type: 'Point', coordinates: [8.265877, -62.762299]};
-
-      /* // Se rellena el modelo (POST) con las diferentes unidades
-      var Branch = BranchesServiceCreate.charge({ location: point}, function (data) {
-        console.log(Branch);
-      });*/
-
-        // Se ejecuta la funcion geoNear
-      /* Branch.geoNear({type: 'Point', coordinates: [0.0776590, -33.7797590]}, {
-        spherical: true,
-        maxDistance: 1 / 6378137,
-        distanceMultiplier: 6378137
-      })
-        .then(function (doc) {
-          console.log(doc);
-          process.exit();
-        });*/
-    }
+    $timeout(countUp, 10000);*/
 
     vm.center = function(alarms) {
       vm.centerLatitude = alarms.latitude;
