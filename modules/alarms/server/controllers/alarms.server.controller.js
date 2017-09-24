@@ -15,6 +15,10 @@ var path = require('path'),
 exports.create = function(req, res) {
   var alarm = new Alarm(req.body);
   // alarm.user = req.user;
+  alarm.location = {
+    type: "Point",
+    coordinates: [parseFloat(alarm.longitude), parseFloat(alarm.latitude)]
+  };
   alarm.icon = '/modules/panels/client/img/wait.png';
   alarm.save(function(err) {
     if (err) {
@@ -46,7 +50,10 @@ exports.read = function(req, res) {
  */
 exports.update = function(req, res) {
   var alarm = req.alarm;
-
+  alarm.location = {
+    type: "Point",
+    coordinates: [parseFloat(alarm.longitude), parseFloat(alarm.latitude)]
+  };
   alarm = _.extend(alarm, req.body);
 
   alarm.save(function(err) {

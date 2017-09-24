@@ -16,9 +16,9 @@
         <div class="form-group has-info" show-errors>
           <label class="control-label" for="user">Datos del usuario</label>
           <textarea ng-disabled="true" name="user" class="form-control" cols="30" rows="3">
-    DisplayName: {{vm.user[0].displayName}}
-    Email: {{vm.user[0].email}}
-                  </textarea>
+            DisplayName: {{vm.user[0].displayName}}
+            Email: {{vm.user[0].email}}
+          </textarea>
           <div ng-messages="vm.form.alarmForm.user.$error" role="alert">
             <p class="help-block error-text" ng-message="required">Alarm name is required.</p>
           </div>
@@ -47,8 +47,8 @@
         <div class="form-group has-info" show-errors>
           <label class="control-label">Ubicación solicitud de atención</label>
           <textarea ng-disabled="true" name="address" class="form-control" cols="30" rows="3">
-    Coordenadas: Latitud: {{vm.alarm.latitude}} - Longitud: {{vm.alarm.longitude}}
-    Ubicación:  {{vm.alarm.address}}
+            Coordenadas: Latitud: {{vm.alarm.latitude}} - Longitud: {{vm.alarm.longitude}}
+            Ubicación:  {{vm.alarm.address}}
           </textarea>
           <div ng-messages="vm.form.alarmForm.address.$error" role="alert">
             <p class="help-block error-text" ng-message="required">Alarm name is required.</p>

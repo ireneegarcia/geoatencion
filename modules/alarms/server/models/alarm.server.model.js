@@ -3,6 +3,7 @@
 /**
  * Module dependencies.
  */
+var GeoJSON = require('mongoose-geojson-schema');
 var mongoose = require('mongoose'),
   Schema = mongoose.Schema;
 
@@ -33,6 +34,9 @@ var AlarmSchema = new Schema({
     type: String,
     default: ''
     // trim: true
+  },
+  location: {
+    type: mongoose.Schema.Types.GeoJSON
   },
   address: {
     type: String,
