@@ -42,14 +42,14 @@
           Status: {{vm.new_alarm.status}}<br/>
           Categoría de servicio: {{vm.new_alarm.categoryName[0].category}}<br/>
           Creación: {{vm.new_alarm.created}}<br/>
-          <strong>Unidad recomendada: </strong> <br/>
+          Unidad recomendada:  <strong>{{vm.new_alarm.networkNear.obj._id}}</strong><br/>
           <a ui-sref="alarms.view({ alarmId: vm.new_alarm._id })">Más sobre esta alarma</a><br/>
         </div>
       </info-window>
 
       <info-window id="infoWindowNetwork" >
         <div ng-non-bindable="">
-          id: {{vm.new_network._id}}<br/>
+          id: <strong>{{vm.new_network._id}}</strong><br/>
           Dirección: {{vm.new_network.address}}<br/>
           Coordenadas: {{vm.new_network.latitude}}, {{vm.new_network.longitude}}<br/>
           Status: {{vm.new_network.status}}<br/>

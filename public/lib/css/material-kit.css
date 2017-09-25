@@ -575,11 +575,11 @@ a{
 	transition: all 0.3s ease-in-out 0s;
 	border-radius: 17px;
 }
-.circle-tile-footer:hover {
+/*.circle-tile-footer:hover {
 	background-color: #015C83;
 	color: rgba(255, 255, 255, 0.5);
 	text-decoration: none;
-}
+}*/
 .circle-tile-heading.dark-blue:hover {
 	background-color: #2E4154;
 }

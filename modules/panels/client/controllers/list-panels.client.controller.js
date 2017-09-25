@@ -29,6 +29,7 @@
     // Add an event listener to the 'alarmEvent' event
     Socket.on('alarmEvent', function (alarm) {
       vm.alarms.push(alarm);
+      listAlarm((vm.organism[0]._id));
     });
 
     // Condicional para encontrar el organismo relacionado
@@ -127,16 +128,17 @@
       });
     }
 
-    vm.center = function(alarms) {
-      vm.centerLatitude = alarms.latitude;
-      vm.centerLongitude = alarms.longitude;
-      if (vm.selected && vm.selected.id === alarms._id) {
+    vm.center = function(item) {
+      vm.centerLatitude = item.latitude;
+      vm.centerLongitude = item.longitude;
+      if (vm.selected && vm.selected.id === item._id) {
         // Se detiene la animacion
         vm.selected = {};
+        listNetwork(vm.organism);
         listAlarm((vm.organism[0]._id));
       } else {
         vm.selected = {
-          id: alarms._id
+          id: item._id
         };
       }
     };
@@ -151,8 +153,8 @@
         if (networks.length === 0) {
           vm.new_alarm.networkNear = 'No hay cercano';
         } else {
+          // Unidad recomendada
           vm.new_alarm.networkNear = networks[0];
-          console.log(vm.new_alarm.networkNear);
         }
       });
       vm.map.showInfoWindow('infoWindowAlarm', alarms._id);
