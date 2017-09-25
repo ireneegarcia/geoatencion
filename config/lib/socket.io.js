@@ -113,5 +113,8 @@ module.exports = function (app, db) {
     });
   });
 
+  // added this line below
+  app.set('socketio', io);
+
   return server;
 };

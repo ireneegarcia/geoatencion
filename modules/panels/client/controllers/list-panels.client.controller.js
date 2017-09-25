@@ -5,9 +5,9 @@
     .module('panels')
     .controller('PanelsListController', PanelsListController);
 
-  PanelsListController.$inject = ['PanelsService', 'AlarmsService', 'NgMap', 'NetworksService', 'CategoriaserviciosService', 'UsersService', 'Authentication', '$filter', '$timeout', 'SolicitudsService'];
+  PanelsListController.$inject = ['PanelsService', 'AlarmsService', 'NgMap', 'NetworksService', 'CategoriaserviciosService', 'UsersService', 'Authentication', '$filter', '$timeout', 'SolicitudsService', 'Socket'];
 
-  function PanelsListController(PanelsService, AlarmsService, NgMap, NetworksService, CategoriaserviciosService, UsersService, Authentication, $filter, $timeout, SolicitudsService) {
+  function PanelsListController(PanelsService, AlarmsService, NgMap, NetworksService, CategoriaserviciosService, UsersService, Authentication, $filter, $timeout, SolicitudsService, Socket) {
     var vm = this;
 
     vm.panels = PanelsService.query();
@@ -24,6 +24,11 @@
 
     NgMap.getMap().then(function(map) {
       vm.map = map;
+    });
+
+    // Add an event listener to the 'alarmEvent' event
+    Socket.on('alarmEvent', function (alarm) {
+      vm.alarms.push(alarm);
     });
 
     // Condicional para encontrar el organismo relacionado
@@ -122,28 +127,18 @@
       });
     }
 
-    // Cada 10 segundos se refresca el mapa
-    /* var countUp = function() {
-
-      // Se listan las alarmas y las unidades
-      listAlarm(vm.organism[0]._id);
-      listNetwork(vm.organism);
-
-      // Se detiene la animacion
-      vm.selected = {};
-
-      // Tiempo
-      $timeout(countUp, 10000);
-    };
-
-    $timeout(countUp, 10000);*/
-
     vm.center = function(alarms) {
       vm.centerLatitude = alarms.latitude;
       vm.centerLongitude = alarms.longitude;
-      vm.selected = {
-        id: alarms._id
-      };
+      if (vm.selected && vm.selected.id === alarms._id) {
+        // Se detiene la animacion
+        vm.selected = {};
+        listAlarm((vm.organism[0]._id));
+      } else {
+        vm.selected = {
+          id: alarms._id
+        };
+      }
     };
 
     vm.showDetailAlarms = function(e, alarms) {
