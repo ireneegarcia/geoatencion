@@ -16,10 +16,6 @@ var path = require('path'),
 exports.create = function(req, res) {
   var network = new Network(req.body);
   network.user = req.user;
-  /* network.location = {
-    type: 'Point',
-    coordinates: [parseFloat(network.longitude), parseFloat(network.latitude)]
-  };*/
   network.save(function(err) {
     if (err) {
       return res.status(400).send({
@@ -50,10 +46,6 @@ exports.read = function(req, res) {
  */
 exports.update = function(req, res) {
   var network = req.network;
-  network.location = {
-    type: 'Point',
-    coordinates: [parseFloat(network.longitude), parseFloat(network.latitude)]
-  };
   network = _.extend(network, req.body);
 
   network.save(function(err) {
