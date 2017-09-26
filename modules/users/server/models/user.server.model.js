@@ -96,13 +96,13 @@ var UserSchema = new Schema({
   phone: {
     type: String,
     // trim: true,
-    default: '',
+    default: ''
     // validate: [validateLocalStrategyProperty, 'Por favor introduzca un número de teléfono']
   },
   ci: {
     type: String,
     // trim: true,
-    default: '',
+    default: ''
     // validate: [validateLocalStrategyProperty, 'Please fill in your last name']
   },
   birthday: {

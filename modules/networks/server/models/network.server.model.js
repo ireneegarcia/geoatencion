@@ -8,9 +8,24 @@ var mongoose = require('mongoose'),
   Schema = mongoose.Schema;
 
 /**
+ * Validación length del carCode
+ */
+var validateCarCode = function (carCode) {
+  return (carCode.length <= 6);
+};
+
+/**
  * Network Schema
  */
 var NetworkSchema = new Schema({
+  carCode: {
+    type: String,
+   /* minlength: 4,*/
+    maxlength: [6, 'El código debe ser de máximo 6 dígitos'],
+    lowercase: true,
+    trim: true,
+    required: 'Por favor indique un código de máximo 6 dígitos'
+  },
   carBrand: {
     type: String,
     default: '',
@@ -20,7 +35,7 @@ var NetworkSchema = new Schema({
   carModel: {
     type: String,
     default: '',
-    required: 'Por favor introduzca el modelo del vehículo',
+    required: 'Por favor introduzca el modelo del vehículo'
     // trim: true
   },
   carPlate: {
@@ -32,7 +47,7 @@ var NetworkSchema = new Schema({
   carColor: {
     type: String,
     default: '',
-    required: 'Por favor introduzca el color del vehículo',
+    required: 'Por favor introduzca el color del vehículo'
      // trim: true
   },
   category: {
@@ -44,7 +59,7 @@ var NetworkSchema = new Schema({
   status: {
     type: String,
     default: '',
-    required: 'Por favor indique el status de la unidad',
+    required: 'Por favor indique el status de la unidad'
      // trim: true
   },
   latitude: {
