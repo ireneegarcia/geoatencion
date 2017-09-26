@@ -160,8 +160,16 @@
         vm.alarm.icon = '/modules/panels/client/img/process.png';
         // aca registro en la unidad el status "ocupado"
         networkServicePUT('ocupado', vm.alarm.network);
-        // se hace registra en el log
-        logServicePOST('Se ha asignado una unidad exitosamente');
+        // se busca el network asignado
+        var networks;
+        NetworksService.query(function (data) {
+          networks = data.filter(function (data) {
+            return (data._id.indexOf(vm.alarm.network) >= 0);
+          });
+          // se hace registra en el log
+          logServicePOST('Se ha asignado la unidad: ' + networks[0].carCode + ' exitosamente');
+        });
+
       }
 
       if (deletedAlarm === true) {

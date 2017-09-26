@@ -55,9 +55,9 @@
           </div>
         </div>
         <div class="form-group has-info" show-errors>
-          <label class="control-label" for="network">Network asignado</label>
+          <label class="control-label" for="network">Unidad de atención</label>
           <select name="network" ng-model="vm.alarm.network" id="network" class="form-control">
-            <option ng-repeat="option in vm.networks" value="{{option._id}}">{{option._id}}</option>
+            <option ng-repeat="option in vm.networks" value="{{option._id}}">{{option.carCode}}</option>
           </select>
           <div ng-messages="vm.form.alarmForm.network.$error" role="alert">
             <p class="help-block error-text" ng-message="required">Alarm name is required.</p>
