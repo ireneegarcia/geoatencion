@@ -16,10 +16,13 @@ var path = require('path'),
 exports.create = function(req, res) {
   var network = new Network(req.body);
   network.user = req.user;
-  /* network.location = {
+  // Los siguientes valores se rellenarán a través de la movil
+  network.longitude = '';
+  network.latitude = '';
+  network.location = {
     type: 'Point',
-    coordinates: [parseFloat(network.longitude), parseFloat(network.latitude)]
-  };*/
+    coordinates: [parseFloat(0), parseFloat(0)]
+  };
   network.save(function(err) {
     if (err) {
       return res.status(400).send({
