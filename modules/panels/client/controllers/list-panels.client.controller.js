@@ -21,6 +21,28 @@
     vm.centerLatitude = 8.2593534;
     vm.centerLongitude = -62.7734547;
 
+    function formatString(format) {
+      var pieces = format.split('.'),
+        year = parseInt(pieces[0]),
+        month = parseInt(pieces[1]),
+        day = parseInt(pieces[2]),
+        hour = parseInt(pieces[3]),
+        date = new Date(year, month - 1, day, hour);
+
+      return date;
+    }
+
+    vm.getDifference = function (alarm) {
+      var today = $filter('date')(new Date(), 'yyyy.MM.dd.HH:mm:ss');
+      var alarmCreated = $filter('date')(alarm, 'yyyy.MM.dd.HH:mm:ss');
+      var date2 = new Date(formatString(today));
+      var date1 = new Date(formatString(alarmCreated));
+      var timeDiff = Math.abs(date2.getTime() - date1.getTime());
+      //var diffDays = Math.round(timeDiff / (1000 * 3600 * 24));
+      var diffDays =  date2.getDay() - date1.getDay();
+      var diffHours =  date2.getHours() - date1.getHours();
+      return diffDays + '(dias), ' + diffHours + '(horas)';
+    };
 
     NgMap.getMap().then(function(map) {
       vm.map = map;

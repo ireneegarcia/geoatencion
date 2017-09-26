@@ -78,7 +78,12 @@
               <div class="force-overflow">
                 <ul>
                   <li ng-repeat="alarm in vm.alarmsEsperando | orderBy : '+created'">
-                    <a ng-click="vm.center(alarm)" href="">{{alarm.created | date:'medium'}}</a>
+                    <a ng-click="vm.center(alarm)" href="">
+                      {{alarm.created | date:'medium'}}
+                      <br/>
+                      Tiempo transcurrido: {{vm.getDifference(alarm.created)}}
+                    </a>
+                    <br/><br/>
                   </li>
                 </ul>
               </div>
@@ -101,9 +106,13 @@
             <div class="scrollbar" id="style-7">
               <div class="force-overflow">
                 <ul>
-                  <li ng-repeat="alarm in vm.alarmsEnAtencion | orderBy : '+created'">
+                  <li ng-repeat="alarm in vm.alarmsEnAtencion | orderBy : '+created'" >
                     <a ng-click="vm.center(alarm)" href="">
-                      {{alarm.created | date:'medium'}}</a>
+                      {{alarm.created | date:'medium'}}
+                      <br/>
+                      Tiempo transcurrido: {{vm.getDifference(alarm.created)}}
+                    </a>
+                    <br/><br/>
                   </li>
                 </ul>
               </div>
