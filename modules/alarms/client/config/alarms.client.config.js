@@ -9,14 +9,20 @@
 
   function menuConfig(menuService) {
     // Set top bar menu items
-    menuService.addMenuItem('topbar', {
-      title: 'Alarmas',
+    /* menuService.addMenuItem('topbar', {
+      title: 'aaAlarmas',
       state: 'alarms',
       type: 'dropdown',
-      roles: ['*']
+      roles: ['operator']
+    });*/
+
+    menuService.addMenuItem('topbar', {
+      title: 'Alarmas',
+      state: 'alarms.list',
+      roles: ['operator']
     });
 
-    // Add the dropdown list item
+    /* // Add the dropdown list item
     menuService.addSubMenuItem('topbar', 'alarms', {
       title: 'Listado de alarmas',
       state: 'alarms.list'
@@ -27,6 +33,6 @@
       title: 'Create Alarm',
       state: 'alarms.create',
       roles: ['*']
-    });
+    });*/
   }
 }());

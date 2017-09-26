@@ -13,7 +13,7 @@
       title: 'Estadisticas',
       state: 'estadisticas',
       type: 'dropdown',
-      roles: ['organism', 'operator']
+      roles: ['organism']
     });
 
     // Add the dropdown list item

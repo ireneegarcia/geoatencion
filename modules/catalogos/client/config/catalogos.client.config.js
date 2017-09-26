@@ -14,7 +14,7 @@
       // state: 'catalogos',
       // type: 'dropdown',
       state: 'catalogos.list',
-      roles: ['*']
+      roles: ['guest', 'user', 'organism']
     });
 
     // Add the dropdown list item
