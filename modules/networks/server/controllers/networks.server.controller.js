@@ -53,10 +53,6 @@ exports.read = function(req, res) {
  */
 exports.update = function(req, res) {
   var network = req.network;
-  network.location = {
-    type: 'Point',
-    coordinates: [parseFloat(network.longitude), parseFloat(network.latitude)]
-  };
   network = _.extend(network, req.body);
 
   network.save(function(err) {
