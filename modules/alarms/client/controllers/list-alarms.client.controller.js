@@ -12,6 +12,7 @@
     vm.alarmsEsperando = [];
     vm.alarmsEnAtencion = [];
     vm.alarmsRechazado = [];
+    vm.alarmsCanceled = [];
 
     // Condicional para encontrar el organismo relacionado
     if (Authentication.user.roles[0] === 'organism') {
@@ -75,6 +76,16 @@
                 if (solicitud.organism === organism && solicitud.status === 'aceptado' &&
                   solicitud.user._id === alarm.user._id && solicitud.category === alarm.categoryService) {
                   vm.alarmsRechazado.push(alarm);
+                }
+              });
+            });
+          }
+          if (alarm.status === 'cancelado') {
+            SolicitudsService.query(function (data) {
+              data.forEach(function(solicitud) {
+                if (solicitud.organism === organism && solicitud.status === 'aceptado' &&
+                  solicitud.user._id === alarm.user._id && solicitud.category === alarm.categoryService) {
+                  vm.alarmsCanceled.push(alarm);
                 }
               });
             });

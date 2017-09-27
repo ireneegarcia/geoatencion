@@ -237,13 +237,16 @@
           <div class="scrollbar-log" id="style-6">
             <div class="force-overflow">
               <div style="margin: 0px 40px 0px 20px" class="form-group has-info">
-                <label class="control-label">Por favor indique el identificador de la unidad de atención a consultar: </label>
+                <label class="control-label">Por favor indique el código identificador de la unidad de atención a consultar: </label>
                 <input  style="margin:0px 10px 0px 10px; width: 50%; display: inline-block" ng-model="networkID" type="text" class="form-control" required>
                 <button style="display: inline-block" ng-click="vm.searchNetwork(networkID)" class="btn btn-info">Consultar</button>
               </div>
               <ul>
+                <li ng-show="vm.networkSearch">
+                  <strong>Fecha de registro de la unidad:</strong> {{vm.networkSearch[0].created | date:'medium'}}
+                </li>
                 <li ng-repeat="log in vm.logNetwork ">
-                  {{log._id}} - <strong>Fecha de solicitud:</strong> {{log.created | date:'medium'}} - <strong>Cliente: </strong> {{log.clientEmail}} - <strong>Operador: </strong>{{log.operatorEmail}} - <strong>Acción: </strong> {{log.description}}
+                  <strong>Fecha de solicitud:</strong> {{log.created | date:'medium'}} - <strong>Cliente: </strong> {{log.clientEmail}} - <strong>Operador: </strong>{{log.operatorEmail}} - <strong>Acción: </strong> {{log.description}}
                 </li>
               </ul>
             </div>

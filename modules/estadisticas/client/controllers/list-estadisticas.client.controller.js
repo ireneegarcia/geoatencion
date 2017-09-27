@@ -128,9 +128,19 @@
     // Log por network
     vm.searchNetwork = function (networkID) {
 
+      vm.logNetwork = [];
+
+      // Se busca el network
+      NetworksService.query(function (data) {
+        // Network asignado
+        vm.networkSearch = data.filter(function (data) {
+          return (data.carCode.indexOf(networkID) >= 0);
+        });
+      });
+
       LogsService.query(function (data) {
         data.forEach(function(log) {
-          if (log.organism.indexOf(vm.organism[0]._id) >= 0 && log.network.indexOf(networkID) >= 0) {
+          if (log.organism.indexOf(vm.organism[0]._id) >= 0 && log.network.indexOf(vm.networkSearch[0]._id) >= 0) {
             // El email del usuario
             UsersService.query(function (data) {
               data.forEach(function (user) {

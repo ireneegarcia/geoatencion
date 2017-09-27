@@ -41,8 +41,10 @@
           Coordenadas: {{vm.new_alarm.latitude}}, {{vm.new_alarm.longitude}}<br/>
           Status: {{vm.new_alarm.status}}<br/>
           Categoría de servicio: {{vm.new_alarm.categoryName[0].category}}<br/>
-          Creación: {{vm.new_alarm.created}}<br/>
-          Unidad recomendada:  <strong>{{vm.new_alarm.networkNear.obj.carCode}}</strong><br/>
+          Creación: {{vm.new_alarm.created | date:'medium' }}<br/>
+          <div ng-show="vm.new_alarm.networkNear.obj.carCode">
+            Unidad recomendada:  <strong>{{vm.new_alarm.networkNear.obj.carCode}}</strong><br/>
+          </div>
           <a ui-sref="alarms.view({ alarmId: vm.new_alarm._id })">Más sobre esta alarma</a><br/>
         </div>
       </info-window>
@@ -54,7 +56,7 @@
           Coordenadas: {{vm.new_network.latitude}}, {{vm.new_network.longitude}}<br/>
           Status: {{vm.new_network.status}}<br/>
           Categoría de servicio: {{vm.new_network.categoryName[0].category}}<br/>
-          Creación: {{vm.new_network.created}}<br/>
+          Creación: {{vm.new_network.created | date:'medium'}}<br/>
           <a  ui-sref="networks.view({ networkId: vm.new_network._id })">Más sobre esta unidad</a><br/>
         </div>
       </info-window>
@@ -82,6 +84,14 @@
                       {{alarm.created | date:'medium'}}
                       <br/>
                       Tiempo transcurrido: {{vm.getDifference(alarm.created)}}
+                    </a>
+                    Acciones:
+                    <br/>
+                    <a ng-click="vm.assignNear(alarm)">
+                      Asignanación por recomendación
+                    </a>
+                    <a ng-click="vm.cancelAlarm(alarm, 1)">
+                      Rechazar solicitud de atención
                     </a>
                     <br/><br/>
                   </li>
@@ -111,6 +121,11 @@
                       {{alarm.created | date:'medium'}}
                       <br/>
                       Tiempo transcurrido: {{vm.getDifference(alarm.created)}}
+                    </a>
+                    Acciones:
+                    <br/>
+                    <a ng-click="vm.cancelAlarm(alarm,2)">
+                      Cancelar solicitud de atención
                     </a>
                     <br/><br/>
                   </li>

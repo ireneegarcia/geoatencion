@@ -5,9 +5,9 @@
     .module('panels')
     .controller('PanelsListController', PanelsListController);
 
-  PanelsListController.$inject = ['PanelsService', 'AlarmsService', 'NgMap', 'NetworksService', 'CategoriaserviciosService', 'UsersService', 'Authentication', '$filter', '$timeout', 'SolicitudsService', 'Socket'];
+  PanelsListController.$inject = ['PanelsService', 'AlarmsService', 'NgMap', 'NetworksService', 'CategoriaserviciosService', 'UsersService', 'Authentication', '$filter', '$timeout', 'SolicitudsService', 'Socket', '$window', 'LogsServiceCreate'];
 
-  function PanelsListController(PanelsService, AlarmsService, NgMap, NetworksService, CategoriaserviciosService, UsersService, Authentication, $filter, $timeout, SolicitudsService, Socket) {
+  function PanelsListController(PanelsService, AlarmsService, NgMap, NetworksService, CategoriaserviciosService, UsersService, Authentication, $filter, $timeout, SolicitudsService, Socket, $window, LogsServiceCreate) {
     var vm = this;
 
     vm.panels = PanelsService.query();
@@ -19,6 +19,7 @@
     vm.alarmsRechazado = [];
     vm.centerLatitude = 8.2593534;
     vm.centerLongitude = -62.7734547;
+    var operator;
 
     NgMap.getMap().then(function(map) {
       vm.map = map;
@@ -44,7 +45,7 @@
       if (Authentication.user.roles[0] === 'operator') {
         UsersService.query(function (data) {
           // El operador logueado
-          var operator = data.filter(function (data) {
+          operator = data.filter(function (data) {
             return (data.email.indexOf(Authentication.user.email) >= 0);
           });
           // El organismo al que pertence el operador logueado
@@ -164,14 +165,9 @@
       }
     };
 
-    // Mostrar detalles de la alarma
-    vm.showDetailAlarms = function(e, alarms) {
-      vm.new_alarm = alarms;
-      CategoriaserviciosService.query(function (data) {
-        // Categoría
-        vm.new_alarm.categoryName = data.filter(function (data) { return (data._id.indexOf(vm.new_alarm.categoryService) >= 0); });
-      });
-      NetworksService.near({lat: vm.new_alarm.latitude, lng: vm.new_alarm.longitude}, function(networks) {
+    // Evaluar cercanía
+    function geoNear(new_alarm) {
+      NetworksService.near({lat: new_alarm.latitude, lng: new_alarm.longitude}, function(networks) {
         if (networks.length === 0) {
           vm.new_alarm.networkNear = 'No hay cercano';
         } else {
@@ -179,6 +175,107 @@
           vm.new_alarm.networkNear = networks[0];
         }
       });
+    }
+
+    // Funcion para actualizar un registro (PUT)
+    function networkServicePUT(status, id) {
+      // GET
+      var network = NetworksService.get({ networkId: id});
+      network.status = status;
+      // PUT
+      NetworksService.update({ networkId: id}, network);
+    }
+
+    // Funcion para crear un nuevo registro (POST)
+    function logServicePOST(description, alarm) {
+      if (alarm.network === '') {
+        LogsServiceCreate.charge({ description: description, alarm: alarm._id, client: alarm.user._id, user: operator[0]._id, organism: vm.organism[0]._id}, function (data) {
+          // se realizo el post
+        });
+      } else {
+        LogsServiceCreate.charge({ description: description, alarm: alarm._id, network: alarm.network, client: alarm.user._id, user: operator[0]._id, organism: vm.organism[0]._id}, function (data) {
+          // se realizo el post
+        });
+      }
+
+    }
+
+    // Asignar por recomendación
+    vm.assignNear = function (alarm) {
+      vm.new_alarm = alarm;
+
+      // Evaluar cercanía
+      geoNear(vm.new_alarm);
+
+      if (vm.new_alarm.networkNear && vm.new_alarm.networkNear !== 'No hay cercano') {
+        if ($window.confirm('¿Esta seguro que desea asignar la unidad: ' + vm.new_alarm.networkNear.obj.carCode + '?')) {
+
+          // Se actualiza la alarma (PUT)
+          vm.new_alarm.network = vm.new_alarm.networkNear.obj._id;
+          vm.new_alarm.status = 'en atencion';
+          vm.new_alarm.icon = '/modules/panels/client/img/process.png';
+
+          // Se actualiza la alarma (PUT)
+          AlarmsService.update({ alarmId: alarm._id}, alarm);
+
+          // aca registro en la unidad el status "ocupado"
+          networkServicePUT('ocupado', vm.new_alarm.networkNear.obj._id);
+
+          // se registra en el log
+          logServicePOST('Se ha asignado la unidad: ' + vm.new_alarm.networkNear.obj.carCode + ' exitosamente', vm.new_alarm);
+
+        }
+      }
+      if (vm.new_alarm.networkNear && vm.new_alarm.networkNear === 'No hay cercano') {
+        $window.alert('No existe recomendación para esta solicitud');
+      }
+    };
+
+    // Rechazar alarma
+    vm.cancelAlarm = function (alarm, option) {
+
+      // Rechazar
+      if (option === 1) {
+        if ($window.confirm('¿Esta seguro que desea rechazar la solicitud?')) {
+          // Se cambia status
+          alarm.status = 'rechazado';
+          alarm.icon = '/modules/panels/client/img/deleted.png';
+
+          // Se actualiza la alarma (PUT)
+          AlarmsService.update({ alarmId: alarm._id}, alarm);
+
+          // Se registra en el log
+          logServicePOST('La solicitud de atención ha sido rechazada', alarm);
+        }
+      }
+      // Cancelar
+      if (option === 2) {
+        if ($window.confirm('¿Esta seguro que desea cancelar la atención?')) {
+
+          // Se cambia status
+          alarm.status = 'cancelado';
+          alarm.icon = '/modules/panels/client/img/canceled.png';
+
+          // Se actualiza la alarma (PUT)
+          AlarmsService.update({ alarmId: alarm._id}, alarm);
+
+          // Se registra en el log
+          logServicePOST('La solicitud de atención ha sido cancelada', alarm);
+        }
+      }
+
+    };
+
+    // Mostrar detalles de la alarma
+    vm.showDetailAlarms = function(e, alarms) {
+      vm.new_alarm = alarms;
+      CategoriaserviciosService.query(function (data) {
+        // Categoría
+        vm.new_alarm.categoryName = data.filter(function (data) { return (data._id.indexOf(vm.new_alarm.categoryService) >= 0); });
+      });
+
+      // Evaluar cercanía
+      geoNear(vm.new_alarm);
       vm.map.showInfoWindow('infoWindowAlarm', alarms._id);
     };
 
