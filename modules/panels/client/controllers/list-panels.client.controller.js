@@ -202,6 +202,7 @@
 
     // Asignar por recomendación
     vm.assignNear = function (alarm) {
+      var network;
       vm.new_alarm = alarm;
 
       // Evaluar cercanía
@@ -224,6 +225,24 @@
           // se registra en el log
           logServicePOST('Se ha asignado la unidad: ' + vm.new_alarm.networkNear.obj.carCode + ' exitosamente', vm.new_alarm);
 
+          // Se encuentra la unidad
+          NetworksService.query(function (data) {
+            // El organismo logueado
+            network = data.filter(function (data) {
+              return (data._id.indexOf(vm.new_alarm.networkNear.obj._id) >= 0);
+            });
+            // Se incluye en las direcciones
+            var direction = {
+              destination: alarm.latitude + ',' + alarm.longitude,
+              origin: network.latitude + ',' + network.longitude
+            };
+            // Se incluye la nueva ruta
+            vm.directions.push(direction);
+            // Se refrescan las rutas
+            directionsOnMap();
+            // Se refresca el listado de alarmas por status
+            listAlarm((vm.organism[0]._id));
+          });
         }
       }
       if (vm.new_alarm.networkNear && vm.new_alarm.networkNear === 'No hay cercano') {
@@ -292,22 +311,25 @@
     };
 
     // Direcciones a recorrer en el mapa
-    NetworksService.query(function (data) {
-      data.forEach(function(network) {
-        AlarmsService.query(function (data) {
-          data.forEach(function (alarm) {
-            if (alarm.status.indexOf('en atencion') >= 0 &&
-              network._id.indexOf(alarm.network) >= 0) {
-              var direction = {
-                destination: alarm.latitude + ',' + alarm.longitude,
-                origin: network.latitude + ',' + network.longitude
-              };
-              vm.directions.push(direction);
-            }
+    function directionsOnMap() {
+      NetworksService.query(function (data) {
+        data.forEach(function(network) {
+          AlarmsService.query(function (data) {
+            data.forEach(function (alarm) {
+              if (alarm.status.indexOf('en atencion') >= 0 &&
+                network._id.indexOf(alarm.network) >= 0) {
+                var direction = {
+                  destination: alarm.latitude + ',' + alarm.longitude,
+                  origin: network.latitude + ',' + network.longitude
+                };
+                vm.directions.push(direction);
+              }
+            });
           });
         });
       });
-    });
+    }
+    directionsOnMap();
 
     // instantiate google map objects for directions
     var directionsDisplay = new window.google.maps.DirectionsRenderer();

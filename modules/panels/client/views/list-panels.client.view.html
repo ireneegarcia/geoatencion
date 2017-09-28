@@ -85,15 +85,19 @@
                       <br/>
                       Tiempo transcurrido: {{vm.getDifference(alarm.created)}}
                     </a>
-                    Acciones:
+                    <ul>
+                      <li>
+                        <a ng-click="vm.assignNear(alarm)">
+                          Asignanación por recomendación
+                        </a>
+                      </li>
+                      <li>
+                        <a ng-click="vm.cancelAlarm(alarm, 1)">
+                          Rechazar solicitud de atención
+                        </a>
+                      </li>
+                    </ul>
                     <br/>
-                    <a ng-click="vm.assignNear(alarm)">
-                      Asignanación por recomendación
-                    </a>
-                    <a ng-click="vm.cancelAlarm(alarm, 1)">
-                      Rechazar solicitud de atención
-                    </a>
-                    <br/><br/>
                   </li>
                 </ul>
               </div>
@@ -122,12 +126,14 @@
                       <br/>
                       Tiempo transcurrido: {{vm.getDifference(alarm.created)}}
                     </a>
-                    Acciones:
+                    <ul>
+                      <li>
+                        <a ng-click="vm.cancelAlarm(alarm,2)">
+                          Cancelar solicitud de atención
+                        </a>
+                      </li>
+                    </ul>
                     <br/>
-                    <a ng-click="vm.cancelAlarm(alarm,2)">
-                      Cancelar solicitud de atención
-                    </a>
-                    <br/><br/>
                   </li>
                 </ul>
               </div>
