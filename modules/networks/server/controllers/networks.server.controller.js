@@ -126,6 +126,11 @@ exports.near = function(req, res) {
  * Set Networks position
  */
 exports.newPosition = function(req, res) {
+  if (!mongoose.Types.ObjectId.isValid(req.params.networkId)) {
+    return res.status(400).send({
+      message: 'Network is invalid'
+    });
+  }
   var data = {
     latitude: req.body.lat,
     longitude: req.body.lng,
