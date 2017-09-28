@@ -31,6 +31,15 @@
       listAlarm((vm.organism[0]._id));
     });
 
+    // Add an event listener to the 'networkPositionEvent' event
+    Socket.on('networkPositionEvent', function (networkPosition) {
+      var networkIdx = vm.networks.map(function(e) { return e._id; }).indexOf(networkPosition.id);
+      if (networkIdx >= 0) {
+        vm.networks[networkIdx].latitude = networkPosition.latitude;
+        vm.networks[networkIdx].longitude = networkPosition.longitude;
+      }
+    });
+
     // Condicional para encontrar el organismo relacionado
     if (Authentication.user.roles[0] === 'organism') {
       UsersService.query(function (data) {

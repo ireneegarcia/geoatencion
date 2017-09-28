@@ -144,7 +144,7 @@ exports.newPosition = function(req, res) {
       res.status(400).send(err);
     }
     req.app.get('socketio').emit('networkPositionEvent', {
-      networkId: req.params.networkId,
+      id: req.params.networkId,
       latitude: req.body.lat,
       longitude: req.body.lng
     });
