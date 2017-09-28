@@ -85,18 +85,16 @@
                       <br/>
                       Tiempo transcurrido: {{vm.getDifference(alarm.created)}}
                     </a>
-                    <ul>
-                      <li>
-                        <a ng-click="vm.assignNear(alarm)">
-                          Asignanación por recomendación
-                        </a>
-                      </li>
-                      <li>
-                        <a ng-click="vm.cancelAlarm(alarm, 1)">
-                          Rechazar solicitud de atención
-                        </a>
-                      </li>
-                    </ul>
+                    <button ng-click="vm.assignNear(alarm)" class="btn btn-success btn-xs">
+                      Usar recomendación
+                      <div class="ripple-container">
+                      </div>
+                    </button>
+                    <button style="background-color: #337ab7;" ng-click="vm.cancelAlarm(alarm,1)" class="btn btn-primary btn-xs">
+                      Rechazar
+                      <div class="ripple-container">
+                      </div>
+                    </button>
                     <br/>
                   </li>
                 </ul>
@@ -126,13 +124,11 @@
                       <br/>
                       Tiempo transcurrido: {{vm.getDifference(alarm.created)}}
                     </a>
-                    <ul>
-                      <li>
-                        <a ng-click="vm.cancelAlarm(alarm,2)">
-                          Cancelar solicitud de atención
-                        </a>
-                      </li>
-                    </ul>
+                    <button ng-click="vm.cancelAlarm(alarm,2)" class="btn btn-warning btn-xs">
+                      Cancelar
+                      <div class="ripple-container">
+                      </div>
+                    </button>
                     <br/>
                   </li>
                 </ul>
@@ -161,8 +157,14 @@
                       {{network.carCode}}
                       -
                       {{network.status}}
-                      <br/>
                     </a>
+                    <br/>
+                    <button class="btn btn-info btn-xs"
+                            ui-sref="networks.view({ networkId: network._id })">
+                      Ver detalle
+                      <div class="ripple-container">
+                      </div>
+                    </button>
                   </li>
                 </ul>
               </div>

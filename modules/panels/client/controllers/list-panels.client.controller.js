@@ -265,6 +265,9 @@
 
           // Se registra en el log
           logServicePOST('La solicitud de atención ha sido rechazada', alarm);
+
+          // Se refresca el listado de alarmas por status
+          listAlarm((vm.organism[0]._id));
         }
       }
       // Cancelar
