@@ -20,6 +20,9 @@ module.exports = function(app) {
   app.route('/api/networks/:lat/:lng/near')
     .get(networks.near);
 
+  app.route('/api/networks/:networkId/new-position')
+    .post(networks.newPosition);
+
   // Finish by binding the Network middleware
   app.param('networkId', networks.networkByID);
 };

@@ -123,6 +123,26 @@ exports.near = function(req, res) {
 };
 
 /**
+ * Set Networks position
+ */
+exports.newPosition = function(req, res) {
+  var data = {
+    latitude: req.body.lat,
+    longitude: req.body.lng,
+    location: {
+      type: 'Point',
+      coordinates: [parseFloat(req.body.lng), parseFloat(req.body.lat)]
+    }
+  };
+  Network.update({_id: req.params.networkId}, data, function(err, raw) {
+    if (err) {
+      res.status(400).send(err);
+    }
+    return res.status(200).send({message: 'Successfully saved new position'});
+  });
+};
+
+/**
  * Network middleware
  */
 exports.networkByID = function(req, res, next, id) {
