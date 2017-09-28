@@ -139,10 +139,15 @@ exports.newPosition = function(req, res) {
       coordinates: [parseFloat(req.body.lng), parseFloat(req.body.lat)]
     }
   };
-  Network.update({_id: req.params.networkId}, data, function(err, raw) {
+  Network.update({_id: req.params.networkId}, data, function(err, network) {
     if (err) {
       res.status(400).send(err);
     }
+    req.app.get('socketio').emit('networkPositionEvent', {
+      networkId: req.params.networkId,
+      latitude: req.body.lat,
+      longitude: req.body.lng
+    });
     return res.status(200).send({message: 'Successfully saved new position'});
   });
 };

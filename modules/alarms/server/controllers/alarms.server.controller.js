@@ -13,7 +13,6 @@ var path = require('path'),
  * Create a Alarm
  */
 exports.create = function(req, res) {
-  var io = req.app.get('socketio');
   var alarm = new Alarm(req.body);
   // alarm.user = req.user;
   alarm.location = {
@@ -27,7 +26,7 @@ exports.create = function(req, res) {
         message: errorHandler.getErrorMessage(err)
       });
     } else {
-      io.emit('alarmEvent', alarm);
+      req.app.get('socketio').emit('alarmEvent', alarm);
       res.jsonp(alarm);
     }
   });
