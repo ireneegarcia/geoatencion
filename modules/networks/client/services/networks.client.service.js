@@ -12,6 +12,10 @@
     return $resource('/api/networks/:networkId', {
       networkId: '@_id'
     }, {
+      get: {
+        method: 'GET',
+        isArray: false
+      },
       update: {
         method: 'PUT'
       },

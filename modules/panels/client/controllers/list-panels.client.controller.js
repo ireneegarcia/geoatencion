@@ -37,6 +37,10 @@
       if (networkIdx >= 0) {
         vm.networks[networkIdx].latitude = networkPosition.latitude;
         vm.networks[networkIdx].longitude = networkPosition.longitude;
+      } else {
+        NetworksService.get({networkId: networkPosition.id}, function (network) {
+          vm.networks.push(network);
+        });
       }
     });
 
