@@ -129,10 +129,10 @@
 
     function formatString(format) {
       var pieces = format.split('.'),
-        year = parseInt(pieces[0]),
-        month = parseInt(pieces[1]),
-        day = parseInt(pieces[2]),
-        hour = parseInt(pieces[3]),
+        year = parseInt(pieces[0], 10),
+        month = parseInt(pieces[1], 10),
+        day = parseInt(pieces[2], 10),
+        hour = parseInt(pieces[3], 10),
         date = new Date(year, month - 1, day, hour);
 
       return date;
