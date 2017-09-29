@@ -53,7 +53,7 @@
             <div class="row">
               <div class="col-md-6">
                 <div class="form-group has-info " show-errors>
-                  <label class="control-label" for="carCode">Código identificador (máximo 6 dígitos)</label>
+                  <label class="control-label" for="carCode">Código identificador (máximo 6 dígitos sin espacios en blanco)</label>
                   <input name="carCode" type="text" ng-model="vm.network.carCode" id="carCode" class="form-control" lowercase  required>
                   <div ng-messages="vm.form.networkForm.carCode.$error" role="alert">
                     <p class="help-block error-text" ng-message="required">El código es necesario</p>

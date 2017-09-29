@@ -20,9 +20,11 @@ var validateCarCode = function (carCode) {
 var NetworkSchema = new Schema({
   carCode: {
     type: String,
-   /* minlength: 4,*/
     maxlength: [6, 'El código debe ser de máximo 6 dígitos'],
-    lowercase: true,
+    index: {
+      unique: true,
+      sparse: true // For this to work on a previously indexed field, the index must be dropped & the application restarted.
+    },
     trim: true,
     required: 'Por favor indique un código de máximo 6 dígitos'
   },

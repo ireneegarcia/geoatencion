@@ -10,6 +10,7 @@
   function PanelsListController(PanelsService, AlarmsService, NgMap, NetworksService, CategoriaserviciosService, UsersService, Authentication, $filter, $timeout, SolicitudsService, Socket, $window, LogsServiceCreate) {
     var vm = this;
 
+    vm.user = Authentication.user;
     vm.panels = PanelsService.query();
     vm.networks = [];
     vm.directions = [];
@@ -86,7 +87,7 @@
       NetworksService.query(function (data) {
         // Alarmas con status esperando o en atencion
         vm.networks = data.filter(function (data) {
-          return (data.user._id.indexOf(organism[0]._id) >= 0);
+          return (data.user._id.indexOf(organism[0]._id) >= 0 && data.latitude !== '' && data.longitude !== '');
         });
       });
     }

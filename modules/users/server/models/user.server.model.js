@@ -89,7 +89,7 @@ var UserSchema = new Schema({
   country: {
     type: String,
     trim: true,
-    default: '',
+    default: ''
     // validate: [validateLocalStrategyProperty, 'Please fill in your country']
   },
 

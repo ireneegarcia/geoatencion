@@ -42,7 +42,7 @@
           Status: {{vm.new_alarm.status}}<br/>
           Categoría de servicio: {{vm.new_alarm.categoryName[0].category}}<br/>
           Creación: {{vm.new_alarm.created | date:'medium' }}<br/>
-          <div ng-show="vm.new_alarm.networkNear.obj.carCode">
+          <div ng-show="vm.new_alarm.networkNear.obj.carCode && vm.new_alarm.status === 'esperando'">
             Unidad recomendada:  <strong>{{vm.new_alarm.networkNear.obj.carCode}}</strong><br/>
           </div>
           <a ui-sref="alarms.view({ alarmId: vm.new_alarm._id })">Más sobre esta alarma</a><br/>
@@ -85,12 +85,17 @@
                       <br/>
                       Tiempo transcurrido: {{vm.getDifference(alarm.created)}}
                     </a>
-                    <button ng-click="vm.assignNear(alarm)" class="btn btn-success btn-xs">
+                    <button ng-show="vm.user === 'operator'"
+                            ng-click="vm.assignNear(alarm)"
+                            class="btn btn-success btn-xs">
                       Usar recomendación
                       <div class="ripple-container">
                       </div>
                     </button>
-                    <button style="background-color: #337ab7;" ng-click="vm.cancelAlarm(alarm,1)" class="btn btn-primary btn-xs">
+                    <button style="background-color: #337ab7;"
+                            ng-show="vm.user === 'operator'"
+                            ng-click="vm.cancelAlarm(alarm,1)"
+                            class="btn btn-primary btn-xs">
                       Rechazar
                       <div class="ripple-container">
                       </div>
@@ -124,7 +129,9 @@
                       <br/>
                       Tiempo transcurrido: {{vm.getDifference(alarm.created)}}
                     </a>
-                    <button ng-click="vm.cancelAlarm(alarm,2)" class="btn btn-warning btn-xs">
+                    <button ng-show="vm.user === 'operator'"
+                            ng-click="vm.cancelAlarm(alarm,2)"
+                            class="btn btn-warning btn-xs">
                       Cancelar
                       <div class="ripple-container">
                       </div>
@@ -157,6 +164,7 @@
                       {{network.carCode}}
                       -
                       {{network.status}}
+
                     </a>
                     <br/>
                     <button class="btn btn-info btn-xs"
