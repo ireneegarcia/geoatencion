@@ -16,7 +16,6 @@
     vm.alarmsEsperando = [];
     vm.alarmsEnAtencion = [];
     vm.alarmsRechazado = [];
-
     vm.estadisticas = EstadisticasService.query();
 
     // Condicional para encontrar el organismo relacionado
@@ -27,6 +26,7 @@
           return (data.email.indexOf(Authentication.user.email) >= 0);
         });
         getMyAlarms(vm.organism[0]._id);
+        logAll();
       });
     } else {
       if (Authentication.user.roles[0] === 'operator') {
@@ -40,6 +40,7 @@
             return (data._id.indexOf(operator[0].user._id) >= 0);
           });
           getMyAlarms(vm.organism[0]._id);
+          logAll();
         });
       }
     }
@@ -89,24 +90,35 @@
     }
 
     // Log general del organismo
-    LogsService.query(function (data) {
-      data.forEach(function(log) {
-        if (log.organism.indexOf(vm.organism[0]._id) >= 0) {
-          // El email del usuario
-          UsersService.query(function (data) {
-            data.forEach(function (user) {
-              if (user._id.indexOf(log.client) >= 0) {
-                log.clientEmail = user.email;
-              }
-              if (user._id.indexOf(log.user._id) >= 0) {
-                log.operatorEmail = user.email;
-              }
+    function logAll() {
+      LogsService.query(function (data) {
+        data.forEach(function(log) {
+          if (log.organism.indexOf(vm.organism[0]._id) >= 0) {
+            // El email del usuario
+            UsersService.query(function (data) {
+              data.forEach(function (user) {
+                if (user._id.indexOf(log.client) >= 0) {
+                  log.clientEmail = user.email;
+                }
+                if (user._id.indexOf(log.user._id) >= 0) {
+                  log.operatorEmail = user.email;
+                }
+              });
             });
-          });
-          vm.log.push(log);
-        }
+            vm.log.push(log);
+          }
+        });
       });
-    });
+    }
+
+    // Log de todos los networks del organismo
+    vm.networksAll = function () {
+      NetworksService.query(function (data) {
+        vm.networks = data.filter(function (data) {
+          return (data.user._id.indexOf(vm.organism[0]._id) >= 0);
+        });
+      });
+    };
 
     // Log por usuario
     vm.searchUser = function (userEmail) {
@@ -134,7 +146,7 @@
       NetworksService.query(function (data) {
         // Network asignado
         vm.networkSearch = data.filter(function (data) {
-          return (data.carCode.indexOf(networkID) >= 0);
+          return (data.carCode.indexOf(networkID) >= 0 && data.user._id.indexOf(vm.organism[0]._id) >= 0);
         });
       });
 

@@ -176,6 +176,7 @@
         <div class="nav-tabs-wrapper">
           <ul class="nav nav-tabs" data-tabs="tabs">
             <li class="active"><a href="#organismo" data-toggle="tab"> Del organismo</a></li>
+            <li><a href="#networksAll" data-toggle="tab" ng-click="vm.networksAll()"> Unidades de atención</a></li>
             <li><a href="#cliente" data-toggle="tab">Por cliente</a></li>
             <li><a href="#network" data-toggle="tab">Por unidad de atención</a></li>
             <li><a href="#periodo" data-toggle="tab">Por periodo</a></li>
@@ -192,7 +193,10 @@
                 <li ng-repeat="log in vm.log ">
                   {{log._id}}
                   <br/>
-                  <strong>Fecha de solicitud:</strong> {{log.created | date:'medium'}} - <strong>Cliente: </strong> {{log.clientEmail}} <strong>- Operador: </strong>{{log.operatorEmail}} - <strong>Acción: </strong> {{log.description}}
+                  <strong>Fecha de solicitud:</strong> {{log.created | date:'medium'}} -
+                  <strong>Cliente: </strong> {{log.clientEmail}}
+                  <strong>- Operador: </strong>{{log.operatorEmail}} -
+                  <strong>Acción: </strong> {{log.description}}
                   <br/><br/>
                 </li>
               </ul>
@@ -209,7 +213,11 @@
               </div>
               <ul>
                 <li ng-repeat="log in vm.logClient ">
-                  {{log._id}} - <strong>Fecha de solicitud:</strong> {{log.created | date:'medium'}} - <strong>Cliente: </strong> {{log.client}} - <strong>Operador: </strong>{{log.user.email}} - <strong>Acción: </strong> {{log.description}}
+                  {{log._id}} -
+                  <strong>Fecha de solicitud:</strong> {{log.created | date:'medium'}} -
+                  <strong>Cliente: </strong> {{log.client}} -
+                  <strong>Operador: </strong>{{log.user.email}} -
+                  <strong>Acción: </strong> {{log.description}}
                 </li>
               </ul>
             </div>
@@ -227,13 +235,36 @@
                 <strong>Fecha de registro de la unidad:</strong> {{vm.networkSearch[0].created | date:'medium'}}
               </li>
               <li ng-repeat="log in vm.logNetwork ">
-                <strong>Fecha de solicitud:</strong> {{log.created | date:'medium'}} - <strong>Cliente: </strong> {{log.clientEmail}} - <strong>Operador: </strong>{{log.operatorEmail}} - <strong>Acción: </strong> {{log.description}}
+                <strong>Fecha de solicitud:</strong> {{log.created | date:'medium'}} -
+                <strong>Cliente: </strong> {{log.clientEmail}} -
+                <strong>Operador: </strong>{{log.operatorEmail}} -
+                <strong>Acción: </strong> {{log.description}}
               </li>
             </ul>
           </div>
         </div>
         <div class="tab-pane" id="periodo">
           <p> PEDROOOOOOOOOOOOOI think that’s a responsibility that I have, to push possibilities, to show people, this is the level that things could be at. I will be the leader of a company that ends up being worth billions of dollars, because I got the answers. I understand culture. I am the nucleus. I think that’s a responsibility that I have, to push possibilities, to show people, this is the level that things could be at.</p>
+        </div>
+        <div class="tab-pane" id="networksAll">
+          <ul>
+            <li ng-show="vm.networks" ng-repeat="network in vm.networks ">
+              Cógido identificador de la unidad: {{network.carCode}}
+              <br/>
+              <strong>Fecha de registro de la unidad:</strong> {{network.created | date:'medium'}}
+              <br/>
+              Actualmente:
+              <br/>
+              <ul>
+                <li>
+                  <strong>Status:</strong> {{network.status}} -
+                  <strong>Ubiación:</strong> ({{network.latitude}} , {{network.longitude}})
+                </li>
+              </ul>
+
+              <br/><br/>
+            </li>
+          </ul>
         </div>
       </div>
     </div>
