@@ -6,13 +6,14 @@
     .module('networks')
     .controller('NetworksController', NetworksController);
 
-  NetworksController.$inject = ['$scope', '$state', '$window', 'Authentication', 'networkResolve', 'CategoriaserviciosService', 'UsersService', '$filter', 'AlarmsService'];
+  NetworksController.$inject = ['$scope', '$state', '$window', 'Authentication', 'networkResolve', 'CategoriaserviciosService', 'UsersService', '$filter', 'AlarmsService', 'NetworksService'];
 
-  function NetworksController ($scope, $state, $window, Authentication, network, CategoriaserviciosService, UsersService, $filter, AlarmsService) {
+  function NetworksController ($scope, $state, $window, Authentication, network, CategoriaserviciosService, UsersService, $filter, AlarmsService, NetworksService) {
     var vm = this;
 
     vm.authentication = Authentication;
     vm.network = network;
+    vm.serviceUsers = [];
     vm.error = null;
     vm.form = {};
     vm.remove = remove;
@@ -26,17 +27,29 @@
     });
 
     // Listado de usuarios responsables de unidades
-    var serviceUsers = [];
     UsersService.query(function (data) {
-      // Responsables de unidades
-      vm.serviceUsers = data.filter(function (data) {
-        return (data.roles.indexOf('serviceUser') >= 0);
+      data.forEach(function(user) {
+        var isBusy = false;
+        // que sea roles serviceUser
+        if (user.roles.indexOf('serviceUser') >= 0) {
+          NetworksService.query(function (data) {
+            data.forEach(function (network) {
+              // que no este asignado a otra unidad
+              if (network.serviceUser === user._id) {
+                isBusy = true;
+              }
+            });
+            if (isBusy === false) {
+              vm.serviceUsers.push(user);
+            }
+          });
+        }
       });
     });
 
     // Listar las unidades dependiendo del organismo
     if (vm.network.serviceUser) {
-
+      var serviceUsers = [];
       UsersService.query(function (data) {
         // Responsables de unidades
         serviceUsers = data.forEach(function (data) {
