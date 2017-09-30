@@ -139,7 +139,7 @@ exports.newPosition = function(req, res) {
       coordinates: [parseFloat(req.body.lng), parseFloat(req.body.lat)]
     }
   };
-  Network.update({_id: req.params.networkId}, data, function(err, network) {
+  Network.update({_id: req.params.networkId}, data, function(err, raw) {
     if (err) {
       res.status(400).send(err);
     }
