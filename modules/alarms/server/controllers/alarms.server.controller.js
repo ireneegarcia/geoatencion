@@ -69,13 +69,15 @@ exports.update = function(req, res) {
       body: ''
     },
     data: {
+      latitude: alarm.networkLatitude,
+      longitude: alarm.networkLongitude,
       network: alarm.network,
       status: alarm.status
     }
   };
 
-  //callback style
-  fcm.send(message, function(err, response){
+  // callback style
+  fcm.send(message, function(err, response) {
     if (err) {
       console.log("Something has gone wrong!");
     } else {

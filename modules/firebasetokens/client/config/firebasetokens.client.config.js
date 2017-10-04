@@ -9,7 +9,7 @@
 
   function menuConfig(menuService) {
     // Set top bar menu items
-    menuService.addMenuItem('topbar', {
+    /* menuService.addMenuItem('topbar', {
       title: 'Firebasetokens',
       state: 'firebasetokens',
       type: 'dropdown',
@@ -27,6 +27,6 @@
       title: 'Create Firebasetoken',
       state: 'firebasetokens.create',
       roles: ['user']
-    });
+    });*/
   }
 }());

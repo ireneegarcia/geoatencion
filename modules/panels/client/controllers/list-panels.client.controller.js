@@ -234,8 +234,17 @@
         if ($window.confirm('¿Esta seguro que desea asignar la unidad: ' + vm.new_alarm.networkNear.obj.carCode + '?')) {
 
           // Se actualiza la alarma (PUT)
+          // id de la unidad
           vm.new_alarm.network = vm.new_alarm.networkNear.obj._id;
+
+          // ubicacion de la unidad
+          vm.new_alarm.networkLatitude = vm.new_alarm.networkNear.obj.latitude;
+          vm.new_alarm.networkLongitude = vm.new_alarm.networkNear.obj.longitude;
+
+          // status de la alarma
           vm.new_alarm.status = 'en atencion';
+
+          // icono de status
           vm.new_alarm.icon = '/modules/panels/client/img/process.png';
 
           // Se actualiza la alarma (PUT)

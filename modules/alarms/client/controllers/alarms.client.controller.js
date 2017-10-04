@@ -155,22 +155,12 @@
         // vacio
         vm.alarm.icon = '/modules/panels/client/img/wait.png';
       } else {
+        // aca registro en la unidad el status "ocupado"
+        networkServicePUT('ocupado', vm.alarm.network);
+
         // con asignacion
         vm.alarm.status = 'en atencion';
         vm.alarm.icon = '/modules/panels/client/img/process.png';
-
-        // aca registro en la unidad el status "ocupado"
-        networkServicePUT('ocupado', vm.alarm.network);
-        // se busca el network asignado
-        var networks;
-        NetworksService.query(function (data) {
-          networks = data.filter(function (data) {
-            return (data._id.indexOf(vm.alarm.network) >= 0);
-          });
-          // se hace registra en el log
-          logServicePOST('Se ha asignado la unidad: ' + networks[0].carCode + ' exitosamente');
-        });
-
       }
 
       if (deletedAlarm === true) {
@@ -183,14 +173,34 @@
 
       // TODO: move create/update logic to service
       if (vm.alarm._id) {
+
         var firebasetoken;
+        var networkSelected;
+
         // Se busca el token del usuario
         FirebasetokensService.query(function (data) {
           firebasetoken = data.filter(function (data) {
             return (data.userId.indexOf(vm.alarm.user._id) >= 0);
           });
-          vm.alarm.firebasetoken = firebasetoken[0].token;
-          vm.alarm.$update(successCallback, errorCallback);
+
+          // se busca el network asignado
+          NetworksService.query(function (data) {
+            networkSelected = data.filter(function (data) {
+              return (data._id.indexOf(vm.alarm.network) >= 0);
+            });
+            // se hace registra en el log
+            logServicePOST('Se ha asignado la unidad: ' + networkSelected[0].carCode + ' exitosamente');
+
+            // Se incluye la ubicacion de la unidad
+            vm.alarm.networkLatitude = networkSelected[0].latitude;
+            vm.alarm.networkLongitude = networkSelected[0].longitude;
+
+            // Se incluye el token de firebase
+            vm.alarm.firebasetoken = firebasetoken[0].token;
+
+            // Se actualiza (PUT)
+            vm.alarm.$update(successCallback, errorCallback);
+          });
         });
 
       } else {
