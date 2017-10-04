@@ -6,9 +6,9 @@
     .module('alarms')
     .controller('AlarmsController', AlarmsController);
 
-  AlarmsController.$inject = ['$scope', '$state', '$window', 'Authentication', 'alarmResolve', 'UsersService', 'CategoriaserviciosService', 'NetworksService', 'LogsServiceCreate', 'LogsService'];
+  AlarmsController.$inject = ['$scope', '$state', '$window', 'Authentication', 'alarmResolve', 'UsersService', 'CategoriaserviciosService', 'NetworksService', 'LogsServiceCreate', 'LogsService', 'FirebasetokensService'];
 
-  function AlarmsController ($scope, $state, $window, Authentication, alarm, UsersService, CategoriaserviciosService, NetworksService, LogsServiceCreate, LogsService) {
+  function AlarmsController ($scope, $state, $window, Authentication, alarm, UsersService, CategoriaserviciosService, NetworksService, LogsServiceCreate, LogsService, FirebasetokensService) {
     var vm = this;
 
     vm.authentication = Authentication;
@@ -158,6 +158,7 @@
         // con asignacion
         vm.alarm.status = 'en atencion';
         vm.alarm.icon = '/modules/panels/client/img/process.png';
+
         // aca registro en la unidad el status "ocupado"
         networkServicePUT('ocupado', vm.alarm.network);
         // se busca el network asignado
@@ -182,7 +183,16 @@
 
       // TODO: move create/update logic to service
       if (vm.alarm._id) {
-        vm.alarm.$update(successCallback, errorCallback);
+        var firebasetoken;
+        // Se busca el token del usuario
+        FirebasetokensService.query(function (data) {
+          firebasetoken = data.filter(function (data) {
+            return (data.userId.indexOf(vm.alarm.user._id) >= 0);
+          });
+          vm.alarm.firebasetoken = firebasetoken[0].token;
+          vm.alarm.$update(successCallback, errorCallback);
+        });
+
       } else {
         vm.alarm.$save(successCallback, errorCallback);
       }

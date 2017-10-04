@@ -85,7 +85,7 @@
                       <br/>
                       Tiempo transcurrido: {{vm.getDifference(alarm.created)}}
                     </a>
-                    <button ng-show="vm.user === 'operator'"
+                    <button ng-show="vm.user.roles[0] === 'operator'"
                             ng-click="vm.assignNear(alarm)"
                             class="btn btn-success btn-xs">
                       Usar recomendación
@@ -93,7 +93,7 @@
                       </div>
                     </button>
                     <button style="background-color: #337ab7;"
-                            ng-show="vm.user === 'operator'"
+                            ng-show="vm.user.roles[0] === 'operator'"
                             ng-click="vm.cancelAlarm(alarm,1)"
                             class="btn btn-primary btn-xs">
                       Rechazar
@@ -129,7 +129,7 @@
                       <br/>
                       Tiempo transcurrido: {{vm.getDifference(alarm.created)}}
                     </a>
-                    <button ng-show="vm.user === 'operator'"
+                    <button ng-show="vm.user.roles[0] === 'operator'"
                             ng-click="vm.cancelAlarm(alarm,2)"
                             class="btn btn-warning btn-xs">
                       Cancelar

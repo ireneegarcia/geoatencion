@@ -148,6 +148,25 @@
   <!--Load The Socket.io File-->
   <script type="text/javascript" src="/socket.io/socket.io.js"></script>
 
+
+  <script src="https://www.gstatic.com/firebasejs/4.5.0/firebase.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/4.1.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/4.1.1/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/4.1.1/firebase-database.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/4.1.1/firebase-messaging.js"></script>
+  <script>
+    // Initialize Firebase
+    var config = {
+      apiKey: "AIzaSyBe_YTImxZNM4vXJJxpnzk8MQ_mK-t2xk4",
+      authDomain: "geoatencion-9cded.firebaseapp.com",
+      databaseURL: "https://geoatencion-9cded.firebaseio.com",
+      projectId: "geoatencion-9cded",
+      storageBucket: "geoatencion-9cded.appspot.com",
+      messagingSenderId: "382738472231"
+    };
+    firebase.initializeApp(config);
+  </script>
+
   <!--Key-->
   <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?libraries=places&sensor=false&key=AIzaSyDw5kRzj6eksyuFKNkc5u7SM0uB6PNs4yU"></script>
 

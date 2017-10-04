@@ -5,9 +5,9 @@
     .module('panels')
     .controller('PanelsListController', PanelsListController);
 
-  PanelsListController.$inject = ['PanelsService', 'AlarmsService', 'NgMap', 'NetworksService', 'CategoriaserviciosService', 'UsersService', 'Authentication', '$filter', '$timeout', 'SolicitudsService', 'Socket', '$window', 'LogsServiceCreate'];
+  PanelsListController.$inject = ['PanelsService', 'AlarmsService', 'NgMap', 'NetworksService', 'CategoriaserviciosService', 'UsersService', 'Authentication', '$filter', '$timeout', 'SolicitudsService', 'Socket', '$window', 'LogsServiceCreate', 'FirebasetokensService'];
 
-  function PanelsListController(PanelsService, AlarmsService, NgMap, NetworksService, CategoriaserviciosService, UsersService, Authentication, $filter, $timeout, SolicitudsService, Socket, $window, LogsServiceCreate) {
+  function PanelsListController(PanelsService, AlarmsService, NgMap, NetworksService, CategoriaserviciosService, UsersService, Authentication, $filter, $timeout, SolicitudsService, Socket, $window, LogsServiceCreate, FirebasetokensService) {
     var vm = this;
 
     vm.user = Authentication.user;
@@ -187,6 +187,14 @@
         } else {
           // Unidad recomendada
           vm.new_alarm.networkNear = networks[0];
+          var firebasetoken;
+          // Se busca el token del usuario
+          FirebasetokensService.query(function (data) {
+            firebasetoken = data.filter(function (data) {
+              return (data.userId.indexOf(vm.new_alarm.user._id) >= 0);
+            });
+            vm.new_alarm.firebasetoken = firebasetoken[0].token;
+          });
         }
       });
     }
@@ -231,7 +239,7 @@
           vm.new_alarm.icon = '/modules/panels/client/img/process.png';
 
           // Se actualiza la alarma (PUT)
-          AlarmsService.update({ alarmId: alarm._id}, alarm);
+          AlarmsService.update({ alarmId: vm.new_alarm._id}, vm.new_alarm);
 
           // aca registro en la unidad el status "ocupado"
           networkServicePUT('ocupado', vm.new_alarm.networkNear.obj._id);
@@ -273,6 +281,9 @@
           // Se cambia status
           alarm.status = 'rechazado';
           alarm.icon = '/modules/panels/client/img/deleted.png';
+
+          //Se busca el token del usuario
+
 
           // Se actualiza la alarma (PUT)
           AlarmsService.update({ alarmId: alarm._id}, alarm);

@@ -9,6 +9,11 @@ var path = require('path'),
   errorHandler = require(path.resolve('./modules/core/server/controllers/errors.server.controller')),
   _ = require('lodash');
 
+var FCM = require('fcm-push');
+
+var serverKey = 'AAAAWRz9nSc:APA91bHdl7rkylz-h1xoZL4qM4dNOunugF4aTiWk3tyguZnUP2GFll4aF-Iktg8AFYE3tso8YieZmcvL7OdIjjumsKGZvZzKyKtzpaQnMUbqFVyJp5e0YLAj9hHVFCuqhmGIN8BtVBtW';
+var fcm = new FCM(serverKey);
+
 /**
  * Create a Alarm
  */
@@ -51,11 +56,32 @@ exports.read = function(req, res) {
  */
 exports.update = function(req, res) {
   var alarm = req.alarm;
+
   alarm.location = {
     type: 'Point',
     coordinates: [parseFloat(alarm.longitude), parseFloat(alarm.latitude)]
   };
   alarm = _.extend(alarm, req.body);
+  var message = {
+    to: alarm.firebasetoken, // required fill with device token or topics
+    notification: {
+      title: 'Notificacion de atención',
+      body: ''
+    },
+    data: {
+      network: alarm.network,
+      status: alarm.status
+    }
+  };
+
+  //callback style
+  fcm.send(message, function(err, response){
+    if (err) {
+      console.log("Something has gone wrong!");
+    } else {
+      console.log("Successfully sent with response: ", response);
+    }
+  });
 
   alarm.save(function(err) {
     if (err) {
