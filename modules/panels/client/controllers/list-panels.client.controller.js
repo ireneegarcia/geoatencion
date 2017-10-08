@@ -243,6 +243,7 @@
 
           // status de la alarma
           vm.new_alarm.status = 'en atencion';
+          vm.new_alarm.carCode = vm.new_alarm.networkNear.obj.carCode;
 
           // icono de status
           vm.new_alarm.icon = '/modules/panels/client/img/process.png';
@@ -284,6 +285,7 @@
     // Rechazar alarma
     vm.cancelAlarm = function (alarm, option) {
 
+      var logText = '';
       // Rechazar
       if (option === 1) {
         if ($window.confirm('¿Esta seguro que desea rechazar la solicitud?')) {
@@ -291,17 +293,7 @@
           alarm.status = 'rechazado';
           alarm.icon = '/modules/panels/client/img/deleted.png';
 
-          //Se busca el token del usuario
-
-
-          // Se actualiza la alarma (PUT)
-          AlarmsService.update({ alarmId: alarm._id}, alarm);
-
-          // Se registra en el log
-          logServicePOST('La solicitud de atención ha sido rechazada', alarm);
-
-          // Se refresca el listado de alarmas por status
-          listAlarm((vm.organism[0]._id));
+          logText = 'La solicitud de atención ha sido rechazada';
         }
       }
       // Cancelar
@@ -312,14 +304,44 @@
           alarm.status = 'cancelado';
           alarm.icon = '/modules/panels/client/img/canceled.png';
 
-          // Se actualiza la alarma (PUT)
-          AlarmsService.update({ alarmId: alarm._id}, alarm);
+          logText = 'La solicitud de atención ha sido cancelada';
 
-          // Se registra en el log
-          logServicePOST('La solicitud de atención ha sido cancelada', alarm);
+          var network;
+          // Se libera a la unidad de atención
+          NetworksService.query(function (data) {
+            network = data.filter(function (data) {
+              return (data._id.indexOf(alarm.network) >= 0);
+            });
+
+            alarm.network = '';
+
+            // Se cambia el status de la unidad
+            networkServicePUT('activo', network[0]._id);
+          });
         }
       }
 
+      var firebasetoken;
+      // Se busca el token del usuario
+      FirebasetokensService.query(function (data) {
+        firebasetoken = data.filter(function (data) {
+          return (data.userId.indexOf(alarm.user._id) >= 0);
+        });
+        alarm.firebasetoken = firebasetoken[0].token;
+
+        // Se actualiza la alarma (PUT)
+        AlarmsService.update({ alarmId: alarm._id}, alarm);
+
+        // Se registra en el log
+        logServicePOST(logText, alarm);
+
+        // Se refrescan las rutas
+        directionsOnMap();
+
+        // Se refrescan los listados
+        listAlarm((vm.organism[0]._id));
+        listNetwork((vm.organism));
+      });
     };
 
     // Mostrar detalles de la alarma

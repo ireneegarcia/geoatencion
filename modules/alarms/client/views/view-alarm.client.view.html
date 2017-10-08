@@ -13,9 +13,14 @@
       Detalle
     </a>
 
-    <a ng-hide="vm.alarm.status === 'rechazado'" class="btn btn-info" ng-click="vm.remove()">
+    <a ng-show="vm.alarm.status === 'esperando'" class="btn btn-info" ng-click="vm.remove(1)">
       <i class="glyphicon glyphicon-trash"></i>
       Rechazar
+    </a>
+
+    <a ng-show="vm.alarm.status === 'en atencion'" class="btn btn-info" ng-click="vm.remove(2)">
+      <i class="glyphicon glyphicon-trash"></i>
+      Cancelar
     </a>
   </div>
   <small>

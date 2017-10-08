@@ -56,25 +56,42 @@ exports.read = function(req, res) {
  */
 exports.update = function(req, res) {
   var alarm = req.alarm;
+  var body = req.body;
 
   alarm.location = {
     type: 'Point',
     coordinates: [parseFloat(alarm.longitude), parseFloat(alarm.latitude)]
   };
   alarm = _.extend(alarm, req.body);
-  var message = {
-    to: alarm.firebasetoken, // required fill with device token or topics
-    notification: {
-      title: 'Notificacion de atención',
-      body: ''
-    },
-    data: {
-      latitude: alarm.networkLatitude,
-      longitude: alarm.networkLongitude,
-      network: alarm.network,
-      status: alarm.status
-    }
-  };
+  var message;
+  console.log(body);
+  if (alarm.status === 'en atencion') {
+    message = {
+      to: alarm.firebasetoken, // required fill with device token or topics
+      notification: {
+        title: 'Notificacion de atención',
+        body: ''
+      },
+      data: {
+        networkLatitude: body.networkLatitude,
+        networkLongitude: body.networkLongitude,
+        network: body.carCode,
+        status: alarm.status
+      }
+    };
+  }
+  if (alarm.status === 'rechazado' || alarm.status === 'cancelado') {
+    message = {
+      to: alarm.firebasetoken, // required fill with device token or topics
+      notification: {
+        title: 'Solicitud ' + alarm.status,
+        body: ''
+      },
+      data: {
+        status: alarm.status
+      }
+    };
+  }
 
   // callback style
   fcm.send(message, function(err, response) {

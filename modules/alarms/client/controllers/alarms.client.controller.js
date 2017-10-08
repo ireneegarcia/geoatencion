@@ -6,9 +6,9 @@
     .module('alarms')
     .controller('AlarmsController', AlarmsController);
 
-  AlarmsController.$inject = ['$scope', '$state', '$window', 'Authentication', 'alarmResolve', 'UsersService', 'CategoriaserviciosService', 'NetworksService', 'LogsServiceCreate', 'LogsService', 'FirebasetokensService'];
+  AlarmsController.$inject = ['$scope', '$state', '$window', 'Authentication', 'alarmResolve', 'UsersService', 'CategoriaserviciosService', 'NetworksService', 'LogsServiceCreate', 'LogsService', 'FirebasetokensService', 'AlarmsService'];
 
-  function AlarmsController ($scope, $state, $window, Authentication, alarm, UsersService, CategoriaserviciosService, NetworksService, LogsServiceCreate, LogsService, FirebasetokensService) {
+  function AlarmsController ($scope, $state, $window, Authentication, alarm, UsersService, CategoriaserviciosService, NetworksService, LogsServiceCreate, LogsService, FirebasetokensService, AlarmsService) {
     var vm = this;
 
     vm.authentication = Authentication;
@@ -133,15 +133,79 @@
       });
     };
 
-
-    var deletedAlarm = false;
-    // Remove existing Alarm
-    function remove() {
-      if ($window.confirm('Esta acción eliminará de manera definitiva la alarma')) {
-        // vm.alarm.$remove($state.go('alarms.list'));
-        deletedAlarm = true;
-        save(true);
+    function logServicePOST(description) {
+      if (vm.alarm.network === '') {
+        LogsServiceCreate.charge({ description: description, alarm: vm.alarm._id, client: vm.alarm.user._id, user: operator[0]._id, organism: vm.organism[0]._id}, function (data) {
+          // se realizo el post
+        });
+      } else {
+        LogsServiceCreate.charge({ description: description, alarm: vm.alarm._id, network: vm.alarm.network, client: vm.alarm.user._id, user: operator[0]._id, organism: vm.organism[0]._id}, function (data) {
+          // se realizo el post
+        });
       }
+
+    }
+
+    function networkServicePUT(status, id) {
+      // GET
+      var network = NetworksService.get({ networkId: id});
+      network.status = status;
+      // PUT
+      NetworksService.update({ networkId: id}, network);
+    }
+
+
+    function remove(option) {
+      var logText = '';
+      // Rechazar
+      if (option === 1) {
+        if ($window.confirm('¿Esta seguro que desea rechazar la solicitud?')) {
+          // vm.alarm.$remove($state.go('alarms.list'));
+          // Se cambia status
+          alarm.status = 'rechazado';
+          alarm.icon = '/modules/panels/client/img/deleted.png';
+          logText = 'La solicitud de atención ha sido rechazada';
+        }
+      }
+
+      // Cancelar
+      if (option === 2) {
+        if ($window.confirm('¿Esta seguro que desea cancelar la atención?')) {
+          // Se cambia status
+          alarm.status = 'cancelado';
+          alarm.icon = '/modules/panels/client/img/canceled.png';
+
+          logText = 'La solicitud de atención ha sido cancelada';
+
+          var network;
+          // Se libera a la unidad de atención
+          NetworksService.query(function (data) {
+            network = data.filter(function (data) {
+              return (data._id.indexOf(alarm.network) >= 0);
+            });
+
+            alarm.network = '';
+
+            // Se cambia el status de la unidad
+            networkServicePUT('activo', network[0]._id);
+          });
+        }
+      }
+
+      var firebasetoken;
+      // Se busca el token del usuario
+      FirebasetokensService.query(function (data) {
+        firebasetoken = data.filter(function (data) {
+          return (data.userId.indexOf(alarm.user._id) >= 0);
+        });
+        alarm.firebasetoken = firebasetoken[0].token;
+
+        // Se actualiza la alarma (PUT)
+        AlarmsService.update({alarmId: alarm._id}, alarm);
+
+        // Se registra en el log
+        logServicePOST('La solicitud de atención ha sido rechazada');
+      });
     }
 
     // Save Alarm
@@ -151,28 +215,8 @@
         return false;
       }
 
-      if (vm.alarm.network === '') {
-        // vacio
-        vm.alarm.icon = '/modules/panels/client/img/wait.png';
-      } else {
-        // aca registro en la unidad el status "ocupado"
-        networkServicePUT('ocupado', vm.alarm.network);
-
-        // con asignacion
-        vm.alarm.status = 'en atencion';
-        vm.alarm.icon = '/modules/panels/client/img/process.png';
-      }
-
-      if (deletedAlarm === true) {
-        vm.alarm.status = 'rechazado';
-        vm.alarm.icon = '/modules/panels/client/img/deleted.png';
-        // se hace registra en el log
-        logServicePOST('La solicitud de atención ha sido rechazada');
-
-      }
-
       // TODO: move create/update logic to service
-      if (vm.alarm._id) {
+      if (vm.alarm._id && vm.alarm.network !== '') {
 
         var firebasetoken;
         var networkSelected;
@@ -188,15 +232,26 @@
             networkSelected = data.filter(function (data) {
               return (data._id.indexOf(vm.alarm.network) >= 0);
             });
-            // se hace registra en el log
-            logServicePOST('Se ha asignado la unidad: ' + networkSelected[0].carCode + ' exitosamente');
+
+            // con asignacion
+            vm.alarm.status = 'en atencion';
+            vm.alarm.icon = '/modules/panels/client/img/process.png';
 
             // Se incluye la ubicacion de la unidad
             vm.alarm.networkLatitude = networkSelected[0].latitude;
             vm.alarm.networkLongitude = networkSelected[0].longitude;
 
+            // codigo de la unidad
+            vm.alarm.carCode = networkSelected[0].carCode;
+
             // Se incluye el token de firebase
             vm.alarm.firebasetoken = firebasetoken[0].token;
+
+            // aca registro en la unidad el status "ocupado"
+            networkServicePUT('ocupado', vm.alarm.network);
+
+            // se hace registra en el log
+            logServicePOST('Se ha asignado la unidad: ' + networkSelected[0].carCode + ' exitosamente');
 
             // Se actualiza (PUT)
             vm.alarm.$update(successCallback, errorCallback);
@@ -205,27 +260,6 @@
 
       } else {
         vm.alarm.$save(successCallback, errorCallback);
-      }
-
-      function logServicePOST(description) {
-        if (vm.alarm.network === '') {
-          LogsServiceCreate.charge({ description: description, alarm: vm.alarm._id, client: vm.alarm.user._id, user: operator[0]._id, organism: vm.organism[0]._id}, function (data) {
-            // se realizo el post
-          });
-        } else {
-          LogsServiceCreate.charge({ description: description, alarm: vm.alarm._id, network: vm.alarm.network, client: vm.alarm.user._id, user: operator[0]._id, organism: vm.organism[0]._id}, function (data) {
-            // se realizo el post
-          });
-        }
-
-      }
-
-      function networkServicePUT(status, id) {
-        // GET
-        var network = NetworksService.get({ networkId: id});
-        network.status = status;
-        // PUT
-        NetworksService.update({ networkId: id}, network);
       }
 
       function successCallback(res) {
