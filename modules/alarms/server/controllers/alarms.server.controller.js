@@ -75,6 +75,7 @@ exports.update = function(req, res) {
       data: {
         networkLatitude: body.networkLatitude,
         networkLongitude: body.networkLongitude,
+        networkAddress: body.networkAddress,
         network: body.carCode,
         status: alarm.status
       }

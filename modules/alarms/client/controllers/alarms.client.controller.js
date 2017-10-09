@@ -243,6 +243,8 @@
 
             // codigo de la unidad
             vm.alarm.carCode = networkSelected[0].carCode;
+            // address de la unidad
+            vm.alarm.networkAddress = networkSelected[0].address;
 
             // Se incluye el token de firebase
             vm.alarm.firebasetoken = firebasetoken[0].token;

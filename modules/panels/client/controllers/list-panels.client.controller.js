@@ -233,13 +233,14 @@
       if (vm.new_alarm.networkNear && vm.new_alarm.networkNear !== 'No hay cercano') {
         if ($window.confirm('¿Esta seguro que desea asignar la unidad: ' + vm.new_alarm.networkNear.obj.carCode + '?')) {
 
-          // Se actualiza la alarma (PUT)
           // id de la unidad
           vm.new_alarm.network = vm.new_alarm.networkNear.obj._id;
 
           // ubicacion de la unidad
           vm.new_alarm.networkLatitude = vm.new_alarm.networkNear.obj.latitude;
           vm.new_alarm.networkLongitude = vm.new_alarm.networkNear.obj.longitude;
+          // address de la unidad
+          vm.new_alarm.networkAddress = vm.new_alarm.networkNear.obj.address;
 
           // status de la alarma
           vm.new_alarm.status = 'en atencion';
