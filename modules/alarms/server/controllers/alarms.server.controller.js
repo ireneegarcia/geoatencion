@@ -57,14 +57,15 @@ exports.read = function(req, res) {
 exports.update = function(req, res) {
   var alarm = req.alarm;
   var body = req.body;
+  var message;
 
   alarm.location = {
     type: 'Point',
     coordinates: [parseFloat(alarm.longitude), parseFloat(alarm.latitude)]
   };
+
   alarm = _.extend(alarm, req.body);
-  var message;
-  console.log(body);
+
   if (alarm.status === 'en atencion') {
     message = {
       to: alarm.firebasetoken, // required fill with device token or topics
