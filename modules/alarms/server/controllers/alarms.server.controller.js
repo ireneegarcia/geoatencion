@@ -65,45 +65,46 @@ exports.update = function(req, res) {
   };
 
   alarm = _.extend(alarm, req.body);
+  if (alarm.status !== 'atendido') {
 
-  if (alarm.status === 'en atencion') {
-    message = {
-      to: alarm.firebasetoken, // required fill with device token or topics
-      notification: {
-        title: 'Notificacion de atención',
-        body: ''
-      },
-      data: {
-        networkLatitude: body.networkLatitude,
-        networkLongitude: body.networkLongitude,
-        networkAddress: body.networkAddress,
-        network: body.carCode,
-        status: alarm.status
-      }
-    };
-  }
-  if (alarm.status === 'rechazado' || alarm.status === 'cancelado') {
-    message = {
-      to: alarm.firebasetoken, // required fill with device token or topics
-      notification: {
-        title: 'Solicitud ' + alarm.status,
-        body: ''
-      },
-      data: {
-        status: alarm.status
-      }
-    };
-  }
-
-  // callback style
-  fcm.send(message, function(err, response) {
-    if (err) {
-      console.log("Something has gone wrong!");
-    } else {
-      console.log("Successfully sent with response: ", response);
+    if (alarm.status === 'en atencion') {
+      message = {
+        to: alarm.firebasetoken, // required fill with device token or topics
+        notification: {
+          title: 'Notificacion de atención',
+          body: ''
+        },
+        data: {
+          networkLatitude: body.networkLatitude,
+          networkLongitude: body.networkLongitude,
+          networkAddress: body.networkAddress,
+          network: body.carCode,
+          status: alarm.status
+        }
+      };
     }
-  });
+    if (alarm.status === 'rechazado' || alarm.status === 'cancelado') {
+      message = {
+        to: alarm.firebasetoken, // required fill with device token or topics
+        notification: {
+          title: 'Solicitud ' + alarm.status,
+          body: ''
+        },
+        data: {
+          status: alarm.status
+        }
+      };
+    }
 
+    // callback style
+    fcm.send(message, function(err, response) {
+      if (err) {
+        console.log("Something has gone wrong!");
+      } else {
+        console.log("Successfully sent with response: ", response);
+      }
+    });
+  }
   alarm.save(function(err) {
     if (err) {
       return res.status(400).send({

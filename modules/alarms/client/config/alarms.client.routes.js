@@ -45,7 +45,7 @@
           alarmResolve: getAlarm
         },
         data: {
-          roles: ['user', 'admin', 'organism', 'operator'],
+          roles: ['user', 'admin', 'organism', 'operator', 'guest'],
           pageTitle: 'Edit Alarm {{ alarmResolve.name }}'
         }
       })

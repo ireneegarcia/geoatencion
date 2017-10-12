@@ -43,15 +43,30 @@
 
       /*
        Todas las alarmas con excepcion de las que ya fueron atendidas
-       Se valida que: exista afiliación del usuario con el organismo (solicitud aceptada)
-       se valida que la categoría de la solicitud sea la categoría de atención del organismo
        * */
       AlarmsService.query(function (data) {
 
         data.forEach(function(alarm) {
-          if (alarm.status === 'esperando') {
-            SolicitudsService.query(function (data) {
+          if (alarm.organism === organism) {
+            if (alarm.status === 'esperando') {
+              vm.alarmsEsperando.push(alarm);
+            }
+
+            if (alarm.status === 'en atencion') {
+              vm.alarmsEnAtencion.push(alarm);
+            }
+
+            if (alarm.status === 'rechazado') {
+              vm.alarmsRechazado.push(alarm);
+            }
+
+            if (alarm.status === 'cancelado') {
+              vm.alarmsCanceled.push(alarm);
+            }
+          }
+            /* SolicitudsService.query(function (data) {
               data.forEach(function(solicitud) {
+
 
                 if (solicitud.organism === organism && solicitud.status === 'aceptado' &&
                   solicitud.user._id === alarm.user._id && solicitud.category === alarm.categoryService) {
@@ -59,7 +74,7 @@
                 }
               });
             });
-          }
+
           if (alarm.status === 'en atencion') {
             SolicitudsService.query(function (data) {
               data.forEach(function(solicitud) {
@@ -89,7 +104,7 @@
                 }
               });
             });
-          }
+          }*/
         });
 
       });

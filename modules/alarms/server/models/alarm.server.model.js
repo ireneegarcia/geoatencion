@@ -25,6 +25,11 @@ var AlarmSchema = new Schema({
     default: ''
     // trim: true
   },
+  rating: {
+    type: String,
+    default: 'sin calificar'
+    // trim: true
+  },
   latitude: {
     type: String,
     default: ''
@@ -56,6 +61,10 @@ var AlarmSchema = new Schema({
   network: {
     type: String,
     default: ''
+  },
+  organism: {
+    type: Schema.ObjectId,
+    ref: 'User'
   }
 });
 

@@ -95,9 +95,7 @@
     // Funcion para listar las alarmas
     function listAlarm(organism) {
       /*
-       Todas las alarmas con excepcion de las que ya fueron atendidas
-       Se valida que: exista afiliación del usuario con el organismo (solicitud aceptada)
-       se valida que la categoría de la solicitud sea la categoría de atención del organismo
+       Todas las alarmas que esten esperando atencion y las que estan siendo atendidas en este momento
        * */
       AlarmsService.query(function (data) {
 
@@ -105,39 +103,55 @@
         vm.alarmsEsperando = [];
         vm.alarmsEnAtencion = [];
         data.forEach(function(alarm) {
-          if (alarm.status === 'esperando') {
-            SolicitudsService.query(function (data) {
-              data.forEach(function(solicitud) {
-
-                if (solicitud.organism === organism && solicitud.status === 'aceptado' &&
-                  solicitud.user._id === alarm.user._id && solicitud.category === alarm.categoryService) {
-                  vm.alarmsEsperando.push(alarm);
-                }
-              });
-            });
-          }
-          if (alarm.status === 'en atencion') {
-            SolicitudsService.query(function (data) {
-              data.forEach(function(solicitud) {
-                if (solicitud.organism === organism && solicitud.status === 'aceptado' &&
-                  solicitud.user._id === alarm.user._id && solicitud.category === alarm.categoryService) {
-                  vm.alarmsEnAtencion.push(alarm);
-                }
-              });
-            });
-          }
-          if (alarm.status === 'esperando' || alarm.status === 'en atencion') {
-            SolicitudsService.query(function (data) {
-              data.forEach(function(solicitud) {
-                if (solicitud.organism === organism && solicitud.status === 'aceptado' &&
-                  solicitud.user._id === alarm.user._id && solicitud.category === alarm.categoryService) {
-                  vm.alarms.push(alarm);
-                }
-              });
-            });
+          // la alarma es de este organismo
+          if (alarm.organism === organism) {
+            // por status
+            if (alarm.status === 'esperando') {
+              vm.alarmsEsperando.push(alarm);
+            }
+            if (alarm.status === 'en atencion') {
+              vm.alarmsEnAtencion.push(alarm);
+            }
+            if (alarm.status === 'esperando' || alarm.status === 'en atencion') {
+              vm.alarms.push(alarm);
+            }
           }
         });
 
+        /* if (alarm.status === 'esperando') {
+         if (alarm.organism === organism) {
+
+         }
+         SolicitudsService.query(function (data) {
+         data.forEach(function(solicitud) {
+
+         if (solicitud.organism === organism && solicitud.status === 'aceptado' &&
+         solicitud.user._id === alarm.user._id && solicitud.category === alarm.categoryService) {
+         vm.alarmsEsperando.push(alarm);
+         }
+         });
+         });
+         }
+         if (alarm.status === 'en atencion') {
+
+         SolicitudsService.query(function (data) {
+         data.forEach(function(solicitud) {
+         if (solicitud.organism === organism && solicitud.status === 'aceptado' &&
+         solicitud.user._id === alarm.user._id && solicitud.category === alarm.categoryService) {
+         vm.alarmsEnAtencion.push(alarm);
+         }
+         });
+         });
+         }
+         if (alarm.status === 'esperando' || alarm.status === 'en atencion') {
+         SolicitudsService.query(function (data) {
+         data.forEach(function(solicitud) {
+         if (solicitud.organism === organism && solicitud.status === 'aceptado' &&
+         solicitud.user._id === alarm.user._id && solicitud.category === alarm.categoryService) {
+         vm.alarms.push(alarm);
+         }
+         });
+         });*/
       });
     }
 
@@ -152,7 +166,7 @@
       return date;
     }
 
-    // Obtener diferencia de hora entre el momento de creación de la alarma y hoy
+// Obtener diferencia de hora entre el momento de creación de la alarma y hoy
     vm.getDifference = function (alarm) {
       var today = $filter('date')(new Date(), 'yyyy.MM.dd.HH:mm:ss');
       var alarmCreated = $filter('date')(alarm, 'yyyy.MM.dd.HH:mm:ss');
@@ -163,7 +177,7 @@
       return diffDays + '(dias), ' + diffHours + '(horas)';
     };
 
-    // Centrar mapa de acuerdo al item seleccionado
+// Centrar mapa de acuerdo al item seleccionado
     vm.center = function(item) {
       vm.centerLatitude = item.latitude;
       vm.centerLongitude = item.longitude;
@@ -179,7 +193,7 @@
       }
     };
 
-    // Evaluar cercanía
+// Evaluar cercanía
     function geoNear(new_alarm) {
       NetworksService.near({lat: new_alarm.latitude, lng: new_alarm.longitude}, function(networks) {
         if (networks.length === 0) {
@@ -199,7 +213,7 @@
       });
     }
 
-    // Funcion para actualizar un registro (PUT)
+// Funcion para actualizar un registro (PUT)
     function networkServicePUT(status, id) {
       // GET
       var network = NetworksService.get({ networkId: id});
@@ -208,7 +222,7 @@
       NetworksService.update({ networkId: id}, network);
     }
 
-    // Funcion para crear un nuevo registro (POST)
+// Funcion para crear un nuevo registro (POST)
     function logServicePOST(description, alarm) {
       if (alarm.network === '') {
         LogsServiceCreate.charge({ description: description, alarm: alarm._id, client: alarm.user._id, user: operator[0]._id, organism: vm.organism[0]._id}, function (data) {
@@ -222,7 +236,7 @@
 
     }
 
-    // Asignar por recomendación
+// Asignar por recomendación
     vm.assignNear = function (alarm) {
       var network;
       vm.new_alarm = alarm;
@@ -283,7 +297,7 @@
       }
     };
 
-    // Rechazar alarma
+// Rechazar alarma
     vm.cancelAlarm = function (alarm, option) {
 
       var logText = '';
@@ -345,7 +359,7 @@
       });
     };
 
-    // Mostrar detalles de la alarma
+// Mostrar detalles de la alarma
     vm.showDetailAlarms = function(e, alarms) {
       vm.new_alarm = alarms;
       CategoriaserviciosService.query(function (data) {
@@ -358,7 +372,7 @@
       vm.map.showInfoWindow('infoWindowAlarm', alarms._id);
     };
 
-    // Mostrar detalle de la unidad
+// Mostrar detalle de la unidad
     vm.showDetailNetwork = function(e, network) {
       vm.new_network = network;
       CategoriaserviciosService.query(function (data) {
@@ -370,7 +384,7 @@
       vm.map.showInfoWindow('infoWindowNetwork', network._id);
     };
 
-    // Direcciones a recorrer en el mapa
+// Direcciones a recorrer en el mapa
     function directionsOnMap() {
       NetworksService.query(function (data) {
         data.forEach(function(network) {
@@ -391,7 +405,7 @@
     }
     directionsOnMap();
 
-    // instantiate google map objects for directions
+// instantiate google map objects for directions
     var directionsDisplay = new window.google.maps.DirectionsRenderer();
     var directionsService = new window.google.maps.DirectionsService();
     vm.getDirections = function (direction) {
