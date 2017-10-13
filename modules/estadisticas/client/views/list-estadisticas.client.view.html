@@ -128,29 +128,46 @@
     </div>
   </div>
   <div class="page-header">
-    <h3>Solicitudes de atención por status</h3>
+    <h3 style="display: inline-block">
+      Solicitudes de atención por status&nbsp;&nbsp;
+    </h3>
+    <a ui-sref="alarms.list">Ver listado de alarmas <i class="fa fa-chevron-circle-right"></i></a>
   </div>
 
   <div >
     <div class="row clearfix">
       <div class="col-md-3 column">
         <div class="circle-tile ">
-          <a href="#"><div class="circle-tile-heading dark-blue"><i class="fa fa-users fa-fw fa-3x"></i></div></a>
-          <div class="circle-tile-content dark-blue">
+          <a href="#"><div class="circle-tile-heading red"><i class="fa fa-users fa-fw fa-3x"></i></div></a>
+          <div class="circle-tile-content red">
             <div class="circle-tile-description text-faded"> Esperando atención</div>
             <div class="circle-tile-number text-faded ">{{vm.alarmsEsperando.length}}</div>
-            <a class="circle-tile-footer" href="#">More Info <i class="fa fa-chevron-circle-right"></i></a>
+            <!--<a class="circle-tile-footer" ui-sref="alarms.list">More Info <i class="fa fa-chevron-circle-right"></i></a>-->
+            <br/>
           </div>
         </div>
       </div>
 
       <div class="col-md-3 column">
         <div class="circle-tile ">
-          <a href="#"><div class="circle-tile-heading red"><i class="fa fa-users fa-fw fa-3x"></i></div></a>
-          <div class="circle-tile-content red">
+          <a href="#"><div class="circle-tile-heading green"><i class="fa fa-users fa-fw fa-3x"></i></div></a>
+          <div class="circle-tile-content green">
             <div class="circle-tile-description text-faded"> En atención </div>
             <div class="circle-tile-number text-faded ">{{vm.alarmsEnAtencion.length}}</div>
-            <a class="circle-tile-footer" href="#">More Info <i class="fa fa-chevron-circle-right"></i></a>
+            <!--<a class="circle-tile-footer" href="#">More Info <i class="fa fa-chevron-circle-right"></i></a>-->
+            <br/>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-3 column">
+        <div class="circle-tile ">
+          <a href="#"><div class="circle-tile-heading orange"><i class="fa fa-users fa-fw fa-3x"></i></div></a>
+          <div class="circle-tile-content orange">
+            <div class="circle-tile-description text-faded"> Cancelado</div>
+            <div class="circle-tile-number text-faded ">{{vm.alarmsCancelado.length}}</div>
+            <!--<a class="circle-tile-footer" href="#">More Info <i class="fa fa-chevron-circle-right"></i></a>-->
+            <br/>
           </div>
         </div>
       </div>
@@ -161,40 +178,34 @@
           <div class="circle-tile-content dark-blue">
             <div class="circle-tile-description text-faded"> Rechazados</div>
             <div class="circle-tile-number text-faded ">{{vm.alarmsRechazado.length}}</div>
-            <a class="circle-tile-footer" href="#">More Info <i class="fa fa-chevron-circle-right"></i></a>
+            <!--<a class="circle-tile-footer" href="#">More Info <i class="fa fa-chevron-circle-right"></i></a>-->
+            <br/>
           </div>
         </div>
       </div>
 
-      <div class="col-md-3 column">
-        <div class="circle-tile ">
-          <a href="#"><div class="circle-tile-heading dark-blue"><i class="fa fa-users fa-fw fa-3x"></i></div></a>
-          <div class="circle-tile-content dark-blue">
-            <div class="circle-tile-description text-faded"> Cancelado</div>
-            <div class="circle-tile-number text-faded ">{{vm.alarmsCancelado.length}}</div>
-            <a class="circle-tile-footer" href="#">More Info <i class="fa fa-chevron-circle-right"></i></a>
-          </div>
-        </div>
-      </div>
+
 
       <div class="col-md-3 column">
         <div class="circle-tile ">
-          <a href="#"><div class="circle-tile-heading red"><i class="fa fa-users fa-fw fa-3x"></i></div></a>
-          <div class="circle-tile-content red">
+          <a href="#"><div class="circle-tile-heading gray"><i class="fa fa-users fa-fw fa-3x"></i></div></a>
+          <div class="circle-tile-content gray">
             <div class="circle-tile-description text-faded"> Atendidos </div>
             <div class="circle-tile-number text-faded ">{{vm.alarmsAtendido.length}}</div>
-            <a class="circle-tile-footer" href="#">More Info <i class="fa fa-chevron-circle-right"></i></a>
+            <!--<a class="circle-tile-footer" href="#">More Info <i class="fa fa-chevron-circle-right"></i></a>-->
+            <br/>
           </div>
         </div>
       </div>
 
       <div class="col-md-3 column">
         <div class="circle-tile ">
-          <a href="#"><div class="circle-tile-heading red"><i class="fa fa-users fa-fw fa-3x"></i></div></a>
-          <div class="circle-tile-content red">
+          <a href="#"><div class="circle-tile-heading purple"><i class="fa fa-users fa-fw fa-3x"></i></div></a>
+          <div class="circle-tile-content purple">
             <div class="circle-tile-description text-faded"> Pendiente por calificación</div>
             <div class="circle-tile-number text-faded ">{{vm.alarmsSinCalificar.length}}</div>
-            <a class="circle-tile-footer" href="#">More Info <i class="fa fa-chevron-circle-right"></i></a>
+            <br/>
+            <!--<a class="circle-tile-footer" href="#">More Info <i class="fa fa-chevron-circle-right"></i></a>-->
           </div>
         </div>
       </div>
