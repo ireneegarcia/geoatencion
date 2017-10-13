@@ -16,6 +16,16 @@
     vm.alarmsEsperando = [];
     vm.alarmsEnAtencion = [];
     vm.alarmsRechazado = [];
+    vm.alarmsCancelado = [];
+    vm.alarmsAtendido = [];
+    vm.alarmsSinCalificar = [];
+    vm.ratingAll = 0;
+    vm.rating = 0;
+    vm.rating1 = 0;
+    vm.rating2 = 0;
+    vm.rating3 = 0;
+    vm.rating4 = 0;
+    vm.rating5 = 0;
     vm.estadisticas = EstadisticasService.query();
 
     // Condicional para encontrar el organismo relacionado
@@ -45,48 +55,97 @@
       }
     }
 
+
     function getMyAlarms(organism) {
 
       /*
        Todas las alarmas con excepcion de las que ya fueron atendidas
-       Se valida que: exista afiliación del usuario con el organismo (solicitud aceptada)
-       se valida que la categoría de la solicitud sea la categoría de atención del organismo
        * */
       AlarmsService.query(function (data) {
 
         data.forEach(function(alarm) {
-          if (alarm.status === 'esperando') {
-            SolicitudsService.query(function (data) {
-              data.forEach(function(solicitud) {
-                if (solicitud.organism === organism && solicitud.status === 'aceptado' &&
-                  solicitud.user._id === alarm.user._id && solicitud.category === alarm.categoryService) {
-                  vm.alarmsEsperando.push(alarm);
-                }
-              });
-            });
+          if (alarm.organism === organism) {
+            if (alarm.status === 'esperando') {
+              vm.alarmsEsperando.push(alarm);
+            }
+
+            if (alarm.status === 'en atencion') {
+              vm.alarmsEnAtencion.push(alarm);
+            }
+
+            if (alarm.status === 'rechazado') {
+              vm.alarmsRechazado.push(alarm);
+            }
+
+            if (alarm.status === 'cancelado') {
+              vm.alarmsCancelado.push(alarm);
+            }
+
+            if (alarm.status === 'atendido') {
+              vm.alarmsAtendido.push(alarm);
+            }
+
+            if (alarm.status === 'atendido' && alarm.rating === 'sin calificar') {
+              vm.alarmsSinCalificar.push(alarm);
+            }
+
+            if (alarm.status === 'atendido' && alarm.rating !== 'sin calificar') {
+              vm.rating += 1;
+              vm.ratingAll += parseInt(alarm.rating, 10)
+              // console.log(alarm.rating);
+              switch (alarm.rating) {
+                case '1':
+                  vm.rating1 += 1;
+                  break;
+                case '2':
+                  vm.rating2 += 1;
+                  break;
+                case '3':
+                  vm.rating3 += 1;
+                  break;
+                case '4':
+                  vm.rating4 += 1;
+                  break;
+                case '5':
+                  vm.rating5 += 1;
+                  break;
+              }
+            }
           }
-          if (alarm.status === 'en atencion') {
-            SolicitudsService.query(function (data) {
-              data.forEach(function(solicitud) {
-                if (solicitud.organism === organism && solicitud.status === 'aceptado' &&
-                  solicitud.user._id === alarm.user._id && solicitud.category === alarm.categoryService) {
-                  vm.alarmsEnAtencion.push(alarm);
-                }
-              });
-            });
-          }
-          if (alarm.status === 'rechazado') {
-            SolicitudsService.query(function (data) {
-              data.forEach(function(solicitud) {
-                if (solicitud.organism === organism && solicitud.status === 'aceptado' &&
-                  solicitud.user._id === alarm.user._id && solicitud.category === alarm.categoryService) {
-                  vm.alarmsRechazado.push(alarm);
-                }
-              });
-            });
-          }
+
+          /* if (alarm.status === 'esperando') {
+           SolicitudsService.query(function (data) {
+           data.forEach(function(solicitud) {
+           if (solicitud.organism === organism && solicitud.status === 'aceptado' &&
+           solicitud.user._id === alarm.user._id && solicitud.category === alarm.categoryService) {
+           vm.alarmsEsperando.push(alarm);
+           }
+           });
+           });
+           }
+           if (alarm.status === 'en atencion') {
+           SolicitudsService.query(function (data) {
+           data.forEach(function(solicitud) {
+           if (solicitud.organism === organism && solicitud.status === 'aceptado' &&
+           solicitud.user._id === alarm.user._id && solicitud.category === alarm.categoryService) {
+           vm.alarmsEnAtencion.push(alarm);
+           }
+           });
+           });
+           }
+           if (alarm.status === 'rechazado') {
+           SolicitudsService.query(function (data) {
+           data.forEach(function(solicitud) {
+           if (solicitud.organism === organism && solicitud.status === 'aceptado' &&
+           solicitud.user._id === alarm.user._id && solicitud.category === alarm.categoryService) {
+           vm.alarmsRechazado.push(alarm);
+           }
+           });
+           });
+           }*/
         });
       });
+
     }
 
     // Log general del organismo

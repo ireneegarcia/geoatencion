@@ -5,9 +5,9 @@
     .module('alarms')
     .controller('AlarmsListController', AlarmsListController);
 
-  AlarmsListController.$inject = ['AlarmsService', '$filter', 'UsersService', 'Authentication', 'SolicitudsService'];
+  AlarmsListController.$inject = ['AlarmsService', '$filter', 'UsersService', 'Authentication'];
 
-  function AlarmsListController(AlarmsService, $filter, UsersService, Authentication, SolicitudsService) {
+  function AlarmsListController(AlarmsService, $filter, UsersService, Authentication) {
     var vm = this;
     vm.alarmsEsperando = [];
     vm.alarmsEnAtencion = [];
