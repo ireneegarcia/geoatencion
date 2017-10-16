@@ -31,8 +31,8 @@ var LogSchema = new Schema({
     ref: 'User'
   },
   user: {
-    type: Schema.ObjectId,
-    ref: 'User'
+    type: String,
+    default: ''
   },
   organism: {
     type: Schema.ObjectId,

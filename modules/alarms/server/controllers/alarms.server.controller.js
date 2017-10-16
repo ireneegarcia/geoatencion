@@ -72,7 +72,7 @@ exports.update = function(req, res) {
         to: alarm.firebasetoken, // required fill with device token or topics
         notification: {
           title: 'Notificacion de atención',
-          body: ''
+          body: alarm.status
         },
         data: {
           networkLatitude: body.networkLatitude,
@@ -88,7 +88,7 @@ exports.update = function(req, res) {
         to: alarm.firebasetoken, // required fill with device token or topics
         notification: {
           title: 'Solicitud ' + alarm.status,
-          body: ''
+          body: alarm.status
         },
         data: {
           status: alarm.status
