@@ -13,6 +13,8 @@
     vm.alarmsEnAtencion = [];
     vm.alarmsRechazado = [];
     vm.alarmsCanceled = [];
+    vm.alarmsAtendido = [];
+    vm.alarmsCanceladoCliente = [];
 
     // Condicional para encontrar el organismo relacionado
     if (Authentication.user.roles[0] === 'organism') {
@@ -47,6 +49,7 @@
       AlarmsService.query(function (data) {
 
         data.forEach(function(alarm) {
+
           if (alarm.organism === organism) {
             if (alarm.status === 'esperando') {
               vm.alarmsEsperando.push(alarm);
@@ -62,6 +65,14 @@
 
             if (alarm.status === 'cancelado') {
               vm.alarmsCanceled.push(alarm);
+            }
+
+            if (alarm.status === 'atendido') {
+              vm.alarmsAtendido.push(alarm);
+            }
+
+            if (alarm.status === 'cancelado por el cliente') {
+              vm.alarmsCanceladoCliente.push(alarm);
             }
           }
             /* SolicitudsService.query(function (data) {
