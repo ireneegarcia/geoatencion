@@ -598,6 +598,15 @@ a{
 .circle-tile-heading.purple:hover {
 	background-color: #7F3D9B;
 }
+.circle-tile-heading.gray:hover {
+	background-color: #7F8C8D;
+}
+.circle-tile-heading.yellow:hover {
+	background-color: #bc990d;
+}
+.circle-tile-heading.pink:hover {
+	background-color: #ff007f;
+}
 .tile-img {
 	text-shadow: 2px 2px 3px rgba(0, 0, 0, 0.9);
 }
@@ -631,6 +640,9 @@ a{
 }
 .yellow {
 	background-color: #F1C40F;
+}
+.pink {
+	background-color: #ff56aa;
 }
 .text-dark-blue {
 	color: #34495E;

@@ -186,24 +186,10 @@
 
       <div class="col-md-3 column">
         <div class="circle-tile ">
-          <a href="#"><div class="circle-tile-heading dark-blue"><i class="fa fa-users fa-fw fa-3x"></i></div></a>
-          <div class="circle-tile-content dark-blue">
+          <a href="#"><div class="circle-tile-heading blue"><i class="fa fa-users fa-fw fa-3x"></i></div></a>
+          <div class="circle-tile-content blue">
             <div class="circle-tile-description text-faded"> Rechazados</div>
             <div class="circle-tile-number text-faded ">{{vm.alarmsRechazado.length}}</div>
-            <!--<a class="circle-tile-footer" href="#">More Info <i class="fa fa-chevron-circle-right"></i></a>-->
-            <br/>
-          </div>
-        </div>
-      </div>
-
-
-
-      <div class="col-md-3 column">
-        <div class="circle-tile ">
-          <a href="#"><div class="circle-tile-heading gray"><i class="fa fa-users fa-fw fa-3x"></i></div></a>
-          <div class="circle-tile-content gray">
-            <div class="circle-tile-description text-faded"> Atendidos </div>
-            <div class="circle-tile-number text-faded ">{{vm.alarmsAtendido.length}}</div>
             <!--<a class="circle-tile-footer" href="#">More Info <i class="fa fa-chevron-circle-right"></i></a>-->
             <br/>
           </div>
@@ -221,6 +207,32 @@
           </div>
         </div>
       </div>
+
+      <div class="col-md-3 column">
+        <div class="circle-tile ">
+          <a href="#"><div class="circle-tile-heading pink"><i class="fa fa-users fa-fw fa-3x"></i></div></a>
+          <div class="circle-tile-content pink">
+            <div class="circle-tile-description text-faded"> Cancelado-unidad </div>
+            <div class="circle-tile-number text-faded ">{{vm.alarmsCanceladoCliente.length}}</div>
+            <!--<a class="circle-tile-footer" href="#">More Info <i class="fa fa-chevron-circle-right"></i></a>-->
+            <br/>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-3 column">
+        <div class="circle-tile ">
+          <a href="#"><div class="circle-tile-heading gray"><i class="fa fa-users fa-fw fa-3x"></i></div></a>
+          <div class="circle-tile-content gray">
+            <div class="circle-tile-description text-faded"> Atendidos </div>
+            <div class="circle-tile-number text-faded ">{{vm.alarmsAtendido.length}}</div>
+            <!--<a class="circle-tile-footer" href="#">More Info <i class="fa fa-chevron-circle-right"></i></a>-->
+            <br/>
+          </div>
+        </div>
+      </div>
+
+
     </div>
   </div>
 
@@ -254,7 +266,9 @@
                   <br/>
                   <strong>Fecha de solicitud:</strong> {{log.created | date:'medium'}} -
                   <strong>Cliente: </strong> {{log.clientEmail}}
-                  <strong>- Operador: </strong>{{log.operatorEmail}} -
+                  <div style="display: inline-block" ng-show="log.operatorEmail">
+                    <strong>- Operador: </strong>{{log.operatorEmail}} -
+                  </div>
                   <strong>Acción: </strong> {{log.description}}
                   <br/><br/>
                 </li>
@@ -272,11 +286,15 @@
               </div>
               <ul>
                 <li ng-repeat="log in vm.logClient ">
-                  {{log._id}} -
+                  {{log._id}}
+                  <br/>
                   <strong>Fecha de solicitud:</strong> {{log.created | date:'medium'}} -
                   <strong>Cliente: </strong> {{log.client}} -
-                  <strong>Operador: </strong>{{log.user.email}} -
+                  <div style="display: inline-block" ng-show="log.user.email">
+                    <strong>- Operador: </strong>{{log.user.email}} -
+                  </div>
                   <strong>Acción: </strong> {{log.description}}
+                  <br/><br/>
                 </li>
               </ul>
             </div>
@@ -296,7 +314,9 @@
               <li ng-repeat="log in vm.logNetwork ">
                 <strong>Fecha de solicitud:</strong> {{log.created | date:'medium'}} -
                 <strong>Cliente: </strong> {{log.clientEmail}} -
-                <strong>Operador: </strong>{{log.operatorEmail}} -
+                <div style="display: inline-block" ng-show="log.operatorEmail">
+                  <strong>- Operador: </strong>{{log.operatorEmail}} -
+                </div>
                 <strong>Acción: </strong> {{log.description}}
               </li>
             </ul>
