@@ -10,10 +10,11 @@
           <ul class="nav nav-tabs" data-tabs="tabs">
             <li class="active"><a href="#esperando" data-toggle="tab"> Esperando</a></li>
             <li><a href="#enatencion" data-toggle="tab"> En atención</a></li>
-            <li><a href="#cancelado" data-toggle="tab">Cancelado</a></li>
             <li><a href="#rechazado" data-toggle="tab">Rechazado</a></li>
             <li><a href="#atendido" data-toggle="tab">Atendido</a></li>
+            <li><a href="#cancelado" data-toggle="tab">Cancelado por el operador</a></li>
             <li><a href="#canceladoCliente" data-toggle="tab">Cancelado por el usuario</a></li>
+            <li><a href="#canceladoUnidad" data-toggle="tab">Cancelado por la unidad</a></li>
           </ul>
         </div>
       </div>
@@ -134,10 +135,32 @@
             </div>
           </div>
         </div>
-        <div class="tab-pane active" id="canceladoCliente">
+        <div class="tab-pane" id="canceladoCliente">
           <div class="scrollbar-log" id="style-6">
             <div class="force-overflow">
               <a ng-repeat="alarm in vm.alarmsCanceladoCliente"
+                 ui-sref="alarms.view({ alarmId: alarm._id })"
+                 class="list-group-item"
+                 style="margin: 0px 5px 0px 5px">
+                <img style="vertical-align: baseline" ng-src="{{alarm.icon}}" alt="Loading image...">
+                <small class="list-group-item-text">
+                  Status: {{alarm.status}}
+                  -
+                  Solicitud realizada
+                  <span ng-bind="alarm.created | date:'mediumDate'"></span>
+                  por
+                  <span ng-if="alarm.user" ng-bind="alarm.user.displayName"></span>
+                  <span ng-if="!alarm.user">Deleted User</span>
+                </small>
+                <h4 class="list-group-item-heading" ng-bind="alarm.name"></h4>
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="tab-pane" id="canceladoUnidad">
+          <div class="scrollbar-log" id="style-6">
+            <div class="force-overflow">
+              <a ng-repeat="alarm in vm.alarmsCanceladoUnidad"
                  ui-sref="alarms.view({ alarmId: alarm._id })"
                  class="list-group-item"
                  style="margin: 0px 5px 0px 5px">
@@ -224,7 +247,7 @@
       <h4 class="list-group-item-heading" ng-bind="alarm.name"></h4>
     </a>
   </div>-->
-<!--  <div class="alert alert-warning text-center" ng-if="vm.alarms.$resolved && !vm.alarms.length">
-    No Alarms yet, why don't you <a ui-sref="alarms.create">create one</a>?
-  </div>-->
+  <!--  <div class="alert alert-warning text-center" ng-if="vm.alarms.$resolved && !vm.alarms.length">
+      No Alarms yet, why don't you <a ui-sref="alarms.create">create one</a>?
+    </div>-->
 </section>

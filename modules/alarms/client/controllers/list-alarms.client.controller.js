@@ -63,7 +63,7 @@
               vm.alarmsRechazado.push(alarm);
             }
 
-            if (alarm.status === 'cancelado') {
+            if (alarm.status === 'cancelado por el operador') {
               vm.alarmsCanceled.push(alarm);
             }
 
@@ -73,6 +73,10 @@
 
             if (alarm.status === 'cancelado por el cliente') {
               vm.alarmsCanceladoCliente.push(alarm);
+            }
+
+            if (alarm.status === 'cancelado por la unidad') {
+              vm.alarmsCanceladoUnidad.push(alarm);
             }
           }
             /* SolicitudsService.query(function (data) {
