@@ -22,7 +22,7 @@ exports.invokeRolesPolicies = function () {
       permissions: '*'
     }]
   }, {
-    roles: ['organism', 'operator'],
+    roles: ['organism', 'operator', 'guest'],
     allows: [{
       resources: '/api/networks',
       permissions: ['get', 'post']

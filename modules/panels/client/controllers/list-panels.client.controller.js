@@ -201,13 +201,25 @@
         } else {
           // Unidad recomendada
           vm.new_alarm.networkNear = networks[0];
+
           var firebasetoken;
-          // Se busca el token del usuario
+          // Se busca el token del usuario y del serviceuser
+
+          var banderaClient = false;
+          var banderaNetwork = false;
+
           FirebasetokensService.query(function (data) {
-            firebasetoken = data.filter(function (data) {
-              return (data.userId.indexOf(vm.new_alarm.user._id) >= 0);
+            data.forEach(function(data) {
+              if (data.userId.indexOf(vm.new_alarm.user._id) >= 0 && banderaClient === false) {
+                vm.new_alarm.firebasetoken = data.token;
+                banderaClient = true;
+              }
+
+              if (data.userId.indexOf(networks[0].obj.serviceUser) >= 0 && banderaNetwork === false) {
+                vm.new_alarm.firebasetokenNetwork = data.token;
+                banderaNetwork = true;
+              }
             });
-            vm.new_alarm.firebasetoken = firebasetoken[0].token;
           });
         }
       });
@@ -255,6 +267,9 @@
           vm.new_alarm.networkLongitude = vm.new_alarm.networkNear.obj.longitude;
           // address de la unidad
           vm.new_alarm.networkAddress = vm.new_alarm.networkNear.obj.address;
+
+          // codigo de la unidad
+          vm.new_alarm.networkCarCode = vm.new_alarm.networkNear.obj.carCode;
 
           // status de la alarma
           vm.new_alarm.status = 'en atencion';

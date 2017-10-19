@@ -20,6 +20,7 @@
     vm.save = save;
     var operator;
     vm.networks = [];
+    vm.log = [];
 
     UsersService.query(function (data) {
       // Datos del usuario
@@ -35,10 +36,14 @@
       });
     });
 
+
     LogsService.query(function (data) {
-      // Log
-      vm.log = data.filter(function (data) {
-        return (data.alarm.indexOf(vm.alarm._id) >= 0);
+      data.forEach(function(data) {
+        if (data.alarm !== '') {
+          if (data.alarm === vm.alarm._id) {
+            vm.log.push(data.alarm);
+          }
+        }
       });
     });
 
@@ -180,24 +185,32 @@
           var network;
           // Se libera a la unidad de atención
           NetworksService.query(function (data) {
-            network = data.filter(function (data) {
+            vm.cancel_network = data.filter(function (data) {
               return (data._id.indexOf(alarm.network) >= 0);
             });
 
             alarm.network = '';
 
             // Se cambia el status de la unidad
-            networkServicePUT('activo', network[0]._id);
+            networkServicePUT('activo', vm.cancel_network[0]._id);
           });
         }
       }
 
       var firebasetoken;
+      var firebasetokenNetwork;
       // Se busca el token del usuario
       FirebasetokensService.query(function (data) {
+
         firebasetoken = data.filter(function (data) {
-          return (data.userId.indexOf(alarm.user._id) >= 0);
+          return (data.userId.indexOf(vm.alarm.user._id) >= 0);
         });
+
+        firebasetokenNetwork = data.filter(function (data) {
+          return (vm.cancel_network[0]._id !== '' && (data.userId.indexOf(vm.cancel_network[0].serviceUser) >= 0));
+        });
+
+        alarm.firebasetokenNetwork = firebasetokenNetwork[0].token;
         alarm.firebasetoken = firebasetoken[0].token;
 
         // Se actualiza la alarma (PUT)
@@ -205,10 +218,11 @@
 
         // Se registra en el log
         logServicePOST('La solicitud de atención ha sido rechazada');
+
       });
     }
 
-    // Save Alarm
+// Save Alarm
     function save(isValid) {
       if (!isValid) {
         $scope.$broadcast('show-errors-check-validity', 'vm.form.alarmForm');
@@ -220,17 +234,23 @@
 
         var firebasetoken;
         var networkSelected;
+        var firebasetokenNetwork;
 
         // Se busca el token del usuario
-        FirebasetokensService.query(function (data) {
-          firebasetoken = data.filter(function (data) {
-            return (data.userId.indexOf(vm.alarm.user._id) >= 0);
-          });
+        FirebasetokensService.query(function (firebase) {
 
           // se busca el network asignado
           NetworksService.query(function (data) {
             networkSelected = data.filter(function (data) {
               return (data._id.indexOf(vm.alarm.network) >= 0);
+            });
+
+            firebasetoken = firebase.filter(function (data) {
+              return (data.userId.indexOf(vm.alarm.user._id) >= 0);
+            });
+
+            firebasetokenNetwork = firebase.filter(function (data) {
+              return (data.userId.indexOf(networkSelected[0].serviceUser) >= 0);
             });
 
             // con asignacion
@@ -246,8 +266,10 @@
             // address de la unidad
             vm.alarm.networkAddress = networkSelected[0].address;
 
+
             // Se incluye el token de firebase
             vm.alarm.firebasetoken = firebasetoken[0].token;
+            vm.alarm.firebasetokenNetwork = firebasetokenNetwork[0].token;
 
             // aca registro en la unidad el status "ocupado"
             networkServicePUT('ocupado', vm.alarm.network);
@@ -258,6 +280,7 @@
             // Se actualiza (PUT)
             vm.alarm.$update(successCallback, errorCallback);
           });
+
         });
 
       } else {

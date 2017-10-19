@@ -19,20 +19,20 @@ var LogSchema = new Schema({
     default: ''
   },
   alarm: {
-    type: Schema.ObjectId,
-    ref: 'Alarm'
+    type: String,
+    default: ''
   },
   network: {
     type: String,
     default: ''
   },
   client: {
-    type: Schema.ObjectId,
-    ref: 'User'
-  },
-  user: {
     type: String,
     default: ''
+  },
+  user: {
+    type: Schema.ObjectId,
+    ref: 'User'
   },
   organism: {
     type: Schema.ObjectId,

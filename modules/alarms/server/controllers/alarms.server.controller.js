@@ -58,6 +58,7 @@ exports.update = function(req, res) {
   var alarm = req.alarm;
   var body = req.body;
   var message;
+  var messageNetwork;
 
   alarm.location = {
     type: 'Point',
@@ -65,46 +66,108 @@ exports.update = function(req, res) {
   };
 
   alarm = _.extend(alarm, req.body);
-  if (alarm.status !== 'atendido') {
 
-    if (alarm.status === 'en atencion') {
-      message = {
-        to: alarm.firebasetoken, // required fill with device token or topics
-        notification: {
-          title: 'Notificacion de atención',
-          body: alarm.status
-        },
-        data: {
-          networkLatitude: body.networkLatitude,
-          networkLongitude: body.networkLongitude,
-          networkAddress: body.networkAddress,
-          network: body.carCode,
-          status: alarm.status
-        }
-      };
-    }
-    if (alarm.status === 'rechazado' || alarm.status === 'cancelado') {
-      message = {
-        to: alarm.firebasetoken, // required fill with device token or topics
-        notification: {
-          title: 'Solicitud ' + alarm.status,
-          body: alarm.status
-        },
-        data: {
-          status: alarm.status
-        }
-      };
-    }
+console.log(alarm);
+console.log('aja');
+console.log(body);
+
+  if (alarm.status === 'en atencion') {
+    message = {
+      to: alarm.firebasetoken, // required fill with device token or topics
+      notification: {
+        title: 'Notificacion de atención',
+        body: alarm.status
+      },
+      data: {
+        networkLatitude: body.networkLatitude,
+        networkLongitude: body.networkLongitude,
+        networkAddress: body.networkAddress,
+        status: alarm.status,
+        networkCode: body.networkCarCode
+
+      }
+    };
+
+    messageNetwork = {
+      to: body.firebasetokenNetwork, // required fill with device token or topics
+      notification: {
+        title: 'Notificacion de atención',
+        body: alarm.status
+      },
+      data: {
+        clientLatitude: alarm.latitude,
+        clientLongitude: alarm.longitude,
+        clientAddress: alarm.address,
+        clientName: alarm.user.displayName,
+        status: alarm.status
+      }
+    };
 
     // callback style
-    fcm.send(message, function(err, response) {
+    fcm.send(messageNetwork, function(err, response) {
       if (err) {
-        console.log("Something has gone wrong!");
+        console.log("Something has gone wrong!"+ err.toString());
       } else {
         console.log("Successfully sent with response: ", response);
       }
     });
   }
+
+  if (alarm.status === 'cancelado') {
+
+    message = {
+      to: alarm.firebasetoken, // required fill with device token or topics
+      notification: {
+        title: 'Solicitud ' + alarm.status,
+        body: alarm.status
+      },
+      data: {
+        status: alarm.status
+      }
+    };
+
+    messageNetwork = {
+      to: alarm.firebasetokenNetwork, // required fill with device token or topics
+      notification: {
+        title: 'Solicitud ' + alarm.status,
+        body: alarm.status
+      },
+      data: {
+        status: alarm.status
+      }
+    };
+
+    // callback style
+    fcm.send(messageNetwork, function(err, response) {
+      if (err) {
+        console.log("Something has gone wrong!"+ err.toString());
+      } else {
+        console.log("Successfully sent with response: ", response);
+      }
+    });
+  }
+
+  if (alarm.status === 'rechazado' || alarm.status === 'atendido') {
+    message = {
+      to: alarm.firebasetoken, // required fill with device token or topics
+      notification: {
+        title: 'Solicitud ' + alarm.status,
+        body: alarm.status
+      },
+      data: {
+        status: alarm.status
+      }
+    };
+  }
+
+  fcm.send(message, function(err, response) {
+    if (err) {
+      console.log("Something has gone wrong!");
+    } else {
+      console.log("Successfully sent with response: ", response);
+    }
+  });
+
   alarm.save(function(err) {
     if (err) {
       return res.status(400).send({
