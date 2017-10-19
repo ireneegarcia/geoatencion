@@ -113,7 +113,7 @@ console.log(body);
     });
   }
 
-  if (alarm.status === 'cancelado') {
+  if (alarm.status === 'cancelado por el operador') {
 
     message = {
       to: alarm.firebasetoken, // required fill with device token or topics

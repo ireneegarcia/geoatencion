@@ -177,12 +177,11 @@
       if (option === 2) {
         if ($window.confirm('¿Esta seguro que desea cancelar la atención?')) {
           // Se cambia status
-          alarm.status = 'cancelado';
+          alarm.status = 'cancelado por el operador';
           alarm.icon = '/modules/panels/client/img/canceled.png';
 
           logText = 'La solicitud de atención ha sido cancelada';
 
-          var network;
           // Se libera a la unidad de atención
           NetworksService.query(function (data) {
             vm.cancel_network = data.filter(function (data) {
@@ -190,7 +189,6 @@
             });
 
             alarm.network = '';
-
             // Se cambia el status de la unidad
             networkServicePUT('activo', vm.cancel_network[0]._id);
           });
@@ -207,7 +205,7 @@
         });
 
         firebasetokenNetwork = data.filter(function (data) {
-          return (vm.cancel_network[0]._id !== '' && (data.userId.indexOf(vm.cancel_network[0].serviceUser) >= 0));
+          return (option === 2 && (data.userId.indexOf(vm.cancel_network[0].serviceUser) >= 0));
         });
 
         alarm.firebasetokenNetwork = firebasetokenNetwork[0].token;

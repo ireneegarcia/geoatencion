@@ -118,40 +118,6 @@
           }
         });
 
-        /* if (alarm.status === 'esperando') {
-         if (alarm.organism === organism) {
-
-         }
-         SolicitudsService.query(function (data) {
-         data.forEach(function(solicitud) {
-
-         if (solicitud.organism === organism && solicitud.status === 'aceptado' &&
-         solicitud.user._id === alarm.user._id && solicitud.category === alarm.categoryService) {
-         vm.alarmsEsperando.push(alarm);
-         }
-         });
-         });
-         }
-         if (alarm.status === 'en atencion') {
-
-         SolicitudsService.query(function (data) {
-         data.forEach(function(solicitud) {
-         if (solicitud.organism === organism && solicitud.status === 'aceptado' &&
-         solicitud.user._id === alarm.user._id && solicitud.category === alarm.categoryService) {
-         vm.alarmsEnAtencion.push(alarm);
-         }
-         });
-         });
-         }
-         if (alarm.status === 'esperando' || alarm.status === 'en atencion') {
-         SolicitudsService.query(function (data) {
-         data.forEach(function(solicitud) {
-         if (solicitud.organism === organism && solicitud.status === 'aceptado' &&
-         solicitud.user._id === alarm.user._id && solicitud.category === alarm.categoryService) {
-         vm.alarms.push(alarm);
-         }
-         });
-         });*/
       });
     }
 
@@ -331,33 +297,42 @@
         if ($window.confirm('¿Esta seguro que desea cancelar la atención?')) {
 
           // Se cambia status
-          alarm.status = 'cancelado';
+          alarm.status = 'cancelado por el operador';
           alarm.icon = '/modules/panels/client/img/canceled.png';
 
           logText = 'La solicitud de atención ha sido cancelada';
 
-          var network;
           // Se libera a la unidad de atención
           NetworksService.query(function (data) {
-            network = data.filter(function (data) {
+            vm.cancel_network = data.filter(function (data) {
               return (data._id.indexOf(alarm.network) >= 0);
             });
 
             alarm.network = '';
 
             // Se cambia el status de la unidad
-            networkServicePUT('activo', network[0]._id);
+            networkServicePUT('activo', vm.cancel_network[0]._id);
           });
         }
       }
 
       var firebasetoken;
+      var firebasetokenNetwork;
       // Se busca el token del usuario
+
       FirebasetokensService.query(function (data) {
+
         firebasetoken = data.filter(function (data) {
           return (data.userId.indexOf(alarm.user._id) >= 0);
         });
+
+
+        firebasetokenNetwork = data.filter(function (data) {
+          return (option === 2 && (data.userId.indexOf(vm.cancel_network[0].serviceUser) >= 0));
+        });
+
         alarm.firebasetoken = firebasetoken[0].token;
+        alarm.firebasetokenNetwork = firebasetokenNetwork[0].token;
 
         // Se actualiza la alarma (PUT)
         AlarmsService.update({ alarmId: alarm._id}, alarm);
