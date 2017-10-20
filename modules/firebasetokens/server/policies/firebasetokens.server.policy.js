@@ -13,7 +13,7 @@ acl = new acl(new acl.memoryBackend());
  */
 exports.invokeRolesPolicies = function () {
   acl.allow([{
-    roles: ['admin', 'user', 'guest', 'operator'],
+    roles: ['admin', 'user', 'guest', 'operator', 'organism'],
     allows: [{
       resources: '/api/firebasetokens',
       permissions: '*'

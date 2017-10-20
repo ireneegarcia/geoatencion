@@ -1,0 +1,251 @@
+<section>
+  <div class="text-center title">
+    <h2>Panel de solicitudes de atención</h2>
+    <br/>
+  </div>
+
+  <div id="map" class="col-xs-8 col-xs-offset-2 ">
+    <ng-map
+      style="height: 519px"
+      zoom="11"
+      center="[{{vm.centerLatitude}},{{vm.centerLongitude}}]">
+      <marker ng-repeat="alarms in vm.alarms "
+              id='{{alarms._id}}'
+              position="{{[alarms.latitude, alarms.longitude]}}"
+              title="{{alarms.status}}"
+              animation="{{vm.selected.id === alarms._id ? 'Animation.BOUNCE' : ''}}"
+              icon="{{alarms.icon}}"
+              on-click="vm.showDetailAlarms(alarms)">
+      </marker>
+
+      <marker ng-repeat="network in vm.networks "
+              id='{{network._id}}'
+              position="{{[network.latitude, network.longitude]}}"
+              title="{{network.status}}"
+              animation="{{vm.selected.id === network._id ? 'Animation.BOUNCE' : ''}}"
+              icon="{{network.icon}}"
+              on-click="vm.showDetailNetwork(network)">
+      </marker>
+
+      <directions ng-repeat="direction in vm.directions"
+                  draggable="false"
+                  travel-mode="DRIVING"
+                  panel="{{direction.panelName}}"
+                  origin="{{direction.origin}}"
+                  destination="{{direction.destination}}">
+      </directions>
+
+      <info-window id="infoWindowAlarm" >
+        <div ng-non-bindable="">
+          Usuario: {{vm.new_alarm.user.displayName}}<br/>
+          Dirección: {{vm.new_alarm.address}}<br/>
+          Coordenadas: {{vm.new_alarm.latitude}}, {{vm.new_alarm.longitude}}<br/>
+          Status: {{vm.new_alarm.status}}<br/>
+          Categoría de servicio: {{vm.new_alarm.categoryName[0].category}}<br/>
+          Creación: {{vm.new_alarm.created | date:'medium' }}<br/>
+          <div ng-show="vm.new_alarm.networkNear.obj.carCode && vm.new_alarm.status === 'esperando'">
+            Unidad recomendada:  <strong>{{vm.new_alarm.networkNear.obj.carCode}}</strong><br/>
+          </div>
+          <a ui-sref="alarms.view({ alarmId: vm.new_alarm._id })">Más sobre esta alarma</a><br/>
+        </div>
+      </info-window>
+
+      <info-window id="infoWindowNetwork" >
+        <div ng-non-bindable="">
+          id: <strong>{{vm.new_network.carCode}}</strong><br/>
+          Dirección: {{vm.new_network.address}}<br/>
+          Coordenadas: {{vm.new_network.latitude}}, {{vm.new_network.longitude}}<br/>
+          Status: {{vm.new_network.status}}<br/>
+          Categoría de servicio: {{vm.new_network.categoryName[0].category}}<br/>
+          Creación: {{vm.new_network.created | date:'medium'}}<br/>
+          <a  ui-sref="networks.view({ networkId: vm.new_network._id })">Más sobre esta unidad</a><br/>
+        </div>
+      </info-window>
+    </ng-map>
+  </div>
+
+  <div style="display: inline-block">
+    <h3>Listado de solicitudes de atención por estado</h3>
+  </div>
+  <div style="margin-bottom: 20px;" class="card card-nav-tabs card-plain">
+    <div style="height: 12vh;" class="header header-info">
+      <!-- colors: "header-primary", "header-info", "header-success", "header-warning", "header-danger" -->
+      <div class="nav-tabs-navigation">
+        <div class="nav-tabs-wrapper">
+          <ul class="nav nav-tabs" data-tabs="tabs">
+            <li class="active"><a href="#esperando" data-toggle="tab"> Esperando</a></li>
+            <li><a href="#enatencion" data-toggle="tab"> En atención</a></li>
+            <li><a href="#rechazado" data-toggle="tab">Rechazado</a></li>
+            <li><a href="#atendido" data-toggle="tab">Atendido</a></li>
+            <li><a href="#cancelado" data-toggle="tab">Cancelado por el operador</a></li>
+            <li><a href="#canceladoCliente" data-toggle="tab">Cancelado por el usuario</a></li>
+            <li><a href="#canceladoUnidad" data-toggle="tab">Cancelado por la unidad</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div>
+      <div class="tab-content">
+        <div class="tab-pane active" id="esperando">
+          <div class="scrollbar-log" id="style-6">
+            <div class="force-overflow">
+              <a ng-repeat="alarm in vm.alarmsEsperando"
+                 ui-sref="alarms.view({ alarmId: alarm._id })"
+                 class="list-group-item"
+                 style="margin: 0px 5px 0px 5px">
+                <img style="vertical-align: baseline" ng-src="{{alarm.icon}}" alt="Loading image...">
+                <small class="list-group-item-text">
+                  Status: {{alarm.status}}
+                  -
+                  Solicitud realizada
+                  <span ng-bind="alarm.created | date:'mediumDate'"></span>
+                  por
+                  <span ng-if="alarm.user" ng-bind="alarm.user.displayName"></span>
+                  <span ng-if="!alarm.user">Deleted User</span>
+                </small>
+                <h4 class="list-group-item-heading" ng-bind="alarm.name"></h4>
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="tab-pane" id="enatencion">
+          <div class="scrollbar-log" id="style-6">
+            <div class="force-overflow">
+              <a ng-repeat="alarm in vm.alarmsEnAtencion"
+                 ui-sref="alarms.view({ alarmId: alarm._id })"
+                 class="list-group-item"
+                 style="margin: 0px 5px 0px 5px">
+                <img style="vertical-align: baseline" ng-src="{{alarm.icon}}" alt="Loading image...">
+                <small class="list-group-item-text">
+                  Status: {{alarm.status}}
+                  -
+                  Solicitud realizada
+                  <span ng-bind="alarm.created | date:'mediumDate'"></span>
+                  por
+                  <span ng-if="alarm.user" ng-bind="alarm.user.displayName"></span>
+                  <span ng-if="!alarm.user">Deleted User</span>
+                </small>
+                <h4 class="list-group-item-heading" ng-bind="alarm.name"></h4>
+              </a>
+
+            </div>
+          </div>
+        </div>
+        <div class="tab-pane" id="cancelado">
+          <div class="scrollbar-log" id="style-6">
+            <div class="force-overflow">
+              <a ng-repeat="alarm in vm.alarmsCanceled"
+                 ui-sref="alarms.view({ alarmId: alarm._id })"
+                 class="list-group-item"
+                 style="margin: 0px 5px 0px 5px">
+                <img style="vertical-align: baseline" ng-src="{{alarm.icon}}" alt="Loading image...">
+                <small class="list-group-item-text">
+                  Status: {{alarm.status}}
+                  -
+                  Solicitud realizada
+                  <span ng-bind="alarm.created | date:'mediumDate'"></span>
+                  por
+                  <span ng-if="alarm.user" ng-bind="alarm.user.displayName"></span>
+                  <span ng-if="!alarm.user">Deleted User</span>
+                </small>
+                <h4 class="list-group-item-heading" ng-bind="alarm.name"></h4>
+              </a>
+
+            </div>
+          </div>
+        </div>
+        <div class="tab-pane" id="rechazado">
+          <div class="scrollbar-log" id="style-6">
+            <div class="force-overflow">
+              <a ng-repeat="alarm in vm.alarmsRechazado"
+                 ui-sref="alarms.view({ alarmId: alarm._id })"
+                 class="list-group-item"
+                 style="margin: 0px 5px 0px 5px">
+                <img style="vertical-align: baseline" ng-src="{{alarm.icon}}" alt="Loading image...">
+                <small class="list-group-item-text">
+                  Status: {{alarm.status}}
+                  -
+                  Solicitud realizada
+                  <span ng-bind="alarm.created | date:'mediumDate'"></span>
+                  por
+                  <span ng-if="alarm.user" ng-bind="alarm.user.displayName"></span>
+                  <span ng-if="!alarm.user">Deleted User</span>
+                </small>
+                <h4 class="list-group-item-heading" ng-bind="alarm.name"></h4>
+              </a>
+
+            </div>
+          </div>
+        </div>
+        <div class="tab-pane" id="atendido">
+          <div class="scrollbar-log" id="style-6">
+            <div class="force-overflow">
+              <a ng-repeat="alarm in vm.alarmsAtendido"
+                 ui-sref="alarms.view({ alarmId: alarm._id })"
+                 class="list-group-item"
+                 style="margin: 0px 5px 0px 5px">
+                <img style="vertical-align: baseline" ng-src="{{alarm.icon}}" alt="Loading image...">
+                <small class="list-group-item-text">
+                  Status: {{alarm.status}}
+                  -
+                  Solicitud realizada
+                  <span ng-bind="alarm.created | date:'mediumDate'"></span>
+                  por
+                  <span ng-if="alarm.user" ng-bind="alarm.user.displayName"></span>
+                  <span ng-if="!alarm.user">Deleted User</span>
+                </small>
+                <h4 class="list-group-item-heading" ng-bind="alarm.name"></h4>
+              </a>
+
+            </div>
+          </div>
+        </div>
+        <div class="tab-pane" id="canceladoCliente">
+          <div class="scrollbar-log" id="style-6">
+            <div class="force-overflow">
+              <a ng-repeat="alarm in vm.alarmsCanceladoCliente"
+                 ui-sref="alarms.view({ alarmId: alarm._id })"
+                 class="list-group-item"
+                 style="margin: 0px 5px 0px 5px">
+                <img style="vertical-align: baseline" ng-src="{{alarm.icon}}" alt="Loading image...">
+                <small class="list-group-item-text">
+                  Status: {{alarm.status}}
+                  -
+                  Solicitud realizada
+                  <span ng-bind="alarm.created | date:'mediumDate'"></span>
+                  por
+                  <span ng-if="alarm.user" ng-bind="alarm.user.displayName"></span>
+                  <span ng-if="!alarm.user">Deleted User</span>
+                </small>
+                <h4 class="list-group-item-heading" ng-bind="alarm.name"></h4>
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="tab-pane" id="canceladoUnidad">
+          <div class="scrollbar-log" id="style-6">
+            <div class="force-overflow">
+              <a ng-repeat="alarm in vm.alarmsCanceladoUnidad"
+                 ui-sref="alarms.view({ alarmId: alarm._id })"
+                 class="list-group-item"
+                 style="margin: 0px 5px 0px 5px">
+                <img style="vertical-align: baseline" ng-src="{{alarm.icon}}" alt="Loading image...">
+                <small class="list-group-item-text">
+                  Status: {{alarm.status}}
+                  -
+                  Solicitud realizada
+                  <span ng-bind="alarm.created | date:'mediumDate'"></span>
+                  por
+                  <span ng-if="alarm.user" ng-bind="alarm.user.displayName"></span>
+                  <span ng-if="!alarm.user">Deleted User</span>
+                </small>
+                <h4 class="list-group-item-heading" ng-bind="alarm.name"></h4>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</section>

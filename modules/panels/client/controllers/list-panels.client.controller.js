@@ -18,6 +18,10 @@
     vm.alarmsEsperando = [];
     vm.alarmsEnAtencion = [];
     vm.alarmsRechazado = [];
+    vm.alarmsCanceled = [];
+    vm.alarmsAtendido = [];
+    vm.alarmsCanceladoCliente = [];
+    vm.alarmsCanceladoOperator = [];
     vm.centerLatitude = 8.2593534;
     vm.centerLongitude = -62.7734547;
     var operator;
@@ -109,9 +113,31 @@
             if (alarm.status === 'esperando') {
               vm.alarmsEsperando.push(alarm);
             }
+
             if (alarm.status === 'en atencion') {
               vm.alarmsEnAtencion.push(alarm);
             }
+
+            if (alarm.status === 'rechazado') {
+              vm.alarmsRechazado.push(alarm);
+            }
+
+            if (alarm.status === 'cancelado por el operador') {
+              vm.alarmsCanceled.push(alarm);
+            }
+
+            if (alarm.status === 'atendido') {
+              vm.alarmsAtendido.push(alarm);
+            }
+
+            if (alarm.status === 'cancelado por el cliente') {
+              vm.alarmsCanceladoCliente.push(alarm);
+            }
+
+            if (alarm.status === 'cancelado por la unidad') {
+              vm.alarmsCanceladoUnidad.push(alarm);
+            }
+
             if (alarm.status === 'esperando' || alarm.status === 'en atencion') {
               vm.alarms.push(alarm);
             }

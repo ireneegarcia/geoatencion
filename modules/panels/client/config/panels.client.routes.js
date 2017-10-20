@@ -23,6 +23,16 @@
           pageTitle: 'Panels List'
         }
       })
+      .state('panels.organism', {
+        url: '/view',
+        templateUrl: '/modules/panels/client/views/list-panels.organism.view.html',
+        controller: 'PanelsListController',
+        controllerAs: 'vm',
+        data: {
+          roles: ['organism'],
+          pageTitle: 'Panels List'
+        }
+      })
       .state('panels.create', {
         url: '/create',
         templateUrl: '/modules/panels/client/views/form-panel.client.view.html',

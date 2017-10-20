@@ -9,25 +9,19 @@
 
   function menuConfig(menuService) {
     // Set top bar menu items
+
+    // Add the dropdown list item
     menuService.addMenuItem('topbar', {
-      title: 'Panel',
-      state: 'panels',
-      type: 'dropdown',
-      roles: ['organism', 'operator']
+      title: 'Mapa',
+      state: 'panels.list',
+      roles: ['operator']
     });
 
     // Add the dropdown list item
-    menuService.addSubMenuItem('topbar', 'panels', {
+    menuService.addMenuItem('topbar', {
       title: 'Mapa',
-      state: 'panels.list',
-      roles: ['organism', 'operator']
-    });
-
-    // Add the dropdown create item
-    menuService.addSubMenuItem('topbar', 'panels', {
-      title: 'Create Panel',
-      state: 'panels.create',
-      roles: ['organism', 'operator']
+      state: 'panels.organism',
+      roles: ['organism']
     });
 
   }

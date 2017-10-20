@@ -41,7 +41,7 @@
       data.forEach(function(data) {
         if (data.alarm !== '') {
           if (data.alarm === vm.alarm._id) {
-            vm.log.push(data.alarm);
+            vm.log.push(data);
           }
         }
       });
