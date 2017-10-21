@@ -1,0 +1,62 @@
+<section>
+  <div class="page-header">
+    <h3>Calificación de servicios</h3>
+  </div>
+
+
+  <p>Servicios calificados: {{vm.clientAlarmsCalificado.length}}</p>
+  <p>Servicios pendientes por calificar: {{vm.clientAlarmsSinCalificar.length}}</p>
+  <hr>
+  <div ng-show="vm.clientAlarmsSinCalificar.length !=0 " class="col-md-8 col-md-offset-2 " style="margin-bottom: 8%">
+    <table class="table table-hover">
+      <thead>
+      <tr>
+        <th>Fecha de atención</th>
+        <th>Mi dirección</th>
+        <th>Unidad de atención</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr ui-sref="networks.view({ networkId: network._id })">
+        <td ng-bind="vm.clientAlarmsSinCalificar[0].created | date:'medium'"></td>
+        <td ng-bind="vm.clientAlarmsSinCalificar[0].address"></td>
+        <td ng-bind="vm.clientAlarmsSinCalificar[0].network"></td>
+      </tr>
+      </tbody>
+    </table>
+
+    <div class="col-md-8 col-md-offset-2 ">
+      <div style="margin-top: 10%" class="ec-stars-wrapper">
+        <a href="#" data-value="1" uib-tooltip="No me gustó en absoluto" ng-click="vm.getRating(1)">&#9733;</a>
+        <a href="#" data-value="2" uib-tooltip="No me gustó" ng-click="vm.getRating(2)">&#9733;</a>
+        <a href="#" data-value="3" uib-tooltip="Esta bien" ng-click="vm.getRating(3)">&#9733;</a>
+        <a href="#" data-value="4" uib-tooltip="Me gustó" ng-click="vm.getRating(4)">&#9733;</a>
+        <a href="#" data-value="5"  uib-tooltip="Me encantó" ng-click="vm.getRating(5)">&#9733;</a>
+      </div>
+      <noscript>Necesitas tener habilitado javascript para poder votar</noscript>
+    </div>
+      <div class="col-xs-8 col-xs-offset-2 col-sm-4 col-sm-offset-4">
+        <button type="submit" ng-show="vm.gotRating" onclick="myFunction()" class="btn btn-info" ng-click="vm.sendRating(vm.gotRating)">Calificar {{vm.gotRating ? vm.gotRating+' estrellas' : ''}}</button>
+      </div>
+
+  </div>
+  <div class="alert alert-warning text-center" ng-show="vm.clientAlarmsSinCalificar.length == 0 ">
+    <p>No posee pendientes por calificar</p>
+  </div>
+
+  <!-- The actual snackbar -->
+  <div id="snackbar">{{vm.message}}</div>
+</section>
+<script>
+  function myFunction() {
+    // Get the snackbar DIV
+    var x = document.getElementById("snackbar");
+
+    // Add the "show" class to DIV
+    x.className = "show";
+
+    // After 3 seconds, remove the show class from DIV
+    setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
+  }
+
+</script>

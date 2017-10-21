@@ -22,6 +22,14 @@
         data: {
           pageTitle: 'Alarms List'
         }
+      }).state('alarms.rating', {
+        url: '/rating',
+        templateUrl: '/modules/alarms/client/views/alarms-rating.client.view.html',
+        controller: 'AlarmsListController',
+        controllerAs: 'vm',
+        data: {
+          pageTitle: 'Alarms List'
+        }
       })
       .state('alarms.create', {
         url: '/create',
