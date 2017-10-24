@@ -351,14 +351,14 @@
         firebasetoken = data.filter(function (data) {
           return (data.userId.indexOf(alarm.user._id) >= 0);
         });
-
+/*
 
         firebasetokenNetwork = data.filter(function (data) {
           return (option === 2 && (data.userId.indexOf(vm.cancel_network[0].serviceUser) >= 0));
-        });
+        });*/
 
         alarm.firebasetoken = firebasetoken[0].token;
-        alarm.firebasetokenNetwork = firebasetokenNetwork[0].token;
+       // alarm.firebasetokenNetwork = firebasetokenNetwork[0].token;
 
         // Se actualiza la alarma (PUT)
         AlarmsService.update({ alarmId: alarm._id}, alarm);

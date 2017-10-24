@@ -15,10 +15,12 @@
     vm.alarmsCanceled = [];
     vm.alarmsAtendido = [];
     vm.alarmsCanceladoCliente = [];
+    vm.alarmsCanceladoUnidad = [];
 
     // Condicional para encontrar el organismo relacionado
     function me() {
       UsersService.query(function (data) {
+
         if (Authentication.user.roles[0] === 'user') {
           // El cliente logueado
           vm.client = data.filter(function (data) {
@@ -41,9 +43,30 @@
 
           });
         }
+        if (Authentication.user.roles[0] === 'organism') {
+          // El organismo logueado
+          vm.organism = data.filter(function (data) {
+            return (data.email.indexOf(Authentication.user.email) >= 0);
+          });
+        }
+
+        if (Authentication.user.roles[0] === 'operator') {
+
+          // El operador logueado
+          vm.operator = data.filter(function (data) {
+            return (data.email.indexOf(Authentication.user.email) >= 0);
+          });
+          // El organismo al que pertence el operador logueado
+          vm.organism = data.filter(function (data) {
+            return (data._id.indexOf(vm.operator[0].user._id) >= 0);
+          });
+          getMyAlarms(vm.organism[0]._id);
+        }
+
       });
     }
     me();
+
 
     // CALIFICACIÓN
 
@@ -100,7 +123,6 @@
       AlarmsService.query(function (data) {
 
         data.forEach(function(alarm) {
-
           if (alarm.organism === organism) {
             if (alarm.status === 'esperando') {
               vm.alarmsEsperando.push(alarm);

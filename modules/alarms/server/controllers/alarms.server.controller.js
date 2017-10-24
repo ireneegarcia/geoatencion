@@ -127,25 +127,6 @@ exports.update = function(req, res) {
         }
       };
 
-      messageNetwork = {
-        to: alarm.firebasetokenNetwork, // required fill with device token or topics
-        notification: {
-          title: 'Solicitud ' + alarm.status,
-          body: alarm.status
-        },
-        data: {
-          status: alarm.status
-        }
-      };
-
-      // callback style
-      fcm.send(messageNetwork, function(err, response) {
-        if (err) {
-          console.log("Something has gone wrong!"+ err.toString());
-        } else {
-          console.log("Successfully sent with response: ", response);
-        }
-      });
     }
 
     if (alarm.status === 'rechazado') {
