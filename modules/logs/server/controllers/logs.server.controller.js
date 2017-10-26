@@ -14,7 +14,8 @@ var path = require('path'),
  */
 exports.create = function(req, res) {
   var log = new Log(req.body);
-  log.user = req.user;
+  // log.user = req.user;
+  log.user = req.body.user;
 
   log.save(function(err) {
     if (err) {

@@ -14,7 +14,7 @@
       <div style="width: 32%" class="col-sm-3">
         <div class="rating-block">
           <h4>Calificación promedio de usuarios.</h4>
-          <h2 class="bold padding-bottom-7">{{vm.ratingAll/vm.rating}} <small>/ 5</small></h2>
+          <h2 class="bold padding-bottom-7" >{{vm.ratingAll/vm.rating ? vm.ratingAll/vm.rating : '0'}} <small>/ 5</small></h2>
 
           <button ng-show="vm.ratingAll/vm.rating>=1" type="button" class="btn btn-warning btn-sm" aria-label="Left Align">
             <span class="fa fa-star" aria-hidden="true"></span>
@@ -57,7 +57,7 @@
           </button>
         </div>
       </div>
-      <div style="margin-top: 17px;" class="col-sm-3">
+      <div class="col-sm-3">
         <h4>Desglose por calificación</h4>
         <div class="pull-left">
           <div class="pull-left" style="width:35px; line-height:1;">
@@ -164,7 +164,7 @@
         <div class="circle-tile ">
           <a href="#"><div class="circle-tile-heading orange"><i class="fa fa-users fa-fw fa-3x"></i></div></a>
           <div class="circle-tile-content orange">
-            <div class="circle-tile-description text-faded"> Cancelado</div>
+            <div class="circle-tile-description text-faded"> Cancelado-organismo</div>
             <div class="circle-tile-number text-faded ">{{vm.alarmsCancelado.length}}</div>
             <!--<a class="circle-tile-footer" href="#">More Info <i class="fa fa-chevron-circle-right"></i></a>-->
             <br/>
@@ -198,30 +198,6 @@
 
       <div class="col-md-3 column">
         <div class="circle-tile ">
-          <a href="#"><div class="circle-tile-heading purple"><i class="fa fa-users fa-fw fa-3x"></i></div></a>
-          <div class="circle-tile-content purple">
-            <div class="circle-tile-description text-faded"> Pendiente por calificación</div>
-            <div class="circle-tile-number text-faded ">{{vm.alarmsSinCalificar.length}}</div>
-            <br/>
-            <!--<a class="circle-tile-footer" href="#">More Info <i class="fa fa-chevron-circle-right"></i></a>-->
-          </div>
-        </div>
-      </div>
-
-      <div class="col-md-3 column">
-        <div class="circle-tile ">
-          <a href="#"><div class="circle-tile-heading pink"><i class="fa fa-users fa-fw fa-3x"></i></div></a>
-          <div class="circle-tile-content pink">
-            <div class="circle-tile-description text-faded"> Cancelado-unidad </div>
-            <div class="circle-tile-number text-faded ">{{vm.alarmsCanceladoCliente.length}}</div>
-            <!--<a class="circle-tile-footer" href="#">More Info <i class="fa fa-chevron-circle-right"></i></a>-->
-            <br/>
-          </div>
-        </div>
-      </div>
-
-      <div class="col-md-3 column">
-        <div class="circle-tile ">
           <a href="#"><div class="circle-tile-heading gray"><i class="fa fa-users fa-fw fa-3x"></i></div></a>
           <div class="circle-tile-content gray">
             <div class="circle-tile-description text-faded"> Atendidos </div>
@@ -232,6 +208,29 @@
         </div>
       </div>
 
+      <div class="col-md-3 column">
+        <div class="circle-tile ">
+          <a href="#"><div class="circle-tile-heading pink"><i class="fa fa-users fa-fw fa-3x"></i></div></a>
+          <div class="circle-tile-content pink">
+            <div class="circle-tile-description text-faded"> Calificados</div>
+            <div class="circle-tile-number text-faded ">{{vm.alarmsCalificado.length}}</div>
+            <br/>
+            <!--<a class="circle-tile-footer" href="#">More Info <i class="fa fa-chevron-circle-right"></i></a>-->
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-3 column">
+        <div class="circle-tile ">
+          <a href="#"><div class="circle-tile-heading purple"><i class="fa fa-users fa-fw fa-3x"></i></div></a>
+          <div class="circle-tile-content purple">
+            <div class="circle-tile-description text-faded"> Pendiente por calificación</div>
+            <div class="circle-tile-number text-faded ">{{vm.alarmsSinCalificar.length}}</div>
+            <br/>
+            <!--<a class="circle-tile-footer" href="#">More Info <i class="fa fa-chevron-circle-right"></i></a>-->
+          </div>
+        </div>
+      </div>
 
     </div>
   </div>
@@ -266,9 +265,9 @@
                   <br/>
                   <strong>Fecha de solicitud:</strong> {{log.created | date:'medium'}} -
                   <strong>Cliente: </strong> {{log.clientEmail}}
-                  <div style="display: inline-block" ng-show="log.operatorEmail">
+                  <!--<div style="display: inline-block" ng-show="log.operatorEmail">
                     <strong>- Operador: </strong>{{log.operatorEmail}} -
-                  </div>
+                  </div>-->
                   <strong>Acción: </strong> {{log.description}}
                   <br/><br/>
                 </li>
@@ -290,9 +289,9 @@
                   <br/>
                   <strong>Fecha de solicitud:</strong> {{log.created | date:'medium'}} -
                   <strong>Cliente: </strong> {{log.client}} -
-                  <div style="display: inline-block" ng-show="log.user.email">
+                  <!--<div style="display: inline-block" ng-show="log.user.email">
                     <strong>- Operador: </strong>{{log.user.email}} -
-                  </div>
+                  </div>-->
                   <strong>Acción: </strong> {{log.description}}
                   <br/><br/>
                 </li>
@@ -314,9 +313,9 @@
               <li ng-repeat="log in vm.logNetwork ">
                 <strong>Fecha de solicitud:</strong> {{log.created | date:'medium'}} -
                 <strong>Cliente: </strong> {{log.clientEmail}} -
-                <div style="display: inline-block" ng-show="log.operatorEmail">
+                <!--<div style="display: inline-block" ng-show="log.operatorEmail">
                   <strong>- Operador: </strong>{{log.operatorEmail}} -
-                </div>
+                </div>-->
                 <strong>Acción: </strong> {{log.description}}
               </li>
             </ul>
@@ -348,23 +347,4 @@
       </div>
     </div>
   </div>
-
-
-  <!--<div class="list-group">
-    <a ng-repeat="estadistica in vm.estadisticas"
-       ui-sref="estadisticas.view({ estadisticaId: estadistica._id })"
-       class="list-group-item">
-      <small class="list-group-item-text">
-        Posted on
-        <span ng-bind="estadistica.created | date:'mediumDate'"></span>
-        by
-        <span ng-if="estadistica.user" ng-bind="estadistica.user.displayName"></span>
-        <span ng-if="!estadistica.user">Deleted User</span>
-      </small>
-      <h4 class="list-group-item-heading" ng-bind="estadistica.name"></h4>
-    </a>
-  </div>
-  <div class="alert alert-warning text-center" ng-if="vm.estadisticas.$resolved && !vm.estadisticas.length">
-    No Estadisticas yet, why don't you <a ui-sref="estadisticas.create">create one</a>?
-  </div>-->
 </section>

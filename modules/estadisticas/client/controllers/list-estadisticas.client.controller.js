@@ -20,6 +20,7 @@
     vm.alarmsCanceladoCliente = [];
     vm.alarmsAtendido = [];
     vm.alarmsSinCalificar = [];
+    vm.alarmsCalificado = [];
     vm.ratingAll = 0;
     vm.rating = 0;
     vm.rating1 = 0;
@@ -95,6 +96,9 @@
             }
 
             if (alarm.status === 'atendido' && alarm.rating !== 'sin calificar') {
+
+              vm.alarmsCalificado.push(alarm);
+
               vm.rating += 1;
               vm.ratingAll += parseInt(alarm.rating, 10)
               // console.log(alarm.rating);

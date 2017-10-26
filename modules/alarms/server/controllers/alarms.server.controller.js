@@ -71,7 +71,7 @@ exports.update = function(req, res) {
   console.log('aja');
   console.log(body);
 
-  if (alarm.status !== 'atendido') {
+  if (alarm.status !== 'atendido' && alarm.status !== 'cancelado por la unidad') {
     if (alarm.status === 'en atencion') {
       message = {
         to: alarm.firebasetoken, // required fill with device token or topics

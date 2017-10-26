@@ -27,7 +27,6 @@
       alarm: '@_alarm',
       network: '@_network',
       client: '@_client',
-      user: '@_id',
       organism: '@_organism'
     }, {
       charge: {

@@ -134,9 +134,9 @@
               vm.alarmsCanceladoCliente.push(alarm);
             }
 
-            if (alarm.status === 'cancelado por la unidad') {
+            /* if (alarm.status === 'cancelado por la unidad') {
               vm.alarmsCanceladoUnidad.push(alarm);
-            }
+            }*/
 
             if (alarm.status === 'esperando' || alarm.status === 'en atencion') {
               vm.alarms.push(alarm);
@@ -229,11 +229,11 @@
 // Funcion para crear un nuevo registro (POST)
     function logServicePOST(description, alarm) {
       if (alarm.network === '') {
-        LogsServiceCreate.charge({ description: description, alarm: alarm._id, client: alarm.user._id, user: operator[0]._id, organism: vm.organism[0]._id}, function (data) {
+        LogsServiceCreate.charge({ description: description, alarm: alarm._id, client: alarm.user._id, organism: vm.organism[0]._id}, function (data) {
           // se realizo el post
         });
       } else {
-        LogsServiceCreate.charge({ description: description, alarm: alarm._id, network: alarm.network, client: alarm.user._id, user: operator[0]._id, organism: vm.organism[0]._id}, function (data) {
+        LogsServiceCreate.charge({ description: description, alarm: alarm._id, network: alarm.network, client: alarm.user._id, organism: vm.organism[0]._id}, function (data) {
           // se realizo el post
         });
       }
@@ -315,7 +315,7 @@
           alarm.status = 'rechazado';
           alarm.icon = '/modules/panels/client/img/deleted.png';
 
-          logText = 'La solicitud de atención ha sido rechazada';
+          logText = 'La solicitud de atención ha sido rechazada por el operador: ' + operator[0].displayName;
         }
       }
       // Cancelar
@@ -326,7 +326,7 @@
           alarm.status = 'cancelado por el operador';
           alarm.icon = '/modules/panels/client/img/canceled.png';
 
-          logText = 'La solicitud de atención ha sido cancelada';
+          logText = 'La solicitud de atención ha sido cancelada por el operador: ' + operator[0].displayName;
 
           // Se libera a la unidad de atención
           NetworksService.query(function (data) {

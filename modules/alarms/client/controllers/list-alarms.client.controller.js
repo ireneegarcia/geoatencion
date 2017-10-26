@@ -15,7 +15,7 @@
     vm.alarmsCanceled = [];
     vm.alarmsAtendido = [];
     vm.alarmsCanceladoCliente = [];
-    vm.alarmsCanceladoUnidad = [];
+    // vm.alarmsCanceladoUnidad = [];
 
     // Condicional para encontrar el organismo relacionado
     function me() {
@@ -148,9 +148,9 @@
               vm.alarmsCanceladoCliente.push(alarm);
             }
 
-            if (alarm.status === 'cancelado por la unidad') {
+            /* if (alarm.status === 'cancelado por la unidad') {
               vm.alarmsCanceladoUnidad.push(alarm);
-            }
+            }*/
           }
         });
 

@@ -134,6 +134,7 @@ exports.newPosition = function(req, res) {
   var data = {
     latitude: req.body.lat,
     longitude: req.body.lng,
+    address: req.body.address,
     location: {
       type: 'Point',
       coordinates: [parseFloat(req.body.lng), parseFloat(req.body.lat)]

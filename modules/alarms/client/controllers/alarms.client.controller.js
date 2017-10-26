@@ -45,6 +45,7 @@
           }
         }
       });
+      console.log(vm.log);
     });
 
     // Condicional para encontrar el organismo relacionado
@@ -140,11 +141,11 @@
 
     function logServicePOST(description) {
       if (vm.alarm.network === '') {
-        LogsServiceCreate.charge({ description: description, alarm: vm.alarm._id, client: vm.alarm.user._id, user: operator[0]._id, organism: vm.organism[0]._id}, function (data) {
+        LogsServiceCreate.charge({ description: description, alarm: vm.alarm._id, client: vm.alarm.user._id, organism: vm.organism[0]._id}, function (data) {
           // se realizo el post
         });
       } else {
-        LogsServiceCreate.charge({ description: description, alarm: vm.alarm._id, network: vm.alarm.network, client: vm.alarm.user._id, user: operator[0]._id, organism: vm.organism[0]._id}, function (data) {
+        LogsServiceCreate.charge({ description: description, alarm: vm.alarm._id, network: vm.alarm.network, client: vm.alarm.user._id, organism: vm.organism[0]._id}, function (data) {
           // se realizo el post
         });
       }
@@ -169,7 +170,7 @@
           // Se cambia status
           alarm.status = 'rechazado';
           alarm.icon = '/modules/panels/client/img/deleted.png';
-          logText = 'La solicitud de atención ha sido rechazada';
+          logText = 'La solicitud de atención ha sido rechazada por el operador: ' + operator[0].displayName;
         }
       }
 
@@ -180,7 +181,7 @@
           alarm.status = 'cancelado por el operador';
           alarm.icon = '/modules/panels/client/img/canceled.png';
 
-          logText = 'La solicitud de atención ha sido cancelada';
+          logText = 'La solicitud de atención ha sido cancelada por el operador: ' + operator[0].displayName;
 
           // Se libera a la unidad de atención
           NetworksService.query(function (data) {
@@ -204,18 +205,18 @@
           return (data.userId.indexOf(vm.alarm.user._id) >= 0);
         });
 
-        firebasetokenNetwork = data.filter(function (data) {
+        /* firebasetokenNetwork = data.filter(function (data) {
           return (option === 2 && (data.userId.indexOf(vm.cancel_network[0].serviceUser) >= 0));
         });
-
-        alarm.firebasetokenNetwork = firebasetokenNetwork[0].token;
+*/
+        /* alarm.firebasetokenNetwork = firebasetokenNetwork[0].token;*/
         alarm.firebasetoken = firebasetoken[0].token;
 
         // Se actualiza la alarma (PUT)
         AlarmsService.update({alarmId: alarm._id}, alarm);
 
         // Se registra en el log
-        logServicePOST('La solicitud de atención ha sido rechazada');
+        logServicePOST(logText);
 
       });
     }
