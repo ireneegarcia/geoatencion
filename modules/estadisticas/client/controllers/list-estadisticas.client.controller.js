@@ -199,10 +199,15 @@
               vm.logClient = data.filter(function (data) {
                 return (data.client.indexOf(user._id) >= 0);
               });
+              vm.logClient.user = user.displayName;
+              vm.logClient.tamano = vm.logClient.length;
+              console.log(vm.logClient.tamano);
             });
+
           }
         });
       });
+
     };
 
     // Log por network
@@ -227,12 +232,14 @@
                 if (user._id.indexOf(log.client) >= 0) {
                   log.clientEmail = user.email;
                 }
-                if (user._id.indexOf(log.user._id) >= 0) {
-                  log.operatorEmail = user.email;
+
+                if (user._id.indexOf(vm.networkSearch[0].serviceUser) >= 0) {
+                  vm.networkSearch[0].serviceUser = user.displayName;
                 }
               });
             });
             vm.logNetwork.push(log);
+            console.log(vm.logNetwork);
           }
         });
       });

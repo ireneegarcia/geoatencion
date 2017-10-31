@@ -16,19 +16,21 @@
   <table class="table table-hover">
     <thead>
     <tr>
-      <th>Code</th>
-      <th>Categoría</th>
-      <th>Responsable</th>
-      <th>Status</th>
+      <th class="text-center" >Code</th>
+      <th class="text-center" >Categoría</th>
+      <th class="text-center" >Responsable</th>
+      <th class="text-center" >Status</th>
+      <th class="text-center">Ubicación</th>
       <th class="text-right">Ver detalle</th>
     </tr>
     </thead>
     <tbody>
     <tr ng-repeat="network in vm.pagedItems" ui-sref="networks.view({ networkId: network._id })">
-      <td ng-bind="network.carCode"></td>
-      <td ng-repeat="option in vm.categories" ng-if="network.category === option.id">{{option.name}}</td>
-      <td ng-bind="network.serviceUserEmail"></td>
-      <td ng-bind="network.status"></td>
+      <td class="text-center" ng-bind="network.carCode"></td>
+      <td class="text-center" ng-repeat="option in vm.categories" ng-if="network.category === option.id">{{option.name}}</td>
+      <td class="text-center" ng-bind="network.serviceUserEmail"></td>
+      <td class="text-center" ng-bind="network.status"></td>
+      <td class="text-center" ng-bind="'('+network.longitude + ',' + network.longitude+')'"></td>
       <td class="td-actions text-right">
         <button ui-sref="networks.view({ networkId: network._id })" type="button" rel="tooltip" title="Detalle" class="btn btn-success btn-simple btn-xs">
           <i class="fa fa-edit"></i>

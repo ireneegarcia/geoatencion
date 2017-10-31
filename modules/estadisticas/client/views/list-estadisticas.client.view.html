@@ -259,19 +259,24 @@
         <div class="tab-pane active" id="organismo">
           <div class="scrollbar-log" id="style-6">
             <div class="force-overflow">
-              <ul>
-                <li ng-repeat="log in vm.log ">
-                  {{log._id}}
-                  <br/>
-                  <strong>Fecha de solicitud:</strong> {{log.created | date:'medium'}} -
-                  <strong>Cliente: </strong> {{log.clientEmail}}
-                  <!--<div style="display: inline-block" ng-show="log.operatorEmail">
-                    <strong>- Operador: </strong>{{log.operatorEmail}} -
-                  </div>-->
-                  <strong>Acción: </strong> {{log.description}}
-                  <br/><br/>
-                </li>
-              </ul>
+              <table ng-show="vm.log" class="table table-hover">
+                <thead>
+                <tr>
+                  <th>Identificador</th>
+                  <th>Fecha</th>
+                  <th>Cliente</th>
+                  <th>Descripción</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="log in vm.log">
+                  <td>{{log._id}}</td>
+                  <td>{{log.created | date:'medium'}}</td>
+                  <td>{{log.clientEmail}}</td>
+                  <td>{{log.description}}</td>
+                </tr>
+                </tbody>
+              </table>
             </div>
           </div>
         </div>
@@ -283,19 +288,34 @@
                 <input  style="margin:0px 10px 0px 10px; width: 50%; display: inline-block" ng-model="userEmail" type="text" class="form-control" required>
                 <button style="display: inline-block" ng-click="vm.searchUser(userEmail)" class="btn btn-info">Consultar</button>
               </div>
-              <ul>
-                <li ng-repeat="log in vm.logClient ">
-                  {{log._id}}
+
+              <ul ng-show="vm.logClient">
+                <li>
+                  <strong> Nombre del cliente: </strong>{{vm.logClient.user}}
                   <br/>
-                  <strong>Fecha de solicitud:</strong> {{log.created | date:'medium'}} -
-                  <strong>Cliente: </strong> {{log.client}} -
-                  <!--<div style="display: inline-block" ng-show="log.user.email">
-                    <strong>- Operador: </strong>{{log.user.email}} -
-                  </div>-->
-                  <strong>Acción: </strong> {{log.description}}
-                  <br/><br/>
                 </li>
+                <li>
+                  <strong> Último registro: </strong>{{vm.logClient[vm.logClient.tamano-1].description}}, {{vm.logClient[vm.logClient.tamano-1].created | date:'medium'}}
+                </li>
+                <br/>
               </ul>
+
+              <table ng-show="vm.logClient" class="table table-hover">
+                <thead>
+                <tr>
+                  <th>Identificador</th>
+                  <th>Fecha</th>
+                  <th>Acción</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="log in vm.logClient">
+                  <td>{{log._id}}</td>
+                  <td>{{log.created | date:'medium'}}</td>
+                  <td>{{log.description}}</td>
+                </tr>
+                </tbody>
+              </table>
             </div>
           </div>
         </div>
@@ -306,19 +326,33 @@
               <input  style="margin:0px 10px 0px 10px; width: 50%; display: inline-block" ng-model="networkID" type="text" class="form-control" required>
               <button style="display: inline-block" ng-click="vm.searchNetwork(networkID)" class="btn btn-info">Consultar</button>
             </div>
-            <ul>
-              <li ng-show="vm.networkSearch">
-                <strong>Fecha de registro de la unidad:</strong> {{vm.networkSearch[0].created | date:'medium'}}
+            <ul ng-show="vm.networkSearch">
+              <li>
+                <strong> Fecha registro de la unidad: </strong>{{vm.networkSearch[0].created | date:'medium'}}
+                <br/>
               </li>
-              <li ng-repeat="log in vm.logNetwork ">
-                <strong>Fecha de solicitud:</strong> {{log.created | date:'medium'}} -
-                <strong>Cliente: </strong> {{log.clientEmail}} -
-                <!--<div style="display: inline-block" ng-show="log.operatorEmail">
-                  <strong>- Operador: </strong>{{log.operatorEmail}} -
-                </div>-->
-                <strong>Acción: </strong> {{log.description}}
+              <li>
+                <strong> Responsable actualmente: </strong>{{vm.networkSearch[0].serviceUser}}
+                <br/>
               </li>
             </ul>
+
+            <table ng-show="vm.logNetwork.length != 0" class="table table-hover">
+              <thead>
+              <tr>
+                <th>Fecha</th>
+                <th>Cliente</th>
+                <th>Acción</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr ng-repeat="log in vm.logNetwork">
+                <td>{{log.created | date:'medium'}}</td>
+                <td>{{log.clientEmail}}</td>
+                <td>{{log.description}}</td>
+              </tr>
+              </tbody>
+            </table>
           </div>
         </div>
         <div class="tab-pane" id="periodo">

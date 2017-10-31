@@ -360,6 +360,7 @@
         alarm.firebasetoken = firebasetoken[0].token;
        // alarm.firebasetokenNetwork = firebasetokenNetwork[0].token;
 
+        console.log(alarm);
         // Se actualiza la alarma (PUT)
         AlarmsService.update({ alarmId: alarm._id}, alarm);
 
