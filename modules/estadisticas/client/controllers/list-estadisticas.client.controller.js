@@ -5,9 +5,9 @@
     .module('estadisticas')
     .controller('EstadisticasListController', EstadisticasListController);
 
-  EstadisticasListController.$inject = ['EstadisticasService', 'AlarmsService', 'LogsService', 'UsersService', 'Authentication', 'NetworksService', 'SolicitudsService'];
+  EstadisticasListController.$inject = ['$filter', 'EstadisticasService', 'AlarmsService', 'LogsService', 'UsersService', 'Authentication', 'NetworksService', 'SolicitudsService'];
 
-  function EstadisticasListController(EstadisticasService, AlarmsService, LogsService, UsersService, Authentication, NetworksService, SolicitudsService) {
+  function EstadisticasListController($filter, EstadisticasService, AlarmsService, LogsService, UsersService, Authentication, NetworksService, SolicitudsService) {
     var vm = this;
     var operator;
     var usuarioID;
@@ -197,13 +197,11 @@
             // Log
             LogsService.query(function (data) {
               vm.logClient = data.filter(function (data) {
-                return (data.client.indexOf(user._id) >= 0);
+                return (data.client.indexOf(user._id) >= 0 && data.organism.indexOf(vm.organism[0]._id) >= 0);
               });
               vm.logClient.user = user.displayName;
               vm.logClient.tamano = vm.logClient.length;
-              console.log(vm.logClient.tamano);
             });
-
           }
         });
       });
@@ -239,10 +237,77 @@
               });
             });
             vm.logNetwork.push(log);
-            console.log(vm.logNetwork);
           }
         });
       });
+    };
+
+    vm.searchLog = function (date) {
+
+      var today = $filter('date')(new Date(), 'yyyy-MM-dd');
+      var yearToday = today.substring(0, 4);
+      var monthToday = today.substring(5, 7);
+      var dayToday = today.substring(8, 10);
+      /* console.log('Hoy');
+      console.log(today);
+      console.log(yearToday);
+      console.log(monthToday);
+      console.log(dayToday);*/
+
+      vm.logPeriod = [];
+
+      LogsService.query(function (data) {
+        data.forEach(function(log) {
+
+          if (date) {
+            if (log.organism.indexOf(vm.organism[0]._id) >= 0) {
+              // console.log('De este organismo');
+              // console.log(today);
+              var created = $filter('date')(log.created, 'yyyy-MM-dd');
+              var yearCreated = created.substring(0, 4);
+              var monthCreated = created.substring(5, 7);
+              var dayCreated = created.substring(8, 10);
+
+              /* console.log('Creado');
+              console.log(created);
+              console.log(yearCreated);
+              console.log(monthCreated);
+              console.log(dayCreated);*/
+
+              switch (date) {
+                case '1':
+                  if (yearCreated === yearToday && monthCreated === monthToday && dayCreated === dayToday) {
+                    vm.logPeriod.push(log);
+                  }
+                  break;
+                case '2':
+                  var difference = dayToday - 6;
+                  if (yearCreated === yearToday && monthCreated === monthToday && (dayCreated <= dayToday && dayCreated >= difference)) {
+                    vm.logPeriod.push(log);
+                  }
+                  break;
+                case '3':
+                  if (yearCreated === yearToday && monthCreated === monthToday) {
+                    vm.logPeriod.push(log);
+                  }
+                  break;
+                case '4':
+                  if (yearCreated === yearToday && monthCreated === monthToday - 1) {
+                    vm.logPeriod.push(log);
+                  }
+                  break;
+                default:
+                  console.log('Error');
+              }
+            }
+          } else {
+            console.log('error');
+          }
+
+        });
+        console.log(vm.logPeriod);
+      });
+
     };
 
   }

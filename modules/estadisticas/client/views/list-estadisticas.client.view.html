@@ -286,7 +286,7 @@
               <div style="margin: 0px 40px 0px 20px" class="form-group has-info">
                 <label class="control-label">Por favor indique el email del usuario cliente a consultar: </label>
                 <input  style="margin:0px 10px 0px 10px; width: 50%; display: inline-block" ng-model="userEmail" type="text" class="form-control" required>
-                <button style="display: inline-block" ng-click="vm.searchUser(userEmail)" class="btn btn-info">Consultar</button>
+                <button style="display: inline-block" ng-click="vm.searchUser(userEmail)" class="btn btn-sm btn-info">Consultar</button>
               </div>
 
               <ul ng-show="vm.logClient">
@@ -324,7 +324,7 @@
             <div style="margin: 0px 40px 0px 20px" class="form-group has-info">
               <label class="control-label">Por favor indique el código identificador de la unidad de atención a consultar: </label>
               <input  style="margin:0px 10px 0px 10px; width: 50%; display: inline-block" ng-model="networkID" type="text" class="form-control" required>
-              <button style="display: inline-block" ng-click="vm.searchNetwork(networkID)" class="btn btn-info">Consultar</button>
+              <button style="display: inline-block" ng-click="vm.searchNetwork(networkID)" class="btn btn-sm btn-info">Consultar</button>
             </div>
             <ul ng-show="vm.networkSearch">
               <li>
@@ -356,7 +356,42 @@
           </div>
         </div>
         <div class="tab-pane" id="periodo">
-          <p> PEDROOOOOOOOOOOOOI think that’s a responsibility that I have, to push possibilities, to show people, this is the level that things could be at. I will be the leader of a company that ends up being worth billions of dollars, because I got the answers. I understand culture. I am the nucleus. I think that’s a responsibility that I have, to push possibilities, to show people, this is the level that things could be at.</p>
+          <div class="force-overflow">
+
+            <div class="col-md-4">
+
+            </div>
+            <div class="col-md-2">
+              <select ng-model="date" class="form-control">
+                <option value="{{1}}" selected>Hoy</option>
+                <option value="{{2}}">Los últimos 7 días</option>
+                <option value="{{3}}">Este mes</option>
+                <option value="{{4}}">El mes pasado</option>
+              </select>
+            </div>
+            <div class="col-md-2">
+              <button ng-click="vm.searchLog(date)" class="btn btn-sm btn-info">Consultar</button>
+            </div>
+
+            <table ng-show="vm.logPeriod.length" class="table table-hover">
+              <thead>
+              <tr>
+                <th>Identificador</th>
+                <th>Fecha</th>
+                <th>Acción</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr ng-repeat="log in vm.logPeriod">
+                <td>{{log._id}}</td>
+                <td>{{log.created | date:'medium'}}</td>
+                <td>{{log.description}}</td>
+              </tr>
+              </tbody>
+            </table>
+
+          </div>
+
         </div>
         <div class="tab-pane" id="networksAll">
           <ul>
