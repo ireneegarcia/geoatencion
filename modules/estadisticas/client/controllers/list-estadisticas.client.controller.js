@@ -18,6 +18,7 @@
     vm.alarmsRechazado = [];
     vm.alarmsCancelado = [];
     vm.alarmsCanceladoCliente = [];
+    vm.alarmsCanceladoUnidad = [];
     vm.alarmsAtendido = [];
     vm.alarmsSinCalificar = [];
     vm.alarmsCalificado = [];
@@ -85,6 +86,10 @@
 
             if (alarm.status === 'cancelado por el cliente') {
               vm.alarmsCanceladoCliente.push(alarm);
+            }
+
+            if (alarm.status === 'cancelado por la unidad') {
+              vm.alarmsCanceladoUnidad.push(alarm);
             }
 
             if (alarm.status === 'atendido') {

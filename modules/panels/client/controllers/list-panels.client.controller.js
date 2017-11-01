@@ -22,6 +22,7 @@
     vm.alarmsAtendido = [];
     vm.alarmsCanceladoCliente = [];
     vm.alarmsCanceladoOperator = [];
+    vm.alarmsCanceladoUnidad = [];
     vm.centerLatitude = 8.2593534;
     vm.centerLongitude = -62.7734547;
     var operator;
@@ -134,11 +135,17 @@
               vm.alarmsCanceladoCliente.push(alarm);
             }
 
-            /* if (alarm.status === 'cancelado por la unidad') {
+            if (alarm.status === 'cancelado por la unidad') {
               vm.alarmsCanceladoUnidad.push(alarm);
-            }*/
+            }
 
-            if (alarm.status === 'esperando' || alarm.status === 'en atencion') {
+            /* if (alarm.status === 'cancelado por la unidad') {
+             vm.alarmsCanceladoUnidad.push(alarm);
+             }*/
+
+            if (alarm.status === 'esperando' ||
+              alarm.status === 'en atencion' ||
+              alarm.status === 'cancelado por la unidad') {
               vm.alarms.push(alarm);
             }
           }
@@ -351,14 +358,14 @@
         firebasetoken = data.filter(function (data) {
           return (data.userId.indexOf(alarm.user._id) >= 0);
         });
-/*
+        /*
 
-        firebasetokenNetwork = data.filter(function (data) {
-          return (option === 2 && (data.userId.indexOf(vm.cancel_network[0].serviceUser) >= 0));
-        });*/
+         firebasetokenNetwork = data.filter(function (data) {
+         return (option === 2 && (data.userId.indexOf(vm.cancel_network[0].serviceUser) >= 0));
+         });*/
 
         alarm.firebasetoken = firebasetoken[0].token;
-       // alarm.firebasetokenNetwork = firebasetokenNetwork[0].token;
+        // alarm.firebasetokenNetwork = firebasetokenNetwork[0].token;
 
         console.log(alarm);
         // Se actualiza la alarma (PUT)

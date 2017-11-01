@@ -25,12 +25,7 @@
   </div>
   <small>
     <em class="text-muted">
-      Posted on
-      <span ng-bind="vm.alarm.created | date:'mediumDate'"></span>
-      by
-      <span ng-if="vm.alarm.user"
-            ng-bind="vm.alarm.user.displayName"></span>
-      <span ng-if="!vm.alarm.user">Deleted User</span>
+      Fecha de registro en el sistema: {{vm.alarm.created | date:'medium'}}
     </em>
   </small>
   </div>
@@ -49,9 +44,6 @@
           <div class="scrollbar-log" id="style-6">
             <div class="force-overflow">
               <ul>
-                <li>
-                  {{vm.alarm.created | date:'medium'}} (Fecha de registro en el sistema)
-                </li>
                 <li ng-repeat="log in vm.log ">
                   {{log.created | date:'medium'}} - <strong>Acción: </strong> {{log.description}}
                 </li>
