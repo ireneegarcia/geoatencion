@@ -1,59 +1,34 @@
 <section>
-  <div class="text-center title">
-    <h2>Linea de tiempo de atención </h2>
+  <div class="col-md-2">
     <br/>
+    <img src="/modules/core/client/img/brand/logo.png" width="200" alt="Geoatencion">
   </div>
-  <div style="height: 456px; overflow-y: scroll; overflow-x: hidden" id="style-6">
-    <div class="force-overflow">
-      <div class="container">
-        <div class="row">
-
-          <div  class="timeline-centered">
-
-
-            <article ng-repeat="alarm in vm.alarms" class="timeline-entry">
-              <div class="timeline-entry-inner">
-
-                <div ng-if="alarm.status === 'esperando'" class="timeline-icon bg-secondary">
-                  <i class="entypo-location"></i>
-                </div>
-                <div ng-if="alarm.status === 'en atencion'" class="timeline-icon bg-success">
-                  <i class="entypo-location"></i>
-                </div>
-                <div ng-if="alarm.status === 'rechazado'" class="timeline-icon bg-info">
-                  <i class="entypo-location"></i>
-                </div>
-
-                <div class="timeline-label">
-                  <h2><a href="#">{{alarm.user.displayName}} </a>
-                    <span>- {{alarm.created | date:'medium'}} - </span>
-                    <a ui-sref="alarms.view({ alarmId: alarm._id })">Más sobre esta alarma</a><br/>
-                  </h2>
-
-                  <div id="sample-checkin" class="map-checkin" style="height: 170px; overflow: hidden; ">
-                    <ng-map
-                      zoom="11"
-                      center="[{{alarm.latitude}},{{alarm.longitude}}]">
-
-                      <marker
-                        id='{{alarm._id}}'
-                        position="{{[alarm.latitude, alarm.longitude]}}"
-                        title="{{alarm.status}}"
-                        icon="{{alarm.icon}}">
-                      </marker>
-
-                    </ng-map>
-                  </div>
-                </div>
-              </div>
-            </article>
-
-          </div>
-
-
-        </div>
-      </div>
+  <div class="col-md-8">
+    <div class="text-center title">
+      <h2>{{vm.date}}</h2>
     </div>
   </div>
+  <br/>
 
+  <table ng-show="vm.logPeriod.length" class="table table-hover">
+    <thead>
+    <tr>
+      <th>Identificador</th>
+      <th>Fecha</th>
+      <th>Descripción</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr ng-repeat="log in vm.logPeriod">
+      <td>{{log._id}}</td>
+      <td>{{log.created | date:'medium'}}</td>
+      <td>{{log.description}}</td>
+    </tr>
+    </tbody>
+  </table>
+  <small>
+    <em class="text-muted">
+      Este reporte ha sido generado para la fecha del {{vm.today}}
+    </em>
+  </small>
 </section>

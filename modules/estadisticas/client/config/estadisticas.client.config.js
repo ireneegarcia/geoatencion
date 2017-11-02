@@ -24,8 +24,8 @@
 
     // Add the dropdown create item
     menuService.addSubMenuItem('topbar', 'estadisticas', {
-      title: 'Línea de tiempo',
-      state: 'estadisticas.timeline',
+      title: 'PDF',
+      state: 'estadisticas.pdf',
       roles: ['organism', 'operator']
     });
   }

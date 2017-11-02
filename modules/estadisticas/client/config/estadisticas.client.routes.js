@@ -23,10 +23,10 @@
           pageTitle: 'Estadisticas List'
         }
       })
-      .state('estadisticas.timeline', {
-        url: '/timeline',
+      .state('estadisticas.pdf', {
+        url: '/pdf',
         templateUrl: '/modules/estadisticas/client/views/form-estadistica.client.view.html',
-        controller: 'EstadisticasController',
+        controller: 'EstadisticasListController',
         controllerAs: 'vm',
         resolve: {
           estadisticaResolve: newEstadistica

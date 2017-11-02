@@ -253,11 +253,13 @@
       var yearToday = today.substring(0, 4);
       var monthToday = today.substring(5, 7);
       var dayToday = today.substring(8, 10);
+
+      vm.today = today;
       /* console.log('Hoy');
-      console.log(today);
-      console.log(yearToday);
-      console.log(monthToday);
-      console.log(dayToday);*/
+       console.log(today);
+       console.log(yearToday);
+       console.log(monthToday);
+       console.log(dayToday);*/
 
       vm.logPeriod = [];
 
@@ -274,31 +276,35 @@
               var dayCreated = created.substring(8, 10);
 
               /* console.log('Creado');
-              console.log(created);
-              console.log(yearCreated);
-              console.log(monthCreated);
-              console.log(dayCreated);*/
+               console.log(created);
+               console.log(yearCreated);
+               console.log(monthCreated);
+               console.log(dayCreated);*/
 
               switch (date) {
                 case '1':
                   if (yearCreated === yearToday && monthCreated === monthToday && dayCreated === dayToday) {
                     vm.logPeriod.push(log);
+                    vm.date = 'Estadística para el ' + today;
                   }
                   break;
                 case '2':
                   var difference = dayToday - 6;
                   if (yearCreated === yearToday && monthCreated === monthToday && (dayCreated <= dayToday && dayCreated >= difference)) {
                     vm.logPeriod.push(log);
+                    vm.date = 'Estadística de los últimos 7 días desde ' + today;
                   }
                   break;
                 case '3':
                   if (yearCreated === yearToday && monthCreated === monthToday) {
                     vm.logPeriod.push(log);
+                    vm.date = 'Estadística del mes ' + monthToday + ',' + yearToday;
                   }
                   break;
                 case '4':
                   if (yearCreated === yearToday && monthCreated === monthToday - 1) {
                     vm.logPeriod.push(log);
+                    vm.date = 'Estadística del mes ' + monthToday + ',' + yearToday;
                   }
                   break;
                 default:
