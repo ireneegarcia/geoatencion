@@ -10,14 +10,13 @@
   function menuConfig(menuService) {
     // Set top bar menu items
     menuService.addMenuItem('topbar', {
-      title: 'Mails',
-      state: 'mails',
-      type: 'dropdown',
-      roles: ['*']
+      title: 'Redactar correo',
+      state: 'mails.create',
+      roles: ['organism', 'operator']
     });
 
     // Add the dropdown list item
-    menuService.addSubMenuItem('topbar', 'mails', {
+   /* menuService.addSubMenuItem('topbar', 'mails', {
       title: 'List Mails',
       state: 'mails.list'
     });
@@ -27,6 +26,6 @@
       title: 'Redactar correo',
       state: 'mails.create',
       roles: ['organism', 'operator']
-    });
+    });*/
   }
 }());
