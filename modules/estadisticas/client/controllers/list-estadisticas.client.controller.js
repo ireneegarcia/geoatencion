@@ -329,7 +329,7 @@
               <tr>
                 <th>Identificador</th>
                 <th>Fecha</th>
-                <th>Descripción</th>
+                <th>Descripcion</th>
                 </tr>
             </thead>
             <tbody>
