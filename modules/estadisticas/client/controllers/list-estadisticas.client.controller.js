@@ -317,9 +317,40 @@
 
         });
         console.log(vm.logPeriod);
+        generateLogPeriodPdf();
       });
 
     };
+
+    function generateLogPeriodPdf() {
+      var header = `
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <th>Identificador</th>
+                <th>Fecha</th>
+                <th>Descripción</th>
+                </tr>
+            </thead>
+            <tbody>
+        `;
+      var rows = '';
+      vm.logPeriod.forEach(function (data) {
+        rows += `
+        <tr>
+          <td>${data._id}</td>
+          <td>${new Date(data.created).toLocaleDateString()} ${new Date(data.created).toLocaleTimeString()}</td>
+          <td>${data.description}</td>
+        </tr>
+        `;
+      });
+      var footer = '</tbody> </table>';
+      var html = header + rows + footer;
+      $('#drawTable').html(html);
+      window.kendo.drawing.drawDOM($('#drawTable')).then(function(group) {
+        window.kendo.drawing.pdf.saveAs(group, 'Period.pdf');
+      });
+    }
 
   }
 }());
