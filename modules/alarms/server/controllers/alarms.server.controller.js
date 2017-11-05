@@ -44,7 +44,7 @@ exports.read = function(req, res) {
   // convert mongoose document to JSON
   var alarm = req.alarm ? req.alarm.toJSON() : {};
 
-  // Add a custom field to the Article, for determining if the current User is the "owner".
+  // Add a custom field to the Article, for determining if the current User is the 'owner'.
   // NOTE: This field is NOT persisted to the database, since it doesn't exist in the Article model.
   alarm.isCurrentUserOwner = req.user && alarm.user && alarm.user._id.toString() === req.user._id.toString();
 
@@ -107,9 +107,9 @@ exports.update = function(req, res) {
       // callback style
       fcm.send(messageNetwork, function(err, response) {
         if (err) {
-          console.log("Something has gone wrong!"+ err.toString());
+          console.log('Something has gone wrong!', err.toString());
         } else {
-          console.log("Successfully sent with response: ", response);
+          console.log('Successfully sent with response: ', response);
         }
       });
     }
@@ -144,9 +144,9 @@ exports.update = function(req, res) {
 
     fcm.send(message, function(err, response) {
       if (err) {
-        console.log("Something has gone wrong!");
+        console.log('Something has gone wrong!');
       } else {
-        console.log("Successfully sent with response: ", response);
+        console.log('Successfully sent with response: ', response);
       }
     });
   }

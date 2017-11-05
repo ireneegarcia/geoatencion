@@ -105,7 +105,7 @@
               vm.alarmsCalificado.push(alarm);
 
               vm.rating += 1;
-              vm.ratingAll += parseInt(alarm.rating, 10)
+              vm.ratingAll += parseInt(alarm.rating, 10);
               // console.log(alarm.rating);
               switch (alarm.rating) {
                 case '1':
