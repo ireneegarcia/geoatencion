@@ -467,7 +467,9 @@
           }
         });
         window.kendo.drawing.pdf.saveAs(group, 'Period.pdf');
+
       });
+      $('#drawTable').css("display", "none");
     }
 
   }

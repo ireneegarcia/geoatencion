@@ -1,31 +1,7 @@
 <section>
-   <br/>
-    <img src="/modules/core/client/img/brand/logo.png" width="200" alt="Geoatencion">
+  <div style="font-size: 9px; font-family: Verdana;">
+    <div id="drawTable">
 
-    <div class="text-center title">
-      <h2>pedro</h2>
     </div>
-  <br/>
-
-  <table ng-show="vm.logPeriod.length" class="table table-hover">
-    <thead>
-    <tr>
-      <th>Identificador</th>
-      <th>Fecha</th>
-      <th>Descripción</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr ng-repeat="log in vm.logPeriod">
-      <td>{{log._id}}</td>
-      <td>{{log.created | date:'medium'}}</td>
-      <td>{{log.description}}</td>
-    </tr>
-    </tbody>
-  </table>
-  <small>
-    <em class="text-muted">
-      Este reporte ha sido generado para la fecha del {{vm.today}}
-    </em>
-  </small>
+  </div>
 </section>
