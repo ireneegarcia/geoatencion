@@ -182,6 +182,7 @@
           }
         });
       });
+      console.log(vm.log);
     }
 
     // Log de todos los networks del organismo

@@ -236,11 +236,20 @@
 // Funcion para crear un nuevo registro (POST)
     function logServicePOST(description, alarm) {
       if (alarm.network === '') {
-        LogsServiceCreate.charge({ description: description, alarm: alarm._id, client: alarm.user._id, organism: vm.organism[0]._id}, function (data) {
+        LogsServiceCreate.charge({
+          description: description,
+          alarm: alarm._id,
+          client: alarm.user._id,
+          organism: vm.organism[0]._id}, function (data) {
           // se realizo el post
         });
       } else {
-        LogsServiceCreate.charge({ description: description, alarm: alarm._id, network: alarm.network, client: alarm.user._id, organism: vm.organism[0]._id}, function (data) {
+        LogsServiceCreate.charge({
+          description: description,
+          alarm: alarm._id,
+          network: alarm.network,
+          client: alarm.user._id,
+          organism: vm.organism[0]._id}, function (data) {
           // se realizo el post
         });
       }
@@ -284,7 +293,9 @@
           networkServicePUT('ocupado', vm.new_alarm.networkNear.obj._id);
 
           // se registra en el log
-          logServicePOST('Se ha asignado la unidad: ' + vm.new_alarm.networkNear.obj.carCode + ' exitosamente', vm.new_alarm);
+          logServicePOST('Se ha asignado exitosamente la unidad: ' + vm.new_alarm.networkNear.obj.carCode +
+            ' a la solicitud de atención: ' + vm.new_alarm._id +
+            ' del cliente ' + vm.new_alarm.user.displayName, vm.new_alarm);
 
           // Se encuentra la unidad
           NetworksService.query(function (data) {
@@ -322,7 +333,9 @@
           alarm.status = 'rechazado';
           alarm.icon = '/modules/panels/client/img/deleted.png';
 
-          logText = 'La solicitud de atención ha sido rechazada por el operador: ' + operator[0].displayName;
+          logText = 'Ha sido rechazada la solicitud de atención: ' + alarm._id +
+            ' del cliente: ' + alarm.user.displayName +
+            ', por el operador: ' + operator[0].displayName;
         }
       }
       // Cancelar
@@ -333,7 +346,9 @@
           alarm.status = 'cancelado por el operador';
           alarm.icon = '/modules/panels/client/img/canceled.png';
 
-          logText = 'La solicitud de atención ha sido cancelada por el operador: ' + operator[0].displayName;
+          logText = 'Ha sido cancelada la solicitud de atención: ' + alarm._id +
+            ' del cliente: ' + alarm.user.displayName +
+            ', por el operador: ' + operator[0].displayName;
 
           // Se libera a la unidad de atención
           NetworksService.query(function (data) {
@@ -367,7 +382,6 @@
         alarm.firebasetoken = firebasetoken[0].token;
         // alarm.firebasetokenNetwork = firebasetokenNetwork[0].token;
 
-        console.log(alarm);
         // Se actualiza la alarma (PUT)
         AlarmsService.update({ alarmId: alarm._id}, alarm);
 

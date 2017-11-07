@@ -264,7 +264,6 @@
                 <tr>
                   <th>Identificador</th>
                   <th style="width: 178px;">Fecha</th>
-                  <th>Cliente</th>
                   <th>Descripción</th>
                 </tr>
                 </thead>
@@ -272,7 +271,6 @@
                 <tr ng-repeat="log in vm.log">
                   <td>{{log._id}}</td>
                   <td>{{log.created | date:'medium'}}</td>
-                  <td>{{log.clientEmail}}</td>
                   <td>{{log.description}}</td>
                 </tr>
                 </tbody>
@@ -304,7 +302,7 @@
                 <thead>
                 <tr>
                   <th>Identificador</th>
-                  <th>Fecha</th>
+                  <th style="width: 178px;">Fecha</th>
                   <th>Descripción</th>
                 </tr>
                 </thead>
@@ -341,14 +339,12 @@
               <thead>
               <tr>
                 <th>Fecha</th>
-                <th>Cliente</th>
                 <th>Acción</th>
               </tr>
               </thead>
               <tbody>
               <tr ng-repeat="log in vm.logNetwork">
                 <td>{{log.created | date:'medium'}}</td>
-                <td>{{log.clientEmail}}</td>
                 <td>{{log.description}}</td>
               </tr>
               </tbody>
@@ -407,7 +403,8 @@
               <ul>
                 <li>
                   <strong>Status:</strong> {{network.status}} -
-                  <strong>Ubiación:</strong> ({{network.latitude}} , {{network.longitude}})
+                  <strong>Coordenadas GPS:</strong> ({{network.latitude}} , {{network.longitude}}) -
+                  <strong>Dirección:</strong> {{network.address}}
                 </li>
               </ul>
 

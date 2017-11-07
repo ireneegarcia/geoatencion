@@ -141,11 +141,20 @@
 
     function logServicePOST(description) {
       if (vm.alarm.network === '') {
-        LogsServiceCreate.charge({ description: description, alarm: vm.alarm._id, client: vm.alarm.user._id, organism: vm.organism[0]._id}, function (data) {
+        LogsServiceCreate.charge({
+          description: description,
+          alarm: vm.alarm._id,
+          client: vm.alarm.user._id,
+          organism: vm.organism[0]._id}, function (data) {
           // se realizo el post
         });
       } else {
-        LogsServiceCreate.charge({ description: description, alarm: vm.alarm._id, network: vm.alarm.network, client: vm.alarm.user._id, organism: vm.organism[0]._id}, function (data) {
+        LogsServiceCreate.charge({
+          description: description,
+          alarm: vm.alarm._id,
+          network: vm.alarm.network,
+          client: vm.alarm.user._id,
+          organism: vm.organism[0]._id}, function (data) {
           // se realizo el post
         });
       }
@@ -170,7 +179,9 @@
           // Se cambia status
           alarm.status = 'rechazado';
           alarm.icon = '/modules/panels/client/img/deleted.png';
-          logText = 'La solicitud de atención ha sido rechazada por el operador: ' + operator[0].displayName;
+          logText = 'Ha sido rechazada la solicitud de atención: ' + alarm._id +
+            ' del cliente: ' + vm.user[0].displayName +
+            ', por el operador: ' + operator[0].displayName;
         }
       }
 
@@ -181,7 +192,9 @@
           alarm.status = 'cancelado por el operador';
           alarm.icon = '/modules/panels/client/img/canceled.png';
 
-          logText = 'La solicitud de atención ha sido cancelada por el operador: ' + operator[0].displayName;
+          logText = 'Ha sido cancelada la solicitud de atención: ' + alarm._id +
+            ' del cliente: ' + vm.user[0].displayName +
+            ', por el operador: ' + operator[0].displayName;
 
           // Se libera a la unidad de atención
           NetworksService.query(function (data) {
@@ -206,9 +219,9 @@
         });
 
         /* firebasetokenNetwork = data.filter(function (data) {
-          return (option === 2 && (data.userId.indexOf(vm.cancel_network[0].serviceUser) >= 0));
-        });
-*/
+         return (option === 2 && (data.userId.indexOf(vm.cancel_network[0].serviceUser) >= 0));
+         });
+         */
         /* alarm.firebasetokenNetwork = firebasetokenNetwork[0].token;*/
         alarm.firebasetoken = firebasetoken[0].token;
 
@@ -274,7 +287,9 @@
             networkServicePUT('ocupado', vm.alarm.network);
 
             // se hace registra en el log
-            logServicePOST('Se ha asignado la unidad: ' + networkSelected[0].carCode + ' exitosamente');
+            logServicePOST('Se ha asignado exitosamente la unidad: ' + networkSelected[0].carCode +
+              ' a la solicitud de atención: ' + vm.alarm._id +
+              ' del cliente: ' + vm.user[0].displayName);
 
             // Se actualiza (PUT)
             vm.alarm.$update(successCallback, errorCallback);
