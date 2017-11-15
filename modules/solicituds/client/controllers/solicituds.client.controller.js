@@ -6,9 +6,9 @@
     .module('solicituds')
     .controller('SolicitudsController', SolicitudsController);
 
-  SolicitudsController.$inject = ['$scope', '$filter', '$state', '$window', 'Authentication', 'solicitudResolve', 'CategoriaserviciosService', 'UsersService', 'FormulariosService'];
+  SolicitudsController.$inject = ['$scope', '$filter', '$state', '$window', 'Authentication', 'solicitudResolve', 'CategoriaserviciosService', 'UsersService', 'FormulariosService', 'OrganismsService'];
 
-  function SolicitudsController ($scope, $filter, $state, $window, Authentication, solicitud, CategoriaserviciosService, UsersService, FormulariosService) {
+  function SolicitudsController ($scope, $filter, $state, $window, Authentication, solicitud, CategoriaserviciosService, UsersService, FormulariosService, OrganismsService) {
     var vm = this;
 
     vm.authentication = Authentication;
@@ -26,8 +26,12 @@
       });
     });
 
-    vm.organism = UsersService.query(function (data) {
-      vm.organism = $filter('filter')(data, { roles: 'organism'});
+    OrganismsService.query(function (data) {
+      // Organismos
+
+      vm.organism = data.filter(function (data) {
+        return (data.isActive.indexOf('activo') >= 0);
+      });
     });
 
     FormulariosService.query({}).$promise.then(function (res) {

@@ -73,8 +73,8 @@
           pageTitle: 'Signup'
         }
       })
-      .state('authentication.signup-organism', {
-        url: '/signup-organism',
+      .state('authentication.signup-admin-organism', {
+        url: '/signup-admin-organism',
         templateUrl: '/modules/users/client/views/authentication/signup.organism.view.html',
         controller: 'AuthenticationController',
         controllerAs: 'vm',

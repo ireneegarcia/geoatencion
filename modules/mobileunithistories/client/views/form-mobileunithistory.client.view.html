@@ -1,0 +1,24 @@
+<section>
+  <div class="page-header">
+    <h1>{{vm.mobileunithistory._id ? 'Edit Mobileunithistory' : 'New Mobileunithistory'}}</h1>
+  </div>
+  <div class="col-md-12">
+    <form name="vm.form.mobileunithistoryForm" class="form-horizontal" ng-submit="vm.save(vm.form.mobileunithistoryForm.$valid)" novalidate>
+      <fieldset>
+        <div class="form-group" show-errors>
+          <label class="control-label" for="name">Name</label>
+          <input name="name" type="text" ng-model="vm.mobileunithistory.name" id="name" class="form-control" placeholder="Name" required>
+          <div ng-messages="vm.form.mobileunithistoryForm.name.$error" role="alert">
+            <p class="help-block error-text" ng-message="required">Mobileunithistory name is required.</p>
+          </div>
+        </div>
+        <div class="form-group">
+          <button type="submit" class="btn btn-default">{{vm.mobileunithistory._id ? 'Update' : 'Create'}}</button>
+        </div>
+        <div ng-show="vm.error" class="text-danger">
+          <strong ng-bind="vm.error"></strong>
+        </div>
+      </fieldset>
+    </form>
+  </div>
+</section>

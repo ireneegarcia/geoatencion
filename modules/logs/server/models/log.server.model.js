@@ -40,4 +40,4 @@ var LogSchema = new Schema({
   }
 });
 
-mongoose.model('Log', LogSchema);
+mongoose.model('serviceRequestLog', LogSchema);

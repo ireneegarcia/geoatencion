@@ -102,4 +102,4 @@ var NetworkSchema = new Schema({
   }
 });
 
-mongoose.model('Network', NetworkSchema);
+mongoose.model('mobileUnit', NetworkSchema);

@@ -19,6 +19,15 @@
           pageTitle: 'Users List'
         }
       })
+      .state('admin.organism', {
+        url: '/organism',
+        templateUrl: '/modules/users/client/views/admin/list-usersAdmin.client.view.html',
+        controller: 'UserAdminListController',
+        controllerAs: 'vm',
+        data: {
+          pageTitle: 'Users List'
+        }
+      })
       .state('admin.user', {
         url: '/users/:userId',
         templateUrl: '/modules/users/client/views/admin/view-user.client.view.html',

@@ -5,9 +5,9 @@
     .module('users')
     .controller('AuthenticationController', AuthenticationController);
 
-  AuthenticationController.$inject = ['$scope', '$state', 'UsersService', '$location', '$window', 'Authentication', 'PasswordValidator', 'Notification'];
+  AuthenticationController.$inject = ['$scope', '$state', 'UsersService', '$location', '$window', 'Authentication', 'PasswordValidator', 'Notification', 'OrganismsService'];
 
-  function AuthenticationController($scope, $state, UsersService, $location, $window, Authentication, PasswordValidator, Notification) {
+  function AuthenticationController($scope, $state, UsersService, $location, $window, Authentication, PasswordValidator, Notification, OrganismsService) {
     var vm = this;
 
     vm.authentication = Authentication;
@@ -29,16 +29,32 @@
 
     function signup(isValid) {
 
-      console.log(isValid);
       if (!isValid) {
         $scope.$broadcast('show-errors-check-validity', 'vm.userForm');
 
         return false;
       }
 
-      UsersService.userSignup(vm.credentials)
-        .then(onUserSignupSuccess)
-        .catch(onUserSignupError);
+      console.log(vm.credentials.organism);
+      if (vm.credentials.organism !== undefined) {
+        // se busca el organismo
+        OrganismsService.query(function (data) {
+          // Datos del usuario
+          vm.organism = data.filter(function (data) {
+            return (data.rif.indexOf(vm.credentials.organism) >= 0);
+          });
+          vm.credentials.organism = vm.organism[0]._id;
+          UsersService.userSignup(vm.credentials)
+            .then(onUserSignupSuccess)
+            .catch(onUserSignupError);
+        });
+
+      } else {
+        UsersService.userSignup(vm.credentials)
+          .then(onUserSignupSuccess)
+          .catch(onUserSignupError);
+      }
+
     }
 
     function signin(isValid) {
@@ -68,13 +84,20 @@
 
     function onUserSignupSuccess(response) {
       // If successful we assign the response to the global user model
+
       if (!response.user) {
         vm.authentication.user = response;
         Notification.success({ message: '<i class="glyphicon glyphicon-ok"></i> Signup successful!' });
         // And redirect to the previous or home page
         $state.go($state.previous.state.name || 'home', $state.previous.params);
       } else {
-        Notification.success({ message: '<i class="glyphicon glyphicon-ok"></i> Signup successful!' });
+        if (vm.credentials.organism !== undefined) {
+          Notification.success({ message: '<i class="glyphicon glyphicon-ok"></i> Signup successful!' });
+          $state.go('home');
+        } else {
+          Notification.success({ message: '<i class="glyphicon glyphicon-ok"></i> Signup successful!' });
+        }
+
       }
     }
 

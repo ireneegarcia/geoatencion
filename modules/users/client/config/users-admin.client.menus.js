@@ -14,6 +14,11 @@
       state: 'admin.users'
     });
 
+    menuService.addSubMenuItem('topbar', 'admin', {
+      title: 'Administrar organismos',
+      state: 'admin.organism'
+    });
+
     // Add the dropdown list item
     menuService.addSubMenuItem('topbar', 'admin', {
       title: 'Administrar formularios',

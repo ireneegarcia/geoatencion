@@ -29,7 +29,12 @@ exports.signup = function (req, res) {
   user.provider = 'local';
   user.displayName = user.firstName + ' ' + user.lastName;
 
-  user.user = req.user;
+  console.log(req.body.organism);
+  if (req.body.organism !== 'undefined' && req.body.organism !== null) {
+    user.user = req.body.organism;
+  } else {
+    user.user = req.user;
+  }
 
   // Then save the user
   user.save(function (err) {
@@ -63,6 +68,9 @@ exports.signup = function (req, res) {
  */
 exports.signin = function (req, res, next) {
   passport.authenticate('local', function (err, user, info) {
+    console.log(user);
+    console.log('///');
+    console.log(err);
     if (err || !user) {
       res.status(422).send(info);
     } else {

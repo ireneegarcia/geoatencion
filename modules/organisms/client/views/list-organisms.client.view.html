@@ -1,0 +1,22 @@
+<section>
+  <div class="page-header">
+    <h1>Organisms</h1>
+  </div>
+  <div class="list-group">
+    <a ng-repeat="organism in vm.organisms"
+       ui-sref="organisms.view({ organismId: organism._id })"
+       class="list-group-item">
+      <small class="list-group-item-text">
+        Posted on
+        <span ng-bind="organism.created | date:'mediumDate'"></span>
+        by
+        <span ng-if="organism.user" ng-bind="organism.user.displayName"></span>
+        <span ng-if="!organism.user">Deleted User</span>
+      </small>
+      <h4 class="list-group-item-heading" ng-bind="organism.name"></h4>
+    </a>
+  </div>
+  <div class="alert alert-warning text-center" ng-if="vm.organisms.$resolved && !vm.organisms.length">
+    No Organisms yet, why don't you <a ui-sref="organisms.create">create one</a>?
+  </div>
+</section>

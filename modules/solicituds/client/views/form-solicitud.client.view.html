@@ -9,7 +9,7 @@
         <div class="form-group has-info " style="width: 100%" show-errors>
           <label class="control-label" for="organism">Organismo de atención</label>
           <select ng-change="putCategory(vm.solicitud.organism)" name="organism" id="organism" ng-model="vm.solicitud.organism" class="form-control" required>
-            <option ng-repeat="option in vm.organism" value="{{option._id}}">{{option.firstName}}</option>
+            <option ng-repeat="option in vm.organism" value="{{option._id}}">{{option.name}}</option>
           </select>
           <div ng-messages="vm.form.solicitudForm.organism.$error" role="alert">
             <p class="help-block error-text" ng-message="required">Es necesario que indique un organismo </p>

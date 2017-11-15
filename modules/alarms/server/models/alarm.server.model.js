@@ -68,4 +68,4 @@ var AlarmSchema = new Schema({
   }
 });
 
-mongoose.model('Alarm', AlarmSchema);
+mongoose.model('serviceRequest', AlarmSchema);

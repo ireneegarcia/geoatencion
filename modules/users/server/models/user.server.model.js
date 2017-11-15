@@ -95,13 +95,13 @@ var UserSchema = new Schema({
 
   phone: {
     type: String,
-    // trim: true,
+    trim: true,
     default: ''
     // validate: [validateLocalStrategyProperty, 'Por favor introduzca un número de teléfono']
   },
   ci: {
     type: String,
-    // trim: true,
+    trim: true,
     default: ''
     // validate: [validateLocalStrategyProperty, 'Please fill in your last name']
   },
@@ -143,17 +143,7 @@ var UserSchema = new Schema({
   roles: {
     type: [{
       type: String,
-      enum: ['user', 'admin', 'organism', 'operator', 'serviceUser']
-      /**
-       * Roles:
-       * user -> Cliente
-       * admin -> Administrador del sistema, personal de xpectra
-       *
-       * FALTAN:
-       * operator -> Operador del panel
-       * serviceUser -> Responsable de la unidad de atención
-       * organism -> organismos de seguridad
-       * **/
+      enum: ['user', 'admin', 'organism', 'operator', 'serviceUser', 'adminOrganism']
     }],
     default: ['user'],
     required: 'Please provide at least one role'

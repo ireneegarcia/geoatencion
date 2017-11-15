@@ -1,0 +1,53 @@
+<section>
+
+  <div class="text-center page-header">
+    <div class="row">
+      <div>
+        <h2>Listado de organismos</h2>
+      </div>
+      <div class="form-group has-info label-floating col-md-4" style="margin: 0% 20% 0% 34% ; width: 32.5%">
+
+        <input class="form-control col-md-4"
+               type="text" ng-model="vm.search"
+               placeholder="Buscar"
+               ng-change="vm.figureOutItemsToDisplay()"/>
+      </div>
+    </div>
+  </div>
+  <table class="table">
+    <thead>
+    <tr>
+      <th class="text-center" >Nombre</th>
+      <th class="text-center" >RIF</th>
+      <th class="text-center" >Teléfono</th>
+      <th class="text-center" >País</th>
+      <th class="text-center" >Dirección</th>
+      <th class="text-center">Categoría</th>
+      <th class="text-center">Plan</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr ng-repeat="organism in vm.pagedItems">
+      <td class="text-center" ng-bind="organism.name"></td>
+      <td class="text-center" ng-bind="organism.rif"></td>
+      <td class="text-center" ng-bind="organism.phone"></td>
+      <td class="text-center" ng-bind="organism.country"></td>
+      <td class="text-center" ng-bind="organism.address"></td>
+      <td class="text-center" ng-repeat="option in vm.categories" ng-if="organism.category === option.id">{{option.name}}</td>
+      <td class="text-center" ng-bind="organism.plan"></td>
+      <td class="td-actions" ng-show="organism.isActive == 'inactivo'">
+        <button ng-click="vm.action(1, organism)" type="button" rel="tooltip" title="Activar organismo" class="btn btn-success btn-simple btn-xs">
+          <i class="fa fa-power-off"></i>
+          Activar
+        </button>
+      </td>
+      <td class="td-actions" ng-show="organism.isActive == 'activo'">
+        <button ng-click="vm.action(2, organism)" type="button" rel="tooltip" title="Desactivar organismo" class="btn btn-danger btn-simple btn-xs">
+          <i class="fa fa-power-off"></i>
+          Desactivar
+        </button>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</section>

@@ -63,4 +63,4 @@ var SolicitudSchema = new Schema({
   }
 });
 
-mongoose.model('Solicitud', SolicitudSchema);
+mongoose.model('affiliationRequest', SolicitudSchema);
