@@ -13,7 +13,7 @@ acl = new acl(new acl.memoryBackend());
  */
 exports.invokeRolesPolicies = function () {
   acl.allow([{
-    roles: ['admin', 'organism', 'operator'],
+    roles: ['admin', 'organism', 'operator', 'adminOrganism'],
     allows: [{
       resources: '/api/panels',
       permissions: '*'
@@ -31,7 +31,7 @@ exports.invokeRolesPolicies = function () {
       permissions: ['get']
     }]
   }, {
-    roles: ['organism'],
+    roles: ['organism', 'adminOrganism'],
     allows: [{
       resources: '/api/panels',
       permissions: ['get', 'post']

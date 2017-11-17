@@ -13,7 +13,7 @@
       title: 'Afiliación',
       state: 'solicituds',
       type: 'dropdown',
-      roles: ['organism', 'user']
+      roles: ['organism', 'user', 'adminOrganism']
     });
 
     // Add the dropdown list item

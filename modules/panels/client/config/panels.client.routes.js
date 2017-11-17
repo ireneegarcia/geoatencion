@@ -29,7 +29,7 @@
         controller: 'PanelsListController',
         controllerAs: 'vm',
         data: {
-          roles: ['organism'],
+          roles: ['organism', 'adminOrganism'],
           pageTitle: 'Panels List'
         }
       })
@@ -42,7 +42,7 @@
           panelResolve: newPanel
         },
         data: {
-          roles: ['organism', 'operator'],
+          roles: ['organism', 'operator', 'adminOrganism'],
           pageTitle: 'Panels Create'
         }
       })
@@ -55,7 +55,7 @@
           panelResolve: getPanel
         },
         data: {
-          roles: ['organism'],
+          roles: ['organism', 'adminOrganism'],
           pageTitle: 'Edit Panel {{ panelResolve.name }}'
         }
       })

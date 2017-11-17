@@ -21,7 +21,7 @@
     menuService.addMenuItem('topbar', {
       title: 'Mapa',
       state: 'panels.organism',
-      roles: ['organism']
+      roles: ['organism', 'adminOrganism']
     });
 
   }

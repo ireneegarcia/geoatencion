@@ -45,7 +45,7 @@
           estadisticaResolve: getEstadistica
         },
         data: {
-          roles: ['organism'],
+          roles: ['organism', 'adminOrganism'],
           pageTitle: 'Edit Estadistica {{ estadisticaResolve.name }}'
         }
       })

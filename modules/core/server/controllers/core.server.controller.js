@@ -22,6 +22,7 @@ exports.renderIndex = function (req, res) {
       lastName: validator.escape(req.user.lastName),
       firstName: validator.escape(req.user.firstName),
       about: validator.escape(req.user.about),
+      organism: validator.escape(req.user.organism),
       category: validator.escape(req.user.category),
       additionalProvidersData: req.user.additionalProvidersData
     };

@@ -1,22 +1,68 @@
 <section>
   <div class="page-header">
-    <h1>Organisms</h1>
+    <div class="row">
+      <div class="col-md-6">
+        <h2>Datos organismo</h2>
+      </div>
+      <div class="col-md-4">
+        <a class="btn btn-info btn-raised" ui-sref="organisms.edit({organismId: vm.organisms[0]._id})">
+          Editar
+          <i class="glyphicon glyphicon-edit"></i>
+        </a>
+        <a class="btn btn-info btn-raised" ui-sref="authentication.signup-admin-organism">
+          Nuevo admin
+          <i class="glyphicon glyphicon-edit"></i>
+        </a>
+      </div>
+    </div>
   </div>
-  <div class="list-group">
-    <a ng-repeat="organism in vm.organisms"
-       ui-sref="organisms.view({ organismId: organism._id })"
-       class="list-group-item">
-      <small class="list-group-item-text">
-        Posted on
-        <span ng-bind="organism.created | date:'mediumDate'"></span>
-        by
-        <span ng-if="organism.user" ng-bind="organism.user.displayName"></span>
-        <span ng-if="!organism.user">Deleted User</span>
-      </small>
-      <h4 class="list-group-item-heading" ng-bind="organism.name"></h4>
-    </a>
-  </div>
-  <div class="alert alert-warning text-center" ng-if="vm.organisms.$resolved && !vm.organisms.length">
-    No Organisms yet, why don't you <a ui-sref="organisms.create">create one</a>?
+  <div class="row">
+    <div class="col-md-8">
+      <div class="row">
+        <div class="col-md-3"><strong>Nombre</strong></div>
+        <div class="col-md-6">{{vm.organisms[0].name}}</div>
+      </div>
+      <hr/>
+      <div class="row">
+        <div class="col-md-3"><strong>RIF</strong></div>
+        <div class="col-md-6">{{vm.organisms[0].rif}}</div>
+      </div>
+      <hr/>
+      <div class="row">
+        <div class="col-md-3"><strong>Correo electronico</strong></div>
+        <div class="col-md-6">{{vm.organisms[0].email}}</div>
+      </div>
+      <hr/>
+      <div class="row">
+        <div class="col-md-3"><strong>País</strong></div>
+        <div class="col-md-6">{{vm.organisms[0].country}}</div>
+      </div>
+      <hr/>
+      <div class="row">
+        <div class="col-md-3"><strong>Dirección</strong></div>
+        <div class="col-md-6">{{vm.organisms[0].address}}</div>
+      </div>
+      <hr/>
+      <div class="row">
+        <div class="col-md-3"><strong>Estado en el sistema</strong></div>
+        <div class="col-md-6">{{vm.organisms[0].isActive}}</div>
+      </div>
+      <hr/>
+      <div class="row">
+        <div class="col-md-3"><strong>Categoría</strong></div>
+        <div class="col-md-6" ng-repeat="option in vm.categories" ng-if="option._id === vm.organisms[0].category">{{option.category}}</div>
+      </div>
+      <hr/>
+      <div class="row">
+        <div class="col-md-3"><strong>Plan</strong></div>
+        <div class="col-md-6">{{vm.organisms[0].plan ? vm.organisms[0].plan : 'Sin configurar'}}</div>
+      </div>
+      <hr/>
+      <div class="row">
+        <div class="col-md-3"><strong>Fecha de registro</strong></div>
+        <div class="col-md-6">{{vm.organisms[0].created | date:'medium'}}</div>
+      </div>
+      <hr/>
+    </div>
   </div>
 </section>

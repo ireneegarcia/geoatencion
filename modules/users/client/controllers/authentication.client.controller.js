@@ -36,24 +36,9 @@
       }
 
       console.log(vm.credentials.organism);
-      if (vm.credentials.organism !== undefined) {
-        // se busca el organismo
-        OrganismsService.query(function (data) {
-          // Datos del usuario
-          vm.organism = data.filter(function (data) {
-            return (data.rif.indexOf(vm.credentials.organism) >= 0);
-          });
-          vm.credentials.organism = vm.organism[0]._id;
-          UsersService.userSignup(vm.credentials)
-            .then(onUserSignupSuccess)
-            .catch(onUserSignupError);
-        });
-
-      } else {
-        UsersService.userSignup(vm.credentials)
-          .then(onUserSignupSuccess)
-          .catch(onUserSignupError);
-      }
+      UsersService.userSignup(vm.credentials)
+        .then(onUserSignupSuccess)
+        .catch(onUserSignupError);
 
     }
 

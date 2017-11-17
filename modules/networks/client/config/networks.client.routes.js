@@ -15,7 +15,7 @@
         controller: 'UserListNetworksController',
         controllerAs: 'vm',
         data: {
-          roles: ['organism', 'operator']
+          roles: ['organism', 'operator', 'adminOrganism']
         }
       })
       .state('networks', {
@@ -29,7 +29,7 @@
         controller: 'NetworksListController',
         controllerAs: 'vm',
         data: {
-          roles: ['organism', 'operator'],
+          roles: ['organism', 'operator', 'adminOrganism'],
           pageTitle: 'Networks List'
         }
       })
@@ -42,7 +42,7 @@
           networkResolve: newNetwork
         },
         data: {
-          roles: ['organism'],
+          roles: ['organism', 'adminOrganism'],
           pageTitle: 'Networks Create'
         }
       })
@@ -55,7 +55,7 @@
           networkResolve: getNetwork
         },
         data: {
-          roles: ['organism'],
+          roles: ['organism', 'adminOrganism'],
           pageTitle: 'Edit Network {{ networkResolve.name }}'
         }
       })
@@ -68,7 +68,7 @@
           networkResolve: getNetwork
         },
         data: {
-          roles: ['organism', 'operator'],
+          roles: ['organism', 'operator', 'adminOrganism'],
           pageTitle: 'Network {{ networkResolve.name }}'
         }
       })
@@ -79,7 +79,7 @@
         controllerAs: 'vm',
         data: {
           pageTitle: 'Signup',
-          roles: ['organism']
+          roles: ['organism', 'adminOrganism']
         }
       })
       .state('authentication.userService', {
@@ -89,7 +89,7 @@
         controllerAs: 'vm',
         data: {
           pageTitle: 'Signup',
-          roles: ['organism']
+          roles: ['organism', 'adminOrganism']
         }
       })
     ;

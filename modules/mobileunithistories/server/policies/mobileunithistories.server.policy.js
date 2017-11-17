@@ -22,7 +22,7 @@ exports.invokeRolesPolicies = function () {
       permissions: '*'
     }]
   }, {
-    roles: ['user', 'guest'],
+    roles: ['user', 'guest', 'adminOrganism'],
     allows: [{
       resources: '/api/mobileunithistories',
       permissions: ['get', 'post']

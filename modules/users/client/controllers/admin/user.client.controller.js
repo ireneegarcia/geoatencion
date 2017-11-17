@@ -5,9 +5,9 @@
     .module('users.admin')
     .controller('UserController', UserController);
 
-  UserController.$inject = ['$scope', '$state', '$window', 'Authentication', 'userResolve', 'Notification', 'UsersService'];
+  UserController.$inject = ['$scope', '$state', '$window', 'Authentication', 'userResolve', 'Notification', 'UsersService', 'OrganismsService'];
 
-  function UserController($scope, $state, $window, Authentication, user, Notification, UsersService) {
+  function UserController($scope, $state, $window, Authentication, user, Notification, UsersService, OrganismsService) {
     var vm = this;
 
     vm.authentication = Authentication;
@@ -16,11 +16,8 @@
     vm.update = update;
     vm.isContextUserSelf = isContextUserSelf;
 
-    vm.organism = UsersService.query(function (data) {
-      vm.organism = data.filter(function (organism) {
-        return (organism.roles.indexOf('organism') >= 0);
-      });
-
+    OrganismsService.query(function (data) {
+      vm.organism = data;
     });
 
     function remove(user) {

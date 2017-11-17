@@ -40,7 +40,7 @@
           alarmResolve: newAlarm
         },
         data: {
-          roles: ['user', 'admin', 'organism', 'operator'],
+          roles: ['user', 'admin', 'organism', 'operator', 'adminOrganism'],
           pageTitle: 'Alarms Create'
         }
       })
@@ -53,7 +53,7 @@
           alarmResolve: getAlarm
         },
         data: {
-          roles: ['user', 'admin', 'organism', 'operator', 'guest'],
+          roles: ['user', 'admin', 'organism', 'operator', 'guest', 'adminOrganism'],
           pageTitle: 'Edit Alarm {{ alarmResolve.name }}'
         }
       })

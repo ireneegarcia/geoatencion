@@ -5,9 +5,9 @@
     .module('catalogos')
     .controller('CatalogosListController', CatalogosListController);
 
-  CatalogosListController.$inject = ['$filter', 'CatalogosService', 'UsersService', 'CategoriaserviciosService', 'NetworksService'];
+  CatalogosListController.$inject = ['$filter', 'CatalogosService', 'UsersService', 'CategoriaserviciosService', 'NetworksService', 'OrganismsService'];
 
-  function CatalogosListController($filter, CatalogosService, UsersService, CategoriaserviciosService, NetworksService) {
+  function CatalogosListController($filter, CatalogosService, UsersService, CategoriaserviciosService, NetworksService, OrganismsService) {
     var vm = this;
 
     vm.catalogos = CatalogosService.query();
@@ -28,6 +28,15 @@
       networks = data;
     });
 
+   /* OrganismsService.query(function (data) {
+      var organisms = $filter('filter')(data, { isActive: 'activo'});
+      organisms.forEach(function(organism) {
+        organism.network = networks.filter(function (network) {return network.user._id === organism._id;}).length;
+        vm.organisms.push(organism);
+      });
+      vm.buildPager();
+    });
+
     UsersService.query(function (data) {
       var users = $filter('filter')(data, { roles: 'organism'});
       users.forEach(function(user) {
@@ -35,7 +44,7 @@
         vm.users.push(user);
       });
       vm.buildPager();
-    });
+    });*/
 
     function buildPager() {
       vm.pagedItems = [];

@@ -44,7 +44,7 @@
           organismResolve: getOrganism
         },
         data: {
-          roles: ['user', 'admin'],
+          roles: ['adminOrganism'],
           pageTitle: 'Edit Organism {{ organismResolve.name }}'
         }
       })

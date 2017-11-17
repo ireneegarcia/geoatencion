@@ -31,7 +31,7 @@ exports.invokeRolesPolicies = function () {
       permissions: ['get']
     }]
   }, {
-    roles: ['organism'],
+    roles: ['organism', 'adminOrganism'],
     allows: [{
       resources: '/api/categoriaservicios',
       permissions: ['get', 'post']

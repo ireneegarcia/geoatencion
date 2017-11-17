@@ -9,7 +9,7 @@
     Crear cuenta operador del panel
   </h3>
 
-    <form name="vm.userForm" ng-submit="vm.signup(vm.userForm.$valid)" class="signin contact-form" novalidate autocomplete="off">
+    <form name="vm.userForm" ng-submit="vm.signup(vm.userForm.$valid)" class="signin contact-form" novalidate>
       <fieldset>
         <div class="row">
           <div class="col-md-6">
@@ -352,7 +352,13 @@
             </div>
           </div>
           <div class="col-md-6">
-
+            <div class="form-group has-info " show-errors>
+              <label class="control-label" for="organism">RIF del organismo</label>
+              <input type="text" id="organism" name="organism" class="form-control" ng-model="vm.credentials.organism" lowercase required>
+              <div ng-messages="vm.userForm.organism.$error" role="alert">
+                <p class="help-block error-text" ng-message="required">Por favor introduzca el rif del organismo al que pertenece</p>
+              </div>
+            </div>
           </div>
         </div>
 
@@ -373,6 +379,7 @@
 <script>
   $(document).ready(function() {
     $("#ci").mask("a-99999999");
+    $("#organism").mask("a-999999999");
     $("#birthday").mask("99-99-9999");
     $("#phone").mask('99999999999');
     /*

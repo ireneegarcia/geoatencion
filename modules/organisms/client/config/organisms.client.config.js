@@ -9,15 +9,14 @@
 
   function menuConfig(menuService) {
     // Set top bar menu items
-   /* menuService.addMenuItem('topbar', {
-      title: 'Organisms',
-      state: 'organisms',
-      type: 'dropdown',
-      roles: ['*']
+    menuService.addMenuItem('topbar', {
+      title: 'Organismo',
+      state: 'organisms.list',
+      roles: ['adminOrganism']
     });
 
     // Add the dropdown list item
-    menuService.addSubMenuItem('topbar', 'organisms', {
+    /* menuService.addSubMenuItem('topbar', 'organisms', {
       title: 'List Organisms',
       state: 'organisms.list'
     });

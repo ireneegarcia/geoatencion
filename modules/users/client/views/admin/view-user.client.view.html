@@ -2,7 +2,7 @@
   <div class="page-header">
     <div class="row">
       <div class="col-md-6">
-        <h2 ng-bind="vm.user.username"></h2>
+        <h2> Datos del usuario</h2>
       </div>
       <div class="col-md-4">
         <a class="btn btn-info btn-raised" ui-sref="admin.user-edit({userId: vm.user._id})">
@@ -24,13 +24,13 @@
         <div class="col-md-6" ng-bind="vm.user.firstName"></div>
       </div>
       <hr/>
-      <div ng-hide="vm.user.roles[0] === 'organism'">
+
       <div class="row">
         <div class="col-md-3"><strong>Apellido</strong></div>
         <div class="col-md-6" ng-bind="vm.user.lastName"></div>
       </div>
       <hr/>
-      </div>
+
       <div class="row">
         <div class="col-md-3"><strong>Email</strong></div>
         <div class="col-md-6" ng-bind="vm.user.email"></div>
@@ -43,13 +43,13 @@
       <hr/>
       <div class="row">
         <div class="col-md-3"><strong>Fecha de registro</strong></div>
-        <div class="col-md-6" ng-bind="vm.user.created"></div>
+        <div class="col-md-6" ng-bind="vm.user.created | date:'medium'"></div>
       </div>
       <hr/>
-      <div ng-show="vm.user.user">
+      <div ng-show="vm.user.organism" ng-repeat="organism in vm.organism" ng-if="vm.user.organism === organism.rif">
       <div class="row">
-        <div class="col-md-3"><strong>Organismo</strong></div>
-        <div class="col-md-6" ng-repeat="organism in vm.organism" ng-if="vm.user.user === organism._id">{{organism.username}}</div>
+        <div class="col-md-3"><strong>{{organism.name}}</strong></div>
+        <div class="col-md-6" > <strong>RIF:</strong> {{organism.rif}} <strong>Estado:</strong> {{organism.isActive}}</div>
       </div>
       <hr/>
       </div>

@@ -31,7 +31,7 @@
             <p class="help-block error-text" ng-message="required">Username is required.</p>
           </div>
         </div>
-        <div ng-show="vm.user.roles[0] === 'organism'" class="form-group has-info" show-errors>
+        <!--<div ng-show="vm.user.roles[0] === 'organism'" class="form-group has-info" show-errors>
           <label class="control-label" for="category">Categoría de servicios</label>
           <select name="category" id="category" ng-model="vm.user.category" class="form-control">
             <option ng-repeat="option in vm.categories" value="{{option.id}}">{{option.name}}</option>
@@ -46,7 +46,7 @@
           <div ng-messages="vm.userForm.about.$error" role="alert">
             <p class="help-block error-text" ng-message="required">Introduzca una breve descripcion sobre su empresa y/o servicios</p>
           </div>
-        </div>
+        </div>-->
         <div class="text-center form-group">
           <button type="submit" class="btn btn-info">Guardar cambios</button>
         </div>

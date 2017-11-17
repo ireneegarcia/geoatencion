@@ -1,7 +1,7 @@
 <section>
   <div class="page-header">
     <h3 class="text-center title">
-      Crear cuenta organismo de atención
+      {{vm.organism._id ? 'Actualizar cuenta organismo de atención' : 'Crear cuenta organismo de atención'}}
     </h3>
   </div>
   <div class="col-md-8 col-md-offset-2">
@@ -19,10 +19,11 @@
           </div>
           <div class="col-md-6">
             <div class="form-group has-info" show-errors>
-              <label class="control-label" for="rif">RIF</label>
-              <input name="rif" type="text" ng-model="vm.organism.rif" id="rif" class="form-control" required>
-              <div ng-messages="vm.form.organismForm.rif.$error" role="alert">
-                <p class="help-block error-text" ng-message="required">El nombre del organismo es necesario</p>
+              <label class="control-label" for="email">Correo de uso administrativo</label>
+              <input type="email" id="email" name="email" class="form-control" ng-model="vm.organism.email"  lowercase required>
+              <div ng-messages="vm.form.organismForm.email.$error" role="alert">
+                <p class="help-block error-text" ng-message="required">Por favor introduzca su email.</p>
+                <p class="help-block error-text" ng-message="email">El email que introdujo es inválido</p>
               </div>
             </div>
           </div>
@@ -37,18 +38,6 @@
               </div>
             </div>
           </div>
-          <div class="col-md-6">
-            <div class="form-group has-info" show-errors>
-              <label class="control-label" for="email">Correo de uso administrativo</label>
-              <input type="email" id="email" name="email" class="form-control" ng-model="vm.organism.email"  lowercase required>
-              <div ng-messages="vm.form.organismForm.email.$error" role="alert">
-                <p class="help-block error-text" ng-message="required">Por favor introduzca su email.</p>
-                <p class="help-block error-text" ng-message="email">El email que introdujo es inválido</p>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="row">
           <div class="col-md-6">
             <div class="form-group has-info" show-errors>
               <label class="control-label" for="country">País</label>
@@ -294,19 +283,51 @@
               </div>
             </div>
           </div>
+        </div>
+        <div class="row">
           <div class="col-md-6">
             <div class="form-group has-info" show-errors>
               <label class="control-label" for="address">Dirección</label>
               <input name="address" type="text" ng-model="vm.organism.address" id="address" class="form-control" required>
-              <div ng-messages="vm.form.organismForm.address.$error" role="alert">
+              <div ng-messages="vm.form.organism.address.$error" role="alert">
                 <p class="help-block error-text" ng-message="required">El nombre del organismo es necesario</p>
               </div>
             </div>
           </div>
+          <div class="col-md-6">
+            <div class="form-group has-info" show-errors>
+              <label class="control-label" for="category">Categoría de servicio</label>
+              <select name="category" id="category" ng-model="vm.organism.category" class="form-control">
+                <option ng-repeat="option in vm.categories" value="{{option._id}}">{{option.category}}</option>
+              </select>
+              <div ng-messages="vm.form.organism.category.$error" role="alert">
+                <p class="help-block error-text" ng-message="required">Por favor indique una categoría</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6">
+            <div ng-show="!vm.organism._id" class="form-group has-info" show-errors>
+              <label class="control-label" for="rif">RIF</label>
+              <input name="rif" type="text" ng-model="vm.organism.rif" id="rif" class="form-control" required>
+              <div ng-messages="vm.form.organism.rif.$error" role="alert">
+                <p class="help-block error-text" ng-message="required">El RIF del organismo es necesario</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+
+          </div>
         </div>
 
         <div class="text-center form-group">
-          <button type="submit" class="btn btn-info btn-raised">{{vm.organism._id ? 'Update' : 'Crear cuenta'}}</button>
+          <button ng-show="vm.organism._id" type="submit" class="btn btn-info btn-raised">
+            Actualizar
+          </button>
+          <button ng-show="!vm.organism._id" type="submit" class="btn btn-info btn-raised">
+            Registrar
+          </button>
         </div>
         <div ng-show="vm.error" class="text-danger">
           <strong ng-bind="vm.error"></strong>

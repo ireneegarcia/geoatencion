@@ -21,7 +21,7 @@ var OrganismSchema = new Schema({
   name: {
     type: String,
     default: '',
-    required: 'Please fill Organism name',
+    required: 'Por favor indique el nombre del organismo',
     trim: true
   },
   rif: {
@@ -31,13 +31,13 @@ var OrganismSchema = new Schema({
       sparse: true // For this to work on a previously indexed field, the index must be dropped & the application restarted.
     },
     default: '',
-    required: 'Please fill Organism name',
+    required: 'Por favor indique el RIF',
     trim: true
   },
   phone: {
     type: String,
     default: '',
-    required: 'Please fill Organism name',
+    required: 'Por favor indique un teléfono',
     trim: true
   },
   category: {
@@ -58,13 +58,13 @@ var OrganismSchema = new Schema({
   country: {
     type: String,
     default: '',
-    required: 'Please fill Organism name',
+    required: 'Por favor indique un país',
     trim: true
   },
   address: {
     type: String,
     default: '',
-    required: 'Please fill Organism name',
+    required: 'Por favor indique una dirección',
     trim: true
   },
   plan: {

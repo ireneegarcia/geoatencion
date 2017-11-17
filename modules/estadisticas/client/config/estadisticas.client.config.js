@@ -13,7 +13,7 @@
       title: 'Estadisticas',
       state: 'estadisticas',
       type: 'dropdown',
-      roles: ['organism']
+      roles: ['organism', 'adminOrganism']
     });
 
     // Add the dropdown list item
@@ -26,7 +26,7 @@
     menuService.addSubMenuItem('topbar', 'estadisticas', {
       title: 'PDF',
       state: 'estadisticas.pdf',
-      roles: ['organism', 'operator']
+      roles: ['organism', 'operator', 'adminOrganism']
     });
   }
 }());

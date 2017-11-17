@@ -45,7 +45,7 @@
           solicitudResolve: getSolicitud
         },
         data: {
-          roles: ['user', 'admin', 'organism'],
+          roles: ['user', 'admin', 'organism', 'adminOrganism'],
           pageTitle: 'Edit Solicitud {{ solicitudResolve.name }}'
         }
       })

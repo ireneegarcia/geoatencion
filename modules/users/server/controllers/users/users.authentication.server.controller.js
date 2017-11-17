@@ -28,13 +28,8 @@ exports.signup = function (req, res) {
   var user = new User(req.body);
   user.provider = 'local';
   user.displayName = user.firstName + ' ' + user.lastName;
-
+  user.user = req.user;
   console.log(req.body.organism);
-  if (req.body.organism !== 'undefined' && req.body.organism !== null) {
-    user.user = req.body.organism;
-  } else {
-    user.user = req.user;
-  }
 
   // Then save the user
   user.save(function (err) {
