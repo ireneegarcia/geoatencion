@@ -10,7 +10,7 @@
   function menuConfig(menuService) {
     // Set top bar menu items
     menuService.addMenuItem('topbar', {
-      title: 'Red de trabajo',
+      title: 'Equipo de trabajo',
       state: 'networks',
       type: 'dropdown',
       roles: ['organism', 'operator', 'adminOrganism']

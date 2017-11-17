@@ -6,7 +6,7 @@
       <div class="col-md-8 col-md-offset-2">
 
         <div class="text-center title"  >
-          <h1>{{vm.network._id ? 'Editar unidad de atención' : 'Nueva unidad de atención'}}</h1>
+          <h2>{{vm.network._id ? 'Editar unidad de atención' : 'Nueva unidad de atención'}}</h2>
         </div>
         <form  name="vm.form.networkForm" ng-submit="vm.save(vm.form.networkForm.$valid)" novalidate>
           <fieldset>
@@ -77,7 +77,7 @@
             <div class="row">
               <div class="col-md-6">
                 <div class="form-group has-info " show-errors>
-                  <label class="control-label" for="status">Status</label>
+                  <label class="control-label" for="status">Estado</label>
                   <select name="status" id="status" ng-model="vm.network.status" class="form-control" required>
                     <option value="activo">activo </option >
                     <option value="inactivo"> inactivo</option>

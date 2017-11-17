@@ -1,0 +1,22 @@
+<section>
+  <div class="page-header">
+    <h1>Mobileunitlogs</h1>
+  </div>
+  <div class="list-group">
+    <a ng-repeat="mobileunitlog in vm.mobileunitlogs"
+       ui-sref="mobileunitlogs.view({ mobileunitlogId: mobileunitlog._id })"
+       class="list-group-item">
+      <small class="list-group-item-text">
+        Posted on
+        <span ng-bind="mobileunitlog.created | date:'mediumDate'"></span>
+        by
+        <span ng-if="mobileunitlog.user" ng-bind="mobileunitlog.user.displayName"></span>
+        <span ng-if="!mobileunitlog.user">Deleted User</span>
+      </small>
+      <h4 class="list-group-item-heading" ng-bind="mobileunitlog.name"></h4>
+    </a>
+  </div>
+  <div class="alert alert-warning text-center" ng-if="vm.mobileunitlogs.$resolved && !vm.mobileunitlogs.length">
+    No Mobileunitlogs yet, why don't you <a ui-sref="mobileunitlogs.create">create one</a>?
+  </div>
+</section>

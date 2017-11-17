@@ -9,7 +9,7 @@
 
   function menuConfig(menuService) {
     // Set top bar menu items
-    menuService.addMenuItem('topbar', {
+    /* menuService.addMenuItem('topbar', {
       title: 'Historia de unidades',
       state: 'mobileunithistories.list',
       // type: 'dropdown',
@@ -17,7 +17,7 @@
     });
 
     // Add the dropdown list item
-    /* menuService.addSubMenuItem('topbar', 'mobileunithistories', {
+     menuService.addSubMenuItem('topbar', 'mobileunithistories', {
       title: 'List Mobileunithistories',
       state: 'mobileunithistories.list'
     });

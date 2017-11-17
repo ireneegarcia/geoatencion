@@ -1,21 +1,58 @@
 <section>
   <div class="page-header">
-    <h1>Mobileunithistories</h1>
+    <h2>Historia por unidad de atención</h2>
   </div>
-  <div class="list-group">
-    <a ng-repeat="mobileunithistory in vm.mobileunithistories"
-       ui-sref="mobileunithistories.view({ mobileunithistoryId: mobileunithistory._id })"
-       class="list-group-item">
-      <small class="list-group-item-text">
-        Posted on
-        <span ng-bind="mobileunithistory.created | date:'mediumDate'"></span>
-        by
-        <span ng-if="mobileunithistory.user" ng-bind="mobileunithistory.user.displayName"></span>
-        <span ng-if="!mobileunithistory.user">Deleted User</span>
-      </small>
-      <h4 class="list-group-item-heading" ng-bind="mobileunithistory.name"></h4>
-    </a>
+
+  <div style="margin: 0px 40px 0px 20px" class="form-group has-info">
+    <label class="control-label">Por favor indique el identidicador de la unidad a consultar: </label>
+    <input  style="margin:0px 10px 0px 10px; width: 50%; display: inline-block" ng-model="network" type="text" class="form-control" required>
+    <button style="display: inline-block" ng-click="vm.searchNetwork(network)" class="btn btn-sm btn-info">Consultar</button>
   </div>
+
+  <div>
+    <ng-map
+      style="width: 100%; margin: 2% 0 2% 0"
+      zoom="11"
+      center="10, -140">
+    </ng-map>
+  </div>
+
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h4 class="panel-title" style="padding-bottom: 8px; margin-left: 14px">
+        <a data-toggle="collapse" data-parent="#accordion" href="#collapse2">
+          <img class="status" style="vertical-align: baseline" ng-src="/modules/panels/client/img/car-placeholder.png" alt="Loading image...">
+          <p style="margin: 0 0 2px 35px;">Historia LOG</p>
+        </a>
+      </h4>
+    </div>
+    <div id="collapse2" class="panel-collapse collapse">
+      <div class="statusBox">
+        <div class="scrollbar-log-network" id="style-6">
+          <div class="force-overflow">
+            <table class="table table-hover">
+              <thead>
+              <tr>
+                <th>Fecha</th>
+                <th>Unidad</th>
+                <th>Descripción</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
   <div class="alert alert-warning text-center" ng-if="vm.mobileunithistories.$resolved && !vm.mobileunithistories.length">
     No Mobileunithistories yet, why don't you <a ui-sref="mobileunithistories.create">create one</a>?
   </div>

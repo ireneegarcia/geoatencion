@@ -27,9 +27,9 @@
     });
 
     // Condicional para encontrar el organismo relacionado
-    if (Authentication.user.roles[0] === 'organism') {
+    if (Authentication.user.roles[0] === 'adminOrganism') {
       UsersService.query(function (data) {
-        // El organismo logueado
+        // El admin organismo logueado
         vm.organism = data.filter(function (data) {
           return (data.email.indexOf(Authentication.user.email) >= 0);
         });
