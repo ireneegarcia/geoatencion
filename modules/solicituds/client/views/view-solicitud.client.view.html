@@ -16,7 +16,7 @@
     </div>
   </div>
   <div class="pull-right"
-       ng-show="vm.authentication.user.roles[0]=== 'organism'">
+       ng-show="vm.authentication.user.roles[0]=== 'adminOrganism'">
     <a class="btn btn-info" ng-click="vm.updateStatus('aceptado')">
       <i class="glyphicon glyphicon-edit"></i>
       Aceptar
@@ -27,7 +27,7 @@
     </a>
   </div>
   <div class="pull-right"
-       ng-show="vm.solicitud.isCurrentUserOwner && vm.authentication.user.roles[0]!== 'organism'">
+       ng-show="vm.solicitud.isCurrentUserOwner">
     <a class="btn btn-info"
        ui-sref="solicituds.edit({ solicitudId: vm.solicitud._id })">
       <i class="glyphicon glyphicon-edit"></i>

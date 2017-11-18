@@ -9,47 +9,47 @@ var acl = require('acl');
 acl = new acl(new acl.memoryBackend());
 
 /**
- * Invoke Organisms Permissions
+ * Invoke Adminlogs Permissions
  */
 exports.invokeRolesPolicies = function () {
   acl.allow([{
-    roles: ['admin', 'adminOrganism'],
+    roles: ['admin'],
     allows: [{
-      resources: '/api/organisms',
+      resources: '/api/adminlogs',
       permissions: '*'
     }, {
-      resources: '/api/organisms/:organismId',
+      resources: '/api/adminlogs/:adminlogId',
       permissions: '*'
     }]
   }, {
-    roles: ['guest', 'user', 'adminOrganism', 'operator'],
+    roles: ['user', 'adminOrganism'],
     allows: [{
-      resources: '/api/organisms',
+      resources: '/api/adminlogs',
       permissions: ['get', 'post']
     }, {
-      resources: '/api/organisms/:organismId',
+      resources: '/api/adminlogs/:adminlogId',
       permissions: ['get']
     }]
   }, {
     roles: ['guest'],
     allows: [{
-      resources: '/api/organisms',
+      resources: '/api/adminlogs',
       permissions: ['get']
     }, {
-      resources: '/api/organisms/:organismId',
+      resources: '/api/adminlogs/:adminlogId',
       permissions: ['get']
     }]
   }]);
 };
 
 /**
- * Check If Organisms Policy Allows
+ * Check If Adminlogs Policy Allows
  */
 exports.isAllowed = function (req, res, next) {
   var roles = (req.user) ? req.user.roles : ['guest'];
 
-  // If an Organism is being processed and the current user created it then allow any manipulation
-  if (req.organism && req.user && req.organism.user && req.organism.user.id === req.user.id) {
+  // If an Adminlog is being processed and the current user created it then allow any manipulation
+  if (req.adminlog && req.user && req.adminlog.user && req.adminlog.user.id === req.user.id) {
     return next();
   }
 

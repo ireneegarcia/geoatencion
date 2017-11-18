@@ -5,9 +5,9 @@
     .module('networks')
     .controller('NetworksListController', NetworksListController);
 
-  NetworksListController.$inject = ['NetworksService', 'Authentication', '$filter', 'CategoriaserviciosService', 'UsersService'];
+  NetworksListController.$inject = ['NetworksService', 'Authentication', '$filter', 'CategoriaserviciosService', 'UsersService', 'OrganismsService'];
 
-  function NetworksListController(NetworksService, Authentication, $filter, CategoriaserviciosService, UsersService) {
+  function NetworksListController(NetworksService, Authentication, $filter, CategoriaserviciosService, UsersService, OrganismsService) {
     var vm = this;
 
     vm.buildPager = buildPager;
@@ -28,10 +28,9 @@
 
     // Condicional para encontrar el organismo relacionado
     if (Authentication.user.roles[0] === 'adminOrganism') {
-      UsersService.query(function (data) {
-        // El admin organismo logueado
+      OrganismsService.query(function (data) {
         vm.organism = data.filter(function (data) {
-          return (data.email.indexOf(Authentication.user.email) >= 0);
+          return (data.rif.indexOf(Authentication.user.organism) >= 0);
         });
         listNetwork(vm.organism);
       });
@@ -43,10 +42,12 @@
             return (data.email.indexOf(Authentication.user.email) >= 0);
           });
           // El organismo al que pertence el operador logueado
-          vm.organism = data.filter(function (data) {
-            return (data._id.indexOf(operator[0].user._id) >= 0);
+          OrganismsService.query(function (data) {
+            vm.organism = data.filter(function (data) {
+              return (data.rif.indexOf(operator[0].organism) >= 0);
+            });
+            listNetwork(vm.organism);
           });
-          listNetwork(vm.organism);
         });
       }
     }
@@ -64,7 +65,7 @@
     function listNetwork(organism) {
       NetworksService.query(function (data) {
         data.forEach(function(network) {
-          if (network.user._id === organism[0]._id) {
+          if (network.organism === organism[0].rif) {
             UsersService.query(function (data) {
               data.forEach(function (user) {
                 if (user.roles.indexOf('serviceUser') >= 0 &&

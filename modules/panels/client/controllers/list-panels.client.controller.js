@@ -5,9 +5,9 @@
     .module('panels')
     .controller('PanelsListController', PanelsListController);
 
-  PanelsListController.$inject = ['PanelsService', 'AlarmsService', 'NgMap', 'NetworksService', 'CategoriaserviciosService', 'UsersService', 'Authentication', '$filter', '$timeout', 'SolicitudsService', 'Socket', '$window', 'LogsServiceCreate', 'FirebasetokensService'];
+  PanelsListController.$inject = ['PanelsService', 'AlarmsService', 'NgMap', 'NetworksService', 'CategoriaserviciosService', 'UsersService', 'Authentication', '$filter', '$timeout', 'SolicitudsService', 'Socket', '$window', 'LogsServiceCreate', 'FirebasetokensService', 'OrganismsService'];
 
-  function PanelsListController(PanelsService, AlarmsService, NgMap, NetworksService, CategoriaserviciosService, UsersService, Authentication, $filter, $timeout, SolicitudsService, Socket, $window, LogsServiceCreate, FirebasetokensService) {
+  function PanelsListController(PanelsService, AlarmsService, NgMap, NetworksService, CategoriaserviciosService, UsersService, Authentication, $filter, $timeout, SolicitudsService, Socket, $window, LogsServiceCreate, FirebasetokensService, OrganismsService) {
     var vm = this;
 
     vm.user = Authentication.user;
@@ -51,15 +51,24 @@
     });
 
     // Condicional para encontrar el organismo relacionado
-    if (Authentication.user.roles[0] === 'organism') {
-      UsersService.query(function (data) {
+    if (Authentication.user.roles[0] === 'adminOrganism') {
+      OrganismsService.query(function (data) {
         // El organismo logueado
         vm.organism = data.filter(function (data) {
-          return (data.email.indexOf(Authentication.user.email) >= 0);
+          return (data.rif.indexOf(Authentication.user.organism) >= 0);
         });
         listNetwork(vm.organism);
         listAlarm((vm.organism[0]._id));
       });
+
+      /* UsersService.query(function (data) {
+       // El organismo logueado
+       vm.organism = data.filter(function (data) {
+       return (data.email.indexOf(Authentication.user.email) >= 0);
+       });
+       listNetwork(vm.organism);
+       listAlarm((vm.organism[0]._id));
+       });*/
     } else {
       if (Authentication.user.roles[0] === 'operator') {
         UsersService.query(function (data) {
@@ -68,11 +77,19 @@
             return (data.email.indexOf(Authentication.user.email) >= 0);
           });
           // El organismo al que pertence el operador logueado
-          vm.organism = data.filter(function (data) {
-            return (data._id.indexOf(operator[0].user._id) >= 0);
+          OrganismsService.query(function (data) {
+            // El organismo logueado
+            vm.organism = data.filter(function (data) {
+              return (data.rif.indexOf(operator[0].organism) >= 0);
+            });
+            listNetwork(vm.organism);
+            listAlarm((vm.organism[0]._id));
           });
-          listNetwork(vm.organism);
-          listAlarm((vm.organism[0]._id));
+          /*          vm.organism = data.filter(function (data) {
+           return (data._id.indexOf(operator[0].user._id) >= 0);
+           });
+           listNetwork(vm.organism);
+           listAlarm((vm.organism[0]._id));*/
         });
       }
     }
@@ -92,7 +109,8 @@
       NetworksService.query(function (data) {
         // Alarmas con status esperando o en atencion
         vm.networks = data.filter(function (data) {
-          return (data.user._id.indexOf(organism[0]._id) >= 0 && data.latitude !== '' && data.longitude !== '');
+          return (data.organism.indexOf(organism[0].rif) >= 0 &&
+          data.latitude !== '' && data.longitude !== '');
         });
       });
     }

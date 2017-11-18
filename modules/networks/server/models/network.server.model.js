@@ -88,6 +88,11 @@ var NetworkSchema = new Schema({
     default: '/modules/panels/client/img/car-placeholder.png'
     // trim: true
   },
+  organism: {
+    type: String,
+    default: ''
+    // trim: true
+  },
   created: {
     type: Date,
     default: Date.now

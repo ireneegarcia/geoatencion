@@ -112,7 +112,8 @@ var UserSchema = new Schema({
     // validate: [validateLocalStrategyProperty, 'Please fill in your last name']
   },
   organism: {
-    type: String
+    type: String,
+    default: ''
   },
   about: {
     type: String,

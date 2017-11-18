@@ -5,9 +5,9 @@
     .module('alarms')
     .controller('AlarmsListController', AlarmsListController);
 
-  AlarmsListController.$inject = ['AlarmsService', '$filter', 'UsersService', 'Authentication', 'LogsServiceCreate', '$timeout'];
+  AlarmsListController.$inject = ['AlarmsService', '$filter', 'UsersService', 'Authentication', 'LogsServiceCreate', '$timeout', 'OrganismsService'];
 
-  function AlarmsListController(AlarmsService, $filter, UsersService, Authentication, LogsServiceCreate, $timeout) {
+  function AlarmsListController(AlarmsService, $filter, UsersService, Authentication, LogsServiceCreate, $timeout, OrganismsService) {
     var vm = this;
     vm.alarmsEsperando = [];
     vm.alarmsEnAtencion = [];
@@ -44,10 +44,12 @@
 
           });
         }
-        if (Authentication.user.roles[0] === 'organism') {
+        if (Authentication.user.roles[0] === 'adminOrganism') {
           // El organismo logueado
-          vm.organism = data.filter(function (data) {
-            return (data.email.indexOf(Authentication.user.email) >= 0);
+          OrganismsService.query(function (data) {
+            vm.organism = data.filter(function (data) {
+              return (data.rif.indexOf(Authentication.user.organism) >= 0);
+            });
           });
         }
 
@@ -58,10 +60,12 @@
             return (data.email.indexOf(Authentication.user.email) >= 0);
           });
           // El organismo al que pertence el operador logueado
-          vm.organism = data.filter(function (data) {
-            return (data._id.indexOf(vm.operator[0].user._id) >= 0);
+          OrganismsService.query(function (data) {
+            vm.organism = data.filter(function (data) {
+              return (data.rif.indexOf(vm.operator[0].organism) >= 0);
+            });
+            getMyAlarms(vm.organism[0]._id);
           });
-          getMyAlarms(vm.organism[0]._id);
         }
 
       });

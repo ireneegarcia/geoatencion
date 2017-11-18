@@ -6,9 +6,9 @@
     .module('organisms')
     .controller('OrganismsController', OrganismsController);
 
-  OrganismsController.$inject = ['$scope', '$state', '$window', 'Authentication', 'organismResolve', 'CategoriaserviciosService'];
+  OrganismsController.$inject = ['$scope', '$state', '$window', 'Authentication', 'organismResolve', 'CategoriaserviciosService', 'AdminlogsServiceCreate'];
 
-  function OrganismsController ($scope, $state, $window, Authentication, organism, CategoriaserviciosService) {
+  function OrganismsController ($scope, $state, $window, Authentication, organism, CategoriaserviciosService, AdminlogsServiceCreate) {
     var vm = this;
 
     vm.authentication = Authentication;
@@ -36,6 +36,12 @@
       // TODO: move create/update logic to service
       if (vm.organism._id) {
         vm.organism.$update(successCallback, errorCallback);
+        AdminlogsServiceCreate.charge({
+          description: 'Ha actulizado los datos del organismo',
+          module: 'organismo',
+          organism: vm.authentication.user.organism}, function (data) {
+          // se realizo el post
+        });
         $state.go('organisms.list', {
           // organismId: res._id
         });

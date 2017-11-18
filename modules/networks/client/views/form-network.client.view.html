@@ -100,7 +100,26 @@
               </div>
             </div>
 
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-group has-info " ng-show="!vm.network._id" show-errors>
+                  <label class="control-label" for="organism">RIF del organismo</label>
+                  <input name="organism" type="text" ng-model="vm.network.organism" id="organism" class="form-control" lowercase  required>
+                  <div ng-messages="vm.form.networkForm.organism.$error" role="alert">
+                    <p class="help-block error-text" ng-message="required">El RIF es necesario.</p>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6">
+
+              </div>
+            </div>
+
             <div class="text-center form-group">
+              <a class="btn btn-info btn-raised" ui-sref="networks.view({ networkId: vm.network._id })">
+                Volver atrás
+                <i class="glyphicon glyphicon-edit"></i>
+              </a>
               <button type="submit" class="btn btn-info text-center">{{vm.network._id ? 'Actualizar unidad' : 'Registrar unidad'}}</button>
             </div>
             <div ng-show="vm.error" class="text-danger">
@@ -113,3 +132,8 @@
   </div>
 
 </section>
+<script>
+  $(document).ready(function() {
+    $("#organism").mask("a-999999999");
+  });
+  </script>

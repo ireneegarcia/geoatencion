@@ -1,0 +1,27 @@
+<section>
+  <div class="page-header">
+    <h3 class="text-center">Historia de administradores del organismo</h3>
+  </div>
+  <div class="list-group">
+    <table class="table table-hover">
+      <thead>
+      <tr>
+        <th class="text-center" >Fecha</th>
+        <th class="text-center" >Usuario</th>
+        <th class="text-center" >Módulo</th>
+        <th class="text-center" >Descripción</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr ng-repeat="log in vm.pagedItems">
+        <td class="text-center" ng-bind="log.created | date:'medium'"></td>
+        <td class="text-center" ng-repeat="user in vm.users" ng-if="log.user._id === user._id">{{user.displayName}}</td>
+        <td class="text-center" ng-bind="log.module"></td>
+        <td class="text-center" ng-bind="log.description"></td>
+      </tr>
+      </tbody>
+    </table>
+    <uib-pagination boundary-links="true" max-size="8" items-per-page="vm.itemsPerPage" total-items="vm.filterLength" ng-model="vm.currentPage" ng-change="vm.pageChanged()"></uib-pagination>
+  </div>
+
+</section>

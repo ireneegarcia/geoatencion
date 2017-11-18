@@ -5,9 +5,9 @@
     .module('users')
     .controller('AuthenticationController', AuthenticationController);
 
-  AuthenticationController.$inject = ['$scope', '$state', 'UsersService', '$location', '$window', 'Authentication', 'PasswordValidator', 'Notification', 'OrganismsService'];
+  AuthenticationController.$inject = ['$scope', '$state', 'UsersService', '$location', '$window', 'Authentication', 'PasswordValidator', 'Notification', 'OrganismsService', 'AdminlogsServiceCreate'];
 
-  function AuthenticationController($scope, $state, UsersService, $location, $window, Authentication, PasswordValidator, Notification, OrganismsService) {
+  function AuthenticationController($scope, $state, UsersService, $location, $window, Authentication, PasswordValidator, Notification, OrganismsService, AdminlogsServiceCreate) {
     var vm = this;
 
     vm.authentication = Authentication;
@@ -24,8 +24,8 @@
 
     // If user is signed in then redirect back home
     /* if (vm.authentication.user) {
-      $location.path('/');
-    }*/
+     $location.path('/');
+     }*/
 
     function signup(isValid) {
 
@@ -35,11 +35,30 @@
         return false;
       }
 
-      console.log(vm.credentials.organism);
-      UsersService.userSignup(vm.credentials)
-        .then(onUserSignupSuccess)
-        .catch(onUserSignupError);
-
+      if (vm.credentials.organism) {
+        OrganismsService.query(function (data) {
+          vm.organism = data.filter(function (data) {
+            return (data.rif.indexOf(vm.credentials.organism) >= 0);
+          });
+          if (vm.organism.length !== 0) {
+            AdminlogsServiceCreate.charge({
+              description: 'Ha registrado al usuario: ' + vm.credentials.firstName + ' ' + vm.credentials.lastName,
+              module: 'usuario',
+              organism: vm.authentication.user.organism}, function (data) {
+              // se realizo el post
+            });
+            UsersService.userSignup(vm.credentials)
+              .then(onUserSignupSuccess)
+              .catch(onUserSignupError);
+          } else {
+            Notification.error({ title: '<i class="glyphicon glyphicon-remove"></i> RIF inválido!', delay: 6000 });
+          }
+        });
+      } else {
+        UsersService.userSignup(vm.credentials)
+          .then(onUserSignupSuccess)
+          .catch(onUserSignupError);
+      }
     }
 
     function signin(isValid) {

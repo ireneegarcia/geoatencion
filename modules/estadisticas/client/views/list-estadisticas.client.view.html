@@ -245,10 +245,9 @@
       <div class="nav-tabs-navigation">
         <div class="nav-tabs-wrapper">
           <ul class="nav nav-tabs" data-tabs="tabs">
-            <li class="active"><a href="#organismo" data-toggle="tab"> Del organismo</a></li>
+            <li class="active"><a href="#organismo" data-toggle="tab"> Atención General</a></li>
             <li><a href="#networksAll" data-toggle="tab" ng-click="vm.networksAll()"> Unidades de atención</a></li>
             <li><a href="#cliente" data-toggle="tab">Por cliente</a></li>
-            <li><a href="#network" data-toggle="tab">Por unidad de atención</a></li>
             <li><a href="#periodo" data-toggle="tab">Por periodo</a></li>
           </ul>
         </div>
@@ -317,40 +316,7 @@
             </div>
           </div>
         </div>
-        <div class="tab-pane" id="network">
-          <div class="force-overflow">
-            <div style="margin: 0px 40px 0px 20px" class="form-group has-info">
-              <label class="control-label">Por favor indique el código identificador de la unidad de atención a consultar: </label>
-              <input  style="margin:0px 10px 0px 10px; width: 50%; display: inline-block" ng-model="networkID" type="text" class="form-control" required>
-              <button style="display: inline-block" ng-click="vm.searchNetwork(networkID)" class="btn btn-sm btn-info">Consultar</button>
-            </div>
-            <ul ng-show="vm.networkSearch">
-              <li>
-                <strong> Fecha registro de la unidad: </strong>{{vm.networkSearch[0].created | date:'medium'}}
-                <br/>
-              </li>
-              <li>
-                <strong> Responsable actualmente: </strong>{{vm.networkSearch[0].serviceUser}}
-                <br/>
-              </li>
-            </ul>
 
-            <table ng-show="vm.logNetwork.length != 0" class="table table-hover">
-              <thead>
-              <tr>
-                <th>Fecha</th>
-                <th>Acción</th>
-              </tr>
-              </thead>
-              <tbody>
-              <tr ng-repeat="log in vm.logNetwork">
-                <td>{{log.created | date:'medium'}}</td>
-                <td>{{log.description}}</td>
-              </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
         <div class="tab-pane" id="periodo">
           <div class="force-overflow">
             <div class="col-md-4"></div>

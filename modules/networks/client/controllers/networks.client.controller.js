@@ -6,9 +6,9 @@
     .module('networks')
     .controller('NetworksController', NetworksController);
 
-  NetworksController.$inject = ['$scope', '$state', '$window', 'Authentication', 'networkResolve', 'CategoriaserviciosService', 'UsersService', '$filter', 'AlarmsService', 'NetworksService'];
+  NetworksController.$inject = ['$scope', '$state', '$window', 'Authentication', 'networkResolve', 'CategoriaserviciosService', 'UsersService', '$filter', 'AlarmsService', 'NetworksService', 'AdminlogsServiceCreate', 'OrganismsService', 'Notification'];
 
-  function NetworksController ($scope, $state, $window, Authentication, network, CategoriaserviciosService, UsersService, $filter, AlarmsService, NetworksService) {
+  function NetworksController ($scope, $state, $window, Authentication, network, CategoriaserviciosService, UsersService, $filter, AlarmsService, NetworksService, AdminlogsServiceCreate, OrganismsService, Notification) {
     var vm = this;
 
     vm.authentication = Authentication;
@@ -114,8 +114,33 @@
       // TODO: move create/update logic to service
       if (vm.network._id) {
         vm.network.$update(successCallback, errorCallback);
+        AdminlogsServiceCreate.charge({
+          description: 'Ha actulizado los datos de la unidad: ' + vm.network.carCode,
+          module: 'unidad de atención',
+          organism: vm.authentication.user.organism}, function (data) {
+          // se realizo el post
+        });
       } else {
-        vm.network.$save(successCallback, errorCallback);
+
+        if (vm.network.organism) {
+          OrganismsService.query(function (data) {
+            vm.organism = data.filter(function (data) {
+              return (data.rif.indexOf(vm.network.organism) >= 0);
+            });
+            if (vm.organism.length !== 0) {
+              AdminlogsServiceCreate.charge({
+                description: 'Ha registrado la unidad: ' + vm.network.carCode,
+                module: 'unidad de atención',
+                organism: vm.authentication.user.organism}, function (data) {
+                // se realizo el post
+              });
+              vm.network.$save(successCallback, errorCallback);
+              Notification.success({ title: '<i class="glyphicon glyphicon-ok"></i> Registro exitoso!' });
+            } else {
+              Notification.error({ title: '<i class="glyphicon glyphicon-remove"></i> RIF inválido!', delay: 6000 });
+            }
+          });
+        }
       }
 
       function successCallback(res) {

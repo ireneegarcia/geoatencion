@@ -32,7 +32,7 @@
     vm.estadisticas = EstadisticasService.query();
 
     // Condicional para encontrar el organismo relacionado
-    if (Authentication.user.roles[0] === 'organism') {
+    if (Authentication.user.roles[0] === 'adminOrganism') {
       UsersService.query(function (data) {
         // El organismo logueado
         vm.organism = data.filter(function (data) {

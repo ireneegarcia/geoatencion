@@ -31,7 +31,7 @@
     });
 
     menuService.addSubMenuItem('topbar', 'networks', {
-      title: 'Registrar operador',
+      title: 'Registrar trabajador',
       state: 'authentication.operator',
       roles: ['organism', 'adminOrganism']
     });
@@ -43,11 +43,11 @@
       roles: ['organism', 'adminOrganism']
     });
 
-    menuService.addSubMenuItem('topbar', 'networks', {
+    /* menuService.addSubMenuItem('topbar', 'networks', {
       title: 'Registrar responsable de atención',
       state: 'authentication.userService',
       roles: ['organism', 'adminOrganism']
-    });
+    });*/
 
   }
 }());

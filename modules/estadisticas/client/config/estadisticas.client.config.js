@@ -24,17 +24,14 @@
 
     // Add the dropdown list item
     menuService.addSubMenuItem('topbar', 'estadisticas', {
-      title: 'Historia de unidades',
-      state: 'mobileunithistories.list',
-      // type: 'dropdown',
-      roles: ['adminOrganism']
+      title: 'Historia unidades',
+      state: 'mobileunithistories.list'
     });
 
-    // Add the dropdown create item
+    // Add the dropdown list item
     menuService.addSubMenuItem('topbar', 'estadisticas', {
-      title: 'PDF',
-      state: 'estadisticas.pdf',
-      roles: ['organism', 'operator', 'adminOrganism']
+      title: 'Historia admin',
+      state: 'adminlogs.list'
     });
   }
 }());

@@ -31,7 +31,7 @@ exports.invokeRolesPolicies = function () {
       permissions: ['get']
     }]
   }, {
-    roles: ['organism', 'adminOrganism'],
+    roles: ['organism', 'adminOrganism', 'operator'],
     allows: [{
       resources: '/api/panels',
       permissions: ['get', 'post']

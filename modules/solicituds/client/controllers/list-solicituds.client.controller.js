@@ -5,39 +5,59 @@
     .module('solicituds')
     .controller('SolicitudsListController', SolicitudsListController);
 
-  SolicitudsListController.$inject = ['SolicitudsService', 'UsersService', '$filter', 'Authentication'];
+  SolicitudsListController.$inject = ['SolicitudsService', 'UsersService', '$filter', 'Authentication', 'OrganismsService'];
 
-  function SolicitudsListController(SolicitudsService, UsersService, $filter, Authentication) {
+  function SolicitudsListController(SolicitudsService, UsersService, $filter, Authentication, OrganismsService) {
     var vm = this;
 
     vm.buildPager = buildPager;
     vm.figureOutItemsToDisplay = figureOutItemsToDisplay;
     vm.pageChanged = pageChanged;
 
-    UsersService.query(function (data) {
-
-      // El usuario que inicio sesión
-      vm.user = data.filter(function (data) {
-        return (data.email.indexOf(Authentication.user.email) >= 0);
+    // Condicional para encontrar el organismo relacionado
+    if (Authentication.user.roles[0] === 'adminOrganism') {
+      OrganismsService.query(function (data) {
+        // Organismo
+        vm.organism = data.filter(function (data) {
+          return (data.rif.indexOf(Authentication.user.organism) >= 0);
+        });
+        SolicitudsService.query(function (data) {
+          /*
+           data.user._id en caso de que sea un usuario cliente
+           data.organism en caso de que sea un organismo
+           * */
+          vm.solicituds = data.filter(function (data) {
+            return (data.organism.indexOf(vm.organism[0]._id) >= 0);
+          });
+          vm.buildPager();
+        });
       });
+    } else {
+      if (Authentication.user.roles[0] === 'user') {
+        UsersService.query(function (data) {
+          vm.user = data.filter(function (data) {
+            return (data.email.indexOf(Authentication.user.email) >= 0);
+          });
+          SolicitudsService.query(function (data) {
+            /*
+             data.user._id en caso de que sea un usuario cliente
+             data.organism en caso de que sea un organismo
+             * */
+            vm.solicituds = data.filter(function (data) {
+              return (data.user._id.indexOf(vm.user[0]._id) >= 0);
+            });
 
-      // Organismos
-      vm.organism = data.filter(function (data) {
-        return (data.roles.indexOf('organism') >= 0);
-      });
-    });
-
-    SolicitudsService.query(function (data) {
-      /*
-       data.user._id en caso de que sea un usuario cliente
-       data.organism en caso de que sea un organismo
-       * */
-      vm.solicituds = data.filter(function (data) {
-        return (data.user._id.indexOf(vm.user[0]._id) >= 0 ||
-        data.organism.indexOf(vm.user[0]._id) >= 0);
-      });
-      vm.buildPager();
-    });
+            OrganismsService.query(function (data) {
+              // Organismos
+              vm.organism = data.filter(function (data) {
+                return (data.isActive.indexOf('activo') >= 0);
+              });
+            });
+            vm.buildPager();
+          });
+        });
+      }
+    }
 
     function buildPager() {
       vm.pagedItems = [];

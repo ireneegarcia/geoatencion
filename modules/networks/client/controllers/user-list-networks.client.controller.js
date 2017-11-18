@@ -5,9 +5,9 @@
     .module('networks')
     .controller('UserListNetworksController', UserListNetworksController);
 
-  UserListNetworksController.$inject = ['$scope', '$filter', 'UsersService', 'Authentication'];
+  UserListNetworksController.$inject = ['$scope', '$filter', 'UsersService', 'Authentication', 'OrganismsService'];
 
-  function UserListNetworksController($scope, $filter, UsersService, Authentication) {
+  function UserListNetworksController($scope, $filter, UsersService, Authentication, OrganismsService) {
     var vm = this;
 
     // User list networks controller logic
@@ -18,11 +18,10 @@
     vm.pageChanged = pageChanged;
 
     // Condicional para encontrar el organismo relacionado
-    if (Authentication.user.roles[0] === 'organism') {
-      UsersService.query(function (data) {
-        // El organismo logueado
+    if (Authentication.user.roles[0] === 'adminOrganism') {
+      OrganismsService.query(function (data) {
         vm.organism = data.filter(function (data) {
-          return (data.email.indexOf(Authentication.user.email) >= 0);
+          return (data.rif.indexOf(Authentication.user.organism) >= 0);
         });
         userListNetwork(vm.organism);
       });
@@ -34,10 +33,12 @@
             return (data.email.indexOf(Authentication.user.email) >= 0);
           });
           // El organismo al que pertence el operador logueado
-          vm.organism = data.filter(function (data) {
-            return (data._id.indexOf(operator[0].user._id) >= 0);
+          OrganismsService.query(function (data) {
+            vm.organism = data.filter(function (data) {
+              return (data.rif.indexOf(operator[0].organism) >= 0);
+            });
+            userListNetwork(vm.organism);
           });
-          userListNetwork(vm.organism);
         });
       }
     }
@@ -47,22 +48,12 @@
       vm.userNetworks = UsersService.query(function (data) {
         vm.userNetworks = data.filter(function (userNetwork) {
           return ((userNetwork.roles.indexOf('operator') >= 0 ||
-          userNetwork.roles.indexOf('serviceUser') >= 0) &&
-          userNetwork.user._id.indexOf(organism[0]._id) >= 0);
+          userNetwork.roles.indexOf('serviceUser') >= 0 ||
+          userNetwork.roles.indexOf('adminOrganism') >= 0) &&
+          userNetwork.organism.indexOf(organism[0].rif) >= 0);
         });
         vm.buildPager();
       });
-
-      /*
-       NetworksService.query(function (data) {
-       data.forEach(function(network) {
-       if(network.user._id === organism[0]._id){
-       vm.networks.push(network);
-       }
-       });
-       vm.buildPager();
-       });
-       */
     }
 
     function buildPager() {

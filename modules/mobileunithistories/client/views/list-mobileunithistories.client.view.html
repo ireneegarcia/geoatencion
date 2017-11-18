@@ -9,13 +9,9 @@
     <button style="display: inline-block" ng-click="vm.searchNetwork(network)" class="btn btn-sm btn-info">Consultar</button>
   </div>
 
-  <div>
-    <ng-map
-      style="width: 100%; margin: 2% 0 2% 0"
-      zoom="11"
-      center="10, -140">
-    </ng-map>
-  </div>
+  <ng-map zoom="13" center="37.774546, -122.433523" map-type-id="SATELLITE">
+    <heatmap-layer id="foo" data="heatmapData"></heatmap-layer>
+  </ng-map>
 
   <div class="panel panel-default">
     <div class="panel-heading">
@@ -28,9 +24,9 @@
     </div>
     <div id="collapse2" class="panel-collapse collapse">
       <div class="statusBox">
-        <div class="scrollbar-log-network" id="style-6">
+        <div class="scrollbar-log-network" id="style-6" style="width: 1140px;">
           <div class="force-overflow">
-            <table class="table table-hover">
+            <table ng-show="vm.mobileUnitLog.length != 0" class="table table-hover">
               <thead>
               <tr>
                 <th>Fecha</th>
@@ -39,13 +35,20 @@
               </tr>
               </thead>
               <tbody>
-              <tr>
-                <td></td>
-                <td></td>
-                <td></td>
+              <tr ng-repeat="mobileUnitLog in vm.mobileUnitLog">
+                <td ng-bind="mobileUnitLog.created| date:'medium'"></td>
+                <td ng-bind="mobileUnitLog.mobileUnit"></td>
+                <td ng-bind="mobileUnitLog.description"></td>
               </tr>
               </tbody>
             </table>
+            <div ng-show="vm.mobileUnitLog.length == 0">
+              <small>
+                <em class="text-muted">
+                  No posee historia
+                </em>
+              </small>
+            </div>
           </div>
         </div>
       </div>
