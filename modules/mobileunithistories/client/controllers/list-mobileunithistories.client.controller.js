@@ -5,9 +5,9 @@
     .module('mobileunithistories')
     .controller('MobileunithistoriesListController', MobileunithistoriesListController);
 
-  MobileunithistoriesListController.$inject = ['MobileunithistoriesService', 'NetworksService', 'Authentication', 'UsersService', '$filter', 'NgMap', 'MobileunitlogsService'];
+  MobileunithistoriesListController.$inject = ['$scope', 'MobileunithistoriesService', 'NetworksService', 'Authentication', 'UsersService', '$filter', 'NgMap', 'MobileunitlogsService'];
 
-  function MobileunithistoriesListController(MobileunithistoriesService, NetworksService, Authentication, UsersService, $filter, NgMap, MobileunitlogsService) {
+  function MobileunithistoriesListController($scope, MobileunithistoriesService, NetworksService, Authentication, UsersService, $filter, NgMap, MobileunitlogsService) {
     var vm = this;
 
     vm.centerLatitude = 8.2593534;
@@ -37,7 +37,7 @@
     }
 
     /* Data points defined as an array of LatLng objects */
-    var heatmapData = [
+    $scope.heatmapData = [
       new window.google.maps.LatLng(37.782551, -122.445368),
       new window.google.maps.LatLng(37.782745, -122.444586),
       new window.google.maps.LatLng(37.782842, -122.443688),
