@@ -67,14 +67,14 @@
     $scope.heatmapDatanew = [];
 
     function fillHeatMapData(mobileUnitHistory) {
-
       for (var i = 0; i < mobileUnitHistory.length; i++) {
-        $scope.heatmapDatanew.push(
-          new window.google.maps.LatLng(mobileUnitHistory[i].latitude,
-            mobileUnitHistory[i].longitude));
-
+        $scope.heatmapDatanew.push(new window.google.maps.LatLng(mobileUnitHistory[i].latitude, mobileUnitHistory[i].longitude));
       }
-      console.log($scope.heatmapDatanew);
+      var heatMapLayer = new window.google.maps.visualization.HeatmapLayer({
+        data: $scope.heatmapDatanew,
+        radius: 20
+      });
+      heatMapLayer.setMap(vm.map);
     }
   }
 }());
