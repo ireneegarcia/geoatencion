@@ -32,17 +32,22 @@
         var isBusy = false;
         // que sea roles serviceUser
         if (user.roles.indexOf('serviceUser') >= 0) {
+          // se evalua si la unidad ya tiene usuario asignado
+          vm.serviceUsers.push(user);
           NetworksService.query(function (data) {
             data.forEach(function (network) {
               // que no este asignado a otra unidad
-              if (network.serviceUser === user._id) {
-                isBusy = true;
+              if (network.organism === vm.authentication.user.organism) {
+                if (network.serviceUser === user._id) {
+                  vm.serviceUsers.splice(vm.serviceUsers.length - 1, 1);
+                }
               }
             });
-            if (isBusy === false) {
-              vm.serviceUsers.push(user);
-            }
           });
+
+          if (vm.network.serviceUser === user._id) {
+            vm.serviceUsers.push(user);
+          }
         }
       });
     });
