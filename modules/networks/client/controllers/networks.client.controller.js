@@ -31,7 +31,7 @@
       data.forEach(function(user) {
         var isBusy = false;
         // que sea roles serviceUser
-        if (user.roles.indexOf('serviceUser') >= 0) {
+        if (user.roles.indexOf('serviceUser') >= 0 && user.organism.indexOf(vm.authentication.user.organism) >= 0) {
           // se evalua si la unidad ya tiene usuario asignado
           vm.serviceUsers.push(user);
           NetworksService.query(function (data) {

@@ -16,35 +16,54 @@
     vm.figureOutItemsToDisplay = figureOutItemsToDisplay;
     vm.pageChanged = pageChanged;
 
-    CategoriaserviciosService.query({}).$promise.then(function (res) {
-      vm.categories = [];
-      res.forEach(function(cathegory) {
-        vm.categories.push({id: cathegory._id, name: cathegory.category});
-      });
-    });
+    vm.categories = CategoriaserviciosService.query();
 
-    vm.users = [];
-    var networks = NetworksService.query({}).$promise.then(function (data) {
-      networks = data;
-    });
-
-   /* OrganismsService.query(function (data) {
-      var organisms = $filter('filter')(data, { isActive: 'activo'});
-      organisms.forEach(function(organism) {
-        organism.network = networks.filter(function (network) {return network.user._id === organism._id;}).length;
-        vm.organisms.push(organism);
+    vm.organisms = [];
+    OrganismsService.query(function (data) {
+      data.forEach(function(organism) {
+        if (organism.isActive === 'activo') {
+          NetworksService.query(function (network) {
+            organism.network = network.filter(function (network) {
+              return (network.organism.indexOf(organism.rif) >= 0);
+            }).length;
+          });
+          CategoriaserviciosService.query(function (category) {
+            organism.categoryN = category.filter(function (category) {
+              return (category._id.indexOf(organism.category) >= 0);
+            });
+          });
+          vm.organisms.push(organism);
+        }
       });
+      console.log(vm.organisms);
       vm.buildPager();
     });
 
-    UsersService.query(function (data) {
-      var users = $filter('filter')(data, { roles: 'organism'});
-      users.forEach(function(user) {
-        user.network = networks.filter(function (network) {return network.user._id === user._id;}).length;
-        vm.users.push(user);
-      });
-      vm.buildPager();
-    });*/
+
+    /*OrganismsService.query(function (data) {
+     var organisms = $filter('filter')(data, { isActive: 'activo'});
+     organisms.forEach(function(organism) {
+     organism.network = $filter('filter')(vm.networks, { organism: organism.rif}).length;
+     organism.network = vm.networks.filter(function (network) {
+     console.log(network);
+     return network.organism === organism.rif;
+     }).length;
+     vm.organisms.push(organism);
+     });
+     //       console.log(vm.organisms);
+     vm.buildPager();
+     });*/
+
+    /* UsersService.query(function (data) {
+     var users = $filter('filter')(data, { roles: 'organism'});
+     users.forEach(function(user) {
+     user.network = networks.filter(function (network) {
+     return network.user._id === user._id;
+     }).length;
+     vm.users.push(user);
+     });
+     vm.buildPager();
+     });*/
 
     function buildPager() {
       vm.pagedItems = [];
@@ -54,7 +73,7 @@
     }
 
     function figureOutItemsToDisplay() {
-      vm.filteredItems = $filter('filter')(vm.users, {
+      vm.filteredItems = $filter('filter')(vm.organisms, {
         $: vm.search
       });
       vm.filterLength = vm.filteredItems.length;

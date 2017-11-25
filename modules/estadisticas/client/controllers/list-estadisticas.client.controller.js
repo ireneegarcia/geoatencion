@@ -5,9 +5,9 @@
     .module('estadisticas')
     .controller('EstadisticasListController', EstadisticasListController);
 
-  EstadisticasListController.$inject = ['$filter', 'EstadisticasService', 'AlarmsService', 'LogsService', 'UsersService', 'Authentication', 'NetworksService', 'SolicitudsService'];
+  EstadisticasListController.$inject = ['$filter', 'EstadisticasService', 'AlarmsService', 'LogsService', 'UsersService', 'Authentication', 'NetworksService', 'SolicitudsService', 'OrganismsService'];
 
-  function EstadisticasListController($filter, EstadisticasService, AlarmsService, LogsService, UsersService, Authentication, NetworksService, SolicitudsService) {
+  function EstadisticasListController($filter, EstadisticasService, AlarmsService, LogsService, UsersService, Authentication, NetworksService, SolicitudsService, OrganismsService) {
     var vm = this;
     var operator;
     var usuarioID;
@@ -33,24 +33,24 @@
 
     // Condicional para encontrar el organismo relacionado
     if (Authentication.user.roles[0] === 'adminOrganism') {
-      UsersService.query(function (data) {
+      OrganismsService.query(function (data) {
         // El organismo logueado
         vm.organism = data.filter(function (data) {
-          return (data.email.indexOf(Authentication.user.email) >= 0);
+          return (data.rif.indexOf(Authentication.user.organism) >= 0);
         });
         getMyAlarms(vm.organism[0]._id);
         logAll();
       });
     } else {
       if (Authentication.user.roles[0] === 'operator') {
-        UsersService.query(function (data) {
+        OrganismsService.query(function (data) {
           // El operador logueado
           operator = data.filter(function (data) {
             return (data.email.indexOf(Authentication.user.email) >= 0);
           });
           // El organismo al que pertence el operador logueado
           vm.organism = data.filter(function (data) {
-            return (data._id.indexOf(operator[0].user._id) >= 0);
+            return (data.rif.indexOf(operator[0].organism) >= 0);
           });
           getMyAlarms(vm.organism[0]._id);
           logAll();
@@ -67,6 +67,7 @@
       AlarmsService.query(function (data) {
 
         data.forEach(function(alarm) {
+
           if (alarm.organism === organism) {
             if (alarm.status === 'esperando') {
               vm.alarmsEsperando.push(alarm);
@@ -125,38 +126,10 @@
                   break;
               }
             }
+            vm.ratingResult = vm.ratingAll / vm.rating;
+            vm.ratingResult += "";
+            vm.ratingResult = vm.ratingResult.substring(0, 4);
           }
-
-          /* if (alarm.status === 'esperando') {
-           SolicitudsService.query(function (data) {
-           data.forEach(function(solicitud) {
-           if (solicitud.organism === organism && solicitud.status === 'aceptado' &&
-           solicitud.user._id === alarm.user._id && solicitud.category === alarm.categoryService) {
-           vm.alarmsEsperando.push(alarm);
-           }
-           });
-           });
-           }
-           if (alarm.status === 'en atencion') {
-           SolicitudsService.query(function (data) {
-           data.forEach(function(solicitud) {
-           if (solicitud.organism === organism && solicitud.status === 'aceptado' &&
-           solicitud.user._id === alarm.user._id && solicitud.category === alarm.categoryService) {
-           vm.alarmsEnAtencion.push(alarm);
-           }
-           });
-           });
-           }
-           if (alarm.status === 'rechazado') {
-           SolicitudsService.query(function (data) {
-           data.forEach(function(solicitud) {
-           if (solicitud.organism === organism && solicitud.status === 'aceptado' &&
-           solicitud.user._id === alarm.user._id && solicitud.category === alarm.categoryService) {
-           vm.alarmsRechazado.push(alarm);
-           }
-           });
-           });
-           }*/
         });
       });
 
@@ -168,7 +141,7 @@
         data.forEach(function(log) {
           if (log.organism.indexOf(vm.organism[0]._id) >= 0) {
             // El email del usuario
-            UsersService.query(function (data) {
+            /* UsersService.query(function (data) {
               data.forEach(function (user) {
                 if (user._id.indexOf(log.client) >= 0) {
                   log.clientEmail = user.email;
@@ -177,7 +150,7 @@
                   log.operatorEmail = user.email;
                 }
               });
-            });
+            });*/
             vm.log.push(log);
           }
         });
@@ -189,7 +162,7 @@
     vm.networksAll = function () {
       NetworksService.query(function (data) {
         vm.networks = data.filter(function (data) {
-          return (data.user._id.indexOf(vm.organism[0]._id) >= 0);
+          return (data.organism.indexOf(vm.organism[0].rif) >= 0);
         });
       });
     };

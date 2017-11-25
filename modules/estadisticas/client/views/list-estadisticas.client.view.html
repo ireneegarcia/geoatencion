@@ -14,7 +14,7 @@
       <div style="width: 32%" class="col-sm-3">
         <div class="rating-block">
           <h4>Calificación promedio de usuarios.</h4>
-          <h2 class="bold padding-bottom-7" >{{vm.ratingAll/vm.rating ? vm.ratingAll/vm.rating : '0'}} <small>/ 5</small></h2>
+          <h2 class="bold padding-bottom-7" >{{vm.ratingResult ? vm.ratingResult : '0'}} <small>/ 5</small></h2>
 
           <button ng-show="vm.ratingAll/vm.rating>=1" type="button" class="btn btn-warning btn-sm" aria-label="Left Align">
             <span class="fa fa-star" aria-hidden="true"></span>

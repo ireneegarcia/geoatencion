@@ -44,7 +44,7 @@
             AdminlogsServiceCreate.charge({
               description: 'Ha registrado al usuario: ' + vm.credentials.firstName + ' ' + vm.credentials.lastName,
               module: 'usuario',
-              organism: vm.authentication.user.organism}, function (data) {
+              organism: vm.credentials.organism}, function (data) {
               // se realizo el post
             });
             UsersService.userSignup(vm.credentials)

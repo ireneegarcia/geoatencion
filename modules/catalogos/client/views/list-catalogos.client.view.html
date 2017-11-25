@@ -16,23 +16,23 @@
 
   <div id="Cuerpo">
     <div class="row clearfix">
-      <div ng-repeat="user in vm.pagedItems" class="tamano col-md-3 column">
+      <div ng-repeat="organism in vm.pagedItems" class="tamano col-md-3 column">
         <div class="circle-tile ">
           <div class="circle-tile-heading dark-blue">
-            <img style="vertical-align: baseline" ng-src="/{{user.profileImageURL}}" height="90" width="80"  class="img-circle" alt="Loading image...">
+            <img style="vertical-align: baseline" ng-src="/{{organism.categoryN[0].iconUrl}}" height="70" width="60"  alt="Loading image...">
           </div>
           <div class="circle-tile-content dark-blue">
             <div style="height: 130px">
-              <div class="circle-tile-number text-faded ">{{user.displayName}}</div>
+              <div class="circle-tile-number text-faded ">{{organism.name}}</div>
               <div class="text-faded">
-                <div ng-show="user.about">
-                  <em>{{user.about}}</em>
+                <div ng-show="organism.about">
+                  <em>{{organism.about}}</em>
                 </div>
                 <!--<div style="display: inline-block" ng-repeat="categories in vm.categories" ng-if="user.category === categories.id">
                   Categoría de atención: {{categories.name}}
                 </div>-->
                 <br/>
-                Unidades de atención: {{user.network}}
+                Unidades de atención: {{organism.network}}
                 <br/>
                 <span class="fa fa-star"></span>
                 <span class="fa fa-star"></span>
@@ -44,7 +44,7 @@
             <div class="circle-tile-footer">
               <small style="display: inline-block;" class="list-group-item-text">
                 Fecha de afiliación
-                <span ng-bind="user.created | date:'mediumDate'"></span>
+                <span ng-bind="organism.created | date:'mediumDate'"></span>
               </small>
             </div>
           </div>
@@ -53,9 +53,9 @@
     </div>
   </div>
 
-  <div id="Cuerpo" class="container">
+  <!--<div id="Cuerpo" class="container">
     <div class="row">
-      <!-- BEGIN PRODUCTS -->
+      &lt;!&ndash; BEGIN PRODUCTS &ndash;&gt;
       <div ng-repeat="user in vm.pagedItems" class="cuadricula col-md-3 col-sm-6">
     		<span >
           <div class="fecha">
@@ -89,7 +89,7 @@
     		</span>
       </div>
     </div>
-  </div>
+  </div>-->
 
 
   <!--<div id="Cuerpp" >

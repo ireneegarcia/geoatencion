@@ -6,14 +6,20 @@
     <a ng-repeat="categoriaservicio in vm.categoriaservicios"
        ui-sref="categoriaservicios.view({ categoriaservicioId: categoriaservicio._id })"
        class="list-group-item">
+      <div class="col-lg-2">
+        <img ng-src="/{{categoriaservicio.iconUrl}}" height="50" width="50" alt="Loading image...">
+      </div>
+      <div class="col-lg-10">
+        <h4 class="list-group-item-heading" ng-bind="categoriaservicio.category"></h4>
+
+      </div>
       <small class="list-group-item-text">
-        Posted on
+        Creado el
         <span ng-bind="categoriaservicio.created | date:'mediumDate'"></span>
-        by
+        por
         <span ng-if="categoriaservicio.user" ng-bind="categoriaservicio.user.displayName"></span>
         <span ng-if="!categoriaservicio.user">Deleted User</span>
       </small>
-      <h4 class="list-group-item-heading" ng-bind="categoriaservicio.category"></h4>
     </a>
   </div>
   <div class="alert alert-warning text-center" ng-if="vm.categoriaservicios.$resolved && !vm.categoriaservicios.length">

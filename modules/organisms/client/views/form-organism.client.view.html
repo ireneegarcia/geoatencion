@@ -310,7 +310,7 @@
           <div class="col-md-6">
             <div ng-show="!vm.organism._id" class="form-group has-info" show-errors>
               <label class="control-label" for="rif">RIF</label>
-              <input name="rif" type="text" ng-model="vm.organism.rif" id="rif" class="form-control" required>
+              <input name="rif" type="text" ng-model="vm.organism.rif" id="rif" class="form-control" lowercase required>
               <div ng-messages="vm.form.organism.rif.$error" role="alert">
                 <p class="help-block error-text" ng-message="required">El RIF del organismo es necesario</p>
               </div>

@@ -9,12 +9,13 @@
        ng-show="vm.categoriaservicio.isCurrentUserOwner">
     <a class="btn btn-info"
        ui-sref="categoriaservicios.edit({ categoriaservicioId: vm.categoriaservicio._id })">
-      <i class="glyphicon glyphicon-edit"></i>
       Editar
     </a>
     <a class="btn btn-info" ng-click="vm.remove()">
-      <i class="glyphicon glyphicon-trash"></i>
       Eliminar
+    </a>
+    <a class="btn btn-info" ui-sref="categoriaservicios.list">
+      Volver atrás
     </a>
   </div>
   <small>
