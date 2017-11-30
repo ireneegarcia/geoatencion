@@ -4,7 +4,8 @@
 
   angular
     .module('mobileunitlogs')
-    .factory('MobileunitlogsService', MobileunitlogsService);
+    .factory('MobileunitlogsService', MobileunitlogsService)
+    .factory('MobileunitlogsServiceCreate', MobileunitlogsServiceCreate);
 
   MobileunitlogsService.$inject = ['$resource'];
 
@@ -17,4 +18,19 @@
       }
     });
   }
+
+  MobileunitlogsServiceCreate.$inject = ['$resource'];
+
+  function MobileunitlogsServiceCreate($resource) {
+    return $resource('/api/mobileunitlogs', {
+      mobileUnit: '@mobileUnit',
+      mobileUnitCarCode: '@mobileUnitCarCode',
+      description: '@description'
+    }, {
+      charge: {
+        method: 'POST'
+      }
+    });
+  }
+
 }());

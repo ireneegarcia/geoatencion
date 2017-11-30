@@ -5,9 +5,9 @@
     .module('panels')
     .controller('PanelsListController', PanelsListController);
 
-  PanelsListController.$inject = ['PanelsService', 'AlarmsService', 'NgMap', 'NetworksService', 'CategoriaserviciosService', 'UsersService', 'Authentication', '$filter', '$timeout', 'SolicitudsService', 'Socket', '$window', 'LogsServiceCreate', 'FirebasetokensService', 'OrganismsService'];
+  PanelsListController.$inject = ['PanelsService', 'AlarmsService', 'NgMap', 'NetworksService', 'CategoriaserviciosService', 'UsersService', 'Authentication', '$filter', '$timeout', 'SolicitudsService', 'Socket', '$window', 'LogsServiceCreate', 'FirebasetokensService', 'OrganismsService', 'MobileunitlogsServiceCreate'];
 
-  function PanelsListController(PanelsService, AlarmsService, NgMap, NetworksService, CategoriaserviciosService, UsersService, Authentication, $filter, $timeout, SolicitudsService, Socket, $window, LogsServiceCreate, FirebasetokensService, OrganismsService) {
+  function PanelsListController(PanelsService, AlarmsService, NgMap, NetworksService, CategoriaserviciosService, UsersService, Authentication, $filter, $timeout, SolicitudsService, Socket, $window, LogsServiceCreate, FirebasetokensService, OrganismsService, MobileunitlogsServiceCreate) {
     var vm = this;
 
     vm.user = Authentication.user;
@@ -314,6 +314,13 @@
           logServicePOST('Se ha asignado exitosamente la unidad: ' + vm.new_alarm.networkNear.obj.carCode +
             ' a la solicitud de atención: ' + vm.new_alarm._id +
             ' del cliente ' + vm.new_alarm.user.displayName, vm.new_alarm);
+
+          MobileunitlogsServiceCreate.charge({
+            mobileUnit: vm.new_alarm.networkNear.obj._id,
+            mobileUnitCarCode: vm.new_alarm.networkNear.obj.carCode,
+            description: 'Se le fue asignado el evento: ' + vm.new_alarm._id}, function (data) {
+            // se realizo el post
+          });
 
           // Se encuentra la unidad
           NetworksService.query(function (data) {

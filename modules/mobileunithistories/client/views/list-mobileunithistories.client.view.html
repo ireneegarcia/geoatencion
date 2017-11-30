@@ -33,16 +33,12 @@
             <table ng-show="vm.mobileUnitLog.length != 0" class="table table-hover">
               <thead>
               <tr>
-                <th>Fecha</th>
-                <th>Unidad</th>
                 <th>Descripción</th>
               </tr>
               </thead>
               <tbody>
-              <tr ng-repeat="mobileUnitLog in vm.mobileUnitLog">
-                <td ng-bind="mobileUnitLog.created| date:'medium'"></td>
-                <td ng-bind="mobileUnitLog.mobileUnit"></td>
-                <td ng-bind="mobileUnitLog.description"></td>
+              <tr ng-repeat="mobileUnitLog in vm.mobileUnitLogFinal">
+                <td ng-bind="mobileUnitLog"></td>
               </tr>
               </tbody>
             </table>

@@ -6,9 +6,9 @@
     .module('alarms')
     .controller('AlarmsController', AlarmsController);
 
-  AlarmsController.$inject = ['$scope', '$state', '$window', 'Authentication', 'alarmResolve', 'UsersService', 'CategoriaserviciosService', 'NetworksService', 'LogsServiceCreate', 'LogsService', 'FirebasetokensService', 'AlarmsService'];
+  AlarmsController.$inject = ['$scope', '$state', '$window', 'Authentication', 'alarmResolve', 'UsersService', 'CategoriaserviciosService', 'NetworksService', 'LogsServiceCreate', 'LogsService', 'FirebasetokensService', 'AlarmsService', 'MobileunitlogsServiceCreate'];
 
-  function AlarmsController ($scope, $state, $window, Authentication, alarm, UsersService, CategoriaserviciosService, NetworksService, LogsServiceCreate, LogsService, FirebasetokensService, AlarmsService) {
+  function AlarmsController ($scope, $state, $window, Authentication, alarm, UsersService, CategoriaserviciosService, NetworksService, LogsServiceCreate, LogsService, FirebasetokensService, AlarmsService, MobileunitlogsServiceCreate) {
     var vm = this;
 
     vm.authentication = Authentication;
@@ -290,6 +290,13 @@
             logServicePOST('Se ha asignado exitosamente la unidad: ' + networkSelected[0].carCode +
               ' a la solicitud de atención: ' + vm.alarm._id +
               ' del cliente: ' + vm.user[0].displayName);
+
+            MobileunitlogsServiceCreate.charge({
+              mobileUnit: networkSelected[0]._id,
+              mobileUnitCarCode: networkSelected[0].carCode,
+              description: 'Se le fue asignado el evento: ' + vm.alarm._id}, function (data) {
+              // se realizo el post
+            });
 
             // Se actualiza (PUT)
             vm.alarm.$update(successCallback, errorCallback);

@@ -45,6 +45,7 @@
       vm.map = map;
     });
 
+    vm.mobileUnitLogFinal = [];
     vm.searchNetwork = function (carCode) {
       NetworksService.query(function (data) {
         vm.network = data.filter(function (data) {
@@ -56,11 +57,50 @@
           });
           fillHeatMapData(vm.mobileUnitHistory);
         });
-        MobileunitlogsService.query(function (data) {
-          vm.mobileUnitLog = data.filter(function (data) {
-            return (data.mobileUnit.indexOf(vm.network[0]._id) >= 0);
-          });
+      });
+
+      MobileunitlogsService.query(function (data) {
+
+        vm.mobileUnitLog = data.filter(function (data) {
+          return (data.mobileUnitCarCode.indexOf(carCode) >= 0);
         });
+        var j = 0;
+        for (var i = vm.mobileUnitLog.length - 1; i >= 0; i--) {
+
+          var descriptionInactivo = vm.mobileUnitLog[i].description.substring(35, 43);
+
+          if (descriptionInactivo.indexOf('inactivo') >= 0) {
+            var createdInactivo = $filter('date')(vm.mobileUnitLog[i].created, 'yyyy/MM/dd HH:mm:ss');
+
+            if ((i - 1) >= 0) {
+              if (vm.mobileUnitLog[i - 1].description.indexOf('activo, ') >= 0) {
+                var createdActivo = $filter('date')(vm.mobileUnitLog[i - 1].created, 'yyyy/MM/dd HH:mm:ss');
+                vm.mobileUnitLogFinal[j] = 'La unidad duro en estado inactivo en el periodo de ' + createdInactivo + ', hasta ' + createdActivo;
+              }
+            } else {
+              vm.mobileUnitLogFinal[j] = 'La unidad entro en estado inactivo desde ' + createdInactivo + ', hasta la actualidad';
+            }
+            j++;
+          }
+
+
+           var descriptionAtencion = vm.mobileUnitLog[i].description.substring(0, 28);
+
+          if (descriptionAtencion.indexOf('Se le fue asignado el evento') >= 0) {
+            var createdAsginacion = $filter('date')(vm.mobileUnitLog[i].created, 'yyyy/MM/dd HH:mm:ss');
+            if ((i - 1) >= 0) {
+              if (vm.mobileUnitLog[i - 1].description.indexOf('Ha sido atendido exitosament') >= 0) {
+                var createdAtendido = $filter('date')(vm.mobileUnitLog[i - 1].created, 'yyyy/MM/dd HH:mm:ss');
+                vm.mobileUnitLogFinal[j] = 'La unidad duro en el proceso de atención desde ' + createdAsginacion + ', hasta ' + createdAtendido;
+              } else {
+                vm.mobileUnitLogFinal[j] = 'La unidad comenzo el proceso de atención desde ' + createdAsginacion + ', hasta la actualidad';
+              }
+              j++;
+            }
+          }
+
+        }
+         console.log(vm.mobileUnitLogFinal);
       });
     };
 
