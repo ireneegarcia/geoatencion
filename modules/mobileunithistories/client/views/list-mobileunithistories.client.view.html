@@ -30,7 +30,7 @@
       <div class="statusBox">
         <div class="scrollbar-log-network" id="style-6" style="width: 1140px;">
           <div class="force-overflow">
-            <table ng-show="vm.mobileUnitLog.length != 0" class="table table-hover">
+            <!--<table ng-show="vm.mobileUnitLog.length != 0" class="table table-hover">
               <thead>
               <tr>
                 <th>Descripción</th>
@@ -41,7 +41,11 @@
                 <td ng-bind="mobileUnitLog"></td>
               </tr>
               </tbody>
-            </table>
+            </table>-->
+            <br/>
+            <ol ng-show="vm.mobileUnitLog.length != 0">
+              <li ng-repeat="mobileUnitLog in vm.mobileUnitLogFinal" ng-bind="mobileUnitLog"></li>
+            </ol>
             <div ng-show="vm.mobileUnitLog.length == 0">
               <small>
                 <em class="text-muted">

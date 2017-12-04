@@ -28,9 +28,11 @@
     <tr ng-repeat="network in vm.pagedItems" ui-sref="networks.view({ networkId: network._id })">
       <td class="text-center" ng-bind="network.carCode"></td>
       <td class="text-center" ng-repeat="option in vm.categories" ng-if="network.category === option.id">{{option.name}}</td>
-      <td class="text-center" ng-bind="network.serviceUserEmail"></td>
+      <td class="text-center" ng-show="network.serviceUserEmail" ng-bind="network.serviceUserEmail"></td>
+      <td class="text-center" ng-show="!network.serviceUserEmail" ng-bind="'No posee responsable'"></td>
       <td class="text-center" ng-bind="network.status"></td>
-      <td class="text-center" ng-bind="'('+network.longitude + ',' + network.longitude+')'"></td>
+      <td class="text-center" ng-show="network.longitude && network.latitude" ng-bind="'('+network.latitude + ',' + network.longitude+')'"></td>
+      <td class="text-center" ng-show="!(network.longitude && network.latitude)" ng-bind="'No posee coordenadas'"></td>
       <td class="td-actions text-right">
         <button ui-sref="networks.view({ networkId: network._id })" type="button" rel="tooltip" title="Detalle" class="btn btn-success btn-simple btn-xs">
           <i class="fa fa-edit"></i>

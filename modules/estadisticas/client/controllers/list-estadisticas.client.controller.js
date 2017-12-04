@@ -11,7 +11,7 @@
     var vm = this;
     var operator;
     var usuarioID;
-    vm.log = [];
+    // vm.log = [];
     vm.logNetwork = [];
     vm.alarmsEsperando = [];
     vm.alarmsEnAtencion = [];
@@ -57,7 +57,6 @@
         });
       }
     }
-
 
     function getMyAlarms(organism) {
 
@@ -138,24 +137,10 @@
     // Log general del organismo
     function logAll() {
       LogsService.query(function (data) {
-        data.forEach(function(log) {
-          if (log.organism.indexOf(vm.organism[0]._id) >= 0) {
-            // El email del usuario
-            /* UsersService.query(function (data) {
-              data.forEach(function (user) {
-                if (user._id.indexOf(log.client) >= 0) {
-                  log.clientEmail = user.email;
-                }
-                if (user._id.indexOf(log.user._id) >= 0) {
-                  log.operatorEmail = user.email;
-                }
-              });
-            });*/
-            vm.log.push(log);
-          }
+        vm.log = data.filter(function (data) {
+          return (data.organism.indexOf(vm.organism[0]._id) >= 0);
         });
       });
-      console.log(vm.log);
     }
 
     // Log de todos los networks del organismo
