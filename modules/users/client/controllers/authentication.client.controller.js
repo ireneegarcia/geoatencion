@@ -5,17 +5,19 @@
     .module('users')
     .controller('AuthenticationController', AuthenticationController);
 
-  AuthenticationController.$inject = ['$scope', '$state', 'UsersService', '$location', '$window', 'Authentication', 'PasswordValidator', 'Notification', 'OrganismsService', 'AdminlogsServiceCreate'];
+  AuthenticationController.$inject = ['$scope', '$state', 'UsersService', '$location', '$window', 'Authentication', 'PasswordValidator', 'Notification', 'OrganismsService', 'AdminlogsServiceCreate', 'CategoriaserviciosService', 'OrganismsServiceCreate'];
 
-  function AuthenticationController($scope, $state, UsersService, $location, $window, Authentication, PasswordValidator, Notification, OrganismsService, AdminlogsServiceCreate) {
+  function AuthenticationController($scope, $state, UsersService, $location, $window, Authentication, PasswordValidator, Notification, OrganismsService, AdminlogsServiceCreate, CategoriaserviciosService, OrganismsServiceCreate) {
     var vm = this;
 
     vm.authentication = Authentication;
     vm.getPopoverMsg = PasswordValidator.getPopoverMsg;
     vm.signup = signup;
+    vm.signupOrganism = signupOrganism;
     vm.signin = signin;
     vm.callOauthProvider = callOauthProvider;
     vm.usernameRegex = /^(?=[\w.-]+$)(?!.*[._-]{2})(?!\.)(?!.*\.$).{3,34}$/;
+    vm.categories = CategoriaserviciosService.query();
 
     // Get an eventual error defined in the URL query string:
     if ($location.search().err) {
@@ -27,33 +29,86 @@
      $location.path('/');
      }*/
 
-    function signup(isValid) {
+    function signupOrganism(isValid) {
+      if (vm.credentials) {
 
+        if (!vm.credentials.organismName || !vm.credentials.organismEmail ||
+          !vm.credentials.organismPhone || !vm.credentials.country ||
+          !vm.credentials.organismAddress || !vm.credentials.organismCategory ||
+          !vm.credentials.organism) {
+          Notification.error({ title: '<i class="glyphicon glyphicon-remove"></i> Datos del organismo incompletos', delay: 6000 });
+          return false;
+        } else {
+          // se valida que el rif y el email no esten en uso por otro organismo
+          OrganismsService.query(function (data) {
+            vm.organismRif = data.filter(function (data) {
+              return (data.rif.indexOf(vm.credentials.organism) >= 0);
+            });
+
+            vm.organismEmail = data.filter(function (data) {
+              return (data.email.indexOf(vm.credentials.organismEmail) >= 0);
+            });
+
+            if (vm.organismRif.length !== 0) {
+              Notification.error({ title: '<i class="glyphicon glyphicon-remove"></i> Error, RIF en uso', delay: 6000 });
+              return false;
+            }
+
+            if (vm.organismEmail.length !== 0) {
+              Notification.error({ title: '<i class="glyphicon glyphicon-remove"></i> Error, Correo en uso', delay: 6000 });
+              return false;
+            }
+
+            if (!isValid) {
+              Notification.error({ title: '<i class="glyphicon glyphicon-remove"></i> Datos del administrador incompletos', delay: 6000 });
+              return false;
+            }
+
+            // se crea el usuario
+            UsersService.userSignup(vm.credentials)
+              .then(onUserSignupSuccess)
+              .catch(onUserSignupError);
+
+            // se crea el organismo
+            OrganismsServiceCreate.charge({
+              name: vm.credentials.organismName,
+              rif: vm.credentials.organism,
+              phone: vm.credentials.organismPhone,
+              category: vm.credentials.organismCategory,
+              email: vm.credentials.organismEmail,
+              country: vm.credentials.country,
+              address: vm.credentials.organismAddress}, function (data) {
+              // se realizo el post
+            });
+
+          });
+        }
+
+      } else {
+        Notification.error({ title: '<i class="glyphicon glyphicon-remove"></i> Datos incompletos', delay: 6000 });
+      }
+    }
+
+    function signup(isValid) {
       if (!isValid) {
         $scope.$broadcast('show-errors-check-validity', 'vm.userForm');
 
         return false;
       }
 
-      if (vm.credentials.organism) {
-        OrganismsService.query(function (data) {
-          vm.organism = data.filter(function (data) {
-            return (data.rif.indexOf(vm.credentials.organism) >= 0);
-          });
-          if (vm.organism.length !== 0) {
-            AdminlogsServiceCreate.charge({
-              description: 'Ha registrado al usuario: ' + vm.credentials.firstName + ' ' + vm.credentials.lastName,
-              module: 'usuario',
-              organism: vm.credentials.organism}, function (data) {
-              // se realizo el post
-            });
-            UsersService.userSignup(vm.credentials)
-              .then(onUserSignupSuccess)
-              .catch(onUserSignupError);
-          } else {
-            Notification.error({ title: '<i class="glyphicon glyphicon-remove"></i> RIF inválido!', delay: 6000 });
-          }
+      if (vm.authentication.user.organism) {
+        AdminlogsServiceCreate.charge({
+          description: 'Ha registrado al usuario: ' + vm.credentials.firstName + ' ' + vm.credentials.lastName,
+          module: 'usuario',
+          organism: vm.authentication.organism}, function (data) {
+          // se realizo el post
         });
+
+        vm.credentials.organism = vm.authentication.user.organism;
+        UsersService.userSignup(vm.credentials)
+          .then(onUserSignupSuccess)
+          .catch(onUserSignupError);
+
       } else {
         UsersService.userSignup(vm.credentials)
           .then(onUserSignupSuccess)

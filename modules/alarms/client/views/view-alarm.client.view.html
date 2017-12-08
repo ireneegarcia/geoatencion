@@ -43,11 +43,20 @@
         <div class="statusBox">
           <div class="scrollbar-log" id="style-6">
             <div class="force-overflow">
-              <ul>
-                <li ng-repeat="log in vm.log ">
-                  {{log.created | date:'medium'}} - <strong>Acción: </strong> {{log.description}}
-                </li>
-              </ul>
+              <table ng-show="vm.log.length" class="table table-hover">
+                <thead>
+                <tr>
+                  <th style="width: 15%;">Fecha</th>
+                  <th>Descripción</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="log in vm.log">
+                  <td>{{log.created | date:'medium'}}</td>
+                  <td>{{log.description}}</td>
+                </tr>
+                </tbody>
+              </table>
             </div>
           </div>
         </div>

@@ -13,7 +13,7 @@
       title: 'Equipo de trabajo',
       state: 'networks',
       type: 'dropdown',
-      roles: ['organism', 'operator', 'adminOrganism']
+      roles: ['organism', 'adminOrganism']
     });
 
     // Add the dropdown list item

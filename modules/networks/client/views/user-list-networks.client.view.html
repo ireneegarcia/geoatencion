@@ -27,20 +27,13 @@
         <tr ng-repeat="user in vm.pagedItems">
           <td>{{user.username}}</td>
           <td>{{user.email}}</td>
-          <td>{{user.roles}}</td>
+          <td ng-if="user.roles == 'operator'">Operador</td>
+          <td ng-if="user.roles == 'adminOrganism'">Administrador del organismo</td>
+          <td ng-if="user.roles == 'serviceUser'">Responsable de unidad</td>
           <td></td>
         </tr>
         </tbody>
       </table>
-
-      <!--<small class="list-group-item-text">
-        Posted on
-        <span ng-bind="article.created | date:'mediumDate'"></span>
-        by
-        <span ng-if="article.user" ng-bind="article.user.displayName"></span>
-        <span ng-if="!article.user">Deleted User</span>
-      </small>-->
-
   </div>
   <uib-pagination boundary-links="true" max-size="8" items-per-page="vm.itemsPerPage" total-items="vm.filterLength" ng-model="vm.currentPage" ng-change="vm.pageChanged()"></uib-pagination>
 </section>

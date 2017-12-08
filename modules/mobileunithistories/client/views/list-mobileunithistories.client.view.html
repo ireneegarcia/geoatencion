@@ -13,7 +13,7 @@
     <!--<heatmap-layer data="heatmapData"></heatmap-layer>-->
   <!--</ng-map>-->
 
-  <ng-map zoom="15" center="{{vm.centerLatitude }}, {{vm.centerLongitude}}" map-type-id="SATELLITE">
+ <ng-map zoom="15" center="{{vm.centerLatitude }}, {{vm.centerLongitude}}">
     <heatmap-layer id="foo" data="heatmapDatanew"></heatmap-layer>
   </ng-map>
 
@@ -30,22 +30,24 @@
       <div class="statusBox">
         <div class="scrollbar-log-network" id="style-6" style="width: 1140px;">
           <div class="force-overflow">
-            <!--<table ng-show="vm.mobileUnitLog.length != 0" class="table table-hover">
+            <table ng-show="vm.mobileUnitLog.length != 0" class="table table-hover">
               <thead>
               <tr>
                 <th>Descripción</th>
+                <th>Inicio</th>
+                <th>Fin</th>
               </tr>
               </thead>
               <tbody>
               <tr ng-repeat="mobileUnitLog in vm.mobileUnitLogFinal">
-                <td ng-bind="mobileUnitLog"></td>
+                <td ng-bind="mobileUnitLog.action"></td>
+                <td ng-bind="mobileUnitLog.createdInicial"></td>
+                <td ng-bind="mobileUnitLog.createdFinal"></td>
               </tr>
               </tbody>
-            </table>-->
+            </table>
             <br/>
-            <ol ng-show="vm.mobileUnitLog.length != 0">
-              <li ng-repeat="mobileUnitLog in vm.mobileUnitLogFinal" ng-bind="mobileUnitLog"></li>
-            </ol>
+
             <div ng-show="vm.mobileUnitLog.length == 0">
               <small>
                 <em class="text-muted">

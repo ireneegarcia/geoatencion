@@ -82,6 +82,15 @@
           pageTitle: 'Signup'
         }
       })
+      .state('authentication.signup-adminorganism', {
+        url: '/signup-adminorganism',
+        templateUrl: '/modules/users/client/views/authentication/signup.adminorganism.view.html',
+        controller: 'AuthenticationController',
+        controllerAs: 'vm',
+        data: {
+          pageTitle: 'Signup'
+        }
+      })
       /* .state('authentication.operator', {
         url: '/signup-operator',
         templateUrl: '/modules/users/client/views/authentication/signup.operator.view.html',

@@ -11,26 +11,26 @@
     // Set top bar menu items
     menuService.addMenuItem('topbar', {
       title: 'Estadisticas',
-      state: 'estadisticas',
+      state: 'estadisticas.list',
+      roles: ['organism', 'adminOrganism']
+    });
+
+    menuService.addMenuItem('topbar', {
+      title: 'Log',
+      state: 'log',
       type: 'dropdown',
       roles: ['organism', 'adminOrganism']
     });
 
     // Add the dropdown list item
-    menuService.addSubMenuItem('topbar', 'estadisticas', {
-      title: 'Ver estadisticas',
-      state: 'estadisticas.list'
-    });
-
-    // Add the dropdown list item
-    menuService.addSubMenuItem('topbar', 'estadisticas', {
-      title: 'Historia unidades',
+    menuService.addSubMenuItem('topbar', 'log', {
+      title: 'Unidades',
       state: 'mobileunithistories.list'
     });
 
     // Add the dropdown list item
-    menuService.addSubMenuItem('topbar', 'estadisticas', {
-      title: 'Historia admin',
+    menuService.addSubMenuItem('topbar', 'log', {
+      title: 'Administrativo',
       state: 'adminlogs.list'
     });
   }

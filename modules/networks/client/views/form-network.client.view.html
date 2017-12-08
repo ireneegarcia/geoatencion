@@ -81,6 +81,7 @@
                   <select name="status" id="status" ng-model="vm.network.status" class="form-control" required>
                     <option value="activo">activo </option >
                     <option value="inactivo"> inactivo</option>
+                    <option value="fuera de servicio"> fuera de servicio</option>
                   </select>
                   <div ng-messages="vm.form.networkForm.status.$error" role="alert">
                     <p class="help-block error-text" ng-message="required">El status es necesario.</p>
