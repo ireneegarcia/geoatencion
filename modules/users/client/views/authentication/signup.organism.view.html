@@ -407,10 +407,11 @@
               <div class="col-md-6">
                 <div class="form-group has-info " show-errors>
                   <label class="control-label" for="password">Contraseña</label>
-                  <input type="password" id="password" name="password" class="form-control" ng-model="vm.credentials.password" uib-popover="{{vm.getPopoverMsg()}}" popover-trigger="outsideClick" password-validator required>
+                  <input type="password" id="password" name="password" class="form-control" ng-model="vm.credentials.password" password-validator required> <!--uib-popover="{{vm.getPopoverMsg()}}" popover-trigger="outsideClick"-->
                   <div ng-messages="vm.userForm.password.$error" role="alert">
                     <p class="help-block error-text" ng-message="required">Por favor indique su contraseña.</p>
                     <div ng-repeat="passwordError in passwordErrors">
+                      <br />
                       <p class="help-block error-text" ng-show="vm.userForm.password.$error.requirements">{{passwordError}}</p>
                     </div>
                   </div>
