@@ -37,33 +37,36 @@ exports.signup = function (req, res) {
     }
     if (users.length === 0) {
       user.roles[0] = 'admin';
-    }
-  });
-
-  // Then save the user
-  user.save(function (err) {
-    if (err) {
-      return res.status(422).send({
-        message: errorHandler.getErrorMessage(err)
-      });
     } else {
-      // Remove sensitive data before login
-      user.password = undefined;
-      user.salt = undefined;
-
-      if (user.user) {
-        res.json(user);
-      } else {
-        req.login(user, function (err) {
-          if (err) {
-            res.status(400).send(err);
-          } else {
-            res.json(user);
-          }
-        });
-      }
+      user.roles[0] = 'user';
     }
+
+    // Then save the user
+    user.save(function (err) {
+      if (err) {
+        return res.status(422).send({
+          message: errorHandler.getErrorMessage(err)
+        });
+      } else {
+        // Remove sensitive data before login
+        user.password = undefined;
+        user.salt = undefined;
+
+        if (user.user) {
+          res.json(user);
+        } else {
+          req.login(user, function (err) {
+            if (err) {
+              res.status(400).send(err);
+            } else {
+              res.json(user);
+            }
+          });
+        }
+      }
+    });
   });
+
 };
 
 /**
