@@ -23,13 +23,22 @@ var noReturnUrls = [
 exports.signup = function (req, res) {
   // For security measurement we remove the roles from the req.body object
   delete req.body.roles;
-
   // Init user and add missing fields
   var user = new User(req.body);
   user.provider = 'local';
   user.displayName = user.firstName + ' ' + user.lastName;
   user.user = req.user;
-  console.log(req.body.organism);
+
+  User.find({}, '-salt -password -providerData').sort('-created').populate('user', 'displayName').exec(function (err, users) {
+    if (err) {
+      return res.status(422).send({
+        message: errorHandler.getErrorMessage(err)
+      });
+    }
+    if (users.length === 0) {
+      user.roles[0] = 'admin';
+    }
+  });
 
   // Then save the user
   user.save(function (err) {
@@ -56,7 +65,6 @@ exports.signup = function (req, res) {
     }
   });
 };
-
 
 /**
  * Signin after passport authentication
