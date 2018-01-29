@@ -96,19 +96,21 @@
         return false;
       }
 
-      if (vm.authentication.user.organism) {
-        AdminlogsServiceCreate.charge({
-          description: 'Ha registrado al usuario: ' + vm.credentials.firstName + ' ' + vm.credentials.lastName,
-          module: 'usuario',
-          organism: vm.authentication.organism}, function (data) {
-          // se realizo el post
-        });
 
-        vm.credentials.organism = vm.authentication.user.organism;
-        UsersService.userSignup(vm.credentials)
-          .then(onUserSignupSuccess)
-          .catch(onUserSignupError);
+      if (vm.authentication.user !== null) {
+        if (vm.authentication.user.organism !== null) {
+          AdminlogsServiceCreate.charge({
+            description: 'Ha registrado al usuario: ' + vm.credentials.firstName + ' ' + vm.credentials.lastName,
+            module: 'usuario',
+            organism: vm.authentication.organism}, function (data) {
+            // se realizo el post
+          });
 
+          vm.credentials.organism = vm.authentication.user.organism;
+          UsersService.userSignup(vm.credentials)
+            .then(onUserSignupSuccess)
+            .catch(onUserSignupError);
+        }
       } else {
         UsersService.userSignup(vm.credentials)
           .then(onUserSignupSuccess)

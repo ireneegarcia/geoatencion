@@ -16,45 +16,46 @@
           </div>
         </div>
 
-        <div  ng-repeat="organismo_ in vm.organismo" class="form-group has-info " style="width: 100%">
+        <div ng-show="vm.solicitud.organism" class="form-group has-info " style="width: 100%">
           <label class="control-label" for="category">Categoría de atención del organismo</label>
-          <select name="category" id="category" ng-model="vm.solicitud.category" class="form-control" required>
+          <input ng-disabled="true" name="category" type="text" id="category" class="form-control"  required  placeholder="{{vm.categorySelectedCreate[0].category}}">
+          <!--<select name="category" id="category" ng-model="vm.solicitud.category" class="form-control" required>
             <option ng-repeat="categorySelected in vm.categories" ng-if="organismo_.category === categorySelected.id" value="{{categorySelected.id}}">{{categorySelected.name}}</option>
-          </select>
+          </select>-->
           <div ng-messages="vm.form.solicitudForm.category.$error" role="alert">
-            <p class="help-block error-text" ng-message="required">Es necesario que introduzca al menos una pregunta. </p>
+            <p class="help-block error-text" ng-message="required"></p>
           </div>
         </div>
 
         <div ng-repeat="formulario_ in vm.formulario" class="form-group has-info " style="width: 100%" show-errors>
           <label  class="control-label" for="question1">{{formulario_.question1}}</label>
-          <input name="question1" type="text" ng-model="vm.solicitud.question1" id="question1" class="form-control"  required>
+          <input name="question1" type="text" ng-model="vm.solicitud.question1" id="question1" class="form-control" required>
           <div ng-messages="vm.form.solicitudForm.question1.$error" role="alert">
-            <p class="help-block error-text" ng-message="required">Es necesario que introduzca al menos una pregunta. </p>
+            <p class="help-block error-text" ng-message="required">Es necesario que introduzca la respuesta a la pregunta.</p>
           </div>
         </div>
 
         <div ng-repeat="formulario_ in vm.formulario" class="form-group has-info " style="width: 100%" show-errors>
           <label class="control-label" for="question2">{{formulario_.question2}}</label>
-          <input name="question2" type="text" ng-model="vm.solicitud.question2" id="question2" class="form-control"  >
+          <input name="question2" type="text" ng-model="vm.solicitud.question2" id="question2" class="form-control"  required>
           <div ng-messages="vm.form.solicitudForm.question2.$error" role="alert">
-            <p class="help-block error-text" ng-message="required">Es necesario que introduzca al menos una pregunta. </p>
+            <p class="help-block error-text" ng-message="required">Es necesario que introduzca la respuesta a la pregunta. </p>
           </div>
         </div>
 
         <div ng-repeat="formulario_ in vm.formulario" class="form-group has-info " style="width: 100%" show-errors>
           <label class="control-label" for="question3">{{formulario_.question3}}</label>
-          <input  name="question3" type="text" ng-model="vm.solicitud.question3" id="question3" class="form-control"  >
+          <input  name="question3" type="text" ng-model="vm.solicitud.question3" id="question3" class="form-control"  required >
           <div ng-messages="vm.form.solicitudForm.question3.$error" role="alert">
-            <p class="help-block error-text" ng-message="required">Es necesario que introduzca al menos una pregunta. </p>
+            <p class="help-block error-text" ng-message="required">Es necesario que introduzca la respuesta a la pregunta. </p>
           </div>
         </div>
 
         <div ng-repeat="formulario_ in vm.formulario" class="form-group has-info" style="width: 100%" show-errors>
           <label class="control-label" for="question4">{{formulario_.question4}}</label>
-          <input  name="question4" type="text" ng-model="vm.solicitud.question4" id="question4" class="form-control" >
+          <input  name="question4" type="text" ng-model="vm.solicitud.question4" id="question4" class="form-control" required>
           <div ng-messages="vm.form.solicitudForm.question4.$error" role="alert">
-            <p class="help-block error-text" ng-message="required">Es necesario que introduzca al menos una pregunta. </p>
+            <p class="help-block error-text" ng-message="required">Es necesario que introduzca la respuesta a la pregunta. </p>
           </div>
         </div>
         <div class="form-group">

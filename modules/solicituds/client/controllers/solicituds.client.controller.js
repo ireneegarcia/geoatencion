@@ -6,9 +6,9 @@
     .module('solicituds')
     .controller('SolicitudsController', SolicitudsController);
 
-  SolicitudsController.$inject = ['$scope', '$filter', '$state', '$window', 'Authentication', 'solicitudResolve', 'CategoriaserviciosService', 'UsersService', 'FormulariosService', 'OrganismsService'];
+  SolicitudsController.$inject = ['$scope', '$filter', '$state', '$window', 'Authentication', 'solicitudResolve', 'CategoriaserviciosService', 'UsersService', 'FormulariosService', 'OrganismsService', 'Notification'];
 
-  function SolicitudsController ($scope, $filter, $state, $window, Authentication, solicitud, CategoriaserviciosService, UsersService, FormulariosService, OrganismsService) {
+  function SolicitudsController ($scope, $filter, $state, $window, Authentication, solicitud, CategoriaserviciosService, UsersService, FormulariosService, OrganismsService, Notification) {
     var vm = this;
 
     vm.authentication = Authentication;
@@ -46,11 +46,16 @@
 
       // Filtrar organismo
       vm.organismo = $filter('filter')(vm.organism, { _id: organism});
+      // categoría
+      vm.categorySelectedCreate = CategoriaserviciosService.query(function (data) {
+        vm.categorySelectedCreate = $filter('filter')(data, { _id: vm.organismo[0].category});
+      });
       // Filtrar fomrulario de acuerdo a la categoría del organismo
       vm.formulario = $filter('filter')(vm.forms, { category: vm.organismo[0].category});
     };
 
     // PARA EL FORMULARIO DE ACTUALIZAR
+    vm.categorySelected = '';
     vm.categorySelected = CategoriaserviciosService.query(function (data) {
       vm.categorySelected = $filter('filter')(data, { _id: vm.solicitud.category});
     });
@@ -93,6 +98,14 @@
 
     // Save Solicitud
     function save(isValid) {
+
+      if (vm.categorySelectedCreate.length !== 0) {
+        vm.solicitud.category = vm.categorySelectedCreate[0]._id;
+      } else {
+        Notification.error({ message: '<i class="glyphicon glyphicon-remove"></i> Campo categoría vacío', delay: 6000 });
+        vm.solicitud.category = '';
+      }
+
       if (!isValid) {
         $scope.$broadcast('show-errors-check-validity', 'vm.form.solicitudForm');
         return false;

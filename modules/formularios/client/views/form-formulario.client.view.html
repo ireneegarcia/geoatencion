@@ -1,8 +1,6 @@
 <section>
 
-  <h1 class="page-header" data-toggle="tooltip"
-      data-placement="bottom"
-      title="Indique un mínimo de una pregunta y un máximo de cuatro preguntas por formulario">
+  <h1>
     {{vm.formulario._id ? 'Editar formulario' : 'Nuevo formulario'}}
   </h1>
 
@@ -31,31 +29,31 @@
           <label class="control-label" for="question1">Pregunta #1</label>
           <input style="color: #8c8c8c" name="question1" type="text" ng-model="vm.formulario.question1" id="question1" class="form-control"  required>
           <div ng-messages="vm.form.formularioForm.question1.$error" role="alert">
-            <p class="help-block error-text" ng-message="required">Es necesario que introduzca al menos una pregunta. </p>
+            <p class="help-block error-text" ng-message="required">Es necesario que introduzca la pregunta. </p>
           </div>
         </div>
 
         <div class="form-group has-info" style="width: 100%" show-errors>
           <label class="control-label" for="question2">Pregunta #2</label>
-          <input style="color: #8c8c8c" name="question2" type="text" ng-model="vm.formulario.question2" id="question2" class="form-control"  >
+          <input style="color: #8c8c8c" name="question2" type="text" ng-model="vm.formulario.question2" id="question2" class="form-control"  required>
           <div ng-messages="vm.form.formularioForm.question2.$error" role="alert">
-            <p class="help-block error-text" ng-message="required">Es necesario que introduzca al menos una pregunta. </p>
+            <p class="help-block error-text" ng-message="required">Es necesario que introduzca la pregunta. </p>
           </div>
         </div>
 
         <div class="form-group has-info" style="width: 100%" show-errors>
           <label class="control-label" for="question3">Pregunta #3</label>
-          <input style="color: #8c8c8c" name="question3" type="text" ng-model="vm.formulario.question3" id="question3" class="form-control"  >
+          <input style="color: #8c8c8c" name="question3" type="text" ng-model="vm.formulario.question3" id="question3" class="form-control"  required>
           <div ng-messages="vm.form.formularioForm.question3.$error" role="alert">
-            <p class="help-block error-text" ng-message="required">Es necesario que introduzca al menos una pregunta. </p>
+            <p class="help-block error-text" ng-message="required">Es necesario que introduzca la pregunta. </p>
           </div>
         </div>
 
         <div class="form-group has-info" style="width: 100%" show-errors>
           <label class="control-label" for="question4">Pregunta #4</label>
-          <input style="color: #8c8c8c" name="question4" type="text" ng-model="vm.formulario.question4" id="question4" class="form-control" >
+          <input style="color: #8c8c8c" name="question4" type="text" ng-model="vm.formulario.question4" id="question4" class="form-control" required>
           <div ng-messages="vm.form.formularioForm.question4.$error" role="alert">
-            <p class="help-block error-text" ng-message="required">Es necesario que introduzca al menos una pregunta. </p>
+            <p class="help-block error-text" ng-message="required">Es necesario que introduzca la pregunta. </p>
           </div>
         </div>
 
