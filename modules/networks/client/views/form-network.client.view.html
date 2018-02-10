@@ -8,12 +8,16 @@
         <div class="text-center title"  >
           <h2>{{vm.network._id ? 'Editar unidad de atención' : 'Nueva unidad de atención'}}</h2>
         </div>
+        <small>
+          Los campos marcados con asterísco <span class="textRequired">*</span> son obligatorios
+        </small>
         <form  name="vm.form.networkForm" ng-submit="vm.save(vm.form.networkForm.$valid)" novalidate>
           <fieldset>
             <div class="row">
               <div class="col-md-6">
                 <div class="form-group has-info " show-errors>
                   <label class="control-label" for="carBrand">Marca</label>
+                  <small class="textRequired">*</small>
                   <input name="carBrand" type="text" ng-model="vm.network.carBrand" id="carBrand" class="form-control"  autofocus required>
                   <div ng-messages="vm.form.networkForm.carBrand.$error" role="alert">
                     <p class="help-block error-text" ng-message="required">La marca es necesario</p>
@@ -23,6 +27,7 @@
               <div class="col-md-6">
                 <div class="form-group has-info " show-errors>
                   <label class="control-label" for="carModel">Modelo</label>
+                  <small class="textRequired">*</small>
                   <input name="carModel" type="text" ng-model="vm.network.carModel" id="carModel" class="form-control"  required>
                   <div ng-messages="vm.form.networkForm.carModel.$error" role="alert">
                     <p class="help-block error-text" ng-message="required">El modelo es necesario</p>
@@ -34,6 +39,7 @@
               <div class="col-md-6">
                 <div class="form-group has-info " show-errors>
                   <label class="control-label" for="carPlate">Placa</label>
+                  <small class="textRequired">*</small>
                   <input name="carPlate" type="text" ng-model="vm.network.carPlate" id="carPlate" class="form-control"  required>
                   <div ng-messages="vm.form.networkForm.carPlate.$error" role="alert">
                     <p class="help-block error-text" ng-message="required">La placa es necesaria</p>
@@ -43,6 +49,7 @@
               <div class="col-md-6">
                 <div class="form-group has-info " show-errors>
                   <label class="control-label" for="carColor">Color</label>
+                  <small class="textRequired">*</small>
                   <input name="carColor" type="text" ng-model="vm.network.carColor" id="carColor" class="form-control"  required>
                   <div ng-messages="vm.form.networkForm.carColor.$error" role="alert">
                     <p class="help-block error-text" ng-message="required">El color es necesario</p>
@@ -54,6 +61,7 @@
               <div class="col-md-6">
                 <div class="form-group has-info " show-errors>
                   <label class="control-label" for="carCode">Código identificador (máximo 6 dígitos sin espacios en blanco)</label>
+                  <small class="textRequired">*</small>
                   <input name="carCode" type="text" ng-model="vm.network.carCode" id="carCode" class="form-control" lowercase  required>
                   <div ng-messages="vm.form.networkForm.carCode.$error" role="alert">
                     <p class="help-block error-text" ng-message="required">El código es necesario</p>
@@ -63,6 +71,7 @@
               <div class="col-md-6">
                 <div class="form-group has-info" show-errors>
                   <label class="control-label" for="category">Seleccione una categoría</label>
+                  <small class="textRequired">*</small>
                   <select name="category" id="category" ng-model="vm.network.category" class="form-control" required>
                     <option ng-repeat="option in vm.categories" value="{{option.id}}">{{option.name}}</option>
                   </select>
@@ -78,6 +87,7 @@
               <div class="col-md-6">
                 <div class="form-group has-info " show-errors>
                   <label class="control-label" for="status">Estado</label>
+                  <small class="textRequired">*</small>
                   <select name="status" id="status" ng-model="vm.network.status" class="form-control" required>
                     <option value="activo">activo </option >
                     <option value="inactivo"> inactivo</option>
@@ -136,4 +146,4 @@
   $(document).ready(function() {
     $("#organism").mask("a-999999999");
   });
-  </script>
+</script>
