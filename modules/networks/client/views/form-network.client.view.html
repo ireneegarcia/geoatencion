@@ -7,10 +7,10 @@
 
         <div class="text-center title"  >
           <h2>{{vm.network._id ? 'Editar unidad de atención' : 'Nueva unidad de atención'}}</h2>
+          <small>
+            Los campos marcados con asterísco <span class="textRequired">*</span> son obligatorios
+          </small>
         </div>
-        <small>
-          Los campos marcados con asterísco <span class="textRequired">*</span> son obligatorios
-        </small>
         <form  name="vm.form.networkForm" ng-submit="vm.save(vm.form.networkForm.$valid)" novalidate>
           <fieldset>
             <div class="row">
@@ -111,7 +111,7 @@
               </div>
             </div>
 
-            <div class="row">
+            <!--<div class="row">
               <div class="col-md-6">
                 <div class="form-group has-info " ng-show="!vm.network._id" show-errors>
                   <label class="control-label" for="organism">RIF del organismo</label>
@@ -124,7 +124,7 @@
               <div class="col-md-6">
 
               </div>
-            </div>
+            </div>-->
 
             <div class="text-center form-group">
               <button type="submit" class="btn btn-info text-center">{{vm.network._id ? 'Actualizar unidad' : 'Registrar unidad'}}</button>

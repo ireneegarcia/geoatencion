@@ -111,6 +111,7 @@
 
     // Save Network
     function save(isValid) {
+      var post = 0;
       if (!isValid) {
         $scope.$broadcast('show-errors-check-validity', 'vm.form.networkForm');
         return false;
@@ -127,25 +128,37 @@
         });
       } else {
 
-        if (vm.network.organism) {
-          OrganismsService.query(function (data) {
-            vm.organism = data.filter(function (data) {
-              return (data.rif.indexOf(vm.network.organism) >= 0);
-            });
-            if (vm.organism.length !== 0) {
-              AdminlogsServiceCreate.charge({
-                description: 'Ha registrado la unidad: ' + vm.network.carCode,
-                module: 'unidad de atención',
-                organism: vm.authentication.user.organism}, function (data) {
-                // se realizo el post
-              });
-              vm.network.$save(successCallback, errorCallback);
-              Notification.success({ title: '<i class="glyphicon glyphicon-ok"></i> Registro exitoso!' });
-            } else {
-              Notification.error({ title: '<i class="glyphicon glyphicon-remove"></i> RIF inválido!', delay: 6000 });
-            }
-          });
-        }
+        /* if (vm.network.organism) {
+         OrganismsService.query(function (data) {
+         vm.organism = data.filter(function (data) {
+         return (data.rif.indexOf(vm.network.organism) >= 0);
+         });
+         if (vm.organism.length !== 0) {
+         AdminlogsServiceCreate.charge({
+         description: 'Ha registrado la unidad: ' + vm.network.carCode,
+         module: 'unidad de atención',
+         organism: vm.authentication.user.organism}, function (data) {
+         // se realizo el post
+         });
+         vm.network.$save(successCallback, errorCallback);
+         Notification.success({ title: '<i class="glyphicon glyphicon-ok"></i> Registro exitoso!' });
+         } else {
+         Notification.error({ title: '<i class="glyphicon glyphicon-remove"></i> RIF inválido!', delay: 6000 });
+         }
+         });
+         }*/
+        vm.network.organism = vm.authentication.user.organism;
+        AdminlogsServiceCreate.charge({
+          description: 'Ha registrado la unidad: ' + vm.network.carCode,
+          module: 'unidad de atención',
+          organism: vm.authentication.user.organism}, function (err, data) {
+          if (err) {
+            vm.network.$save(successCallback, errorCallback);
+            Notification.success({ title: '<i class="glyphicon glyphicon-ok"></i> Registro exitoso!' });
+          } else {
+            Notification.error({ title: '<i class="glyphicon glyphicon-remove"></i> Algo salió mal!', delay: 6000 });
+          }
+        });
       }
 
       function successCallback(res) {

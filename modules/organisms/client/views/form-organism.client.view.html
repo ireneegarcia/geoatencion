@@ -1,8 +1,11 @@
 <section>
-  <div class="page-header">
+  <div class="page-header text-center title">
     <h3 class="text-center title">
       {{vm.organism._id ? 'Actualizar cuenta organismo de atención' : 'Crear cuenta organismo de atención'}}
     </h3>
+    <small>
+      Los campos marcados con asterísco <span class="textRequired">*</span> son obligatorios
+    </small>
   </div>
   <div class="col-md-8 col-md-offset-2">
     <form name="vm.form.organismForm" class="signin" ng-submit="vm.save(vm.form.organismForm.$valid)" novalidate>
@@ -11,6 +14,7 @@
           <div class="col-md-6">
             <div class="form-group has-info" show-errors>
               <label class="control-label" for="name">Nombre de la empresa</label>
+              <small class="textRequired">*</small>
               <input name="name" type="text" ng-model="vm.organism.name" id="name" class="form-control" required>
               <div ng-messages="vm.form.organismForm.name.$error" role="alert">
                 <p class="help-block error-text" ng-message="required">El nombre del organismo es necesario</p>
@@ -20,6 +24,7 @@
           <div class="col-md-6">
             <div class="form-group has-info" show-errors>
               <label class="control-label" for="email">Correo de uso administrativo</label>
+              <small class="textRequired">*</small>
               <input type="email" id="email" name="email" class="form-control" ng-model="vm.organism.email"  lowercase required>
               <div ng-messages="vm.form.organismForm.email.$error" role="alert">
                 <p class="help-block error-text" ng-message="required">Por favor introduzca su email.</p>
@@ -32,6 +37,7 @@
           <div class="col-md-6">
             <div class="form-group has-info" show-errors>
               <label class="control-label" for="phone">Teléfono</label>
+              <small class="textRequired">*</small>
               <input name="phone" type="text" ng-model="vm.organism.phone" id="phone" class="form-control" required>
               <div ng-messages="vm.form.organismForm.phone.$error" role="alert">
                 <p class="help-block error-text" ng-message="required">El nombre del organismo es necesario</p>
@@ -41,6 +47,7 @@
           <div class="col-md-6">
             <div class="form-group has-info" show-errors>
               <label class="control-label" for="country">País</label>
+              <small class="textRequired">*</small>
               <select id="country" name="country" class="form-control" ng-model="vm.organism.country"  required>
                 <option value="AF" >Afganistán</option>
                 <option value="AL" >Albania</option>
@@ -288,6 +295,7 @@
           <div class="col-md-6">
             <div class="form-group has-info" show-errors>
               <label class="control-label" for="address">Dirección</label>
+              <small class="textRequired">*</small>
               <input name="address" type="text" ng-model="vm.organism.address" id="address" class="form-control" required>
               <div ng-messages="vm.form.organism.address.$error" role="alert">
                 <p class="help-block error-text" ng-message="required">El nombre del organismo es necesario</p>
@@ -297,6 +305,7 @@
           <div class="col-md-6">
             <div class="form-group has-info" show-errors>
               <label class="control-label" for="category">Categoría de servicio</label>
+              <small class="textRequired">*</small>
               <select name="category" id="category" ng-model="vm.organism.category" class="form-control">
                 <option ng-repeat="option in vm.categories" value="{{option._id}}">{{option.category}}</option>
               </select>
