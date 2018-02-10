@@ -315,7 +315,7 @@
               <div class="col-md-6">
                 <div class="form-group has-info " show-errors>
                   <label class="control-label" for="phone">Teléfono</label>
-                  <input type="text" id="phone" name="phone" class="form-control" ng-model="vm.credentials.phone" ng-pattern="vm.usernameRegex"  lowercase required>
+                  <input type="text" id="phone" name="phone" class="form-control" ng-model="vm.credentials.phone" lowercase required>
                   <div ng-messages="vm.userForm.phone.$error" role="alert">
                     <p class="help-block error-text" ng-message="required">Por favor indique su teléfono</p>
 
@@ -360,9 +360,9 @@
               <uib-progressbar value="requirementsProgress" type="{{requirementsColor}}"><span style="color:white; white-space:nowrap;">{{requirementsProgress}}%</span></uib-progressbar>
             </div>
             <div class="text-center form-group">
-              <button type="submit" class="btn btn-info btn-raised">Sign up</button>
-              &nbsp; or&nbsp;
-              <a ui-sref="authentication.signin" class="show-signup">Sign in</a>
+              <button type="submit" class="btn btn-info btn-raised">Registrarse</button>
+              &nbsp; o&nbsp;
+              <a ui-sref="authentication.signin" class="show-signup">Iniciar sesión</a>
             </div>
           </fieldset>
         </form>

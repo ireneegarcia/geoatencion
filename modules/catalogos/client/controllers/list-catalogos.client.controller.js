@@ -39,32 +39,6 @@
       vm.buildPager();
     });
 
-
-    /*OrganismsService.query(function (data) {
-     var organisms = $filter('filter')(data, { isActive: 'activo'});
-     organisms.forEach(function(organism) {
-     organism.network = $filter('filter')(vm.networks, { organism: organism.rif}).length;
-     organism.network = vm.networks.filter(function (network) {
-     console.log(network);
-     return network.organism === organism.rif;
-     }).length;
-     vm.organisms.push(organism);
-     });
-     //       console.log(vm.organisms);
-     vm.buildPager();
-     });*/
-
-    /* UsersService.query(function (data) {
-     var users = $filter('filter')(data, { roles: 'organism'});
-     users.forEach(function(user) {
-     user.network = networks.filter(function (network) {
-     return network.user._id === user._id;
-     }).length;
-     vm.users.push(user);
-     });
-     vm.buildPager();
-     });*/
-
     function buildPager() {
       vm.pagedItems = [];
       vm.itemsPerPage = 5;

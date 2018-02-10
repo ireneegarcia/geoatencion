@@ -5,14 +5,15 @@
     .module('solicituds')
     .controller('SolicitudsListController', SolicitudsListController);
 
-  SolicitudsListController.$inject = ['SolicitudsService', 'UsersService', '$filter', 'Authentication', 'OrganismsService'];
+  SolicitudsListController.$inject = ['SolicitudsService', 'UsersService', '$filter', 'Authentication', 'OrganismsService', 'CategoriaserviciosService'];
 
-  function SolicitudsListController(SolicitudsService, UsersService, $filter, Authentication, OrganismsService) {
+  function SolicitudsListController(SolicitudsService, UsersService, $filter, Authentication, OrganismsService, CategoriaserviciosService) {
     var vm = this;
 
     vm.buildPager = buildPager;
     vm.figureOutItemsToDisplay = figureOutItemsToDisplay;
     vm.pageChanged = pageChanged;
+    vm.categoriaservicios = CategoriaserviciosService.query();
 
     // Condicional para encontrar el organismo relacionado
     if (Authentication.user.roles[0] === 'adminOrganism') {
@@ -26,9 +27,18 @@
            data.user._id en caso de que sea un usuario cliente
            data.organism en caso de que sea un organismo
            * */
-          vm.solicituds = data.filter(function (data) {
-            return (data.organism.indexOf(vm.organism[0]._id) >= 0);
+          vm.solicituds = [];
+          data.forEach(function(data) {
+            if (data.organism.indexOf(vm.organism[0]._id) >= 0) {
+              vm.categoriaservicios.forEach(function(category) {
+                if (data.category === category._id) {
+                  data.category = category.category;
+                  vm.solicituds.push(data);
+                }
+              });
+            }
           });
+
           vm.buildPager();
         });
       });
@@ -43,16 +53,35 @@
              data.user._id en caso de que sea un usuario cliente
              data.organism en caso de que sea un organismo
              * */
-            vm.solicituds = data.filter(function (data) {
-              return (data.user._id.indexOf(vm.user[0]._id) >= 0);
+
+            vm.solicituds = [];
+            data.forEach(function(data) {
+              if (data.user._id.indexOf(vm.user[0]._id) >= 0) {
+                vm.categoriaservicios.forEach(function(category) {
+                  if (data.category === category._id) {
+                    data.category = category.category;
+                    vm.solicituds.push(data);
+                  }
+                });
+              }
             });
 
             OrganismsService.query(function (data) {
               // Organismos
+              vm.organism = [];
+              data.forEach(function(data) {
+                if (data.isActive === 'activo') {
+                  vm.organism.push(data);
+                }
+              });
+            });
+
+            /* OrganismsService.query(function (data) {
+              // Organismos
               vm.organism = data.filter(function (data) {
                 return (data.isActive.indexOf('activo') >= 0);
               });
-            });
+            });*/
             vm.buildPager();
           });
         });

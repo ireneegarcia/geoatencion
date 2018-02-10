@@ -1,15 +1,20 @@
-<section>
+
+<section ng-show="vm.authentication.user.roles[0] === 'user'">
   <div class="page-header">
     <h2>{{vm.solicitud._id ? 'Editar solicitud de afiiación' : 'Solicitud de afiliación'}}</h2>
+    <small>
+      Los campos marcados con asterísco <span class="textRequired">*</span> son obligatorios
+    </small>
   </div>
   <div class="col-md-12">
-    <form name="vm.form.solicitudForm" class="form-horizontal" ng-submit="vm.save(vm.form.solicitudForm.$valid)" novalidate>
+    <form name="vm.form.solicitudForm" class="form-horizontal" ng-submit="vm.save(vm.form.solicitudForm.$valid, 1)" novalidate>
       <fieldset>
 
         <div class="form-group has-info " style="width: 100%" show-errors>
           <label class="control-label" for="organism">Organismo de atención</label>
+          <small class="textRequired">*</small>
           <select name="organism" id="organism" ng-model="vm.solicitud.organism" class="form-control" required>
-            <option ng-repeat="option in vm.organism" value="{{option._id}}">{{option.firstName}}</option>
+            <option ng-repeat="option in vm.organism" value="{{option._id}}">{{option.name}}</option>
           </select>
           <div ng-messages="vm.form.solicitudForm.organism.$error" role="alert">
             <p class="help-block error-text" ng-message="required">Es necesario que indique un organismo </p>
@@ -18,6 +23,7 @@
 
         <div class="form-group has-info " style="width: 100%">
           <label class="control-label" for="category">Categoría de atención del organismo</label>
+          <small class="textRequired">*</small>
           <select name="category" id="category" ng-model="vm.solicitud.category" class="form-control" required>
             <option ng-repeat="categorySelected in vm.categorySelected" value="{{categorySelected._id}}">{{categorySelected.category}}</option>
           </select>
@@ -28,13 +34,14 @@
 
         <div ng-repeat="formulario_ in vm.formSelected" class="form-group has-info " style="width: 100%" show-errors>
           <label  class="control-label" for="question1">{{formulario_.question1}}</label>
+          <small class="textRequired">*</small>
           <input name="question1" type="text" ng-model="vm.solicitud.question1" id="question1" class="form-control"  required>
           <div ng-messages="vm.form.solicitudForm.question1.$error" role="alert">
             <p class="help-block error-text" ng-message="required">Es necesario que introduzca al menos una pregunta. </p>
           </div>
         </div>
 
-        <div ng-repeat="formulario_ in vm.formSelected" class="form-group has-info " style="width: 100%" show-errors>
+        <div ng-show="formulario_.question2" ng-repeat="formulario_ in vm.formSelected" class="form-group has-info " style="width: 100%" show-errors>
           <label class="control-label" for="question2">{{formulario_.question2}}</label>
           <input name="question2" type="text" ng-model="vm.solicitud.question2" id="question2" class="form-control"  >
           <div ng-messages="vm.form.solicitudForm.question2.$error" role="alert">
@@ -42,7 +49,7 @@
           </div>
         </div>
 
-        <div ng-repeat="formulario_ in vm.formSelected" class="form-group has-info " style="width: 100%" show-errors>
+        <div ng-show="formulario_.question3" ng-repeat="formulario_ in vm.formSelected" class="form-group has-info " style="width: 100%" show-errors>
           <label class="control-label" for="question3">{{formulario_.question3}}</label>
           <input  name="question3" type="text" ng-model="vm.solicitud.question3" id="question3" class="form-control"  >
           <div ng-messages="vm.form.solicitudForm.question3.$error" role="alert">
@@ -50,15 +57,78 @@
           </div>
         </div>
 
-        <div ng-repeat="formulario_ in vm.formSelected" class="form-group has-info" style="width: 100%" show-errors>
+        <div ng-show="formulario_.question4" ng-repeat="formulario_ in vm.formSelected" class="form-group has-info" style="width: 100%" show-errors>
           <label class="control-label" for="question4">{{formulario_.question4}}</label>
           <input  name="question4" type="text" ng-model="vm.solicitud.question4" id="question4" class="form-control" >
           <div ng-messages="vm.form.solicitudForm.question4.$error" role="alert">
             <p class="help-block error-text" ng-message="required">Es necesario que introduzca al menos una pregunta. </p>
           </div>
         </div>
-        <div class="form-group">
+        <div class="pull-left">
           <button type="submit" class="btn btn-info">{{vm.solicitud._id ? 'Actualizar solicitud' : 'Enviar solicitud'}}</button>
+        </div>
+        <div class="pull-left">
+          <button type="submit" class="btn btn-info">Volver atrás</button>
+        </div>
+        <div ng-show="vm.error" class="text-danger">
+          <strong ng-bind="vm.error"></strong>
+        </div>
+      </fieldset>
+    </form>
+  </div>
+</section>
+
+<section ng-show="vm.authentication.user.roles[0] === 'adminOrganism'">
+  <div class="page-header">
+    <h2>Detalle de solicitud</h2>
+  </div>
+  <div class="col-md-12">
+    <form name="vm.form.solicitudForm" class="form-horizontal" ng-submit="vm.save(vm.form.solicitudForm.$valid, 1)" novalidate>
+      <fieldset>
+
+        <div class="form-group has-info " style="width: 100%">
+          <label class="control-label" for="category">Categoría de atención del organismo</label>
+          <select ng-disabled="true"  name="category" ng-model="vm.solicitud.category" class="form-control" required>
+            <option ng-repeat="categorySelected in vm.categorySelected" value="{{categorySelected._id}}">{{categorySelected.category}}</option>
+          </select>
+          <div ng-messages="vm.form.solicitudForm.category.$error" role="alert">
+            <p class="help-block error-text" ng-message="required">Es necesario que introduzca al menos una pregunta. </p>
+          </div>
+        </div>
+
+        <div ng-repeat="formulario_ in vm.formSelected" class="form-group has-info " style="width: 100%" show-errors>
+          <label  class="control-label" for="question1">{{formulario_.question1}}</label>
+          <input ng-disabled="true"  name="question1" type="text" ng-model="vm.solicitud.question1" class="form-control"  required>
+          <div ng-messages="vm.form.solicitudForm.question1.$error" role="alert">
+            <p class="help-block error-text" ng-message="required">Es necesario que introduzca al menos una pregunta. </p>
+          </div>
+        </div>
+
+        <div ng-repeat="formulario_ in vm.formSelected" class="form-group has-info " style="width: 100%" show-errors>
+          <label class="control-label" for="question2">{{formulario_.question2}}</label>
+          <input ng-disabled="true"  name="question2" type="text" ng-model="vm.solicitud.question2" class="form-control"  >
+          <div ng-messages="vm.form.solicitudForm.question2.$error" role="alert">
+            <p class="help-block error-text" ng-message="required">Es necesario que introduzca al menos una pregunta. </p>
+          </div>
+        </div>
+
+        <div ng-repeat="formulario_ in vm.formSelected" class="form-group has-info " style="width: 100%" show-errors>
+          <label class="control-label" for="question3">{{formulario_.question3}}</label>
+          <input ng-disabled="true"  name="question3" type="text" ng-model="vm.solicitud.question3" class="form-control"  >
+          <div ng-messages="vm.form.solicitudForm.question3.$error" role="alert">
+            <p class="help-block error-text" ng-message="required">Es necesario que introduzca al menos una pregunta. </p>
+          </div>
+        </div>
+
+        <div ng-repeat="formulario_ in vm.formSelected" class="form-group has-info" style="width: 100%" show-errors>
+          <label class="control-label" for="question4">{{formulario_.question4}}</label>
+          <input ng-disabled="true" name="question4" type="text" ng-model="vm.solicitud.question4" class="form-control" >
+          <div ng-messages="vm.form.solicitudForm.question4.$error" role="alert">
+            <p class="help-block error-text" ng-message="required">Es necesario que introduzca al menos una pregunta. </p>
+          </div>
+        </div>
+        <div class="pull-left">
+          <button type="submit" class="btn btn-info">Volver atrás</button>
         </div>
         <div ng-show="vm.error" class="text-danger">
           <strong ng-bind="vm.error"></strong>

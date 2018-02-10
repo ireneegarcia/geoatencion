@@ -36,11 +36,6 @@
       }
     }
 
-    /* Data points defined as an array of LatLng objects */
-    /*$scope.heatmapData = [
-      new window.google.maps.LatLng(8.2594339, -62.7737288)
-    ];*/
-
     NgMap.getMap().then(function(map) {
       vm.map = map;
     });
@@ -124,7 +119,6 @@
               j++;
             }
           }
-
         }
         console.log(vm.mobileUnitLogFinal);
       });

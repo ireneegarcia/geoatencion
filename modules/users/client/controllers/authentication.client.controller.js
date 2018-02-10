@@ -148,15 +148,15 @@
 
       if (!response.user) {
         vm.authentication.user = response;
-        Notification.success({ message: '<i class="glyphicon glyphicon-ok"></i> Signup successful!' });
+        Notification.success({ message: '<i class="glyphicon glyphicon-ok"></i> Registro exitoso!' });
         // And redirect to the previous or home page
         $state.go($state.previous.state.name || 'home', $state.previous.params);
       } else {
         if (vm.credentials.organism !== undefined) {
-          Notification.success({ message: '<i class="glyphicon glyphicon-ok"></i> Signup successful!' });
+          Notification.success({ message: '<i class="glyphicon glyphicon-ok"></i> Registro exitoso!' });
           $state.go('home');
         } else {
-          Notification.success({ message: '<i class="glyphicon glyphicon-ok"></i> Signup successful!' });
+          Notification.success({ message: '<i class="glyphicon glyphicon-ok"></i> Registro exitoso!' });
         }
 
       }
@@ -169,7 +169,7 @@
     function onUserSigninSuccess(response) {
       // If successful we assign the response to the global user model
       vm.authentication.user = response;
-      Notification.info({ message: 'Welcome ' + response.firstName });
+      Notification.info({ message: 'Bienvenido ' + response.firstName });
       // And redirect to the previous or home page
       $state.go($state.previous.state.name || 'home', $state.previous.params);
     }

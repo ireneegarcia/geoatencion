@@ -126,7 +126,7 @@
               }
             }
             vm.ratingResult = vm.ratingAll / vm.rating;
-            vm.ratingResult += "";
+            vm.ratingResult += '';
             vm.ratingResult = vm.ratingResult.substring(0, 4);
           }
         });

@@ -5,7 +5,7 @@
           ng-repeat="optionOrg in vm.organism"
           ng-if="optionOrg._id === vm.solicitud.organism">
           Solicitud afiliación {{vm.solicitud.user.displayName}},
-          para {{optionOrg.firstName}}
+          para {{optionOrg.name}}
       </h4>
       <h4 style="display: inline-block"
           ng-repeat="optionCat in vm.categories"
@@ -17,6 +17,10 @@
   </div>
   <div class="pull-right"
        ng-show="vm.authentication.user.roles[0]=== 'adminOrganism'">
+    <a class="btn btn-info" ui-sref="solicituds.edit({ solicitudId: vm.solicitud._id })">
+      <i class="glyphicon glyphicon-edit"></i>
+      Ver detalle
+    </a>
     <a class="btn btn-info" ng-click="vm.updateStatus('aceptado')">
       <i class="glyphicon glyphicon-edit"></i>
       Aceptar
@@ -38,11 +42,16 @@
       Eliminar
     </a>
   </div>
+  <div class="pull-right" ui-sref="solicituds.list">
+    <a class="btn btn-info">
+      Volver atrás
+    </a>
+  </div>
   <small>
     <em class="text-muted">
-      Posted on
+      Enviado el
       <span ng-bind="vm.solicitud.created | date:'mediumDate'"></span>
-      by
+      por
       <span ng-if="vm.solicitud.user"
             ng-bind="vm.solicitud.user.displayName"></span>
       <span ng-if="!vm.solicitud.user">Deleted User</span>

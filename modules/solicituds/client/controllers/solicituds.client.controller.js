@@ -66,7 +66,7 @@
 
     // Remove existing Solicitud
     function remove() {
-      if ($window.confirm('Are you sure you want to delete?')) {
+      if ($window.confirm('¿Está seguro de que desea eliminar esta solicitud?')) {
         vm.solicitud.$remove($state.go('solicituds.list'));
       }
     }
@@ -97,14 +97,17 @@
     }
 
     // Save Solicitud
-    function save(isValid) {
+    function save(isValid, num) {
 
-      if (vm.categorySelectedCreate.length !== 0) {
-        vm.solicitud.category = vm.categorySelectedCreate[0]._id;
-      } else {
-        Notification.error({ message: '<i class="glyphicon glyphicon-remove"></i> Campo categoría vacío', delay: 6000 });
-        vm.solicitud.category = '';
+      if (num === 0) {
+        if (vm.categorySelectedCreate.length !== 0) {
+          vm.solicitud.category = vm.categorySelectedCreate[0]._id;
+        } else {
+          Notification.error({ message: '<i class="glyphicon glyphicon-remove"></i> Campo categoría vacío', delay: 6000 });
+          vm.solicitud.category = '';
+        }
       }
+
 
       if (!isValid) {
         $scope.$broadcast('show-errors-check-validity', 'vm.form.solicitudForm');

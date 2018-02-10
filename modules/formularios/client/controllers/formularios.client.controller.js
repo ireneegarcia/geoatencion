@@ -35,7 +35,7 @@
 
     // Remove existing Formulario
     function remove() {
-      if ($window.confirm('Are you sure you want to delete?')) {
+      if ($window.confirm('¿Esta seguro de que desea eliminar este formulario?')) {
         vm.formulario.$remove($state.go('formularios.list'));
       }
     }
