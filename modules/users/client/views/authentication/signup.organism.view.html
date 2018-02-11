@@ -2,16 +2,22 @@
   <div class="section landing-section">
     <div class="row" id="register">
       <div class="col-md-8 col-md-offset-2">
+        <div class="text-center">
+          <h3 class="title">
+            Crear cuenta organismo de atención
+          </h3>
+          <small>
+            Los campos marcados con asterísco <span class="textRequired">*</span> son obligatorios
+          </small>
+        </div>
 
-        <h3 class="text-center title">
-          Crear cuenta organismo de atención
-        </h3>
         <form name="vm.userForm" ng-submit="vm.signupOrganism(vm.userForm.$valid)" class="signin contact-form" novalidate >
           <fieldset>
             <div class="row">
               <div class="col-md-6">
                 <div class="form-group has-info" show-errors>
                   <label class="control-label" for="name">Nombre de la empresa</label>
+                  <small class="textRequired">*</small>
                   <input name="name" type="text" ng-model="vm.credentials.organismName" id="name" class="form-control" autofocus required>
                   <div ng-messages="vm.form.userForm.name.$error" role="alert">
                     <p class="help-block error-text" ng-message="required">El nombre del organismo es necesario</p>
@@ -21,6 +27,7 @@
               <div class="col-md-6">
                 <div class="form-group has-info" show-errors>
                   <label class="control-label" for="email">Correo de uso administrativo</label>
+                  <small class="textRequired">*</small>
                   <input type="email" id="email" name="email" class="form-control" ng-model="vm.credentials.organismEmail"  lowercase required>
                   <div ng-messages="vm.form.userForm.email.$error" role="alert">
                     <p class="help-block error-text" ng-message="required">Por favor introduzca su email.</p>
@@ -33,6 +40,7 @@
               <div class="col-md-6">
                 <div class="form-group has-info" show-errors>
                   <label class="control-label" for="phone">Teléfono</label>
+                  <small class="textRequired">*</small>
                   <input name="phone" type="text" ng-model="vm.credentials.organismPhone" id="phone" class="form-control" required>
                   <div ng-messages="vm.form.userForm.phone.$error" role="alert">
                     <p class="help-block error-text" ng-message="required">El nombre del organismo es necesario</p>
@@ -42,6 +50,7 @@
               <div class="col-md-6">
                 <div class="form-group has-info" show-errors>
                   <label class="control-label" for="country">País</label>
+                  <small class="textRequired">*</small>
                   <select id="country" name="country" class="form-control" ng-model="vm.credentials.country"  required>
                     <option value="AF" >Afganistán</option>
                     <option value="AL" >Albania</option>
@@ -289,6 +298,7 @@
               <div class="col-md-6">
                 <div class="form-group has-info" show-errors>
                   <label class="control-label" for="address">Dirección</label>
+                  <small class="textRequired">*</small>
                   <input name="address" type="text" ng-model="vm.credentials.organismAddress" id="address" class="form-control" required>
                   <div ng-messages="vm.form.userForm.address.$error" role="alert">
                     <p class="help-block error-text" ng-message="required">El nombre del organismo es necesario</p>
@@ -311,6 +321,7 @@
               <div class="col-md-6">
                 <div class="form-group has-info" show-errors>
                   <label class="control-label" for="rif">RIF</label>
+                  <small class="textRequired">*</small>
                   <input name="rif" type="text" ng-model="vm.credentials.organism" id="rif" class="form-control" lowercase required>
                   <div ng-messages="vm.form.userForm.rif.$error" role="alert">
                     <p class="help-block error-text" ng-message="required">El RIF del organismo es necesario</p>
@@ -321,15 +332,21 @@
 
               </div>
             </div>
+            <div class="text-center">
+              <h3 class="title">
+                Crear cuenta administrador del organismo de atención
+              </h3>
+              <small>
+                Los campos marcados con asterísco <span class="textRequired">*</span> son obligatorios
+              </small>
+            </div>
 
-            <h3 class="text-center title">
-              Crear cuenta administrador del organismo de atención
-            </h3>
 
             <div class="row">
               <div class="col-md-6">
                 <div class="form-group has-info " show-errors>
                   <label class="control-label" for="firstName">Nombre</label>
+                  <small class="textRequired">*</small>
                   <input type="text" id="firstName" name="firstName" class="form-control" ng-model="vm.credentials.firstName"  required>
                   <div ng-messages="vm.userForm.firstName.$error" role="alert">
                     <p class="help-block error-text" ng-message="required">Por favor introzuca su nombre</p>
@@ -339,6 +356,7 @@
               <div class="col-md-6">
                 <div class="form-group has-info " show-errors>
                   <label class="control-label" for="lastName">Apellido</label>
+                  <small class="textRequired">*</small>
                   <input type="text" id="lastName" name="lastName" class="form-control" ng-model="vm.credentials.lastName"  required>
                   <div ng-messages="vm.userForm.lastName.$error" role="alert">
                     <p class="help-block error-text" ng-message="required">Por favor introduzca su apellido</p>
@@ -361,6 +379,7 @@
               <div class="col-md-6">
                 <div class="form-group has-info " show-errors>
                   <label class="control-label" for="username">Username</label>
+                  <small class="textRequired">*</small>
                   <input type="text" id="username" name="username" class="form-control" ng-model="vm.credentials.username" ng-pattern="vm.usernameRegex" lowercase required>
                   <div ng-messages="vm.userForm.username.$error" role="alert">
                     <p class="help-block error-text" ng-message="required">Por favor indique su username</p>
@@ -374,6 +393,7 @@
               <div class="col-md-6">
                 <div class="form-group has-info " show-errors>
                   <label class="control-label" for="ci">Cédula</label>
+                  <small class="textRequired">*</small>
                   <input type="text" id="ci" name="ci" class="form-control" ng-model="vm.credentials.ci" ng-pattern="vm.usernameRegex" lowercase required>
                   <div ng-messages="vm.userForm.username.$error" role="alert">
                     <p class="help-block error-text" ng-message="required">Por favor el país donde reside actualmente</p>
@@ -384,6 +404,7 @@
               <div class="col-md-6">
                 <div class="form-group has-info" show-errors>
                   <label class="control-label" for="birthday">Fecha de nacimiento</label>
+                  <small class="textRequired">*</small>
                   <input type="text" id="birthday" name="birthday" class="form-control" ng-model="vm.credentials.birthday" ng-pattern="vm.usernameRegex"  lowercase required>
                   <div ng-messages="vm.userForm.username.$error" role="alert">
                     <p class="help-block error-text" ng-message="required">Por favor indique su fecha de nacimiento</p>
@@ -397,6 +418,7 @@
               <div class="col-md-6">
                 <div class="form-group has-info " show-errors>
                   <label class="control-label" for="phone">Teléfono</label>
+                  <small class="textRequired">*</small>
                   <input type="text" id="phone2" name="phone2" class="form-control" ng-model="vm.credentials.phone" ng-pattern="vm.usernameRegex"  lowercase required>
                   <div ng-messages="vm.userForm.username.$error" role="alert">
                     <p class="help-block error-text" ng-message="required">Por favor indique su teléfono</p>

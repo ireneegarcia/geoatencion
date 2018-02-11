@@ -5,9 +5,9 @@
     .module('users.admin')
     .controller('UserAdminListController', UserAdminListController);
 
-  UserAdminListController.$inject = ['$scope', '$filter', 'OrganismsService', 'CategoriaserviciosService'];
+  UserAdminListController.$inject = ['$scope', '$filter', 'UsersService', 'OrganismsService', 'CategoriaserviciosService'];
 
-  function UserAdminListController($scope, $filter, OrganismsService, CategoriaserviciosService) {
+  function UserAdminListController($scope, $filter, UsersService, OrganismsService, CategoriaserviciosService) {
     var vm = this;
     vm.buildPager = buildPager;
     vm.figureOutItemsToDisplay = figureOutItemsToDisplay;
@@ -27,8 +27,20 @@
       if (option === 1) {
         organism.isActive = 'activo';
 
+        // se activan todos los trabajadores del organismo
+
+        /*UsersService.query(function (data) {
+          data.forEach(function (data) {
+            if (data.organism && data.organism === organism.rif) {
+              console.log(data.organism);
+            }
+          });
+        });*/
+
       } else {
         organism.isActive = 'inactivo';
+
+        // se desactivan todos los trabajadores del organismo
       }
 
       // Se actualiza el organismo(PUT)

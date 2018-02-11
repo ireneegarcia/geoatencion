@@ -45,7 +45,7 @@
           }
         }
       });
-      console.log(vm.log);
+      // console.log(vm.log);
     });
 
     // Condicional para encontrar el organismo relacionado
