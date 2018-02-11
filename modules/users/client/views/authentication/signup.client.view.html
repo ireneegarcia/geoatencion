@@ -3,13 +3,20 @@
   <div class="section landing-section">
     <div class="row" id="register">
       <div class="col-md-8 col-md-offset-2">
-        <h2 class="text-center title">Crear cuenta</h2>
+        <div class="text-center">
+          <h2 class="title">Crear cuenta</h2 class="title">
+          <small>
+            Los campos marcados con asterísco <span class="textRequired">*</span> son obligatorios
+          </small>
+        </div>
+
         <form name="vm.userForm" ng-submit="vm.signup(vm.userForm.$valid)" class="signin contact-form" novalidate>
           <fieldset>
             <div class="row">
               <div class="col-md-6">
                 <div class="form-group has-info " show-errors>
                   <label class="control-label" for="firstName">Nombre</label>
+                  <small class="textRequired">*</small>
                   <input type="text" id="firstName" name="firstName" class="form-control" ng-model="vm.credentials.firstName"  required autofocus>
                   <div ng-messages="vm.userForm.firstName.$error" role="alert">
                     <p class="help-block error-text" ng-message="required">Por favor introzuca su nombre</p>
@@ -19,6 +26,7 @@
               <div class="col-md-6">
                 <div class="form-group has-info " show-errors>
                   <label class="control-label" for="lastName">Apellido</label>
+                  <small class="textRequired">*</small>
                   <input type="text" id="lastName" name="lastName" class="form-control" ng-model="vm.credentials.lastName"  required>
                   <div ng-messages="vm.userForm.lastName.$error" role="alert">
                     <p class="help-block error-text" ng-message="required">Por favor introduzca su apellido</p>
@@ -31,6 +39,7 @@
               <div class="col-md-6">
                 <div class="form-group has-info " show-errors>
                   <label class="control-label" for="email">Email</label>
+                  <small class="textRequired">*</small>
                   <input type="email" id="email" name="email" class="form-control" ng-model="vm.credentials.email" lowercase required>
                   <div ng-messages="vm.userForm.email.$error" role="alert">
                     <p class="help-block error-text" ng-message="required">Por favor introduzca su email.</p>
@@ -41,6 +50,7 @@
               <div class="col-md-6">
                 <div class="form-group has-info " show-errors>
                   <label class="control-label" for="username">Username</label>
+                  <small class="textRequired">*</small>
                   <input type="text" id="username" name="username" class="form-control" ng-model="vm.credentials.username" ng-pattern="vm.usernameRegex" lowercase required>
                   <div ng-messages="vm.userForm.username.$error" role="alert">
                     <p class="help-block error-text" ng-message="required">Por favor indique su username</p>
@@ -54,6 +64,7 @@
               <div class="col-md-6">
                 <div class="form-group has-info " show-errors>
                   <label class="control-label" for="ci">Cédula</label>
+                  <small class="textRequired">*</small>
                   <input type="text" id="ci" name="ci" class="form-control" ng-model="vm.credentials.ci" ng-pattern="vm.usernameRegex" lowercase required>
                   <div ng-messages="vm.userForm.username.$error" role="alert">
                     <p class="help-block error-text" ng-message="required">Por favor el país donde reside actualmente</p>
@@ -64,6 +75,7 @@
               <div class="col-md-6">
                 <div class="form-group has-info " show-errors>
                   <label class="control-label" for="country">País</label>
+                  <small class="textRequired">*</small>
                   <!--<input type="text" id="country" name="country" class="form-control" ng-model="vm.credentials.country" ng-pattern="vm.usernameRegex"  lowercase required>-->
                   <select id="country" name="country" class="form-control" ng-model="vm.credentials.country"  required>
                     <option value="AF" >Afganistán</option>
@@ -315,6 +327,7 @@
               <div class="col-md-6">
                 <div class="form-group has-info " show-errors>
                   <label class="control-label" for="phone">Teléfono</label>
+                  <small class="textRequired">*</small>
                   <input type="text" id="phone" name="phone" class="form-control" ng-model="vm.credentials.phone" lowercase required>
                   <div ng-messages="vm.userForm.phone.$error" role="alert">
                     <p class="help-block error-text" ng-message="required">Por favor indique su teléfono</p>
@@ -325,6 +338,7 @@
               <div class="col-md-6">
                 <div class="form-group has-info" show-errors>
                   <label class="control-label" for="birthday">Fecha de nacimiento</label>
+                  <small class="textRequired">*</small>
                   <input type="date" id="birthday" name="birthday"
                          ng-model="vm.credentials.birthday"  required
                          class="datepicker form-control" data-date-format="dd/mm/yyyy">
@@ -340,6 +354,7 @@
               <div class="col-md-6">
                 <div class="form-group has-info " show-errors>
                   <label class="control-label" for="password">Contraseña</label>
+                  <small class="textRequired">*</small>
                   <input type="password" id="password" name="password" class="form-control" ng-model="vm.credentials.password" password-validator required > <!--uib-popover="{{vm.getPopoverMsg()}}" popover-trigger="outsideClick" -->
                   <div ng-messages="vm.userForm.password.$error" role="alert">
                     <p class="help-block error-text" ng-message="required">Por favor indique su contraseña.</p>
@@ -373,13 +388,13 @@
 
 <script>
   $(document).ready(function() {
-     $("#ci").mask("a-99999999");
-     //$("#birthday").mask("99/99/9999");
-     $("#phone").mask('99999999999');
+    $("#ci").mask("a-99999999");
+    //$("#birthday").mask("99/99/9999");
+    $("#phone").mask('99999999999');
 
     /*$('.datepicker').datepicker({
-      weekStart:2
-    });*/
+     weekStart:2
+     });*/
   });
 </script>
 

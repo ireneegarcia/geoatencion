@@ -88,9 +88,9 @@ exports.signup = function (req, res) {
  */
 exports.signin = function (req, res, next) {
   passport.authenticate('local', function (err, user, info) {
-    console.log(user);
+    /* console.log(user);
     console.log('///');
-    console.log(err);
+    console.log(err);*/
     if (err || !user) {
       res.status(422).send(info);
     } else {
