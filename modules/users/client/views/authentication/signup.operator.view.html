@@ -344,13 +344,26 @@
                   <input type="text" id="birthday" name="birthday" class="form-control" ng-model="vm.credentials.birthday" ng-pattern="vm.usernameRegex"  lowercase required>
                   <div ng-messages="vm.userForm.username.$error" role="alert">
                     <p class="help-block error-text" ng-message="required">Por favor indique su fecha de nacimiento</p>
-
                   </div>
                 </div>
               </div>
             </div>
 
             <div class="row">
+              <div class="col-md-6">
+                <div class="form-group has-info " show-errors>
+                  <label class="control-label" for="typeUser">Tipo de usuario</label>
+                  <small class="textRequired">*</small>
+                  <select name="typeUser" id="typeUser" ng-model="vm.credentials.typeUser" class="form-control" required>
+                    <option value="operator">Operador</option>
+                    <option value="serviceUser">Responsable de unidad</option>
+                    <option value="adminOrganism">Administrador</option>
+                  </select>
+                  <div ng-messages="vm.userForm.roles.$error" role="alert">
+                    <p class="help-block error-text" ng-message="required">Por favor introduzca el tipo de usuario</p>
+                  </div>
+                </div>
+              </div>
               <div class="col-md-6">
                 <div class="form-group has-info " show-errors>
                   <label class="control-label" for="password">Contraseña</label>
@@ -364,15 +377,7 @@
                   </div>
                 </div>
               </div>
-              <!--<div class="col-md-6">
-                <div class="form-group has-info " show-errors>
-                  <label class="control-label" for="organism">RIF del organismo</label>
-                  <input type="text" id="organism" name="organism" class="form-control" ng-model="vm.credentials.organism" lowercase required>
-                  <div ng-messages="vm.userForm.organism.$error" role="alert">
-                    <p class="help-block error-text" ng-message="required">Por favor introduzca el rif del organismo al que pertenece</p>
-                  </div>
-                </div>
-              </div>-->
+
             </div>
 
             <div class="form-group has-info " ng-show="!vm.userForm.password.$error.required">

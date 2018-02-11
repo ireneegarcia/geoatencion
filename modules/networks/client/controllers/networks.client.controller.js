@@ -151,8 +151,8 @@
         AdminlogsServiceCreate.charge({
           description: 'Ha registrado la unidad: ' + vm.network.carCode,
           module: 'unidad de atención',
-          organism: vm.authentication.user.organism}, function (err, data) {
-          if (err) {
+          organism: vm.authentication.user.organism}, function (data) {
+          if (data) {
             vm.network.$save(successCallback, errorCallback);
             Notification.success({ title: '<i class="glyphicon glyphicon-ok"></i> Registro exitoso!' });
           } else {

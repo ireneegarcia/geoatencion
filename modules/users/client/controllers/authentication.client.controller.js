@@ -65,6 +65,7 @@
             }
 
             // se crea el usuario
+            // vm.credentials.typeUser = 'adminOrganism';
             UsersService.userSignup(vm.credentials)
               .then(onUserSignupSuccess)
               .catch(onUserSignupError);
@@ -95,7 +96,6 @@
 
         return false;
       }
-
 
       if (vm.authentication.user !== null) {
         if (vm.authentication.user.organism !== null) {
@@ -154,7 +154,7 @@
       } else {
         if (vm.credentials.organism !== undefined) {
           Notification.success({ message: '<i class="glyphicon glyphicon-ok"></i> Registro exitoso!' });
-          $state.go('home');
+          $state.go('user-list-networks');
         } else {
           Notification.success({ message: '<i class="glyphicon glyphicon-ok"></i> Registro exitoso!' });
         }

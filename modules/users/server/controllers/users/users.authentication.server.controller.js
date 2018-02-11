@@ -22,6 +22,7 @@ var noReturnUrls = [
  */
 exports.signup = function (req, res) {
   // For security measurement we remove the roles from the req.body object
+
   delete req.body.roles;
   // Init user and add missing fields
   var user = new User(req.body);
@@ -35,10 +36,23 @@ exports.signup = function (req, res) {
         message: errorHandler.getErrorMessage(err)
       });
     }
+
+    // el primer usuario se registra como adminsitrador del sistema
     if (users.length === 0) {
       user.roles[0] = 'admin';
     } else {
       user.roles[0] = 'user';
+    }
+
+    // se evalua el rol del usuario dentro del organismo
+    if (req.body.typeUser === 'operator') {
+      user.roles[0] = 'operator';
+    }
+    if (req.body.typeUser === 'serviceUser') {
+      user.roles[0] = 'serviceUser';
+    }
+    if (req.body.typeUser === 'adminOrganism') {
+      user.roles[0] = 'adminOrganism';
     }
 
     // Then save the user
