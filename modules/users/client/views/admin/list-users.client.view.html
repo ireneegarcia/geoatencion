@@ -21,6 +21,7 @@
       <th class="text-center" >Nombre</th>
       <th class="text-center" >Correo</th>
       <th class="text-center" >Rol</th>
+      <th class="text-center" >Activo</th>
       <th class="text-right">Ver detalle</th>
     </tr>
     </thead>
@@ -32,6 +33,7 @@
       <td class="text-center" ng-bind="user.username"></td>
       <td class="text-center"  ng-bind="user.email"></td>
       <td class="text-center"  ng-bind="user.roles[0]"></td>
+      <td class="text-center"  ng-bind="user.isActive"></td>
       <td class="td-actions text-right">
         <button ui-sref="admin.user({userId: user._id})" type="button" rel="tooltip" title="Detalle" class="btn btn-success btn-simple btn-xs">
           <i class="fa fa-edit"></i>

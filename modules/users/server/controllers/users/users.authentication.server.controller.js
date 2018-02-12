@@ -37,15 +37,23 @@ exports.signup = function (req, res) {
       });
     }
 
+    // inicialmente todos estan activos en el sistema
+    user.isActive = 'activo';
+
+    // por defecto el rol es user
+    user.roles[0] = 'user';
+
     // el primer usuario se registra como adminsitrador del sistema
     if (users.length === 0) {
       user.roles[0] = 'admin';
-    } else {
-      user.roles[0] = 'user';
+    }
+    // se asigna el rol indicado en caso de que exista
+    if (req.body.typeUser) {
+      user.roles[0] = req.body.typeUser;
     }
 
     // se evalua el rol del usuario dentro del organismo
-    if (req.body.typeUser === 'operator') {
+    /* if (req.body.typeUser === 'operator') {
       user.roles[0] = 'operator';
     }
     if (req.body.typeUser === 'serviceUser') {
@@ -53,7 +61,7 @@ exports.signup = function (req, res) {
     }
     if (req.body.typeUser === 'adminOrganism') {
       user.roles[0] = 'adminOrganism';
-    }
+    }*/
 
     // Then save the user
     user.save(function (err) {
@@ -89,9 +97,9 @@ exports.signup = function (req, res) {
 exports.signin = function (req, res, next) {
   passport.authenticate('local', function (err, user, info) {
     /* console.log(user);
-    console.log('///');
-    console.log(err);*/
-    if (err || !user) {
+     console.log('///');
+     console.log(err);*/
+    if (err || !user || user.isActive[0] === 'inactivo') {
       res.status(422).send(info);
     } else {
       // Remove sensitive data before login

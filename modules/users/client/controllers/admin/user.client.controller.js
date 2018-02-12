@@ -12,6 +12,7 @@
 
     vm.authentication = Authentication;
     vm.user = user;
+    vm.status = status;
     vm.remove = remove;
     vm.update = update;
     vm.isContextUserSelf = isContextUserSelf;
@@ -19,6 +20,21 @@
     OrganismsService.query(function (data) {
       vm.organism = data;
     });
+
+    function status(status) {
+      if (status === 'inactivo') {
+        vm.user.isActive = 'activo';
+
+      } else {
+        vm.user.isActive = 'inactivo';
+      }
+
+      user.$update(function () {
+        Notification.success({ message: '<i class="glyphicon glyphicon-ok"></i> Estado cambiado exitosamente!' });
+      }, function (errorResponse) {
+        Notification.error({ message: errorResponse.data.message, title: '<i class="glyphicon glyphicon-remove"></i> Algo salió mal!' });
+      });
+    }
 
     function remove(user) {
       if ($window.confirm('Are you sure you want to delete this user?')) {

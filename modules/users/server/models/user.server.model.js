@@ -152,6 +152,11 @@ var UserSchema = new Schema({
     // default: ['user'],
     required: 'Please provide at least one role'
   },
+  isActive: {
+    type: String,
+    // default: ['user'],
+    required: 'Please provide at least one role'
+  },
   updated: {
     type: Date
   },

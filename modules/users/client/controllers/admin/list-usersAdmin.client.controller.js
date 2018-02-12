@@ -5,9 +5,9 @@
     .module('users.admin')
     .controller('UserAdminListController', UserAdminListController);
 
-  UserAdminListController.$inject = ['$scope', '$filter', 'UsersService', 'OrganismsService', 'CategoriaserviciosService'];
+  UserAdminListController.$inject = ['$scope', '$filter', 'AdminService', 'UsersService', 'OrganismsService', 'CategoriaserviciosService'];
 
-  function UserAdminListController($scope, $filter, UsersService, OrganismsService, CategoriaserviciosService) {
+  function UserAdminListController($scope, $filter, AdminService, UsersService, OrganismsService, CategoriaserviciosService) {
     var vm = this;
     vm.buildPager = buildPager;
     vm.figureOutItemsToDisplay = figureOutItemsToDisplay;
@@ -26,26 +26,28 @@
     function action(option, organism) {
       if (option === 1) {
         organism.isActive = 'activo';
-
-        // se activan todos los trabajadores del organismo
-
-        /*UsersService.query(function (data) {
-          data.forEach(function (data) {
-            if (data.organism && data.organism === organism.rif) {
-              console.log(data.organism);
-            }
-          });
-        });*/
-
+        trabajadoresOrganismo('activo', organism.rif);
       } else {
         organism.isActive = 'inactivo';
-
-        // se desactivan todos los trabajadores del organismo
+        trabajadoresOrganismo('inactivo', organism.rif);
       }
-
       // Se actualiza el organismo(PUT)
       OrganismsService.update({organismId: organism._id}, organism);
     }
+
+    // se activan o desactivan todos los trabajadores del organismo
+    function trabajadoresOrganismo(status, rif) {
+      UsersService.query(function (data) {
+        data.forEach(function (data) {
+          if (data.organism && data.organism === rif) {
+            data.isActive = status;
+            AdminService.update({userId: data._id}, data);
+            console.log(data);
+          }
+        });
+      });
+    }
+
     function buildPager() {
       vm.pagedItems = [];
       vm.itemsPerPage = 5;
