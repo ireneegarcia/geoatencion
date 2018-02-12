@@ -41,8 +41,16 @@
         data.forEach(function (data) {
           if (data.organism && data.organism === rif) {
             data.isActive = status;
+            /*
+            * activa su primer organismo
+            * el unico usuario con el organismo en su modelo que no esta activado ni tiene su rol
+            * los demás trabajadores si se crean con su rol
+            * esto solo aplica la primera vez que se activa el organismo
+            * */
+            if (data.roles[0] === 'user') {
+              data.roles[0] = 'adminOrganism';
+            }
             AdminService.update({userId: data._id}, data);
-            console.log(data);
           }
         });
       });
