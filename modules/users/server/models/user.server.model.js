@@ -101,8 +101,12 @@ var UserSchema = new Schema({
   },
   ci: {
     type: String,
+    index: {
+      unique: true,
+      sparse: true // For this to work on a previously indexed field, the index must be dropped & the application restarted.
+    },
     trim: true,
-    default: ''
+    lowercase: true
     // validate: [validateLocalStrategyProperty, 'Please fill in your last name']
   },
   birthday: {

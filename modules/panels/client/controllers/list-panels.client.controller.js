@@ -9,7 +9,6 @@
 
   function PanelsListController(PanelsService, AlarmsService, NgMap, NetworksService, CategoriaserviciosService, UsersService, Authentication, $filter, $timeout, SolicitudsService, Socket, $window, LogsServiceCreate, FirebasetokensService, OrganismsService, MobileunitlogsServiceCreate) {
     var vm = this;
-
     vm.user = Authentication.user;
     vm.panels = PanelsService.query();
     vm.networks = [];
@@ -61,14 +60,6 @@
         listAlarm((vm.organism[0]._id));
       });
 
-      /* UsersService.query(function (data) {
-       // El organismo logueado
-       vm.organism = data.filter(function (data) {
-       return (data.email.indexOf(Authentication.user.email) >= 0);
-       });
-       listNetwork(vm.organism);
-       listAlarm((vm.organism[0]._id));
-       });*/
     } else {
       if (Authentication.user.roles[0] === 'operator') {
         UsersService.query(function (data) {
@@ -85,11 +76,6 @@
             listNetwork(vm.organism);
             listAlarm((vm.organism[0]._id));
           });
-          /*          vm.organism = data.filter(function (data) {
-           return (data._id.indexOf(operator[0].user._id) >= 0);
-           });
-           listNetwork(vm.organism);
-           listAlarm((vm.organism[0]._id));*/
         });
       }
     }
@@ -115,11 +101,14 @@
       });
     }
 
+    vm.listAlarmAll = function () {
+      listAlarm((vm.organism[0]._id));
+    };
+
     // Funcion para listar las alarmas
     function listAlarm(organism) {
-      /*
-       Todas las alarmas que esten esperando atencion y las que estan siendo atendidas en este momento
-       * */
+      // Todas las alarmas
+
       AlarmsService.query(function (data) {
 
         vm.alarms = [];
@@ -172,29 +161,20 @@
       });
     }
 
-    function formatString(format) {
-      var pieces = format.split('.'),
-        year = parseInt(pieces[0], 10),
-        month = parseInt(pieces[1], 10),
-        day = parseInt(pieces[2], 10),
-        hour = parseInt(pieces[3], 10),
-        date = new Date(year, month - 1, day, hour);
-
-      return date;
-    }
-
-// Obtener diferencia de hora entre el momento de creación de la alarma y hoy
+    // Obtener diferencia de hora entre el momento de creación de la alarma y hoy
     vm.getDifference = function (alarm) {
-      var today = $filter('date')(new Date(), 'yyyy.MM.dd.HH:mm:ss');
-      var alarmCreated = $filter('date')(alarm, 'yyyy.MM.dd.HH:mm:ss');
-      var date2 = new Date(formatString(today));
-      var date1 = new Date(formatString(alarmCreated));
-      var diffDays = date2.getDay() - date1.getDay();
-      var diffHours = date2.getHours() - date1.getHours();
-      return diffDays + '(dias), ' + diffHours + '(horas)';
+
+      var alarmCreated = new Date(alarm).getTime();
+      var today = new Date().getTime();
+
+      var timeDiff = Math.abs(alarmCreated - today);
+      var diffHours = Math.floor(timeDiff / 3600000); // horas
+      var diffMins = Math.round(timeDiff / (60000)); // minutos
+      var diffsec = Math.round(timeDiff / (1000)); // minutos
+      return diffHours + ' horas, ' + diffMins + ' minutos';
     };
 
-// Centrar mapa de acuerdo al item seleccionado
+    // Centrar mapa de acuerdo al item seleccionado
     vm.center = function(item) {
       vm.centerLatitude = item.latitude;
       vm.centerLongitude = item.longitude;
@@ -211,13 +191,81 @@
     };
 
 // Evaluar cercanía
-    function geoNear(new_alarm) {
-      NetworksService.near({lat: new_alarm.latitude, lng: new_alarm.longitude}, function(networks) {
+    vm.geoNear = function(alarm) {
+      vm.new_alarm = alarm;
+      var network;
+      NetworksService.near({lat: alarm.latitude, lng: alarm.longitude}, function(networks) {
+
         if (networks.length === 0) {
           vm.new_alarm.networkNear = 'No hay cercano';
+          if ($window.confirm('No hay unidad cercana que pueda atender el evento, se sugiere hacer una recomendación manual')) {
+          }
         } else {
           // Unidad recomendada
           vm.new_alarm.networkNear = networks[0];
+
+          if ($window.confirm('¿Esta seguro que desea asignar la unidad: ' + vm.new_alarm.networkNear.obj.carCode + '?')) {
+
+            // id de la unidad
+            vm.new_alarm.network = vm.new_alarm.networkNear.obj._id;
+
+            // ubicacion de la unidad
+            vm.new_alarm.networkLatitude = vm.new_alarm.networkNear.obj.latitude;
+            vm.new_alarm.networkLongitude = vm.new_alarm.networkNear.obj.longitude;
+            // address de la unidad
+            vm.new_alarm.networkAddress = vm.new_alarm.networkNear.obj.address;
+
+            // codigo de la unidad
+            vm.new_alarm.networkCarCode = vm.new_alarm.networkNear.obj.carCode;
+
+            // status de la alarma
+            vm.new_alarm.status = 'en atencion';
+            vm.new_alarm.carCode = vm.new_alarm.networkNear.obj.carCode;
+
+            // icono de status
+            vm.new_alarm.icon = '/modules/panels/client/img/process.png';
+
+            // Se actualiza la alarma (PUT)
+            AlarmsService.update({ alarmId: vm.new_alarm._id}, vm.new_alarm);
+
+            // aca registro en la unidad el status "ocupado"
+            networkServicePUT('ocupado', vm.new_alarm.networkNear.obj._id);
+
+            // se registra en el log
+            logServicePOST('Se ha asignado exitosamente la unidad: ' + vm.new_alarm.networkNear.obj.carCode +
+              ' a la solicitud de atención: ' + vm.new_alarm._id +
+              ' del cliente ' + vm.new_alarm.user.displayName, vm.new_alarm);
+
+            MobileunitlogsServiceCreate.charge({
+              mobileUnit: vm.new_alarm.networkNear.obj._id,
+              mobileUnitCarCode: vm.new_alarm.networkNear.obj.carCode,
+              description: 'Se le fue asignado el evento: ' + vm.new_alarm._id}, function (data) {
+              // se realizo el post
+            });
+
+            // Se encuentra la unidad
+            NetworksService.query(function (data) {
+              // El organismo logueado
+              network = data.filter(function (data) {
+                return (data._id.indexOf(vm.new_alarm.networkNear.obj._id) >= 0);
+              });
+              // Se incluye en las direcciones
+              var direction = {
+                destination: alarm.latitude + ',' + alarm.longitude,
+                origin: network.latitude + ',' + network.longitude
+              };
+              // Se incluye la nueva ruta
+              vm.directions.push(direction);
+              // Se refrescan las rutas
+              directionsOnMap();
+              // Se refresca el listado de alarmas por status
+              listAlarm((vm.organism[0]._id));
+            });
+          }
+
+          if (vm.new_alarm.networkNear && vm.new_alarm.networkNear === 'No hay cercano') {
+            $window.alert('No existe recomendación para esta solicitud');
+          }
 
           var firebasetoken;
           // Se busca el token del usuario y del serviceuser
@@ -240,7 +288,7 @@
           });
         }
       });
-    }
+    };
 
 // Funcion para actualizar un registro (PUT)
     function networkServicePUT(status, id) {
@@ -280,71 +328,71 @@
       vm.new_alarm = alarm;
 
       // Evaluar cercanía
-      geoNear(vm.new_alarm);
+      // geoNear(vm.new_alarm);
 
-      if (vm.new_alarm.networkNear && vm.new_alarm.networkNear !== 'No hay cercano') {
-        if ($window.confirm('¿Esta seguro que desea asignar la unidad: ' + vm.new_alarm.networkNear.obj.carCode + '?')) {
+      /* if (vm.new_alarm.networkNear && vm.new_alarm.networkNear !== 'No hay cercano') {
+       if ($window.confirm('¿Esta seguro que desea asignar la unidad: ' + vm.new_alarm.networkNear.obj.carCode + '?')) {
 
-          // id de la unidad
-          vm.new_alarm.network = vm.new_alarm.networkNear.obj._id;
+       // id de la unidad
+       vm.new_alarm.network = vm.new_alarm.networkNear.obj._id;
 
-          // ubicacion de la unidad
-          vm.new_alarm.networkLatitude = vm.new_alarm.networkNear.obj.latitude;
-          vm.new_alarm.networkLongitude = vm.new_alarm.networkNear.obj.longitude;
-          // address de la unidad
-          vm.new_alarm.networkAddress = vm.new_alarm.networkNear.obj.address;
+       // ubicacion de la unidad
+       vm.new_alarm.networkLatitude = vm.new_alarm.networkNear.obj.latitude;
+       vm.new_alarm.networkLongitude = vm.new_alarm.networkNear.obj.longitude;
+       // address de la unidad
+       vm.new_alarm.networkAddress = vm.new_alarm.networkNear.obj.address;
 
-          // codigo de la unidad
-          vm.new_alarm.networkCarCode = vm.new_alarm.networkNear.obj.carCode;
+       // codigo de la unidad
+       vm.new_alarm.networkCarCode = vm.new_alarm.networkNear.obj.carCode;
 
-          // status de la alarma
-          vm.new_alarm.status = 'en atencion';
-          vm.new_alarm.carCode = vm.new_alarm.networkNear.obj.carCode;
+       // status de la alarma
+       vm.new_alarm.status = 'en atencion';
+       vm.new_alarm.carCode = vm.new_alarm.networkNear.obj.carCode;
 
-          // icono de status
-          vm.new_alarm.icon = '/modules/panels/client/img/process.png';
+       // icono de status
+       vm.new_alarm.icon = '/modules/panels/client/img/process.png';
 
-          // Se actualiza la alarma (PUT)
-          AlarmsService.update({ alarmId: vm.new_alarm._id}, vm.new_alarm);
+       // Se actualiza la alarma (PUT)
+       AlarmsService.update({ alarmId: vm.new_alarm._id}, vm.new_alarm);
 
-          // aca registro en la unidad el status "ocupado"
-          networkServicePUT('ocupado', vm.new_alarm.networkNear.obj._id);
+       // aca registro en la unidad el status "ocupado"
+       networkServicePUT('ocupado', vm.new_alarm.networkNear.obj._id);
 
-          // se registra en el log
-          logServicePOST('Se ha asignado exitosamente la unidad: ' + vm.new_alarm.networkNear.obj.carCode +
-            ' a la solicitud de atención: ' + vm.new_alarm._id +
-            ' del cliente ' + vm.new_alarm.user.displayName, vm.new_alarm);
+       // se registra en el log
+       logServicePOST('Se ha asignado exitosamente la unidad: ' + vm.new_alarm.networkNear.obj.carCode +
+       ' a la solicitud de atención: ' + vm.new_alarm._id +
+       ' del cliente ' + vm.new_alarm.user.displayName, vm.new_alarm);
 
-          MobileunitlogsServiceCreate.charge({
-            mobileUnit: vm.new_alarm.networkNear.obj._id,
-            mobileUnitCarCode: vm.new_alarm.networkNear.obj.carCode,
-            description: 'Se le fue asignado el evento: ' + vm.new_alarm._id}, function (data) {
-            // se realizo el post
-          });
+       MobileunitlogsServiceCreate.charge({
+       mobileUnit: vm.new_alarm.networkNear.obj._id,
+       mobileUnitCarCode: vm.new_alarm.networkNear.obj.carCode,
+       description: 'Se le fue asignado el evento: ' + vm.new_alarm._id}, function (data) {
+       // se realizo el post
+       });
 
-          // Se encuentra la unidad
-          NetworksService.query(function (data) {
-            // El organismo logueado
-            network = data.filter(function (data) {
-              return (data._id.indexOf(vm.new_alarm.networkNear.obj._id) >= 0);
-            });
-            // Se incluye en las direcciones
-            var direction = {
-              destination: alarm.latitude + ',' + alarm.longitude,
-              origin: network.latitude + ',' + network.longitude
-            };
-            // Se incluye la nueva ruta
-            vm.directions.push(direction);
-            // Se refrescan las rutas
-            directionsOnMap();
-            // Se refresca el listado de alarmas por status
-            listAlarm((vm.organism[0]._id));
-          });
-        }
-      }
-      if (vm.new_alarm.networkNear && vm.new_alarm.networkNear === 'No hay cercano') {
-        $window.alert('No existe recomendación para esta solicitud');
-      }
+       // Se encuentra la unidad
+       NetworksService.query(function (data) {
+       // El organismo logueado
+       network = data.filter(function (data) {
+       return (data._id.indexOf(vm.new_alarm.networkNear.obj._id) >= 0);
+       });
+       // Se incluye en las direcciones
+       var direction = {
+       destination: alarm.latitude + ',' + alarm.longitude,
+       origin: network.latitude + ',' + network.longitude
+       };
+       // Se incluye la nueva ruta
+       vm.directions.push(direction);
+       // Se refrescan las rutas
+       directionsOnMap();
+       // Se refresca el listado de alarmas por status
+       listAlarm((vm.organism[0]._id));
+       });
+       }
+       }
+       if (vm.new_alarm.networkNear && vm.new_alarm.networkNear === 'No hay cercano') {
+       $window.alert('No existe recomendación para esta solicitud');
+       }*/
     };
 
 // Rechazar alarma
@@ -389,6 +437,19 @@
         }
       }
 
+      // Se actualiza la alarma (PUT)
+      AlarmsService.update({ alarmId: alarm._id}, alarm);
+
+      // Se refrescan los listados
+      listAlarm((vm.organism[0]._id));
+      listNetwork((vm.organism));
+
+      // Se refrescan las rutas
+      directionsOnMap();
+
+      // Se registra en el log
+      logServicePOST(logText, alarm);
+
       var firebasetoken;
       var firebasetokenNetwork;
       // Se busca el token del usuario
@@ -398,27 +459,9 @@
         firebasetoken = data.filter(function (data) {
           return (data.userId.indexOf(alarm.user._id) >= 0);
         });
-        /*
-
-         firebasetokenNetwork = data.filter(function (data) {
-         return (option === 2 && (data.userId.indexOf(vm.cancel_network[0].serviceUser) >= 0));
-         });*/
 
         alarm.firebasetoken = firebasetoken[0].token;
-        // alarm.firebasetokenNetwork = firebasetokenNetwork[0].token;
 
-        // Se actualiza la alarma (PUT)
-        AlarmsService.update({ alarmId: alarm._id}, alarm);
-
-        // Se registra en el log
-        logServicePOST(logText, alarm);
-
-        // Se refrescan las rutas
-        directionsOnMap();
-
-        // Se refrescan los listados
-        listAlarm((vm.organism[0]._id));
-        listNetwork((vm.organism));
       });
     };
 
@@ -431,7 +474,7 @@
       });
 
       // Evaluar cercanía
-      geoNear(vm.new_alarm);
+      vm.geoNear(vm.new_alarm);
       vm.map.showInfoWindow('infoWindowAlarm', alarms._id);
     };
 
@@ -469,24 +512,24 @@
     directionsOnMap();
 
 // instantiate google map objects for directions
-    var directionsDisplay = new window.google.maps.DirectionsRenderer();
-    var directionsService = new window.google.maps.DirectionsService();
-    vm.getDirections = function (direction) {
-      var request = {
-        origin: direction.origin,
-        destination: direction.destination,
-        travelMode: window.google.maps.DirectionsTravelMode.DRIVING
-      };
-      directionsService.route(request, function (response, status) {
-        if (status === window.google.maps.DirectionsStatus.OK) {
-          directionsDisplay.setDirections(response);
-          // directionsDisplay.setMap($scope.map.control.getGMap());
-          directionsDisplay.setPanel(document.getElementById('directionsList'));
-          // vm.directions.showList = true;
-        } else {
-          // alert('Google route unsuccesfull!');
-        }
-      });
-    };
+    /* var directionsDisplay = new window.google.maps.DirectionsRenderer();
+     var directionsService = new window.google.maps.DirectionsService();
+     vm.getDirections = function (direction) {
+     var request = {
+     origin: direction.origin,
+     destination: direction.destination,
+     travelMode: window.google.maps.DirectionsTravelMode.DRIVING
+     };
+     directionsService.route(request, function (response, status) {
+     if (status === window.google.maps.DirectionsStatus.OK) {
+     directionsDisplay.setDirections(response);
+     // directionsDisplay.setMap($scope.map.control.getGMap());
+     directionsDisplay.setPanel(document.getElementById('directionsList'));
+     // vm.directions.showList = true;
+     } else {
+     // alert('Google route unsuccesfull!');
+     }
+     });
+     };*/
   }
 }());

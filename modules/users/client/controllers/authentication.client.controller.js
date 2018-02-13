@@ -60,7 +60,7 @@
             }
 
             if (!isValid) {
-              Notification.error({ title: '<i class="glyphicon glyphicon-remove"></i> Datos del administrador incompletos', delay: 6000 });
+              Notification.error({ title: '<i class="glyphicon glyphicon-remove"></i> Por favor, verificar los datos del administrador', delay: 6000 });
               return false;
             }
 

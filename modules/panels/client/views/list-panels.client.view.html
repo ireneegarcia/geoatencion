@@ -3,6 +3,7 @@
     <h2>Panel de solicitudes de atención</h2>
     <br/>
   </div>
+
   <div id="map" class="col-md-12" >
     <ng-map
       style="height: 519px"
@@ -84,21 +85,31 @@
                       {{alarm.created | date:'medium'}}
                       <br/>
                       Tiempo transcurrido: {{vm.getDifference(alarm.created)}}
-                    <br/>
+                      <br/>
                       Ha sido cancelada por la unidad
                     </a>
+
                     <button ng-show="vm.user.roles[0] === 'operator'"
-                            ng-click="vm.assignNear(alarm)"
+                            ng-click="vm.geoNear(alarm)"
                             class="btn btn-success btn-xs">
                       Usar recomendación
                       <div class="ripple-container">
                       </div>
                     </button>
+
                     <button style="background-color: #337ab7;"
                             ng-show="vm.user.roles[0] === 'operator'"
                             ng-click="vm.cancelAlarm(alarm,1)"
                             class="btn btn-primary btn-xs">
                       Rechazar
+                      <div class="ripple-container">
+                      </div>
+                    </button>
+                    <br/>
+                    <button ng-show="vm.user.roles[0] === 'operator'"
+                            ui-sref="alarms.edit({ alarmId: alarm._id })"
+                            class="btn btn-warning btn-xs">
+                      Asignación manual
                       <div class="ripple-container">
                       </div>
                     </button>
@@ -110,22 +121,34 @@
                       <br/>
                       Tiempo transcurrido: {{vm.getDifference(alarm.created)}}
                     </a>
-                    <button ng-show="vm.user.roles[0] === 'operator'"
-                            ng-click="vm.assignNear(alarm)"
-                            class="btn btn-success btn-xs">
-                      Usar recomendación
-                      <div class="ripple-container">
-                      </div>
-                    </button>
-                    <button style="background-color: #337ab7;"
-                            ng-show="vm.user.roles[0] === 'operator'"
-                            ng-click="vm.cancelAlarm(alarm,1)"
-                            class="btn btn-primary btn-xs">
-                      Rechazar
-                      <div class="ripple-container">
-                      </div>
-                    </button>
                     <br/>
+                    <div class="container">
+
+                      <button ng-show="vm.user.roles[0] === 'operator'"
+                              ng-click="vm.geoNear(alarm)"
+                              class="btn btn-success btn-xs">
+                        Usar recomendación
+                        <div class="ripple-container">
+                        </div>
+                      </button>
+                      <button style="background-color: #337ab7;"
+                              ng-show="vm.user.roles[0] === 'operator'"
+                              ng-click="vm.cancelAlarm(alarm,1);vm.listAlarmAll()"
+                              class="btn btn-primary btn-xs">
+                        Rechazar
+                        <div class="ripple-container">
+                        </div>
+                      </button>
+                      <br/>
+                      <button ng-show="vm.user.roles[0] === 'operator'"
+                              ui-sref="alarms.edit({ alarmId: alarm._id })"
+                              class="btn btn-warning btn-xs">
+                        Asignación manual
+                        <div class="ripple-container">
+                        </div>
+                      </button>
+                      <br/>
+                    </div>
                   </li>
                 </ul>
               </div>
@@ -209,3 +232,4 @@
   </div>
 
 </section>
+

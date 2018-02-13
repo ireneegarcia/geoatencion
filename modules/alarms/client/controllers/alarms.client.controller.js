@@ -36,7 +36,6 @@
       });
     });
 
-
     LogsService.query(function (data) {
       data.forEach(function(data) {
         if (data.alarm !== '') {
@@ -45,7 +44,7 @@
           }
         }
       });
-      // console.log(vm.log);
+
     });
 
     // Condicional para encontrar el organismo relacionado
@@ -305,7 +304,14 @@
         });
 
       } else {
-        vm.alarm.$save(successCallback, errorCallback);
+
+        if (vm.alarm._id) {
+          // Se actualiza (PUT)
+          vm.alarm.$update(successCallback, errorCallback);
+        } else {
+          // se crea (POST)
+          vm.alarm.$save(successCallback, errorCallback);
+        }
       }
 
       function successCallback(res) {
