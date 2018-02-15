@@ -5,16 +5,26 @@
     .module('users.admin')
     .controller('UserListController', UserListController);
 
-  UserListController.$inject = ['$scope', '$filter', 'AdminService'];
+  UserListController.$inject = ['$scope', '$filter', 'AdminService', 'OrganismsService'];
 
-  function UserListController($scope, $filter, AdminService) {
+  function UserListController($scope, $filter, AdminService, OrganismsService) {
     var vm = this;
     vm.buildPager = buildPager;
     vm.figureOutItemsToDisplay = figureOutItemsToDisplay;
     vm.pageChanged = pageChanged;
 
+    vm.users = [];
     AdminService.query(function (data) {
-      vm.users = data;
+      data.forEach(function(data) {
+        OrganismsService.query(function (organism) {
+          organism.forEach(function(organism) {
+            if (data.organism === organism.rif) {
+              data.organism = organism.name;
+            }
+          });
+        });
+        vm.users.push(data);
+      });
       vm.buildPager();
     });
 
