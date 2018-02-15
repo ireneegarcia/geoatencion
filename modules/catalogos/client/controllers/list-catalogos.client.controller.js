@@ -35,7 +35,6 @@
           vm.organisms.push(organism);
         }
       });
-      console.log(vm.organisms);
       vm.buildPager();
     });
 

@@ -33,6 +33,7 @@
               vm.categoriaservicios.forEach(function(category) {
                 if (data.category === category._id) {
                   data.category = category.category;
+                  data.organism = vm.organism.name;
                   vm.solicituds.push(data);
                 }
               });
@@ -60,11 +61,23 @@
                 vm.categoriaservicios.forEach(function(category) {
                   if (data.category === category._id) {
                     data.category = category.category;
-                    vm.solicituds.push(data);
                   }
+                  OrganismsService.query(function (organism) {
+                    organism.forEach(function(organism) {
+                      if (data.organism === organism._id) {
+                        data.organism = organism.name;
+                      }
+                    });
+                  });
+                  vm.solicituds.push(data);
                 });
               }
             });
+
+
+
+
+
 
             OrganismsService.query(function (data) {
               // Organismos
@@ -77,11 +90,11 @@
             });
 
             /* OrganismsService.query(function (data) {
-              // Organismos
-              vm.organism = data.filter(function (data) {
-                return (data.isActive.indexOf('activo') >= 0);
-              });
-            });*/
+             // Organismos
+             vm.organism = data.filter(function (data) {
+             return (data.isActive.indexOf('activo') >= 0);
+             });
+             });*/
             vm.buildPager();
           });
         });
