@@ -157,7 +157,6 @@
             }
           }
         });
-
       });
     }
 
@@ -260,11 +259,10 @@
               directionsOnMap();
               // Se refresca el listado de alarmas por status
               listAlarm((vm.organism[0]._id));
+              listNetwork((vm.organism));
             });
-          }
-
-          if (vm.new_alarm.networkNear && vm.new_alarm.networkNear === 'No hay cercano') {
-            $window.alert('No existe recomendación para esta solicitud');
+          } else {
+            return;
           }
 
           var firebasetoken;
@@ -322,147 +320,105 @@
 
     }
 
-// Asignar por recomendación
-    vm.assignNear = function (alarm) {
-      var network;
-      vm.new_alarm = alarm;
-
-      // Evaluar cercanía
-      // geoNear(vm.new_alarm);
-
-      /* if (vm.new_alarm.networkNear && vm.new_alarm.networkNear !== 'No hay cercano') {
-       if ($window.confirm('¿Esta seguro que desea asignar la unidad: ' + vm.new_alarm.networkNear.obj.carCode + '?')) {
-
-       // id de la unidad
-       vm.new_alarm.network = vm.new_alarm.networkNear.obj._id;
-
-       // ubicacion de la unidad
-       vm.new_alarm.networkLatitude = vm.new_alarm.networkNear.obj.latitude;
-       vm.new_alarm.networkLongitude = vm.new_alarm.networkNear.obj.longitude;
-       // address de la unidad
-       vm.new_alarm.networkAddress = vm.new_alarm.networkNear.obj.address;
-
-       // codigo de la unidad
-       vm.new_alarm.networkCarCode = vm.new_alarm.networkNear.obj.carCode;
-
-       // status de la alarma
-       vm.new_alarm.status = 'en atencion';
-       vm.new_alarm.carCode = vm.new_alarm.networkNear.obj.carCode;
-
-       // icono de status
-       vm.new_alarm.icon = '/modules/panels/client/img/process.png';
-
-       // Se actualiza la alarma (PUT)
-       AlarmsService.update({ alarmId: vm.new_alarm._id}, vm.new_alarm);
-
-       // aca registro en la unidad el status "ocupado"
-       networkServicePUT('ocupado', vm.new_alarm.networkNear.obj._id);
-
-       // se registra en el log
-       logServicePOST('Se ha asignado exitosamente la unidad: ' + vm.new_alarm.networkNear.obj.carCode +
-       ' a la solicitud de atención: ' + vm.new_alarm._id +
-       ' del cliente ' + vm.new_alarm.user.displayName, vm.new_alarm);
-
-       MobileunitlogsServiceCreate.charge({
-       mobileUnit: vm.new_alarm.networkNear.obj._id,
-       mobileUnitCarCode: vm.new_alarm.networkNear.obj.carCode,
-       description: 'Se le fue asignado el evento: ' + vm.new_alarm._id}, function (data) {
-       // se realizo el post
-       });
-
-       // Se encuentra la unidad
-       NetworksService.query(function (data) {
-       // El organismo logueado
-       network = data.filter(function (data) {
-       return (data._id.indexOf(vm.new_alarm.networkNear.obj._id) >= 0);
-       });
-       // Se incluye en las direcciones
-       var direction = {
-       destination: alarm.latitude + ',' + alarm.longitude,
-       origin: network.latitude + ',' + network.longitude
-       };
-       // Se incluye la nueva ruta
-       vm.directions.push(direction);
-       // Se refrescan las rutas
-       directionsOnMap();
-       // Se refresca el listado de alarmas por status
-       listAlarm((vm.organism[0]._id));
-       });
-       }
-       }
-       if (vm.new_alarm.networkNear && vm.new_alarm.networkNear === 'No hay cercano') {
-       $window.alert('No existe recomendación para esta solicitud');
-       }*/
-    };
-
-// Rechazar alarma
-    vm.cancelAlarm = function (alarm, option) {
+    // Rechazar alarma
+    vm.rechazarAlarm = function (alarm) {
 
       var logText = '';
       // Rechazar
-      if (option === 1) {
-        if ($window.confirm('¿Esta seguro que desea rechazar la solicitud?')) {
-          // Se cambia status
-          alarm.status = 'rechazado';
-          alarm.icon = '/modules/panels/client/img/deleted.png';
 
-          logText = 'Ha sido rechazada la solicitud de atención: ' + alarm._id +
-            ' del cliente: ' + alarm.user.displayName +
-            ', por el operador: ' + operator[0].displayName;
-        }
-      }
-      // Cancelar
-      if (option === 2) {
-        if ($window.confirm('¿Esta seguro que desea cancelar la atención?')) {
+      if ($window.confirm('¿Esta seguro que desea rechazar la solicitud?')) {
+        // Se cambia status
+        alarm.status = 'rechazado';
+        alarm.icon = '/modules/panels/client/img/deleted.png';
 
-          // Se cambia status
-          alarm.status = 'cancelado por el operador';
-          alarm.icon = '/modules/panels/client/img/canceled.png';
+        logText = 'Ha sido rechazada la solicitud de atención: ' + alarm._id +
+          ' del cliente: ' + alarm.user.displayName +
+          ', por el operador: ' + operator[0].displayName;
 
-          logText = 'Ha sido cancelada la solicitud de atención: ' + alarm._id +
-            ' del cliente: ' + alarm.user.displayName +
-            ', por el operador: ' + operator[0].displayName;
+        // Se actualiza la alarma (PUT)
+        AlarmsService.update({ alarmId: alarm._id}, alarm);
 
-          // Se libera a la unidad de atención
-          NetworksService.query(function (data) {
-            vm.cancel_network = data.filter(function (data) {
-              return (data._id.indexOf(alarm.network) >= 0);
-            });
+        // Se refrescan las rutas
+        directionsOnMap();
 
-            alarm.network = '';
+        // Se refrescan los listados
+        listAlarm((vm.organism[0]._id));
+        listNetwork((vm.organism));
 
-            // Se cambia el status de la unidad
-            networkServicePUT('activo', vm.cancel_network[0]._id);
+        // Se registra en el log
+        logServicePOST(logText, alarm);
+
+        var firebasetoken;
+        var firebasetokenNetwork;
+        // Se busca el token del usuario
+
+        FirebasetokensService.query(function (data) {
+
+          firebasetoken = data.filter(function (data) {
+            return (data.userId.indexOf(alarm.user._id) >= 0);
           });
-        }
+
+          alarm.firebasetoken = firebasetoken[0].token;
+
+        });
       }
+    };
 
-      // Se actualiza la alarma (PUT)
-      AlarmsService.update({ alarmId: alarm._id}, alarm);
+    // cancelar alarma
+    vm.cancelAlarm = function (alarm) {
 
-      // Se refrescan los listados
-      listAlarm((vm.organism[0]._id));
-      listNetwork((vm.organism));
+      var logText = '';
 
-      // Se refrescan las rutas
-      directionsOnMap();
 
-      // Se registra en el log
-      logServicePOST(logText, alarm);
+      if ($window.confirm('¿Esta seguro que desea cancelar la atención?')) {
 
-      var firebasetoken;
-      var firebasetokenNetwork;
-      // Se busca el token del usuario
+        // Se cambia status
+        alarm.status = 'cancelado por el operador';
+        alarm.icon = '/modules/panels/client/img/canceled.png';
 
-      FirebasetokensService.query(function (data) {
+        logText = 'Ha sido cancelada la solicitud de atención: ' + alarm._id +
+          ' del cliente: ' + alarm.user.displayName +
+          ', por el operador: ' + operator[0].displayName;
 
-        firebasetoken = data.filter(function (data) {
-          return (data.userId.indexOf(alarm.user._id) >= 0);
+        // Se libera a la unidad de atención
+        NetworksService.query(function (data) {
+          vm.cancel_network = data.filter(function (data) {
+            return (data._id.indexOf(alarm.network) >= 0);
+          });
+
+          alarm.network = '';
+
+          // Se cambia el status de la unidad
+          networkServicePUT('activo', vm.cancel_network[0]._id);
         });
 
-        alarm.firebasetoken = firebasetoken[0].token;
+        // Se actualiza la alarma (PUT)
+        AlarmsService.update({ alarmId: alarm._id}, alarm);
 
-      });
+        // Se refrescan las rutas
+        directionsOnMap();
+
+        // Se refrescan los listados
+        listAlarm((vm.organism[0]._id));
+        listNetwork((vm.organism));
+
+        // Se registra en el log
+        logServicePOST(logText, alarm);
+
+        var firebasetoken;
+        var firebasetokenNetwork;
+        // Se busca el token del usuario
+
+        FirebasetokensService.query(function (data) {
+
+          firebasetoken = data.filter(function (data) {
+            return (data.userId.indexOf(alarm.user._id) >= 0);
+          });
+
+          alarm.firebasetoken = firebasetoken[0].token;
+
+        });
+      }
     };
 
 // Mostrar detalles de la alarma
@@ -492,6 +448,8 @@
 
 // Direcciones a recorrer en el mapa
     function directionsOnMap() {
+
+      vm.directions = [];
       NetworksService.query(function (data) {
         data.forEach(function(network) {
           AlarmsService.query(function (data) {
