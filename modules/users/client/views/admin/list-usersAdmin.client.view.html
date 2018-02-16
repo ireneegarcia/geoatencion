@@ -5,6 +5,7 @@
       <div>
         <h2>Listado de organismos</h2>
       </div>
+
       <div class="form-group has-info label-floating col-md-4" style="margin: 0% 20% 0% 34% ; width: 32.5%">
 
         <input class="form-control col-md-4"
@@ -17,12 +18,13 @@
   <table class="table">
     <thead>
     <tr>
-      <th class="text-center" >Nombre</th>
-      <th class="text-center" >RIF</th>
-      <th class="text-center" >Teléfono</th>
-      <th class="text-center" >País</th>
-      <th class="text-center" >Dirección</th>
+      <th class="text-center">Nombre</th>
+      <th class="text-center">RIF</th>
+      <th class="text-center">Teléfono</th>
+      <th class="text-center">País</th>
+      <th class="text-center">Dirección</th>
       <th class="text-center">Categoría</th>
+      <th class="text-center">Administrador</th>
       <th class="text-center">Acción</th>
     </tr>
     </thead>
@@ -33,7 +35,8 @@
       <td class="text-center" ng-bind="organism.phone"></td>
       <td class="text-center" ng-bind="organism.country"></td>
       <td class="text-center" ng-bind="organism.address"></td>
-      <td class="text-center" ng-repeat="option in vm.categories" ng-if="organism.category === option._id">{{option.category}}</td>
+      <td class="text-center" ng-bind="organism.category"></td>
+      <td class="text-center" ng-bind="organism.admin"></td>
       <td class="text-center" ng-show="organism.isActive == 'inactivo'">
         <button ng-click="vm.action(1, organism)" type="button" rel="tooltip" title="Activar organismo" class="btn btn-success btn-simple btn-xs" style="margin-top: 0px;">
           <i class="fa fa-power-off"></i>

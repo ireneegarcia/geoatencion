@@ -14,14 +14,31 @@
     vm.pageChanged = pageChanged;
     vm.action = action;
 
-    OrganismsService.query(function (data) {
-      vm.organism = data;
+    vm.organism = [];
+    OrganismsService.query(function (organism) {
+      organism.forEach(function(organism) {
+        CategoriaserviciosService.query(function (data) {
+          data.forEach(function(data) {
+            if (data._id === organism.category) {
+              organism.category = data.category;
+            }
+          });
+          UsersService.query(function (user) {
+            user.forEach(function (user) {
+              if (user.roles[0] === 'adminOrganism' && user.organism === organism.rif) {
+                organism.admin = user.displayName;
+              }
+            });
+          });
+        });
+        vm.organism.push(organism);
+      });
       vm.buildPager();
     });
 
-    CategoriaserviciosService.query(function (data) {
-      vm.categories = data;
-    });
+
+
+
 
     function action(option, organism) {
       if (option === 1) {
