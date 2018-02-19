@@ -73,36 +73,40 @@ exports.update = function(req, res) {
 
   if (alarm.status !== 'atendido' && alarm.status !== 'cancelado por la unidad') {
     if (alarm.status === 'en atencion') {
-      message = {
-        to: alarm.firebasetoken, // required fill with device token or topics
-        notification: {
-          title: 'Notificacion de atención',
-          body: alarm.status
-        },
-        data: {
-          networkLatitude: body.networkLatitude,
-          networkLongitude: body.networkLongitude,
-          networkAddress: body.networkAddress,
-          status: alarm.status,
-          networkCode: body.networkCarCode
+      if (alarm.firebasetoken !== null) {
+        message = {
+          to: alarm.firebasetoken, // required fill with device token or topics
+          notification: {
+            title: 'Notificacion de atención',
+            body: alarm.status
+          },
+          data: {
+            networkLatitude: body.networkLatitude,
+            networkLongitude: body.networkLongitude,
+            networkAddress: body.networkAddress,
+            status: alarm.status,
+            networkCode: body.networkCarCode
 
-        }
-      };
+          }
+        };
+      }
 
-      messageNetwork = {
-        to: body.firebasetokenNetwork, // required fill with device token or topics
-        notification: {
-          title: 'Notificacion de atención',
-          body: alarm.status
-        },
-        data: {
-          clientLatitude: alarm.latitude,
-          clientLongitude: alarm.longitude,
-          clientAddress: alarm.address,
-          clientName: alarm.user.displayName,
-          status: alarm.status
-        }
-      };
+      if (body.firebasetokenNetwork !== null) {
+        messageNetwork = {
+          to: body.firebasetokenNetwork, // required fill with device token or topics
+          notification: {
+            title: 'Notificacion de atención',
+            body: alarm.status
+          },
+          data: {
+            clientLatitude: alarm.latitude,
+            clientLongitude: alarm.longitude,
+            clientAddress: alarm.address,
+            clientName: alarm.user.displayName,
+            status: alarm.status
+          }
+        };
+      }
 
       // callback style
       fcm.send(messageNetwork, function(err, response) {

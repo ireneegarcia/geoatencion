@@ -99,7 +99,7 @@
 
                     <button style="background-color: #337ab7;"
                             ng-show="vm.user.roles[0] === 'operator'"
-                            ng-click="vm.rechazarAlarm(alarm);vm.listAlarmAll()"
+                            ng-click="vm.rechazarAlarm(alarm)"
                             class="btn btn-primary btn-xs">
                       Rechazar
                       <div class="ripple-container">
@@ -133,7 +133,7 @@
                       </button>
                       <button style="background-color: #337ab7;"
                               ng-show="vm.user.roles[0] === 'operator'"
-                              ng-click="vm.rechazarAlarm(alarm);vm.listAlarmAll()"
+                              ng-click="vm.rechazarAlarm(alarm)"
                               class="btn btn-primary btn-xs">
                         Rechazar
                         <div class="ripple-container">
@@ -178,7 +178,7 @@
                       Tiempo transcurrido: {{vm.getDifference(alarm.created)}}
                     </a>
                     <button ng-show="vm.user.roles[0] === 'operator'"
-                            ng-click="vm.cancelAlarm(alarm);vm.listAlarmAll()"
+                            ng-click="vm.cancelAlarm(alarm)"
                             class="btn btn-warning btn-xs">
                       Cancelar
                       <div class="ripple-container">

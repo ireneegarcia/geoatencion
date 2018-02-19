@@ -111,9 +111,16 @@
 
       AlarmsService.query(function (data) {
 
-        vm.alarms = [];
         vm.alarmsEsperando = [];
         vm.alarmsEnAtencion = [];
+        vm.alarmsRechazado = [];
+        vm.alarmsCanceled = [];
+        vm.alarmsAtendido = [];
+        vm.alarmsCanceladoCliente = [];
+        vm.alarmsCanceladoOperator = [];
+        vm.alarmsCanceladoUnidad = [];
+        vm.alarms = [];
+
         data.forEach(function(alarm) {
           // la alarma es de este organismo
           if (alarm.organism === organism) {
@@ -224,8 +231,45 @@
             // icono de status
             vm.new_alarm.icon = '/modules/panels/client/img/process.png';
 
-            // Se actualiza la alarma (PUT)
-            AlarmsService.update({ alarmId: vm.new_alarm._id}, vm.new_alarm);
+
+            var firebasetoken;
+            var firebasetokenNetwork;
+            // Se busca el token del usuario y del serviceuser
+
+            var banderaClient = false;
+            var banderaNetwork = false;
+
+            FirebasetokensService.query(function (data) {
+
+              firebasetoken = data.filter(function (data) {
+                return (data.userId.indexOf(vm.new_alarm.user._id) >= 0);
+              });
+
+
+              firebasetokenNetwork = data.filter(function (data) {
+                return (data.userId.indexOf(networks[0].obj.serviceUser) >= 0);
+              });
+
+              vm.new_alarm.firebasetoken = firebasetoken[0].token;
+
+              console.log(firebasetokenNetwork[0].token);
+              vm.new_alarm.firebasetokenNetwork = firebasetokenNetwork[0].token;
+
+              // Se actualiza la alarma (PUT)
+              AlarmsService.update({ alarmId: vm.new_alarm._id}, vm.new_alarm);
+
+              /* data.forEach(function(data) {
+                if (data.userId.indexOf(vm.new_alarm.user._id) >= 0) {
+                  vm.new_alarm.firebasetoken = data.token;
+                  banderaClient = true;
+                }
+
+                if (data.userId.indexOf(networks[0].obj.serviceUser) >= 0) {
+                  vm.new_alarm.firebasetokenNetwork = data.token;
+                  banderaNetwork = true;
+                }
+              });*/
+            });
 
             // aca registro en la unidad el status "ocupado"
             networkServicePUT('ocupado', vm.new_alarm.networkNear.obj._id);
@@ -264,26 +308,6 @@
           } else {
             return;
           }
-
-          var firebasetoken;
-          // Se busca el token del usuario y del serviceuser
-
-          var banderaClient = false;
-          var banderaNetwork = false;
-
-          FirebasetokensService.query(function (data) {
-            data.forEach(function(data) {
-              if (data.userId.indexOf(vm.new_alarm.user._id) >= 0 && banderaClient === false) {
-                vm.new_alarm.firebasetoken = data.token;
-                banderaClient = true;
-              }
-
-              if (data.userId.indexOf(networks[0].obj.serviceUser) >= 0 && banderaNetwork === false) {
-                vm.new_alarm.firebasetokenNetwork = data.token;
-                banderaNetwork = true;
-              }
-            });
-          });
         }
       });
     };
@@ -335,19 +359,6 @@
           ' del cliente: ' + alarm.user.displayName +
           ', por el operador: ' + operator[0].displayName;
 
-        // Se actualiza la alarma (PUT)
-        AlarmsService.update({ alarmId: alarm._id}, alarm);
-
-        // Se refrescan las rutas
-        directionsOnMap();
-
-        // Se refrescan los listados
-        listAlarm((vm.organism[0]._id));
-        listNetwork((vm.organism));
-
-        // Se registra en el log
-        logServicePOST(logText, alarm);
-
         var firebasetoken;
         var firebasetokenNetwork;
         // Se busca el token del usuario
@@ -360,7 +371,25 @@
 
           alarm.firebasetoken = firebasetoken[0].token;
 
+          // Se actualiza la alarma (PUT)
+          AlarmsService.update({ alarmId: alarm._id}, alarm, function (data) {
+            // se realizo el put
+            if (data.status === 'rechazado') {
+              // Se refrescan los listados
+              listAlarm((vm.organism[0]._id));
+
+              listNetwork((vm.organism));
+
+              // Se refrescan las rutas
+              directionsOnMap();
+            }
+          });
+
         });
+
+        // Se registra en el log
+        logServicePOST(logText, alarm);
+
       }
     };
 
@@ -392,19 +421,6 @@
           networkServicePUT('activo', vm.cancel_network[0]._id);
         });
 
-        // Se actualiza la alarma (PUT)
-        AlarmsService.update({ alarmId: alarm._id}, alarm);
-
-        // Se refrescan las rutas
-        directionsOnMap();
-
-        // Se refrescan los listados
-        listAlarm((vm.organism[0]._id));
-        listNetwork((vm.organism));
-
-        // Se registra en el log
-        logServicePOST(logText, alarm);
-
         var firebasetoken;
         var firebasetokenNetwork;
         // Se busca el token del usuario
@@ -417,7 +433,25 @@
 
           alarm.firebasetoken = firebasetoken[0].token;
 
+          // Se actualiza la alarma (PUT)
+          AlarmsService.update({ alarmId: alarm._id}, alarm, function (data) {
+            // se realizo el put
+            if (data.status === 'cancelado por el operador') {
+              // Se refrescan los listados
+              listAlarm((vm.organism[0]._id));
+
+              listNetwork((vm.organism));
+
+              // Se refrescan las rutas
+              directionsOnMap();
+            }
+          });
+
         });
+
+        // Se registra en el log
+        logServicePOST(logText, alarm);
+
       }
     };
 
