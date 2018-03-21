@@ -20,7 +20,14 @@
     menuService.addSubMenuItem('topbar', 'solicituds', {
       title: 'Mis afiliaciones',
       state: 'solicituds.list',
-      roles: ['*']
+      roles: ['user']
+    });
+
+    // Add the dropdown list item
+    menuService.addSubMenuItem('topbar', 'solicituds', {
+      title: 'Mis afiliaciones',
+      state: 'solicituds.list-organism',
+      roles: ['adminOrganism']
     });
 
     // Add the dropdown create item

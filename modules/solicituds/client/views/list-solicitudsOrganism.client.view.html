@@ -1,0 +1,39 @@
+<section>
+  <div class="text-center page-header">
+    <div class="row">
+      <div>
+        <h2>Solicitudes de afiliación</h2>
+      </div>
+      <div class="form-group has-info label-floating col-md-4" style="margin: 0% 20% 0% 34% ; width: 32.5%">
+
+        <input class="form-control col-md-4"
+               type="text" ng-model="vm.search"
+               placeholder="Buscar"
+               ng-change="vm.figureOutItemsToDisplay()" />
+      </div>
+    </div>
+  </div>
+  <div style="margin: 0% 20% 5% 20% " class="list-group">
+
+    <a ng-repeat="solicitud in vm.pagedItems "
+       ui-sref="solicituds.view({ solicitudId: solicitud._id })"
+       class="list-group-item">
+      <img style="vertical-align: baseline" ng-src="/{{solicitud.iconUrl}}" alt="Loading image...">
+      <div style="display: inline-block; margin-left: 1%">
+        <h4 class="list-group-item-heading">
+          {{solicitud.user.displayName}}</h4>
+        <small class="list-group-item-text">
+          Enviado el
+          <span ng-bind="solicitud.created | date:'mediumDate'"></span>
+          estado de solicitud
+          <span ng-bind="solicitud.status"></span>
+          <span ng-if="!solicitud.user">Deleted User</span>
+        </small>
+      </div>
+    </a>
+  </div>
+  <div class="alert alert-warning text-center" ng-if="vm.solicituds.$resolved && !vm.solicituds.length">
+    No Solicituds yet, why don't you <a ui-sref="solicituds.create">create one</a>?
+  </div>
+</section>
+

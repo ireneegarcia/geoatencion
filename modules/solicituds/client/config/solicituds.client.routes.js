@@ -20,7 +20,18 @@
         controller: 'SolicitudsListController',
         controllerAs: 'vm',
         data: {
+          roles: ['user'],
           pageTitle: 'Solicituds List'
+        }
+      })
+      .state('solicituds.list-organism', {
+        url: '/organismo',
+        templateUrl: '/modules/solicituds/client/views/list-solicitudsOrganism.client.view.html',
+        controller: 'SolicitudsListController',
+        controllerAs: 'vm',
+        data: {
+          roles: ['adminOrganism'],
+          pageTitle: 'Solicituds Organism'
         }
       })
       .state('solicituds.create', {

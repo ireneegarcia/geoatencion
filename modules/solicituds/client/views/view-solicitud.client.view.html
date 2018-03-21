@@ -21,11 +21,13 @@
       <i class="glyphicon glyphicon-edit"></i>
       Ver detalle
     </a>
-    <a class="btn btn-info" ng-click="vm.updateStatus('aceptado')">
+    <a class="btn btn-info" ng-show="vm.solicitud.status !== 'aceptado'"
+       ng-click="vm.updateStatus('aceptado')">
       <i class="glyphicon glyphicon-edit"></i>
       Aceptar
     </a>
-    <a class="btn btn-info" ng-click="vm.updateStatus('rechazado')">
+    <a class="btn btn-info" ng-show="vm.solicitud.status !== 'rechazado'"
+       ng-click="vm.updateStatus('rechazado')">
       <i class="glyphicon glyphicon-trash"></i>
       Rechazar
     </a>
@@ -42,7 +44,14 @@
       Eliminar
     </a>
   </div>
-  <div class="pull-right" ui-sref="solicituds.list">
+  <div class="pull-right" ng-show="!vm.solicitud.isCurrentUserOwner"
+       ui-sref="solicituds.list-organism">
+    <a class="btn btn-info">
+      Volver atrás
+    </a>
+  </div>
+  <div class="pull-right" ng-show="vm.solicitud.isCurrentUserOwner"
+       ui-sref="solicituds.list">
     <a class="btn btn-info">
       Volver atrás
     </a>

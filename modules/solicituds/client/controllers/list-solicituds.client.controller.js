@@ -74,11 +74,6 @@
               }
             });
 
-
-
-
-
-
             OrganismsService.query(function (data) {
               // Organismos
               vm.organism = [];
@@ -88,13 +83,6 @@
                 }
               });
             });
-
-            /* OrganismsService.query(function (data) {
-             // Organismos
-             vm.organism = data.filter(function (data) {
-             return (data.isActive.indexOf('activo') >= 0);
-             });
-             });*/
             vm.buildPager();
           });
         });

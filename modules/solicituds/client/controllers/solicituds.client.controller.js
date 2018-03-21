@@ -84,9 +84,8 @@
       }
 
       vm.solicitud.$update(successCallback, errorCallback);
-
       function successCallback(res) {
-        $state.go('solicituds.list', {
+        $state.go('solicituds.list-organism', {
           // solicitudId: res._id
         });
       }
@@ -95,6 +94,7 @@
         vm.error = res.data.message;
       }
     }
+
 
     // Save Solicitud
     function save(isValid, num) {

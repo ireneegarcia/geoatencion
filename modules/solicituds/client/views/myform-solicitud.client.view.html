@@ -104,7 +104,7 @@
           </div>
         </div>
 
-        <div ng-repeat="formulario_ in vm.formSelected" class="form-group has-info " style="width: 100%" show-errors>
+        <div ng-repeat="formulario_ in vm.formSelected" ng-show="formulario_.question2" class="form-group has-info " style="width: 100%" show-errors>
           <label class="control-label" for="question2">{{formulario_.question2}}</label>
           <input ng-disabled="true"  name="question2" type="text" ng-model="vm.solicitud.question2" class="form-control"  >
           <div ng-messages="vm.form.solicitudForm.question2.$error" role="alert">
@@ -112,7 +112,7 @@
           </div>
         </div>
 
-        <div ng-repeat="formulario_ in vm.formSelected" class="form-group has-info " style="width: 100%" show-errors>
+        <div ng-repeat="formulario_ in vm.formSelected" ng-show="formulario_.question3" class="form-group has-info " style="width: 100%" show-errors>
           <label class="control-label" for="question3">{{formulario_.question3}}</label>
           <input ng-disabled="true"  name="question3" type="text" ng-model="vm.solicitud.question3" class="form-control"  >
           <div ng-messages="vm.form.solicitudForm.question3.$error" role="alert">
@@ -120,7 +120,7 @@
           </div>
         </div>
 
-        <div ng-repeat="formulario_ in vm.formSelected" class="form-group has-info" style="width: 100%" show-errors>
+        <div ng-repeat="formulario_ in vm.formSelected" ng-show="formulario_.question4" class="form-group has-info" style="width: 100%" show-errors>
           <label class="control-label" for="question4">{{formulario_.question4}}</label>
           <input ng-disabled="true" name="question4" type="text" ng-model="vm.solicitud.question4" class="form-control" >
           <div ng-messages="vm.form.solicitudForm.question4.$error" role="alert">

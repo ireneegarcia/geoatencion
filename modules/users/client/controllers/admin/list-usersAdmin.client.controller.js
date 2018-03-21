@@ -20,7 +20,7 @@
         CategoriaserviciosService.query(function (data) {
           data.forEach(function(data) {
             if (data._id === organism.category) {
-              organism.category = data.category;
+              organism.categoryN = data.category;
             }
           });
           UsersService.query(function (user) {
@@ -36,20 +36,16 @@
       vm.buildPager();
     });
 
-
-
-
-
-    function action(option, organism) {
+    function action(option, organismUpdate) {
       if (option === 1) {
-        organism.isActive = 'activo';
-        trabajadoresOrganismo('activo', organism.rif);
+        organismUpdate.isActive = 'activo';
+        trabajadoresOrganismo('activo', organismUpdate.rif);
       } else {
-        organism.isActive = 'inactivo';
-        trabajadoresOrganismo('inactivo', organism.rif);
+        organismUpdate.isActive = 'inactivo';
+        trabajadoresOrganismo('inactivo', organismUpdate.rif);
       }
       // Se actualiza el organismo(PUT)
-      OrganismsService.update({organismId: organism._id}, organism);
+      OrganismsService.update({organismId: organismUpdate._id}, organismUpdate);
     }
 
     // se activan o desactivan todos los trabajadores del organismo
