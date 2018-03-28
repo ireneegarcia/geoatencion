@@ -15,6 +15,16 @@
     vm.pageChanged = pageChanged;
     vm.categoriaservicios = CategoriaserviciosService.query();
 
+    OrganismsService.query(function (data) {
+      // Organismos
+      vm.organism = [];
+      data.forEach(function(data) {
+        if (data.isActive === 'activo') {
+          vm.organism.push(data);
+        }
+      });
+    });
+
     // Condicional para encontrar el organismo relacionado
     if (Authentication.user.roles[0] === 'adminOrganism') {
       OrganismsService.query(function (data) {
@@ -61,29 +71,20 @@
                 vm.categoriaservicios.forEach(function(category) {
                   if (data.category === category._id) {
                     data.category = category.category;
-                  }
-                  OrganismsService.query(function (organism) {
-                    organism.forEach(function(organism) {
-                      if (data.organism === organism._id) {
-                        data.organism = organism.name;
-                      }
+
+                    OrganismsService.query(function (organism) {
+                      organism.forEach(function(organism) {
+                        if (data.organism === organism._id && organism.isActive === 'activo') {
+                          data.organism = organism.name;
+                          vm.solicituds.push(data);
+                        }
+                      });
+                      vm.buildPager();
                     });
-                  });
-                  vm.solicituds.push(data);
+                  }
                 });
               }
             });
-
-            OrganismsService.query(function (data) {
-              // Organismos
-              vm.organism = [];
-              data.forEach(function(data) {
-                if (data.isActive === 'activo') {
-                  vm.organism.push(data);
-                }
-              });
-            });
-            vm.buildPager();
           });
         });
       }
