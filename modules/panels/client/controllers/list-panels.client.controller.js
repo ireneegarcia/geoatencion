@@ -200,116 +200,120 @@
     vm.geoNear = function(alarm) {
       vm.new_alarm = alarm;
       var network;
-      NetworksService.near({lat: alarm.latitude, lng: alarm.longitude}, function(networks) {
 
-        if (networks.length === 0) {
-          vm.new_alarm.networkNear = 'No hay cercano';
-          if ($window.confirm('No hay unidad cercana que pueda atender el evento, se sugiere hacer una recomendación manual')) {
-          }
-        } else {
-          // Unidad recomendada
-          vm.new_alarm.networkNear = networks[0];
+      if (alarm.status === 'esperando') {
+        NetworksService.near({lat: alarm.latitude, lng: alarm.longitude}, function(networks) {
 
-          if ($window.confirm('¿Esta seguro que desea asignar la unidad: ' + vm.new_alarm.networkNear.obj.carCode + '?')) {
-
-            // id de la unidad
-            vm.new_alarm.network = vm.new_alarm.networkNear.obj._id;
-
-            // ubicacion de la unidad
-            vm.new_alarm.networkLatitude = vm.new_alarm.networkNear.obj.latitude;
-            vm.new_alarm.networkLongitude = vm.new_alarm.networkNear.obj.longitude;
-            // address de la unidad
-            vm.new_alarm.networkAddress = vm.new_alarm.networkNear.obj.address;
-
-            // codigo de la unidad
-            vm.new_alarm.networkCarCode = vm.new_alarm.networkNear.obj.carCode;
-
-            // status de la alarma
-            vm.new_alarm.status = 'en atencion';
-            vm.new_alarm.carCode = vm.new_alarm.networkNear.obj.carCode;
-
-            // icono de status
-            vm.new_alarm.icon = '/modules/panels/client/img/process.png';
-
-
-            var firebasetoken;
-            var firebasetokenNetwork;
-            // Se busca el token del usuario y del serviceuser
-
-            var banderaClient = false;
-            var banderaNetwork = false;
-
-            FirebasetokensService.query(function (data) {
-
-              firebasetoken = data.filter(function (data) {
-                return (data.userId.indexOf(vm.new_alarm.user._id) >= 0);
-              });
-
-
-              firebasetokenNetwork = data.filter(function (data) {
-                return (data.userId.indexOf(networks[0].obj.serviceUser) >= 0);
-              });
-
-              vm.new_alarm.firebasetoken = firebasetoken[0].token;
-
-              console.log(firebasetokenNetwork[0].token);
-              vm.new_alarm.firebasetokenNetwork = firebasetokenNetwork[0].token;
-
-              // Se actualiza la alarma (PUT)
-              AlarmsService.update({ alarmId: vm.new_alarm._id}, vm.new_alarm);
-
-              /* data.forEach(function(data) {
-                if (data.userId.indexOf(vm.new_alarm.user._id) >= 0) {
-                  vm.new_alarm.firebasetoken = data.token;
-                  banderaClient = true;
-                }
-
-                if (data.userId.indexOf(networks[0].obj.serviceUser) >= 0) {
-                  vm.new_alarm.firebasetokenNetwork = data.token;
-                  banderaNetwork = true;
-                }
-              });*/
-            });
-
-            // aca registro en la unidad el status "ocupado"
-            networkServicePUT('ocupado', vm.new_alarm.networkNear.obj._id);
-
-            // se registra en el log
-            logServicePOST('Se ha asignado exitosamente la unidad: ' + vm.new_alarm.networkNear.obj.carCode +
-              ' a la solicitud de atención: ' + vm.new_alarm._id +
-              ' del cliente ' + vm.new_alarm.user.displayName, vm.new_alarm);
-
-            MobileunitlogsServiceCreate.charge({
-              mobileUnit: vm.new_alarm.networkNear.obj._id,
-              mobileUnitCarCode: vm.new_alarm.networkNear.obj.carCode,
-              description: 'Se le fue asignado el evento: ' + vm.new_alarm._id}, function (data) {
-              // se realizo el post
-            });
-
-            // Se encuentra la unidad
-            NetworksService.query(function (data) {
-              // El organismo logueado
-              network = data.filter(function (data) {
-                return (data._id.indexOf(vm.new_alarm.networkNear.obj._id) >= 0);
-              });
-              // Se incluye en las direcciones
-              var direction = {
-                destination: alarm.latitude + ',' + alarm.longitude,
-                origin: network.latitude + ',' + network.longitude
-              };
-              // Se incluye la nueva ruta
-              vm.directions.push(direction);
-              // Se refrescan las rutas
-              directionsOnMap();
-              // Se refresca el listado de alarmas por status
-              listAlarm((vm.organism[0]._id));
-              listNetwork((vm.organism));
-            });
+          if (networks.length === 0) {
+            vm.new_alarm.networkNear = 'No hay cercano';
+            if ($window.confirm('No hay unidad cercana que pueda atender el evento, se sugiere hacer una recomendación manual')) {
+            }
           } else {
-            return;
+            // Unidad recomendada
+            vm.new_alarm.networkNear = networks[0];
+
+            if ($window.confirm('¿Esta seguro que desea asignar la unidad: ' + vm.new_alarm.networkNear.obj.carCode + '?')) {
+
+              // id de la unidad
+              vm.new_alarm.network = vm.new_alarm.networkNear.obj._id;
+
+              // ubicacion de la unidad
+              vm.new_alarm.networkLatitude = vm.new_alarm.networkNear.obj.latitude;
+              vm.new_alarm.networkLongitude = vm.new_alarm.networkNear.obj.longitude;
+              // address de la unidad
+              vm.new_alarm.networkAddress = vm.new_alarm.networkNear.obj.address;
+
+              // codigo de la unidad
+              vm.new_alarm.networkCarCode = vm.new_alarm.networkNear.obj.carCode;
+
+              // status de la alarma
+              vm.new_alarm.status = 'en atencion';
+              vm.new_alarm.carCode = vm.new_alarm.networkNear.obj.carCode;
+
+              // icono de status
+              vm.new_alarm.icon = '/modules/panels/client/img/process.png';
+
+
+              var firebasetoken;
+              var firebasetokenNetwork;
+              // Se busca el token del usuario y del serviceuser
+
+              var banderaClient = false;
+              var banderaNetwork = false;
+
+              FirebasetokensService.query(function (data) {
+
+                firebasetoken = data.filter(function (data) {
+                  return (data.userId.indexOf(vm.new_alarm.user._id) >= 0);
+                });
+
+
+                firebasetokenNetwork = data.filter(function (data) {
+                  return (data.userId.indexOf(networks[0].obj.serviceUser) >= 0);
+                });
+
+                vm.new_alarm.firebasetoken = firebasetoken[0].token;
+
+                console.log(firebasetokenNetwork[0].token);
+                vm.new_alarm.firebasetokenNetwork = firebasetokenNetwork[0].token;
+
+                // Se actualiza la alarma (PUT)
+                AlarmsService.update({ alarmId: vm.new_alarm._id}, vm.new_alarm);
+
+                /* data.forEach(function(data) {
+                 if (data.userId.indexOf(vm.new_alarm.user._id) >= 0) {
+                 vm.new_alarm.firebasetoken = data.token;
+                 banderaClient = true;
+                 }
+
+                 if (data.userId.indexOf(networks[0].obj.serviceUser) >= 0) {
+                 vm.new_alarm.firebasetokenNetwork = data.token;
+                 banderaNetwork = true;
+                 }
+                 });*/
+              });
+
+              // aca registro en la unidad el status "ocupado"
+              networkServicePUT('ocupado', vm.new_alarm.networkNear.obj._id);
+
+              // se registra en el log
+              logServicePOST('Se ha asignado exitosamente la unidad: ' + vm.new_alarm.networkNear.obj.carCode +
+                ' a la solicitud de atención: ' + vm.new_alarm._id +
+                ' del cliente ' + vm.new_alarm.user.displayName, vm.new_alarm);
+
+              MobileunitlogsServiceCreate.charge({
+                mobileUnit: vm.new_alarm.networkNear.obj._id,
+                mobileUnitCarCode: vm.new_alarm.networkNear.obj.carCode,
+                description: 'Se le fue asignado el evento: ' + vm.new_alarm._id}, function (data) {
+                // se realizo el post
+              });
+
+              // Se encuentra la unidad
+              NetworksService.query(function (data) {
+                // El organismo logueado
+                network = data.filter(function (data) {
+                  return (data._id.indexOf(vm.new_alarm.networkNear.obj._id) >= 0);
+                });
+                // Se incluye en las direcciones
+                var direction = {
+                  destination: alarm.latitude + ',' + alarm.longitude,
+                  origin: network.latitude + ',' + network.longitude
+                };
+                // Se incluye la nueva ruta
+                vm.directions.push(direction);
+                // Se refrescan las rutas
+                directionsOnMap();
+                // Se refresca el listado de alarmas por status
+                listAlarm((vm.organism[0]._id));
+                listNetwork((vm.organism));
+              });
+            } else {
+              return;
+            }
           }
-        }
-      });
+        });
+      }
+
     };
 
 // Funcion para actualizar un registro (PUT)
